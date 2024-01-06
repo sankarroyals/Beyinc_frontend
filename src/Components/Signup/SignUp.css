@@ -1,0 +1,159 @@
+.registration-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.signup-heading{
+    margin-top: 5px;
+}
+
+.registration-form-container {
+    width: 30%;
+    margin-top: 150px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 200px;
+}
+
+.registration-image-container{
+    width: 45%;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+.registration-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: -60px;
+    height: 84vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: -20px;
+    width: 350px;
+    margin: auto; 
+    justify-content: center; 
+}
+
+label {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    text-align:left;
+    justify-content: left;
+    font-weight: 600;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 10px;
+   
+}
+
+/* input {
+    width: 330px !important; 
+    padding: 15px;
+    margin-bottom: 5px; 
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+} */
+
+.validation-icon {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    color: #4caf50;
+}
+
+
+.otp_button {
+    width: 20%;
+    padding: 5px; 
+    background-color:  #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-left: 290px;
+}
+
+button:disabled {
+    background-color:  #3b82f6 !important;
+    cursor: not-allowed;
+}
+
+button{
+    width: 360px;
+    padding: 15px; 
+    background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #1e4bb8;
+  }
+
+.invalid input {
+    border: 1px solid red;
+}
+
+.valid input {
+    border: 2px solid green;
+}
+
+.success-message {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+    border-radius: 3px;
+}
+
+
+@media (max-width: 768px) {
+    .signup-heading{
+        margin-top: 0px;
+    }
+    .form-container {
+      width: 80%;
+    }
+    .registration-container{
+      flex-direction: column;
+      gap: -10px;
+      width: 100%;
+    } 
+    .registration-image-container {
+      width: 100%;
+      margin-right: 0px;
+      margin-left: -2px;
+      margin-top: -15px;
+    } 
+    .registration-image-container img{
+        width: 100%;
+        border-radius: 10px;
+        margin-top: -40px;
+        height: 300px;
+    }
+    .registration-form-container {
+      width: 85%;
+      margin-top: 10px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-left: 10px;
+    }
+   
+  }
+  
+

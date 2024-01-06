@@ -1,0 +1,89 @@
+.login-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-form-container {
+  width: 25%;
+  margin-top: 200px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: 200px;
+}
+
+.login-image-container {
+  width: 45%;
+  margin-top: 50px;
+  margin-right: 100px;
+  
+}
+
+.login-image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 30px;
+  height: 87vh;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+ 
+}
+
+p {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-type-toggle {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.login-type-toggle span {
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.login-type-toggle span.active {
+  text-decoration: underline;
+  color: #3b82f6;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+  .form-container {
+    width: 80%;
+  }
+  .login-container{
+    flex-direction: column-reverse;
+    gap: 5px;
+  } 
+  .login-image-container {
+    width: 100%;
+    margin-right: 0px;
+  } 
+  .login-image-container img{
+    height: 400px;
+    margin-top: -30px;
+  }
+  .login-form-container {
+    width: 85%;
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+  }
+  
+}

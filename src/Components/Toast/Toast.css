@@ -1,0 +1,14 @@
+.toastStyles{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 250px;
+    position: absolute;
+    line-break: auto;
+    height: auto;
+    border-radius: 20px;
+    margin-top: 40px;
+    
+    /* margin: auto; */
+}
