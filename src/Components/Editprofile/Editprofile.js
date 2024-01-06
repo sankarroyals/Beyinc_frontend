@@ -56,6 +56,13 @@ const Editprofile = () => {
     working: '',
     degree: ''
   });
+  const [oldDocs, setOldDocs] = useState({
+    resume: '',
+    expertise: '',
+    acheivements: '',
+    working: '',
+    degree: ''
+  });
   const handleResume = (e) => {
     const file = e.target.files[0];
     setFileBase(e, file);
@@ -71,7 +78,6 @@ const Editprofile = () => {
   useEffect(() => {
     ApiServices.getProfile({ email: email })
       .then((res) => {
-        console.log(res.data);
         setInputs((prev) => ({
           ...prev,
           name: res.data.userName,
@@ -79,6 +85,14 @@ const Editprofile = () => {
           role: res.data.role,
           mobileVerified: true,
         }));
+        setOldDocs((prev) => ({
+          ...prev,
+          resume: res.data.documents.resume?.url,
+          expertise: res.data.documents.expertise?.url,
+          acheivements: res.data.documents.acheivements?.url,
+          working: res.data.documents.working?.url,
+          degree: res.data.documents.degree?.url,
+        }))
       })
       .catch((error) => {
         dispatch(
@@ -510,22 +524,31 @@ const Editprofile = () => {
           )}
           <div>
             <label>Resume</label>
+            <a href={oldDocs.resume}>old</a>
             <input type="file" name="resume" onChange={handleResume} />
           </div>
           <div>
             <label>Acheivements</label>
+            <a href={oldDocs.acheivements}>old</a>
+
             <input type="file" name="acheivements" onChange={handleResume} />
           </div>
           <div>
             <label>Degree</label>
+            <a href={oldDocs.degree}>old</a>
+
             <input type="file" name="degree" onChange={handleResume} />
           </div>
           <div>
             <label>Expertise</label>
+            <a href={oldDocs.expertise}>old</a>
+
             <input type="file" name="expertise" onChange={handleResume} />
           </div>
           <div>
             <label>Working</label>
+            <a href={oldDocs.working}>old</a>
+
             <input type="file" name="working" onChange={handleResume} />
           </div>
 
