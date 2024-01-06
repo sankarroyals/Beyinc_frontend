@@ -36,8 +36,8 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/" Component={AuthHoc(<Home />)} />
-          <Route path="/editProfile" Component={AuthHoc(<Editprofile />)} />
+          <Route path="/" Component={AuthHoc(Home)} />
+          <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
 
         </Routes>
       </Suspense>
