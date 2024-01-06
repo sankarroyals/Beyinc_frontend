@@ -22,7 +22,7 @@ const App = () => {
   useEffect(() => {
     dispatch(apicallloginDetails());
   }, [])
-
+    
   return (
     <div>
       <Suspense fallback={<div className="Loading">
