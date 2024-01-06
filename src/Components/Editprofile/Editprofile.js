@@ -312,11 +312,13 @@ const Editprofile = () => {
   //   }, 1000);
   // };
 
-  const isFormValid = mobileVerified && isNameValid;
+  const isFormValid = mobileVerified && (isNameValid || oldDocs.resume || oldDocs.expertise || oldDocs.acheivements || oldDocs.working || oldDocs.degree);
 
   const handleChangeRadio = (e) => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
   };
+
+
   return (
     <div className="update-container">
       <div className="update-form-container">
@@ -524,31 +526,27 @@ const Editprofile = () => {
           )}
           <div>
             <label>Resume</label>
-            <a href={oldDocs.resume}>old</a>
+            {oldDocs.resume !== undefined && <a href={oldDocs.resume} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="resume" onChange={handleResume} />
           </div>
           <div>
             <label>Acheivements</label>
-            <a href={oldDocs.acheivements}>old</a>
-
+            {oldDocs.acheivements !== undefined && <a href={oldDocs.acheivements} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="acheivements" onChange={handleResume} />
           </div>
           <div>
             <label>Degree</label>
-            <a href={oldDocs.degree}>old</a>
-
+            {oldDocs.degree !== undefined && <a href={oldDocs.degree} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="degree" onChange={handleResume} />
           </div>
           <div>
             <label>Expertise</label>
-            <a href={oldDocs.expertise}>old</a>
-
+            {oldDocs.expertise !== undefined && <a href={oldDocs.expertise} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="expertise" onChange={handleResume} />
           </div>
           <div>
             <label>Working</label>
-            <a href={oldDocs.working}>old</a>
-
+            {oldDocs.working !== undefined && <a href={oldDocs.working} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="working" onChange={handleResume} />
           </div>
 
