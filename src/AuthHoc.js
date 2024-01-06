@@ -3,7 +3,7 @@ import React , {useEffect, useState}from 'react'
 import Login from './Components/Login/Login';
 
 const AuthHoc = (Component) => {
-    return function WithHooks(props){
+    return function WithHooks(props) {
         const [login, setlogin] = useState(false);
         useEffect(() => {
             if(localStorage.getItem('user')){
