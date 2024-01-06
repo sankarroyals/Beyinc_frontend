@@ -48,6 +48,26 @@ const Editprofile = () => {
     isNameValid,
   } = inputs;
 
+
+  const [changeResume, setchangeDocuments] = useState({
+    resume: '',
+    expertise: '',
+    acheivements: '',
+    working: '',
+    degree: ''
+  });
+  const handleResume = (e) => {
+    const file = e.target.files[0];
+    setFileBase(e, file);
+  };
+  const setFileBase = (e, file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setchangeDocuments((prev) => ({ ...prev, [e.target.name]: reader.result }));
+    };
+  };
+
   useEffect(() => {
     ApiServices.getProfile({ email: email })
       .then((res) => {
@@ -221,7 +241,7 @@ const Editprofile = () => {
       email: email,
       userName: name,
       phone: mobile,
-      role: role,
+      role: role, documents: changeResume
     })
       .then((res) => {
         dispatch(
@@ -488,6 +508,26 @@ const Editprofile = () => {
               </div>
             </>
           )}
+          <div>
+            <label>Resume</label>
+            <input type="file" name="resume" onChange={handleResume} />
+          </div>
+          <div>
+            <label>Acheivements</label>
+            <input type="file" name="acheivements" onChange={handleResume} />
+          </div>
+          <div>
+            <label>Degree</label>
+            <input type="file" name="degree" onChange={handleResume} />
+          </div>
+          <div>
+            <label>Expertise</label>
+            <input type="file" name="expertise" onChange={handleResume} />
+          </div>
+          <div>
+            <label>Working</label>
+            <input type="file" name="working" onChange={handleResume} />
+          </div>
 
           <button type="submit" disabled={!isFormValid} onClick={update}>
             Update
