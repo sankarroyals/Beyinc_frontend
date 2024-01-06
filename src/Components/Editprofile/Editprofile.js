@@ -90,11 +90,11 @@ const Editprofile = () => {
         if (res.data.documents !== undefined) {
           setOldDocs((prev) => ({
             ...prev,
-            resume: res.data.documents.resume?.secure_url,
-            expertise: res.data.documents.expertise?.secure_url,
-            acheivements: res.data.documents.acheivements?.secure_url,
-            working: res.data.documents.working?.secure_url,
-            degree: res.data.documents.degree?.secure_url,
+            resume: res.data.documents.resume,
+            expertise: res.data.documents.expertise,
+            acheivements: res.data.documents.acheivements,
+            working: res.data.documents.working,
+            degree: res.data.documents.degree,
           }))
           setchangeDocuments((prev) => ({
             ...prev,
@@ -541,27 +541,27 @@ const Editprofile = () => {
           )}
           <div>
             <label>Resume</label>
-            {oldDocs.resume !== '' && oldDocs.resume !== undefined && <a href={oldDocs.resume} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.resume !== '' && oldDocs.resume !== undefined && <a href={oldDocs.resume?.secure_url} target="_blank" rel="noreferrer">Previous resume</a>}
             <input type="file" name="resume" onChange={handleResume} />
           </div>
           <div>
             <label>Acheivements</label>
-            {oldDocs.acheivements !== '' && oldDocs.acheivements !== undefined &&  <a href={oldDocs.acheivements} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.acheivements !== '' && oldDocs.acheivements !== undefined && <a href={oldDocs.acheivements?.secure_url} target="_blank" rel="noreferrer">Previous Acheivements</a>}
             <input type="file" name="acheivements" onChange={handleResume} />
           </div>
           <div>
             <label>Degree</label>
-            {oldDocs.degree !== '' && oldDocs.degree !== undefined  && <a href={oldDocs.degree} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.degree !== '' && oldDocs.degree !== undefined && <a href={oldDocs.degree?.secure_url} target="_blank" rel="noreferrer">Previous Degree</a>}
             <input type="file" name="degree" onChange={handleResume} />
           </div>
           <div>
             <label>Expertise</label>
-            {oldDocs.expertise !== '' && oldDocs.expertise !== undefined  && <a href={oldDocs.expertise} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.expertise !== '' && oldDocs.expertise !== undefined && <a href={oldDocs.expertise?.secure_url} target="_blank" rel="noreferrer">Previous Expertise</a>}
             <input type="file" name="expertise" onChange={handleResume} />
           </div>
           <div>
             <label>Working</label>
-            {oldDocs.working !== '' && oldDocs.working !== undefined && <a href={oldDocs.working} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.working !== '' && oldDocs.working !== undefined && <a href={oldDocs.working?.secure_url} target="_blank" rel="noreferrer">Previous Working</a>}
             <input type="file" name="working" onChange={handleResume} />
           </div>
 
