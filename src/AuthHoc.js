@@ -1,18 +1,28 @@
 import { jwtDecode } from 'jwt-decode';
 import React , {useEffect, useState}from 'react'
 import Login from './Components/Login/Login';
+import Home from './Components/Home/Home';
+import { useSelector } from 'react-redux';
+
+export const LoginAuth = (Component) => {
+    return function WithHooks(props) {
+        const { email } = useSelector(
+            (store) => store.auth.loginDetails
+        );
+        return (
+            email !== undefined ? <Home /> : <Component />
+        )
+    } 
+}
 
 const AuthHoc = (Component) => {
-    return function WithHooks(props){
-        const [login, setlogin] = useState(false);
-        useEffect(() => {
-            if(localStorage.getItem('user')){
-                console.log(jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken));
-                setlogin(jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email ? true : false)
-            }
-        }, [])
+    return function WithHooks(props) {
+        const { email } = useSelector(
+            (store) => store.auth.loginDetails
+        );
+
         return(
-            login ? <Component /> : <Login />
+            email !== undefined ? <Component /> : <Login />
         )
     }
 }

@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect }from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css'
-import AuthHoc from "./AuthHoc";
+import AuthHoc, { LoginAuth } from "./AuthHoc";
 import Toast from "./Components/Toast/Toast";
 import { useDispatch } from "react-redux";
 import { apicallloginDetails } from "./redux/AuthReducers/AuthReducer";
@@ -33,9 +33,9 @@ const App = () => {
         <Navbar/>
 
         <Routes>
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/signup" Component={LoginAuth(SignUp)} />
+          <Route path="/login" Component={LoginAuth(Login)} />
+          <Route path="/forgotpassword" Component={LoginAuth(ForgotPassword)} />
           <Route path="/" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
 
