@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setToast } from "../../redux/AuthReducers/AuthReducer";
+import { setLoginData, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
 import axiosInstance from "../axiosInstance";
 import { ApiServices } from "../../Services/ApiServices";
 import { useNavigate } from "react-router-dom/dist";
 import "./Editprofile.css";
 import { AdminServices } from "../../Services/AdminServices";
+import { jwtDecode } from "jwt-decode";
 
 const Editprofile = () => {
   const { email, role, userName } = useSelector(
@@ -292,6 +293,8 @@ const Editprofile = () => {
           isMobileValid: null,
           isNameValid: null,
         })
+        localStorage.setItem("user", JSON.stringify(res.data));
+        dispatch(setLoginData(jwtDecode(res.data.accessToken)));
         navigate('/')
       })
       .catch((err) => {
