@@ -85,14 +85,26 @@ const Editprofile = () => {
           role: res.data.role,
           mobileVerified: true,
         }));
-        setOldDocs((prev) => ({
-          ...prev,
-          resume: res.data.documents.resume?.url,
-          expertise: res.data.documents.expertise?.url,
-          acheivements: res.data.documents.acheivements?.url,
-          working: res.data.documents.working?.url,
-          degree: res.data.documents.degree?.url,
-        }))
+        
+        if (res.data.documents !== undefined) {
+          setOldDocs((prev) => ({
+            ...prev,
+            resume: res.data.documents.resume?.secure_url,
+            expertise: res.data.documents.expertise?.secure_url,
+            acheivements: res.data.documents.acheivements?.secure_url,
+            working: res.data.documents.working?.secure_url,
+            degree: res.data.documents.degree?.secure_url,
+          }))
+          setchangeDocuments((prev) => ({
+            ...prev,
+            resume: res.data.documents?.resume || '',
+            expertise: res.data.documents?.expertise || '',
+            acheivements: res.data.documents?.acheivements || '',
+            working: res.data.documents?.working || '',
+            degree: res.data.documents?.degree || '',
+          }))
+        }
+        
       })
       .catch((error) => {
         dispatch(
@@ -312,7 +324,7 @@ const Editprofile = () => {
   //   }, 1000);
   // };
 
-  const isFormValid = mobileVerified && (isNameValid || oldDocs.resume || oldDocs.expertise || oldDocs.acheivements || oldDocs.working || oldDocs.degree);
+  const isFormValid = mobileVerified && (isNameValid || oldDocs.resume !== '' || oldDocs.expertise !== '' || oldDocs.acheivements !== '' || oldDocs.working !== '' || oldDocs.degree !== '' || changeResume.resume !== '' || changeResume.expertise !== '' || changeResume.acheivements !== '' || changeResume.working !== '' || changeResume.degree !== '');
 
   const handleChangeRadio = (e) => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
@@ -526,27 +538,27 @@ const Editprofile = () => {
           )}
           <div>
             <label>Resume</label>
-            {oldDocs.resume !== undefined && <a href={oldDocs.resume} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.resume !== '' && oldDocs.resume !== undefined && <a href={oldDocs.resume} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="resume" onChange={handleResume} />
           </div>
           <div>
             <label>Acheivements</label>
-            {oldDocs.acheivements !== undefined && <a href={oldDocs.acheivements} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.acheivements !== '' && oldDocs.acheivements !== undefined &&  <a href={oldDocs.acheivements} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="acheivements" onChange={handleResume} />
           </div>
           <div>
             <label>Degree</label>
-            {oldDocs.degree !== undefined && <a href={oldDocs.degree} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.degree !== '' && oldDocs.degree !== undefined  && <a href={oldDocs.degree} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="degree" onChange={handleResume} />
           </div>
           <div>
             <label>Expertise</label>
-            {oldDocs.expertise !== undefined && <a href={oldDocs.expertise} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.expertise !== '' && oldDocs.expertise !== undefined  && <a href={oldDocs.expertise} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="expertise" onChange={handleResume} />
           </div>
           <div>
             <label>Working</label>
-            {oldDocs.working !== undefined && <a href={oldDocs.working} target="_blank" rel="noreferrer">old</a>}
+            {oldDocs.working !== '' && oldDocs.working !== undefined && <a href={oldDocs.working} target="_blank" rel="noreferrer">old</a>}
             <input type="file" name="working" onChange={handleResume} />
           </div>
 
