@@ -88,7 +88,7 @@ const IndividualMessage = () => {
               ))}
 
           </div>
-          <div className="sendBox" onSubmit={sendText}>
+          <div className="sendBox">
               <input
                   type="text"
                   name="message"
