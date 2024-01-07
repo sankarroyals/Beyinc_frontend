@@ -49,3 +49,19 @@
     height: 70vh;
     overflow-y: scroll;
 }
+
+.onlineHolder{
+    position: relative;
+}
+.online,.away{
+    width: 10px;
+    height: 10px;
+    background: gray;
+    border-radius: 50%;
+    position: absolute;
+    left: -20px;
+    top: 0;
+}
+.online {
+    background: green;
+}
