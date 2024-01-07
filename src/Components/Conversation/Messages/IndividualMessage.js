@@ -36,8 +36,7 @@ const IndividualMessage = () => {
     };
 
     const sendText = async (e) => {
-        e.preventDefault();
-        if (sendMessage !== '') {
+        if (sendMessage !== '' || file!=='') {
             await ApiServices.sendMessages(
                 {   "email": email,
                     "conversationId": conversationId,
@@ -54,6 +53,7 @@ const IndividualMessage = () => {
                     "message": sendMessage
                 }])
                 setSendMessage('')
+                document.getElementById('chatFile').value=''
             }).catch((err) => {
                 dispatch(
                     setToast({
@@ -81,8 +81,8 @@ const IndividualMessage = () => {
                       </div>
                       <div className='personalDetails'>
                           <div className='email'>{m.senderId}</div>
-                          <div className='text'>{m.message}</div>
-                          {(m.file!=='' && m.file!==undefined) && <a href={m.file.secure_url}>click</a> }
+                          {m.message !== '' && <div className='text'>{m.message}</div>}
+                          {(m.file!=='' && m.file!==undefined) && <a href={m.file.secure_url} target='_blank' rel="noreferrer">sent an attachment</a> }
                       </div>
                   </div>
               ))}
@@ -97,7 +97,7 @@ const IndividualMessage = () => {
                   onChange={(e) => setSendMessage(e.target.value)}
                   placeholder="Enter a message"
               />
-              <input type='file' onChange={handleFile}/>
+              <input type='file' id='chatFile' onChange={handleFile}/>
               <SendIcon className='sendIcon' onClick={sendText} />
           </div>
       </div>
