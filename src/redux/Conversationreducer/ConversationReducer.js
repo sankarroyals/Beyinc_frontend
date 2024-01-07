@@ -10,7 +10,8 @@ export const conversationSlice = createSlice(
         initialState: {
             allUsers: [],
             historicalConversations: [],
-            conversationId: ''
+            conversationId: '',
+            receiverId: ''
         },
         reducers: {
             setAllUsers: (state, action) => {
@@ -22,6 +23,9 @@ export const conversationSlice = createSlice(
             ,
             setConversationId: (state, action) => {
                 state.conversationId = action.payload
+            },
+            setReceiverId: (state, action) => {
+                state.receiverId = action.payload
             }
         }
     });
@@ -35,7 +39,7 @@ export const getAllHistoricalConversations = (email) => async (dispatch) => {
 
 
 
-export const { setAllUsers, setHistoricalConversation, setConversationId } = conversationSlice.actions;
+export const { setAllUsers, setHistoricalConversation, setConversationId, setReceiverId } = conversationSlice.actions;
 
 // this is for configureStore
 export default conversationSlice.reducer;

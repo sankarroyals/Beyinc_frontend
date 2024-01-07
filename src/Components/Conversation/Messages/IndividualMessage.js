@@ -7,6 +7,8 @@ import { ToastColors } from '../../Toast/ToastColors';
 import { format } from "timeago.js";
 const IndividualMessage = () => {
     const conversationId = useSelector(state => state.conv.conversationId)
+    const receiverId = useSelector(state => state.conv.receiverId)
+
     const { email } = useSelector(state => state.auth.loginDetails)
     const [messages, setMessages] = useState([])
     const [sendMessage, setSendMessage] = useState('')
@@ -41,7 +43,7 @@ const IndividualMessage = () => {
                 {   "email": email,
                     "conversationId": conversationId,
                     "senderId": email,
-                    "receiverId": messages[0].receiverId,
+                    "receiverId": receiverId,
                     "message": sendMessage,
                     "file": file
                 }
@@ -49,7 +51,7 @@ const IndividualMessage = () => {
                 setMessages(prev => [...prev, {
                     "conversationId": conversationId,
                     "senderId": email,
-                    "receiverId": messages[0].receiverId,
+                    "receiverId": receiverId,
                     "message": sendMessage
                 }])
                 setSendMessage('')

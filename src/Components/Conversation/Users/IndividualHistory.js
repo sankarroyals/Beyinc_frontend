@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApiServices } from '../../../Services/ApiServices'
-import { setConversationId } from '../../../redux/Conversationreducer/ConversationReducer'
+import { setConversationId, setReceiverId } from '../../../redux/Conversationreducer/ConversationReducer'
 
 const IndividualHistory = ({ a }) => {
     const [friend, setFriend] = useState({})
@@ -16,6 +16,7 @@ const IndividualHistory = ({ a }) => {
   return (
       <div className='individuals' onClick={() => {
           dispatch(setConversationId(a._id))
+          dispatch(setReceiverId(a.members.filter((f) => f !== email)[0]))
       }}>
           <div><img src={friend.image?.url === undefined ? 'Profile.jpeg' : friend.image.url} alt="" srcset="" /></div>
           <div>
