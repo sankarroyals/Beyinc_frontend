@@ -13,6 +13,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import MessageIcon from '@mui/icons-material/Message';
 
 const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
@@ -149,7 +150,11 @@ const Navbar = () => {
       style={{ display: email == undefined ? "none" : "flex" }}
     >
       <div className="logo">BEYINC</div>
-      {role}
+      <div>
+        <MessageIcon style={{ fontSize: '30px', cursor: 'pointer' }} onClick={() => {
+          navigate('/conversations')
+        }} />
+      </div>
       <div
         onClick={(e) => {
           document
@@ -203,7 +208,7 @@ const Navbar = () => {
         </div>
 
         <div className="username">Hi, {userName}!</div>
-        <div className="manage">Manage your Google Account</div>
+        <div className="manage">{role}</div>
         <div>
           <div>
             <div>

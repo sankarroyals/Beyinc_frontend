@@ -1,0 +1,51 @@
+.newConversation{
+    display: none;
+}
+.newConversation.show{
+        display: block;
+        position: absolute;
+}
+.searchedUsers{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: -10px;
+    border: 1px solid rgb(175, 177, 175);
+    max-height: 200px;
+    
+    background: white;
+}
+.individuals{
+    display: flex;
+    gap: 15px;
+    cursor: pointer;
+    padding: 10px 0px;
+    padding-left: -10px;
+    transition: all ease 0.2s;
+    margin: 0px 0;
+}
+.individuals:hover {
+    background: rgb(241, 231, 231);
+}
+.role{
+    font-size: 12px;
+}
+
+.newChat{
+    padding: 15px;
+    background: white;
+    border: 1px solid rgb(224, 207, 207);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 12px;
+    width: 150px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.historyChats{
+    height: 70vh;
+    overflow-y: scroll;
+}

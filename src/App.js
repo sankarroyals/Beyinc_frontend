@@ -6,6 +6,7 @@ import Toast from "./Components/Toast/Toast";
 import { useDispatch } from "react-redux";
 import { apicallloginDetails } from "./redux/AuthReducers/AuthReducer";
 import { ApiServices } from "./Services/ApiServices";
+import Conversations from "./Components/Conversation/Conversations";
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
 const Login = React.lazy(() => import("./Components/Login/Login"));
@@ -38,6 +39,8 @@ const App = () => {
           <Route path="/forgotpassword" Component={LoginAuth(ForgotPassword)} />
           <Route path="/" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
+          <Route path="/conversations" Component={AuthHoc(Conversations)} />
+
 
         </Routes>
       </Suspense>

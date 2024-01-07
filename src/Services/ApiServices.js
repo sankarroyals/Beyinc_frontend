@@ -149,4 +149,72 @@ export const ApiServices = {
     
         }) 
     },
+
+
+
+    getAllUsers: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/userDetails/getUsers`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+    getHistoricalConversations: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/getConversation`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    addConversation: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/addConversation`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
+    getMessages: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/getMessages`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
+    sendMessages: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/addMessage`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
 }

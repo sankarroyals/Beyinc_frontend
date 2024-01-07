@@ -1,0 +1,18 @@
+.conversationContainer {
+    max-width: 1300px;
+    height: 80vh;
+    /* overflow: hidden; */
+    /* border: 1px solid green; */
+    margin: auto;
+    display: flex;
+    padding: 15px;
+    gap: 20px;
+}
+.users{
+     /* border: 1px solid yellow; */
+      flex: 1 0 20%;
+}
+.chatContainer{
+ /* border: 1px solid blue; */
+ flex: 1 0 75%;
+}

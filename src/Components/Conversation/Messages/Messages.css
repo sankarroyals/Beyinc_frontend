@@ -1,0 +1,78 @@
+.noSelected{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.messages{
+    height: 83vh;
+}
+
+.messageContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.messageBox{
+    display: flex;
+    /* justify-content: space-between; */
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 25px;
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+.details{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+}
+.imageContainer{
+    width: 80px;
+}
+.personalDetails{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 5px;
+    width: 200px;
+  
+}
+.text{
+ background: rgb(240, 227, 227);
+ padding: 10px;
+ border-radius: 20px;
+ word-wrap: break-word
+}
+.messageBottom{
+    font-size: 10px;
+}
+
+.owner .personalDetails .text{
+    background: rgb(185, 184, 184);
+}
+.email, .text{
+    font-size: 14px;
+}
+
+.sendBox{
+    position: sticky;
+    bottom:-10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: space-between;
+}
+.sendBox input[type='text']{
+    flex: 1;
+}
+.sendBox .sendIcon{
+    font-size: 30px;
+    cursor: pointer;
+}
