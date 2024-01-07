@@ -10,6 +10,7 @@ const IndividualMessage = () => {
     const { email } = useSelector(state => state.auth.loginDetails)
     const [messages, setMessages] = useState([])
     const [sendMessage, setSendMessage] = useState('')
+    const [file, setFile] = useState('');
     const scrollRef = useRef();
     const dispatch = useDispatch()
     useEffect(() => {
@@ -22,15 +23,28 @@ const IndividualMessage = () => {
         }
     }, [conversationId])
 
+    const handleFile = (e) => {
+        const file = e.target.files[0];
+        setFileBase(e, file);
+    };
+    const setFileBase = (e, file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setFile(reader.result)
+        };
+    };
+
     const sendText = async (e) => {
         e.preventDefault();
         if (sendMessage !== '') {
             await ApiServices.sendMessages(
-                {
+                {   "email": email,
                     "conversationId": conversationId,
                     "senderId": email,
                     "receiverId": messages[0].receiverId,
-                    "message": sendMessage
+                    "message": sendMessage,
+                    "file": file
                 }
             ).then(res => {
                 setMessages(prev => [...prev, {
@@ -68,6 +82,7 @@ const IndividualMessage = () => {
                       <div className='personalDetails'>
                           <div className='email'>{m.senderId}</div>
                           <div className='text'>{m.message}</div>
+                          {(m.file!=='' && m.file!==undefined) && <a href={m.file.secure_url}>click</a> }
                       </div>
                   </div>
               ))}
@@ -82,6 +97,7 @@ const IndividualMessage = () => {
                   onChange={(e) => setSendMessage(e.target.value)}
                   placeholder="Enter a message"
               />
+              <input type='file' onChange={handleFile}/>
               <SendIcon className='sendIcon' onClick={sendText} />
           </div>
       </div>
