@@ -32,6 +32,9 @@
     gap: 5px;
 
 }
+.details.owner{
+    align-self: flex-end;
+}
 .imageContainer{
     width: 80px;
 }
