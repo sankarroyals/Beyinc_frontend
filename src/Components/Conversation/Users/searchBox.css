@@ -4,6 +4,7 @@
 .newConversation.show{
         display: block;
         position: absolute;
+        z-index: 999;
 }
 .searchedUsers{
     display: flex;
