@@ -5,9 +5,12 @@ import SendIcon from '@mui/icons-material/Send';
 import { setToast } from '../../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../../Toast/ToastColors';
 import { format } from "timeago.js";
+import { io } from 'socket.io-client';
+import { setOnlineUsers } from '../../../redux/Conversationreducer/ConversationReducer';
 const IndividualMessage = () => {
     const conversationId = useSelector(state => state.conv.conversationId)
     const receiverId = useSelector(state => state.conv.receiverId)
+    const liveMessage = useSelector(state => state.conv.liveMessage)
 
     const { email } = useSelector(state => state.auth.loginDetails)
     const [messages, setMessages] = useState([])
@@ -15,6 +18,15 @@ const IndividualMessage = () => {
     const [file, setFile] = useState('');
     const scrollRef = useRef();
     const dispatch = useDispatch()
+    
+
+    const socket = useRef()
+    useEffect(() => {
+        socket.current = io(process.env.REACT_APP_SOCKET_IO)
+    }, [])
+
+
+
     useEffect(() => {
         if (conversationId !== '') {
             ApiServices.getMessages({
@@ -24,6 +36,13 @@ const IndividualMessage = () => {
             })
         }
     }, [conversationId])
+
+    useEffect(() => {
+        console.log(liveMessage);
+        if (liveMessage) {
+            setMessages(prev=>[...prev, {...liveMessage, createdAt: Date.now()}])
+        }
+    }, [liveMessage])
 
     const handleFile = (e) => {
         const file = e.target.files[0];
@@ -38,7 +57,7 @@ const IndividualMessage = () => {
     };
 
     const sendText = async (e) => {
-        if (sendMessage !== '' || file!=='') {
+        if (sendMessage !== '' || file !== '') {
             await ApiServices.sendMessages(
                 {   "email": email,
                     "conversationId": conversationId,
@@ -55,6 +74,11 @@ const IndividualMessage = () => {
                     "message": sendMessage
                 }])
                 setSendMessage('')
+                socket.current.emit('sendMessage', {
+                    senderId: email,
+                    receiverId: receiverId,
+                    message: sendMessage
+                })
                 document.getElementById('chatFile').value=''
             }).catch((err) => {
                 dispatch(
@@ -67,6 +91,12 @@ const IndividualMessage = () => {
             })
         }
     }
+
+
+    useEffect(() => {
+        console.log(messages);
+    }, [messages])
+
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });

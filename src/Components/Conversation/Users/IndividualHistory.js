@@ -6,8 +6,6 @@ import { setConversationId, setReceiverId } from '../../../redux/Conversationred
 const IndividualHistory = ({ a, onlineEmails }) => {
     const [friend, setFriend] = useState({})
     const { email } = useSelector(state => state.auth.loginDetails)
-
-    console.log(onlineEmails);
     const dispatch = useDispatch()
     useEffect(() => {
         const friendMail = a.members.filter((f) => f !== email)[0]
