@@ -20,6 +20,7 @@ const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
   );
+
   const [open, setOpen] = React.useState(false);
   const userDetailsRef = useRef(null);
 
@@ -173,7 +174,7 @@ const Navbar = () => {
         >
           <img
             className="Profile-img"
-            src={(image !== undefined && image !== '') ? image : "Profile.jpeg"}
+            src={(image !== undefined && image !== '') ? image : "profile.jpeg"}
             alt=""
           />
           {verification === 'approved' && <abbr title="verified user">
@@ -187,6 +188,7 @@ const Navbar = () => {
           </abbr>}
         </div>
       </div>
+      
       <div className="userDetails" ref={userDetailsRef}>
         <div
           className="closeIcon"
@@ -207,7 +209,7 @@ const Navbar = () => {
                 cursor: "pointer",
                 maxWidth: "100%",
               }}
-              src={(image !== undefined && image !== '') ? image : "Profile.jpeg"}
+              src={(image !== undefined && image !== '') ? image : "profile.jpeg"}
               alt="Profile"
             />
             <i

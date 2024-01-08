@@ -13,7 +13,7 @@ import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 
 const Editprofile = () => {
-  const { email, role, userName } = useSelector(
+  const { email, role, userName, image, phone } = useSelector(
     (store) => store.auth.loginDetails
   );
 
@@ -49,20 +49,19 @@ const Editprofile = () => {
     isNameValid,
   } = inputs;
 
-
   const [changeResume, setchangeDocuments] = useState({
-    resume: '',
-    expertise: '',
-    acheivements: '',
-    working: '',
-    degree: ''
+    resume: "",
+    expertise: "",
+    acheivements: "",
+    working: "",
+    degree: "",
   });
   const [oldDocs, setOldDocs] = useState({
-    resume: '',
-    expertise: '',
-    acheivements: '',
-    working: '',
-    degree: ''
+    resume: "",
+    expertise: "",
+    acheivements: "",
+    working: "",
+    degree: "",
   });
   const handleResume = (e) => {
     const file = e.target.files[0];
@@ -72,7 +71,10 @@ const Editprofile = () => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setchangeDocuments((prev) => ({ ...prev, [e.target.name]: reader.result }));
+      setchangeDocuments((prev) => ({
+        ...prev,
+        [e.target.name]: reader.result,
+      }));
     };
   };
 
@@ -86,7 +88,7 @@ const Editprofile = () => {
           role: res.data.role,
           mobileVerified: true,
         }));
-        
+
         if (res.data.documents !== undefined) {
           setOldDocs((prev) => ({
             ...prev,
@@ -95,17 +97,16 @@ const Editprofile = () => {
             acheivements: res.data.documents.acheivements,
             working: res.data.documents.working,
             degree: res.data.documents.degree,
-          }))
+          }));
           setchangeDocuments((prev) => ({
             ...prev,
-            resume: res.data.documents?.resume || '',
-            expertise: res.data.documents?.expertise || '',
-            acheivements: res.data.documents?.acheivements || '',
-            working: res.data.documents?.working || '',
-            degree: res.data.documents?.degree || '',
-          }))
+            resume: res.data.documents?.resume || "",
+            expertise: res.data.documents?.expertise || "",
+            acheivements: res.data.documents?.acheivements || "",
+            working: res.data.documents?.working || "",
+            degree: res.data.documents?.degree || "",
+          }));
         }
-        
       })
       .catch((error) => {
         dispatch(
@@ -134,7 +135,11 @@ const Editprofile = () => {
         ...prev,
         isMobileValid: /^[0-9]{10}$/.test(e.target.value),
       }));
-      setInputs((prev) => ({ ...prev, mobileVerified: false, isMobileOtpSent: false}));
+      setInputs((prev) => ({
+        ...prev,
+        mobileVerified: false,
+        isMobileOtpSent: false,
+      }));
     }
   };
 
@@ -236,7 +241,7 @@ const Editprofile = () => {
         document.getElementById("mobileOtpInput").disabled = true;
         // setmobileVerified(true);
         setInputs((prev) => ({ ...prev, mobileVerified: true }));
-        document.getElementById('mobile').disabled = true;
+        document.getElementById("mobile").disabled = true;
         if (name != "") {
           setInputs((prev) => ({ ...prev, isNameValid: true }));
         }
@@ -268,7 +273,8 @@ const Editprofile = () => {
       email: email,
       userName: name,
       phone: mobile,
-      role: role, documents: changeResume
+      role: role,
+      documents: changeResume,
     })
       .then((res) => {
         dispatch(
@@ -292,16 +298,16 @@ const Editprofile = () => {
           isEmailValid: null,
           isMobileValid: null,
           isNameValid: null,
-        })
+        });
         localStorage.setItem("user", JSON.stringify(res.data));
         dispatch(setLoginData(jwtDecode(res.data.accessToken)));
-        navigate('/')
+        navigate("/");
       })
       .catch((err) => {
         e.target.disabled = false;
         dispatch(
           setToast({
-            message: 'Error occured when sending profile to approval',
+            message: "Error occured when sending profile to approval",
             bgColor: ToastColors.failure,
             visibile: "yes",
           })
@@ -327,28 +333,90 @@ const Editprofile = () => {
   //   }, 1000);
   // };
 
-  const isFormValid = mobileVerified && (isNameValid || oldDocs.resume !== '' || oldDocs.expertise !== '' || oldDocs.acheivements !== '' || oldDocs.working !== '' || oldDocs.degree !== '' || changeResume.resume !== '' || changeResume.expertise !== '' || changeResume.acheivements !== '' || changeResume.working !== '' || changeResume.degree !== '');
+  const isFormValid =
+    mobileVerified &&
+    (isNameValid ||
+      oldDocs.resume !== "" ||
+      oldDocs.expertise !== "" ||
+      oldDocs.acheivements !== "" ||
+      oldDocs.working !== "" ||
+      oldDocs.degree !== "" ||
+      changeResume.resume !== "" ||
+      changeResume.expertise !== "" ||
+      changeResume.acheivements !== "" ||
+      changeResume.working !== "" ||
+      changeResume.degree !== "");
 
   const handleChangeRadio = (e) => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
   };
 
-
   return (
     <div className="update-container">
+      <div className="heading">
+        <img
+         src={(image !== undefined && image !== '') ? image : "profile.jpeg"}
+          style={{
+            width: "150px",
+            height: "150px",
+            borderRadius: "50%",
+            marginTop: "50px",
+          }}
+        />
+        <div className="profile-content">
+          <div style={{ fontSize: "24px" }}> {name}  <i className="fas fa-pencil-alt" style={{fontSize: '12px'}} 
+          
+          
+          ></i></div>
+          <div
+            style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
+          >
+            Profile last updated -{" "}
+          </div>
+          <div
+            style={{
+              width: "100%",
+              border: "1px solid grey",
+              marginTop: "-20px",
+              marginBottom: "20px",
+            }}
+          ></div>
+          <div
+            style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
+          >
+            <div
+              style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
+            >
+              <i class="fas fa-user"></i> {role}
+              <br />
+              <i className="fas fa-envelope"></i> {email}{" "}
+              <img
+                src="verify.png"
+                style={{ width: "15px", height: "15px", marginLeft: "5px" }}
+              />
+              <br />
+              <i className="fas fa-phone"></i> {mobile}{" "}
+              <img
+                src="verify.png"
+                style={{ width: "15px", height: "15px", marginLeft: "5px" }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="update-form-container">
         <form className="update-form">
-          <center>
-            <h1 className="update-heading">Profile Update</h1>
-          </center>
+          <h3 className="update-heading">Basic Info</h3>
 
-
+          {/* <label style={{marginTop: '10px'}}>Role</label>
           <div
             className="input-container"
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              marginRight: "80px",
+              marginTop: "10px"
             }}
           >
             <div
@@ -405,9 +473,10 @@ const Editprofile = () => {
               />
               <label for="Investor">Investor</label>
             </div>
-          </div>
+          </div> */}
 
-          <div className="input-container">
+          {/* <div className="input-container">
+            <label>Email</label>
             <input
               type="email"
               className={
@@ -419,11 +488,11 @@ const Editprofile = () => {
               onChange={handleChanges}
               // disabled={emailVerified}
               placeholder="Email Address*"
-              
             />
- <span className="lock-icon">
-    <i className="fas fa-lock"></i></span>
-            {/* {!isEmailOtpSent && isEmailValid && (
+            <span className="lock-icon">
+              <i className="fas fa-lock"></i>
+            </span> */}
+          {/* {!isEmailOtpSent && isEmailValid && (
                 <button
                   type="button"
                   className="otp_button"
@@ -432,7 +501,7 @@ const Editprofile = () => {
                   Get OTP
                 </button>
               )} */}
-          </div>
+          {/* </div> */}
 
           {/* {isEmailOtpSent && emailVerified !== true && (
               <>
@@ -463,8 +532,9 @@ const Editprofile = () => {
                 </div>
               </>
             )} */}
-
+          {/* 
           <div className="input-container">
+            <label>Name</label>
             <input
               type="text"
               className={
@@ -475,22 +545,22 @@ const Editprofile = () => {
               onChange={handleChanges}
               placeholder="Full Name*"
             />
-          </div>
+          </div> */}
 
-          
-          <div className="input-container">
+          {/* <div className="input-container">
+            <label>Mobile</label>
             <input
               type="text"
-              className={
-                mobile !== null && (mobile.length === 10 ? "valid" : "invalid")
-              }
+              // className={
+              //   mobile !== null && (mobile.length === 10 ? "valid" : "invalid")
+              // }
               name="mobile"
-              id='mobile'
+              id="mobile"
               value={mobile}
               onChange={handleChanges}
-              placeholder="Mobile Number*"
-            />
-            {mobileVerified === true && (
+              placeholder="Mobile Number*" */}
+          {/* /> */}
+          {/* {mobileVerified === true && (
               <img
                 src="checked.png"
                 height={20}
@@ -538,45 +608,92 @@ const Editprofile = () => {
                 )}
               </div>
             </>
-          )}
+          )} */}
           <div>
             <label>Resume</label>
-            {oldDocs.resume !== '' && oldDocs.resume !== undefined && <a href={oldDocs.resume?.secure_url} target="_blank" rel="noreferrer">Previous resume</a>}
+            {oldDocs.resume !== "" && oldDocs.resume !== undefined && (
+              <a
+                href={oldDocs.resume?.secure_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Previous resume
+              </a>
+            )}
             <input type="file" name="resume" onChange={handleResume} />
           </div>
           <div>
             <label>Acheivements</label>
-            {oldDocs.acheivements !== '' && oldDocs.acheivements !== undefined && <a href={oldDocs.acheivements?.secure_url} target="_blank" rel="noreferrer">Previous Acheivements</a>}
+            {oldDocs.acheivements !== "" &&
+              oldDocs.acheivements !== undefined && (
+                <a
+                  href={oldDocs.acheivements?.secure_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Previous Acheivements
+                </a>
+              )}
             <input type="file" name="acheivements" onChange={handleResume} />
           </div>
           <div>
             <label>Degree</label>
-            {oldDocs.degree !== '' && oldDocs.degree !== undefined && <a href={oldDocs.degree?.secure_url} target="_blank" rel="noreferrer">Previous Degree</a>}
+            {oldDocs.degree !== "" && oldDocs.degree !== undefined && (
+              <a
+                href={oldDocs.degree?.secure_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Previous Degree
+              </a>
+            )}
             <input type="file" name="degree" onChange={handleResume} />
           </div>
           <div>
             <label>Expertise</label>
-            {oldDocs.expertise !== '' && oldDocs.expertise !== undefined && <a href={oldDocs.expertise?.secure_url} target="_blank" rel="noreferrer">Previous Expertise</a>}
+            {oldDocs.expertise !== "" && oldDocs.expertise !== undefined && (
+              <a
+                href={oldDocs.expertise?.secure_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Previous Expertise
+              </a>
+            )}
             <input type="file" name="expertise" onChange={handleResume} />
           </div>
           <div>
             <label>Working</label>
-            {oldDocs.working !== '' && oldDocs.working !== undefined && <a href={oldDocs.working?.secure_url} target="_blank" rel="noreferrer">Previous Working</a>}
+            {oldDocs.working !== "" && oldDocs.working !== undefined && (
+              <a
+                href={oldDocs.working?.secure_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Previous Working
+              </a>
+            )}
             <input type="file" name="working" onChange={handleResume} />
           </div>
 
-          <button type="submit" disabled={!isFormValid} onClick={update}>
-            Update
-          </button>
-          <p>
-            <div className = 'back'
-             onClick={() => {
-              navigate(`/`)
-          }}
+          <div>
+            <button
+              style={{ width: "30%", marginRight: "10px" }}
+              onClick={() => {
+                navigate(`/`);
+              }}
             >
-               <i className="fas fa-arrow-left" style={{marginRight: '5px'}}></i>Back to Home
-            </div>
-          </p>
+              Back
+            </button>
+            <button
+              style={{ width: "30%" }}
+              type="submit"
+              disabled={!isFormValid}
+              onClick={update}
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>
