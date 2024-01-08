@@ -541,27 +541,27 @@ const Editprofile = () => {
           )}
           <div>
             <label>Resume</label>
-            {oldDocs.resume !== '' && oldDocs.resume !== undefined && <a href={oldDocs.resume?.secure_url} target="_blank" rel="noreferrer">Previous resume</a>}
+            {oldDocs.resume !== '' && oldDocs.resume !== undefined && Object.keys(oldDocs.resume).length!==0 && <a href={oldDocs.resume?.secure_url} target="_blank" rel="noreferrer">Previous resume</a>}
             <input type="file" name="resume" onChange={handleResume} />
           </div>
           <div>
             <label>Acheivements</label>
-            {oldDocs.acheivements !== '' && oldDocs.acheivements !== undefined && <a href={oldDocs.acheivements?.secure_url} target="_blank" rel="noreferrer">Previous Acheivements</a>}
+            {oldDocs.acheivements !== '' && oldDocs.acheivements !== undefined && Object.keys(oldDocs.acheivements).length !== 0 &&<a href={oldDocs.acheivements?.secure_url} target="_blank" rel="noreferrer">Previous Acheivements</a>}
             <input type="file" name="acheivements" onChange={handleResume} />
           </div>
           <div>
             <label>Degree</label>
-            {oldDocs.degree !== '' && oldDocs.degree !== undefined && <a href={oldDocs.degree?.secure_url} target="_blank" rel="noreferrer">Previous Degree</a>}
+            {oldDocs.degree !== '' && oldDocs.degree !== undefined && Object.keys(oldDocs.degree).length !== 0 &&  <a href={oldDocs.degree?.secure_url} target="_blank" rel="noreferrer">Previous Degree</a>}
             <input type="file" name="degree" onChange={handleResume} />
           </div>
           <div>
             <label>Expertise</label>
-            {oldDocs.expertise !== '' && oldDocs.expertise !== undefined && <a href={oldDocs.expertise?.secure_url} target="_blank" rel="noreferrer">Previous Expertise</a>}
+            {oldDocs.expertise !== '' && oldDocs.expertise !== undefined && Object.keys(oldDocs.expertise).length !== 0 && <a href={oldDocs.expertise?.secure_url} target="_blank" rel="noreferrer">Previous Expertise</a>}
             <input type="file" name="expertise" onChange={handleResume} />
           </div>
           <div>
             <label>Working</label>
-            {oldDocs.working !== '' && oldDocs.working !== undefined && <a href={oldDocs.working?.secure_url} target="_blank" rel="noreferrer">Previous Working</a>}
+            {oldDocs.working !== '' && oldDocs.working !== undefined && Object.keys(oldDocs.working).length !== 0 && <a href={oldDocs.working?.secure_url} target="_blank" rel="noreferrer">Previous Working</a>}
             <input type="file" name="working" onChange={handleResume} />
           </div>
 
