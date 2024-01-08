@@ -23,6 +23,7 @@ const Conversations = () => {
   useEffect(() => {
     socket.current.emit("addUser", email);
     socket.current.on("getUsers", users => {
+      console.log('online', users);
       dispatch(setOnlineUsers(users))
     })
   }, [email])
