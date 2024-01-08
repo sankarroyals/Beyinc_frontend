@@ -16,7 +16,7 @@ const Notifications = () => {
         <div className='messageRequests'>
             {messageRequest.length > 0 ? messageRequest.map((m) => (
                 <MessageRequest m={m} setMessageRequest={setMessageRequest} />
-            )) : <>No New Message Request</>}
+            )) : <div className='noSelected' style={{height: '70vh'}}>No New Message Request</div>}
         </div>
     )
 }

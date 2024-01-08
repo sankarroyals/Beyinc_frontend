@@ -40,6 +40,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
           <div className='updateActions'>
               <div onClick={() => update('approved')} className='approveRequest'><i class="fas fa-check"></i></div>
               <div onClick={() => update('rejected')} className='rejectRequest'><i class="fas fa-trash"></i></div>
+              <div className='extraDetails'><i class="fas fa-chevron-down"></i></div>
           </div>
 
       </div>
