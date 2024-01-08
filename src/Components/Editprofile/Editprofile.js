@@ -18,7 +18,7 @@ const Editprofile = () => {
   );
 
   const [showPreviousFile, setShowPreviousFile] = useState(false);
-  
+
   const [inputs, setInputs] = useState({
     email: null,
     emailOtp: null,
@@ -51,8 +51,8 @@ const Editprofile = () => {
     isNameValid,
   } = inputs;
 
-  const [nameChanger, setNameChanger] = useState(false)
-  const [roles, setRoles] = useState([])
+  const [nameChanger, setNameChanger] = useState(false);
+  const [roles, setRoles] = useState([]);
 
   const [changeResume, setchangeDocuments] = useState({
     resume: "",
@@ -357,33 +357,44 @@ const Editprofile = () => {
   };
   useEffect(() => {
     ApiServices.getAllRoles().then((res) => {
-      setRoles(res.data)
-    })
-  }, [])
+      setRoles(res.data);
+    });
+  }, []);
 
   return (
     <div className="update-container">
       <div className="heading">
-        <img
-         src={(image !== undefined && image !== '') ? image : "profile.jpeg"}
-          style={{
-            width: "150px",
-            height: "150px",
-            borderRadius: "50%",
-            marginTop: "50px",
-          }}
-        />
+        <div>
+          <img
+            src={image !== undefined && image !== "" ? image : "profile.jpeg"}
+            style={{
+              width: "150px",
+              height: "150px",
+              borderRadius: "50%",
+            }}
+          />
+        </div>
         <div className="profile-content">
-          <div style={{ fontSize: "24px" }}> 
-          { nameChanger? <input type= 'text' value={name} onChange={(e)=>{
-            setInputs(prev=>({...prev,name: e.target.value}))
-          }} /> : name}
-            <i className="fas fa-pencil-alt" style={{fontSize: '12px'}} 
-          onClick={()=>{
-            setNameChanger(!nameChanger)
-          }}
-          
-          ></i></div>
+          <div style={{ fontSize: "24px" }}>
+            {nameChanger ? (
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => {
+                  setInputs((prev) => ({ ...prev, name: e.target.value }));
+                }}
+              />
+            ) : (
+              name
+            )}
+            <i
+              className="fas fa-pencil-alt"
+              style={{ fontSize: "12px" }}
+              onClick={() => {
+                setNameChanger(!nameChanger);
+              }}
+            ></i>
+          </div>
           <div
             style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
           >
@@ -627,70 +638,89 @@ const Editprofile = () => {
           )} */}
           <div>
             <label>Resume</label>
-{oldDocs.resume !== '' && oldDocs.resume !== undefined && Object.keys(oldDocs.resume).length!==0 && (
-             <attr title= "view">
-             <div  
-                href={oldDocs.resume?.secure_url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img className="view" src="view.png" onMouseEnter={() => setShowPreviousFile(true)} onMouseLeave={() => setShowPreviousFile(false)}/> 
-              </div>
-             </attr>
-              
-            )}
-            <input className="resume" type="file" name="resume" onChange={handleResume} />
+            {oldDocs.resume !== "" &&
+              oldDocs.resume !== undefined &&
+              Object.keys(oldDocs.resume).length !== 0 && (
+                <attr title="view">
+                  <div
+                    href={oldDocs.resume?.secure_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <img
+                      className="view"
+                      src="view.png"
+                      onMouseEnter={() => setShowPreviousFile(true)}
+                      onMouseLeave={() => setShowPreviousFile(false)}
+                    />
+                  </div>
+                </attr>
+              )}
+            <input
+              className="resume"
+              type="file"
+              name="resume"
+              onChange={handleResume}
+            />
           </div>
           <div>
             <label>Acheivements</label>
-            {oldDocs.acheivements !== '' && oldDocs.acheivements !== undefined && Object.keys(oldDocs.acheivements).length !== 0 &&(
+            {oldDocs.acheivements !== "" &&
+              oldDocs.acheivements !== undefined &&
+              Object.keys(oldDocs.acheivements).length !== 0 && (
                 <a
                   href={oldDocs.acheivements?.secure_url}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img src="view.png"/> View previous file
+                  <img src="view.png" /> View previous file
                 </a>
               )}
             <input type="file" name="acheivements" onChange={handleResume} />
           </div>
           <div>
             <label>Degree</label>
-{oldDocs.degree !== '' && oldDocs.degree !== undefined && Object.keys(oldDocs.degree).length !== 0 &&  (
-              <a
-                href={oldDocs.degree?.secure_url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src="view.png"/> View previous file
-              </a>
-            )}
+            {oldDocs.degree !== "" &&
+              oldDocs.degree !== undefined &&
+              Object.keys(oldDocs.degree).length !== 0 && (
+                <a
+                  href={oldDocs.degree?.secure_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="view.png" /> View previous file
+                </a>
+              )}
             <input type="file" name="degree" onChange={handleResume} />
           </div>
           <div>
             <label>Expertise</label>
-{oldDocs.expertise !== '' && oldDocs.expertise !== undefined && Object.keys(oldDocs.expertise).length !== 0 &&  (
-              <a
-                href={oldDocs.expertise?.secure_url}
-                target="_blank"
-                rel="noreferrer"
-              >
-           <img src="view.png"/> View previous file
-              </a>
-            )}
+            {oldDocs.expertise !== "" &&
+              oldDocs.expertise !== undefined &&
+              Object.keys(oldDocs.expertise).length !== 0 && (
+                <a
+                  href={oldDocs.expertise?.secure_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="view.png" /> View previous file
+                </a>
+              )}
             <input type="file" name="expertise" onChange={handleResume} />
           </div>
           <div>
             <label>Working</label>
-{oldDocs.working !== '' && oldDocs.working !== undefined && Object.keys(oldDocs.working).length !== 0 && (
-              <a
-                href={oldDocs.working?.secure_url}
-                target="_blank"
-                rel="noreferrer"
-              >
-               <img src="view.png"/> View previous file
-              </a>
-            )}
+            {oldDocs.working !== "" &&
+              oldDocs.working !== undefined &&
+              Object.keys(oldDocs.working).length !== 0 && (
+                <a
+                  href={oldDocs.working?.secure_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="view.png" /> View previous file
+                </a>
+              )}
             <input type="file" name="working" onChange={handleResume} />
           </div>
 

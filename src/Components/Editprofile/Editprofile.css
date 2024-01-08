@@ -1,8 +1,9 @@
 
 .update-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     background-color: #f0f0f0;
+    align-items: center;
 }
 
 .update-heading{
@@ -12,15 +13,17 @@
 }
 
 .heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #fff;
     border-radius: 10px;
-    width: 75%;
+    min-width: 900px;
+    margin: auto;
     height: 220px;
     padding: 20px;
     margin-top: 20px;
-    margin-left: 290px;
-    text-align: start;
-    /* color: #6a73fa; */
+    gap:20px;
     font-weight: 600;
     font-size: 18px;
 }
@@ -30,31 +33,24 @@
 }
 
 .profile-content{
-    margin-left: 200px;
-    margin-top: -160px;
+  flex: 1; 
+    
 }
 
 .update-form-container {
-    width: 75%;
+    /* width: 75%; */
     margin-top: 300px;
     padding: 20px;
     background-color: white;
-    /* border: 1px solid #ccc; */
     border-radius: 10px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-    margin-left: -1200px ;
     margin-bottom: 30px;
     margin-right: 40px;
 }
 
 .update-form {
-    /* display: flex;
-    flex-direction: column; */
     margin-top: 20px;
     width: 350px;
     margin-left: 10px;
-    /* margin: auto;  */
-    /* justify-content: center;  */
 }
 
 label {
