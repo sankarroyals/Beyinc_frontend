@@ -48,7 +48,7 @@ const Editprofile = () => {
     isMobileValid,
     isNameValid,
   } = inputs;
-
+  const [roles, setRoles] = useState([])
 
   const [changeResume, setchangeDocuments] = useState({
     resume: '',
@@ -332,7 +332,11 @@ const Editprofile = () => {
   const handleChangeRadio = (e) => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
   };
-
+  useEffect(() => {
+    ApiServices.getAllRoles().then((res) => {
+      setRoles(res.data)
+    })
+  }, [])
 
   return (
     <div className="update-container">
