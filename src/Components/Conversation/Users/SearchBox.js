@@ -30,9 +30,10 @@ const SearchBox = () => {
         }
         await ApiServices.addConversation(conversation).then((res) => {
             dispatch(getAllHistoricalConversations(email))
+            console.log(res.data);
             dispatch(
                 setToast({
-                    message: `Request sent to ${receiver}`,
+                    message: res.data,
                     bgColor: ToastColors.success,
                     visibile: "yes",
                 })
