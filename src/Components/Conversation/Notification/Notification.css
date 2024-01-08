@@ -8,11 +8,23 @@
 .individualrequest{
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: space-between;
     width: 1300px;
     margin: auto;
     padding: 10px;
     border: 1px solid gray;
+    transition: all ease 0.3s;
+}
+.individualrequestWrapper{
+     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1300px;
+    margin: auto;
+    padding: 10px;
+        transition: all ease 0.3s;
+
 }
 
 .updateActions{
@@ -38,4 +50,23 @@
 
  .rejectRequest{
     color: red;
+}
+
+.extraDetails{
+    margin:0px 20px;
+}
+
+.pitchdetails{
+    display: none;
+    padding: 10px;
+    width: 98%;
+
+}
+.pitchdetails.show{
+    display: block;
+}
+
+.individualPitchDetails{
+    display: flex;
+    gap: 20px;
 }
