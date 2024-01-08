@@ -164,7 +164,7 @@ const Navbar = () => {
       >
         <img
           className="Profile-img"
-          src={image === undefined ? "Profile.jpeg" : image}
+          src={image === undefined ? "profile.jpeg" : image}
           alt=""
         />
         {verification === 'approved' && <abbr title="verified user">
@@ -197,7 +197,7 @@ const Navbar = () => {
                 cursor: "pointer",
                 maxWidth: "100%",
               }}
-              src={image === undefined ? "Profile.jpeg" : image}
+              src={image === undefined ? "profile.jpeg" : image}
               alt="Profile"
             />
             <i
