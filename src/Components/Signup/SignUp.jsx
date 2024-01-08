@@ -103,6 +103,7 @@ const SignUp = () => {
             visibile: "yes",
           })
         );
+        e.target.disabled = true;
       });
     setTimeout(() => {
       dispatch(

@@ -150,7 +150,9 @@ const Navbar = () => {
       className="navbar"
       style={{ display: email == undefined ? "none" : "flex" }}
     >
-      <div className="logo">BEYINC</div>
+      <div className="logo" onClick={() => {
+        navigate('/')
+      }} >BEYINC</div>
       <div className="navRight">
         <div>
           <MessageIcon style={{ fontSize: '30px', cursor: 'pointer' }} onClick={() => {
