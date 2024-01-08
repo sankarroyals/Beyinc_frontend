@@ -102,7 +102,7 @@ const SearchBox = () => {
                 <div className='searchedUsers'>
                     {filteredusers.length > 0 && filteredusers.filter(f=>f.email!==email).map((a) => (
                         <div className='individuals' onClick={() => addconversation(a.email)}>
-                            <div><img src={a.image === undefined ? 'Profile.jpeg' : a.image.url} alt="" srcset="" /></div>
+                            <div><img src={(a.image === undefined || a.image == '') ? 'profile.jpeg' : a.image.url} alt="" srcset="" /></div>
                             <div>
                                 <div className='userName'>{a.userName}</div>
                                 <div className='role'>{a.role}</div>

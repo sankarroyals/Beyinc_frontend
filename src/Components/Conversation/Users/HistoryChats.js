@@ -5,7 +5,7 @@ import IndividualHistory from './IndividualHistory'
 
 const HistoryChats = () => {
     const dispatch = useDispatch()
-    const { email } = useSelector(state => state.auth.loginDetails)
+    const { email, role } = useSelector(state => state.auth.loginDetails)
     const onlineUsers = useSelector(state => state.conv.onlineUsers)
     const [onlineEmails, setOnlineEmails] = useState([])
     useEffect(() => {
@@ -38,6 +38,11 @@ const HistoryChats = () => {
 
         }
     }
+    useEffect(() => {
+        document.getElementById('approved').classList.remove('fa-chevron-right')
+        document.getElementById('approved').classList.add('fa-chevron-down')
+        document.getElementsByClassName('approved')[0].style.display = 'block'
+    }, [])
 
     return (
         <div className='historyChats'>
