@@ -74,7 +74,7 @@ const SearchBox = () => {
             console.log(err);
             dispatch(
                 setToast({
-                    message: err?.response?.data,
+                    message: `Error Occured/try use different pitch title`,
                     bgColor: ToastColors.failure,
                     visibile: "yes",
                 })
