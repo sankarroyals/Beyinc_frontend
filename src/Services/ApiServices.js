@@ -244,4 +244,47 @@ export const ApiServices = {
 
         })
     },
+
+
+    getlastUpdatedPitch: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/recentpitch`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
+
+    getAllRoles: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.get(`/role/getAllRoles`)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
+    fetchSinglePitch: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/singlePitch`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
 }

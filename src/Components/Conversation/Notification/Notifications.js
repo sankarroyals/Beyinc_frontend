@@ -11,12 +11,12 @@ const Notifications = () => {
             setMessageRequest(res.data)
         })
 
-    }, [])
+    }, [email])
     return (
         <div className='messageRequests'>
             {messageRequest.length > 0 ? messageRequest.map((m) => (
-                <MessageRequest m={m} />
-            )) : <>No New Message Request</>}
+                <MessageRequest m={m} setMessageRequest={setMessageRequest} />
+            )) : <div className='noSelected' style={{height: '70vh'}}>No New Message Request</div>}
         </div>
     )
 }

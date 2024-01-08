@@ -52,6 +52,7 @@ const Editprofile = () => {
   } = inputs;
 
   const [nameChanger, setNameChanger] = useState(false)
+  const [roles, setRoles] = useState([])
 
   const [changeResume, setchangeDocuments] = useState({
     resume: "",
@@ -354,6 +355,11 @@ const Editprofile = () => {
   const handleChangeRadio = (e) => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
   };
+  useEffect(() => {
+    ApiServices.getAllRoles().then((res) => {
+      setRoles(res.data)
+    })
+  }, [])
 
   return (
     <div className="update-container">
@@ -621,7 +627,7 @@ const Editprofile = () => {
           )} */}
           <div>
             <label>Resume</label>
-            {oldDocs.resume !== "" && oldDocs.resume !== undefined && (
+{oldDocs.resume !== '' && oldDocs.resume !== undefined && Object.keys(oldDocs.resume).length!==0 && (
              <attr title= "view">
              <div  
                 href={oldDocs.resume?.secure_url}
@@ -637,8 +643,7 @@ const Editprofile = () => {
           </div>
           <div>
             <label>Acheivements</label>
-            {oldDocs.acheivements !== "" &&
-              oldDocs.acheivements !== undefined && (
+            {oldDocs.acheivements !== '' && oldDocs.acheivements !== undefined && Object.keys(oldDocs.acheivements).length !== 0 &&(
                 <a
                   href={oldDocs.acheivements?.secure_url}
                   target="_blank"
@@ -651,7 +656,7 @@ const Editprofile = () => {
           </div>
           <div>
             <label>Degree</label>
-            {oldDocs.degree !== "" && oldDocs.degree !== undefined && (
+{oldDocs.degree !== '' && oldDocs.degree !== undefined && Object.keys(oldDocs.degree).length !== 0 &&  (
               <a
                 href={oldDocs.degree?.secure_url}
                 target="_blank"
@@ -664,7 +669,7 @@ const Editprofile = () => {
           </div>
           <div>
             <label>Expertise</label>
-            {oldDocs.expertise !== "" && oldDocs.expertise !== undefined && (
+{oldDocs.expertise !== '' && oldDocs.expertise !== undefined && Object.keys(oldDocs.expertise).length !== 0 &&  (
               <a
                 href={oldDocs.expertise?.secure_url}
                 target="_blank"
@@ -677,7 +682,7 @@ const Editprofile = () => {
           </div>
           <div>
             <label>Working</label>
-            {oldDocs.working !== "" && oldDocs.working !== undefined && (
+{oldDocs.working !== '' && oldDocs.working !== undefined && Object.keys(oldDocs.working).length !== 0 && (
               <a
                 href={oldDocs.working?.secure_url}
                 target="_blank"

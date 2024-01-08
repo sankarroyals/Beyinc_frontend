@@ -28,6 +28,8 @@ const SignUp = () => {
     isPasswordValid: null,
   });
 
+  const [roles, setRoles] = useState([])
+
   const {
     email,
     emailOtp,
@@ -256,6 +258,14 @@ const SignUp = () => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
   };
 
+
+
+  useEffect(() => {
+    ApiServices.getAllRoles().then((res) => {
+      setRoles(res.data)
+    })
+  }, [])
+
   return (
     <div className="registration-container">
       {/* Image Container */}
@@ -298,7 +308,25 @@ const SignUp = () => {
               alignItems: "center",
             }}
           >
-            <div
+            {roles?.map((r) => (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <input
+                  type="radio"
+                  name="role"
+                  value={r.role}
+                  id={r.role}
+                  onClick={handleChangeRadio}
+                />
+                <label for={r.role}>{r.role}</label>
+              </div>
+            ))}
+            {/* <div
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -345,7 +373,7 @@ const SignUp = () => {
                 onClick={handleChangeRadio}
               />
               <label for="Investor">Investor</label>
-            </div>
+            </div> */}
           </div>
 
           <div className="input-container">
