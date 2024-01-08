@@ -6,8 +6,9 @@
 }
 
 .update-heading{
-    margin-top: -20px;
-    margin-bottom: 25px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    color: #6a73fa;
 }
 
 .heading{
@@ -22,6 +23,10 @@
     /* color: #6a73fa; */
     font-weight: 600;
     font-size: 18px;
+}
+
+.resume{
+    border: none;
 }
 
 .profile-content{

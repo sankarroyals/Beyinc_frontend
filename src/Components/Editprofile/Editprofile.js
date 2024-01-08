@@ -17,6 +17,8 @@ const Editprofile = () => {
     (store) => store.auth.loginDetails
   );
 
+  const [showPreviousFile, setShowPreviousFile] = useState(false);
+  
   const [inputs, setInputs] = useState({
     email: null,
     emailOtp: null,
@@ -48,6 +50,8 @@ const Editprofile = () => {
     isMobileValid,
     isNameValid,
   } = inputs;
+
+  const [nameChanger, setNameChanger] = useState(false)
 
   const [changeResume, setchangeDocuments] = useState({
     resume: "",
@@ -364,8 +368,14 @@ const Editprofile = () => {
           }}
         />
         <div className="profile-content">
-          <div style={{ fontSize: "24px" }}> {name}  <i className="fas fa-pencil-alt" style={{fontSize: '12px'}} 
-          
+          <div style={{ fontSize: "24px" }}> 
+          { nameChanger? <input type= 'text' value={name} onChange={(e)=>{
+            setInputs(prev=>({...prev,name: e.target.value}))
+          }} /> : name}
+            <i className="fas fa-pencil-alt" style={{fontSize: '12px'}} 
+          onClick={()=>{
+            setNameChanger(!nameChanger)
+          }}
           
           ></i></div>
           <div
@@ -406,7 +416,7 @@ const Editprofile = () => {
       </div>
       <div className="update-form-container">
         <form className="update-form">
-          <h3 className="update-heading">Basic Info</h3>
+          <h3 className="update-heading">Upload files</h3>
 
           {/* <label style={{marginTop: '10px'}}>Role</label>
           <div
@@ -612,15 +622,18 @@ const Editprofile = () => {
           <div>
             <label>Resume</label>
             {oldDocs.resume !== "" && oldDocs.resume !== undefined && (
-              <a
+             <attr title= "view">
+             <div  
                 href={oldDocs.resume?.secure_url}
                 target="_blank"
                 rel="noreferrer"
               >
-                Previous resume
-              </a>
+                <img className="view" src="view.png" onMouseEnter={() => setShowPreviousFile(true)} onMouseLeave={() => setShowPreviousFile(false)}/> 
+              </div>
+             </attr>
+              
             )}
-            <input type="file" name="resume" onChange={handleResume} />
+            <input className="resume" type="file" name="resume" onChange={handleResume} />
           </div>
           <div>
             <label>Acheivements</label>
@@ -631,7 +644,7 @@ const Editprofile = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Previous Acheivements
+                  <img src="view.png"/> View previous file
                 </a>
               )}
             <input type="file" name="acheivements" onChange={handleResume} />
@@ -644,7 +657,7 @@ const Editprofile = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                Previous Degree
+                <img src="view.png"/> View previous file
               </a>
             )}
             <input type="file" name="degree" onChange={handleResume} />
@@ -657,7 +670,7 @@ const Editprofile = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                Previous Expertise
+           <img src="view.png"/> View previous file
               </a>
             )}
             <input type="file" name="expertise" onChange={handleResume} />
@@ -670,7 +683,7 @@ const Editprofile = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                Previous Working
+               <img src="view.png"/> View previous file
               </a>
             )}
             <input type="file" name="working" onChange={handleResume} />
