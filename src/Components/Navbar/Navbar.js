@@ -48,7 +48,7 @@ const Navbar = () => {
       setchangeImage(reader.result);
     };
   };
-
+  console.log(image)
   const submit = async (e) => {
     e.target.disabled = true;
     await ApiServices.updateuserProfileImage({
@@ -171,7 +171,7 @@ const Navbar = () => {
         >
           <img
             className="Profile-img"
-            src={image === undefined ? "Profile.jpeg" : image}
+            src={(image !== undefined && image !== '') ? image : "Profile.jpeg"}
             alt=""
           />
           {verification === 'approved' && <abbr title="verified user">
@@ -205,7 +205,7 @@ const Navbar = () => {
                 cursor: "pointer",
                 maxWidth: "100%",
               }}
-              src={image === undefined ? "Profile.jpeg" : image}
+              src={(image !== undefined && image !== '') ? image : "Profile.jpeg"}
               alt="Profile"
             />
             <i
@@ -279,7 +279,7 @@ const Navbar = () => {
                   height: "150px",
                   width: "150px",
                 }}
-                src={image === undefined ? "Profile.jpeg" : image}
+                src={(image !== undefined && image !== '') ? image : "Profile.jpeg" }
                 alt="Profile"
               />
             </div>

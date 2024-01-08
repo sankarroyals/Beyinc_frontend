@@ -26,7 +26,7 @@ const App = () => {
   }, [])
 
   return (
-    <div style={{ width: '1300px', margin: 'auto' }}>
+    <div >
       <Suspense fallback={<div className="Loading">
         <img src="Loader.gif"/>
         <div className="Loading-Text">Loading...</div>
