@@ -2,6 +2,7 @@
 .update-container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     background-color: #f0f0f0;
     align-items: center;
 }
@@ -18,9 +19,9 @@
     align-items: center;
     background-color: #fff;
     border-radius: 10px;
-    min-width: 900px;
+    width: 1100px;
     margin: auto;
-    height: 220px;
+    
     padding: 20px;
     margin-top: 20px;
     gap:20px;
@@ -38,13 +39,12 @@
 }
 
 .update-form-container {
-    /* width: 75%; */
-    margin-top: 300px;
+    width: 1100px;
+    margin-top: 20px;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
     margin-bottom: 30px;
-    margin-right: 40px;
 }
 
 .update-form {
