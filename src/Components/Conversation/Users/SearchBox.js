@@ -59,7 +59,6 @@ const SearchBox = () => {
             "email": email,
             "form": {...form, pitchId: form?._id}
         }
-        setOpen(false)
         await ApiServices.addConversation(conversation).then((res) => {
             dispatch(getAllHistoricalConversations(email))
             console.log(res.data);
@@ -70,11 +69,12 @@ const SearchBox = () => {
                     visibile: "yes",
                 })
             )
+            setOpen(false)
         }).catch((err) => {
             console.log(err);
             dispatch(
                 setToast({
-                    message: `Error while sending Request to ${receiverMail}`,
+                    message: err?.response?.data,
                     bgColor: ToastColors.failure,
                     visibile: "yes",
                 })

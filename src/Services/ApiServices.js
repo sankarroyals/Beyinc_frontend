@@ -258,4 +258,19 @@ export const ApiServices = {
 
         })
     },
+
+
+
+    getAllRoles: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.get(`/role/getAllRoles`)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
 }
