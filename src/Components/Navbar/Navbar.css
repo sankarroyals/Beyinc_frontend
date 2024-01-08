@@ -3,7 +3,6 @@
     padding: 0;
 }
 .logo{
-   margin-right: 82%;
    font-size: 26px;
    font-weight: 600;
    color: #0b57d0;
@@ -24,8 +23,10 @@
     color: black;
     padding: 15px;
     font-weight: 600;
+    width: 1300px;
+    margin: auto;
     display: flex;
-    justify-content: flex-end; 
+    justify-content: space-between; 
     align-items: center; 
   }
 
@@ -237,4 +238,12 @@ cursor: pointer;
     background: #EAF1FB;
     border-radius: 15px;
     padding: 20px;
+}
+
+
+.navRight{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
 }

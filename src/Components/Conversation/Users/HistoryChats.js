@@ -23,11 +23,40 @@ const HistoryChats = () => {
     useEffect(() => {
         dispatch(getAllHistoricalConversations(email))
     }, [])
+
+
+    const handleMenuVisibile = (e) => {
+        if (e.target.classList[1] == 'fa-chevron-right') {
+            e.target.classList.remove('fa-chevron-right')
+            e.target.classList.add('fa-chevron-down')
+            document.getElementsByClassName(e.target.id)[0].style.display = 'block'
+            
+        } else {
+            e.target.classList.remove('fa-chevron-down')
+            e.target.classList.add('fa-chevron-right')
+            document.getElementsByClassName(e.target.id)[0].style.display = 'none'
+
+        }
+    }
+
     return (
         <div className='historyChats'>
-            <div>
+            <div className='statusHeader'>
+                <i class={`fas fa-chevron-right`} id='pending' onClick={handleMenuVisibile}></i>Pending
+            </div>
+            <div className='pending'>
                 {historicalConversations.length > 0 && historicalConversations.map((a) => (
-                    <IndividualHistory a={a} onlineEmails={onlineEmails} />
+                    a.status === 'pending' && <IndividualHistory a={a} onlineEmails={onlineEmails} status='pending' />
+                ))}
+            </div>
+
+            {/* approved */}
+            <div className='statusHeader'>
+                <i class={`fas fa-chevron-right`} id='approved' onClick={handleMenuVisibile}></i>Approved
+            </div>
+            <div className='approved'>
+                {historicalConversations.length > 0 && historicalConversations.map((a) => (
+                    a.status === 'approved' && <IndividualHistory a={a} onlineEmails={onlineEmails} status='approved' />
                 ))}
             </div>
         </div>

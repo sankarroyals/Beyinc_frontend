@@ -217,4 +217,31 @@ export const ApiServices = {
 
         })
     },
+
+
+    getUserRequest: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/getUserRequest`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    updateUserMessageRequest: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/updateMessageRequest`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
 }

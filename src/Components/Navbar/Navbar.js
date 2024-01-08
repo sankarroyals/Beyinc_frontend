@@ -14,6 +14,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import MessageIcon from '@mui/icons-material/Message';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
@@ -150,32 +151,39 @@ const Navbar = () => {
       style={{ display: email == undefined ? "none" : "flex" }}
     >
       <div className="logo">BEYINC</div>
-      <div>
-        <MessageIcon style={{ fontSize: '30px', cursor: 'pointer' }} onClick={() => {
-          navigate('/conversations')
-        }} />
-      </div>
-      <div
-        onClick={(e) => {
-          document
-            .getElementsByClassName("userDetails")[0]
-            .classList.toggle("showUserDetails");
-        }}
-      >
-        <img
-          className="Profile-img"
-          src={image === undefined ? "Profile.jpeg" : image}
-          alt=""
-        />
-        {verification === 'approved' && <abbr title="verified user">
+      <div className="navRight">
+        <div>
+          <MessageIcon style={{ fontSize: '30px', cursor: 'pointer' }} onClick={() => {
+            navigate('/conversations')
+          }} />
+        </div>
+        <div>
+          <NotificationsIcon style={{ fontSize: '30px', cursor: 'pointer' }} onClick={() => {
+            navigate('/notifications')
+          }} />
+        </div>
+        <div style={{position: 'relative'}}
+          onClick={(e) => {
+            document
+              .getElementsByClassName("userDetails")[0]
+              .classList.toggle("showUserDetails");
+          }}
+        >
           <img
-            src="checked.png"
-            height={20}
-            style={{ right: "20px", height: '13px', width: '13px' }}
-            alt="Your Alt Text"
-            className="successIcons"
+            className="Profile-img"
+            src={image === undefined ? "Profile.jpeg" : image}
+            alt=""
           />
-        </abbr>}
+          {verification === 'approved' && <abbr title="verified user">
+            <img
+              src="checked.png"
+              height={20}
+              style={{ right: "0", top: '0', height: '13px', width: '13px' }}
+              alt="Your Alt Text"
+              className="successIcons"
+            />
+          </abbr>}
+        </div>
       </div>
       <div className="userDetails" ref={userDetailsRef}>
         <div

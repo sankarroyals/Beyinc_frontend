@@ -4,6 +4,8 @@ import './searchBox.css'
 import { ApiServices } from '../../../Services/ApiServices'
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import { getAllHistoricalConversations } from '../../../redux/Conversationreducer/ConversationReducer'
+import { setToast } from '../../../redux/AuthReducers/AuthReducer';
+import { ToastColors } from '../../Toast/ToastColors';
 const SearchBox = () => {
     const [search, setSearch] = useState('')
     const allUsers = useSelector(state => state.conv.allUsers)
@@ -28,9 +30,32 @@ const SearchBox = () => {
         }
         await ApiServices.addConversation(conversation).then((res) => {
             dispatch(getAllHistoricalConversations(email))
+            dispatch(
+                setToast({
+                    message: `Request sent to ${receiver}`,
+                    bgColor: ToastColors.success,
+                    visibile: "yes",
+                })
+            )
         }).catch((err) => {
             console.log(err);
+            dispatch(
+                setToast({
+                    message: `Error while sending Request to ${receiver}`,
+                    bgColor: ToastColors.failure,
+                    visibile: "yes",
+                })
+            )
         })
+        setTimeout(() => {
+            dispatch(
+                setToast({
+                    message: "",
+                    bgColor: "",
+                    visibile: "no",
+                })
+            );
+        }, 4000);
         document.getElementsByClassName('newConversation')[0].classList.remove('show')
 
     }

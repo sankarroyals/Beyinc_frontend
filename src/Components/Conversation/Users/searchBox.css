@@ -54,7 +54,7 @@
 .onlineHolder{
     position: relative;
 }
-.online,.away{
+.online,.away, .pendingStatusIcon{
     width: 10px;
     height: 10px;
     background: gray;
@@ -65,4 +65,23 @@
 }
 .online {
     background: green;
+}
+.pendingStatusIcon{
+        background: none;
+
+top: -2px;
+
+}
+
+.statusHeader{
+    font-size: 14px;
+    margin: 15px 0px;
+}
+.fas{
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.approved, .pending {
+    display: none;
 }

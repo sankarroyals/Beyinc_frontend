@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { apicallloginDetails } from "./redux/AuthReducers/AuthReducer";
 import { ApiServices } from "./Services/ApiServices";
 import Conversations from "./Components/Conversation/Conversations";
+import Notifications from "./Components/Conversation/Notification/Notifications";
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
 const Login = React.lazy(() => import("./Components/Login/Login"));
@@ -25,7 +26,7 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <div style={{ width: '1300px', margin: 'auto' }}>
       <Suspense fallback={<div className="Loading">
         <img src="Loader.gif"/>
         <div className="Loading-Text">Loading...</div>
@@ -40,6 +41,8 @@ const App = () => {
           <Route path="/" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
           <Route path="/conversations" Component={AuthHoc(Conversations)} />
+          <Route path="/notifications" Component={AuthHoc(Notifications)} />
+
 
 
         </Routes>
