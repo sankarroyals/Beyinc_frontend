@@ -73,25 +73,7 @@ function TabPanel(props) {
         </div>
     );
 }
-function CustomTabPanel(props) {
-    const { children, value, index, ...other } = props;
 
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
 
 
 function a11yProps(index) {
@@ -118,6 +100,8 @@ const SearchBox = () => {
         position: ''
 
     })
+
+    const [defaultTrigger, setdefaultTrigger] = useState(false)
 
     const handleTeamMemberPic = (e) => {
         const file = e.target.files[0];
@@ -227,6 +211,7 @@ const SearchBox = () => {
 
     const addconversation = async (e) => {
         e.preventDefault();
+        e.target.disabled = true
         const conversation = {
             "senderId": email,
             "receiverId": receiverMail,
@@ -246,6 +231,8 @@ const SearchBox = () => {
                 })
             )
             setOpen(false)
+            setdefaultTrigger(!defaultTrigger)
+            e.target.disabled = false
         }).catch((err) => {
             console.log(err);
             dispatch(
@@ -255,6 +242,7 @@ const SearchBox = () => {
                     visibile: "yes",
                 })
             )
+            e.target.disabled = false
         })
         setTimeout(() => {
             dispatch(
@@ -275,6 +263,7 @@ const SearchBox = () => {
                 console.log(res.data);
                 if (res.data.length > 0) {
                     setForm({ ...res.data[0], pitchId: res.data[0]._id, changeStatus: '', tags: res.data[0].tags.join(',') })
+                    setTeamMembers(res.data[0].teamMembers)
                 }
             }).catch(err => {
                 dispatch(
@@ -297,7 +286,7 @@ const SearchBox = () => {
         }
         getDefault()
 
-    }, [email])
+    }, [email, defaultTrigger])
 
     const handleClickOutside = (event) => {
         if (
@@ -593,6 +582,9 @@ const SearchBox = () => {
                                     <div className='listedTeam'>
                                         {teamMembers.map((t, i) => (
                                             <div className='singleMember'>
+                                                {t?.memberPic?.secure_url !== undefined && <div>
+                                                    <img src={t.memberPic?.secure_url} alt="" />
+                                                </div>}
                                                 <div>{t.name}</div>
                                                 <div onClick={(e) => {
                                                     setTeamMembers(teamMembers.filter((f, j) => i !== j))

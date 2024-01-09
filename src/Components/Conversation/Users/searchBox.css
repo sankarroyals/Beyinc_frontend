@@ -140,6 +140,9 @@ select{
 .singleMember{
     background: rgb(242, 240, 240);
     padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     position: relative;
     border-radius: 10px;
     margin: 5px 0px;
@@ -159,5 +162,9 @@ select{
 .listedTeam{
     display: flex;
     gap: 5px;
+    flex-wrap: wrap;
+}
+textarea{
+    padding: 5px;
 }
 

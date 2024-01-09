@@ -84,3 +84,13 @@
 label{
     white-space: nowrap;
 }
+
+.notifySingleMember{
+    flex-direction: column;
+    align-items: center;
+}
+.viewSingleMember{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
