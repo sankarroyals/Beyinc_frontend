@@ -247,6 +247,9 @@ const Editprofile = () => {
         );
         document.getElementById("mobileVerify").style.display = "none";
         document.getElementById("mobileOtpInput").disabled = true;
+        document
+          .getElementsByClassName("mobile-verification")[0]
+          .classList.remove("showMobileVerification");
         // setmobileVerified(true);
         setInputs((prev) => ({ ...prev, mobileVerified: true }));
         document.getElementById("mobile").disabled = true;
@@ -392,7 +395,7 @@ const Editprofile = () => {
             ) : (
               name
             )}
-            <attr title="Edit name" style={{ borderRadius: "5px" }}>
+            <attr title="Edit Name" style={{ borderRadius: "5px" }}>
               <i
                 className="fas fa-pencil-alt"
                 onClick={() => {
@@ -434,25 +437,42 @@ const Editprofile = () => {
               />
               <br />
               <i className="fas fa-phone"></i> {mobile}{" "}
-              <img
-                src="verify.png"
-                style={{ width: "15px", height: "15px", marginLeft: "5px" }}
-              />
-              <i
-                className="fas fa-pencil-alt"
-                onClick={(e) => {
-                  document
-                    .getElementsByClassName("mobile-verification")[0]
-                    .classList.toggle("showMobileVerification");
-                }}
-              ></i>
+              {mobileVerified && (
+                <img
+                  src="verify.png"
+                  style={{ width: "15px", height: "15px", marginLeft: "5px" }}
+                />
+              )}
+              <attr title="Edit Mobile Number">
+                <i
+                  className="fas fa-pencil-alt"
+                  onClick={(e) => {
+                    document
+                      .getElementsByClassName("mobile-verification")[0]
+                      .classList.toggle("showMobileVerification");
+                  }}
+                ></i>
+              </attr>
               <div className="mobile-verification">
+                <div
+                  className="closeIcon"
+                  onClick={() => {
+                    document
+                      .getElementsByClassName("mobile-verification")[0]
+                      .classList.remove("showMobileVerification");
+                  }}
+                >
+                  <i className="fas fa-times Cross"></i>
+                </div>
                 <div className="input-container">
-                  <label style={{marginLeft: '30px'}}>Update Mobile Number</label>
+                  <label style={{ marginLeft: "30px" }}>
+                    Update Mobile Number
+                  </label>
                   <input
                     type="text"
                     className={
-                      mobile !== null && (mobile.length === 10 ? "valid" : "invalid")
+                      mobile !== null &&
+                      (mobile.length === 10 ? "valid" : "invalid")
                     }
                     name="mobile"
                     id="mobile"
