@@ -15,28 +15,36 @@ export const LoginAuth = (Component) => {
             setLoading(false)
         }, 1000)
         return (
-            email !== undefined ? <Navigate to='/' /> : loading ? <></> : <Component />
+            email !== undefined ? <Home /> : loading ? <></> : <Component />
         )
     } 
 }
 
 export const AdminDeciderHoc = (Component) => {
     return function WithHooks(props) {
+        const [loading, setLoading] = useState(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
         const { role } = useSelector(state => state.auth.loginDetails);
         return (
-            (role !== undefined && role == 'Admin') ? <Component /> : <Navigate to='/' /> 
+            (role !== undefined && role == 'Admin') ? <Component /> : loading ? <></> : <Home />
         )
     }
 }
 
 const AuthHoc = (Component) => {
     return function WithHooks(props) {
+        const [loading, setLoading] = useState(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
         const { email } = useSelector(
             (store) => store.auth.loginDetails
         );
 
         return(
-            email !== undefined ? <Component /> : <Navigate to='/login' /> 
+            email !== undefined ? <Component /> : loading ? <></> :<Login />
         )
     }
 }
