@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom/dist";
 import "./Editprofile.css";
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
+import { format } from "timeago.js";
 
 
 
@@ -52,6 +53,7 @@ const Editprofile = () => {
     isEmailValid,
     isMobileValid,
     isNameValid,
+    updatedAt,
   } = inputs;
 
   const [nameChanger, setNameChanger] = useState(false);
@@ -91,6 +93,7 @@ const Editprofile = () => {
       .then((res) => {
         setInputs((prev) => ({
           ...prev,
+          updatedAt: res.data.updatedAt,
           name: res.data.userName,
           mobile: res.data.phone,
           role: res.data.role,
@@ -405,7 +408,7 @@ const Editprofile = () => {
           <div
             style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
           >
-            Profile last updated -{" "}
+            Profile last updated -{format(updatedAt)}
           </div>
           <div
             style={{
