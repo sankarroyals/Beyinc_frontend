@@ -836,11 +836,13 @@ const Editprofile = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginLeft: "85px",
+              width: '25%',
+              gap: '10px',
+              marginLeft: '30px',
+              marginTop: '5px'
             }}
           >
             <button
-              style={{ width: "30% ", marginRight: "10px "  }}
               onClick={() => {
                 navigate(-1);
               }}
@@ -848,7 +850,7 @@ const Editprofile = () => {
               Back
             </button>
             <button
-              style={{ width: "30%" }}
+             
               type="submit"
               disabled={!isFormValid}
               onClick={update}
