@@ -6,6 +6,7 @@ import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import { getAllHistoricalConversations } from '../../../redux/Conversationreducer/ConversationReducer'
 import { setToast } from '../../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../../Toast/ToastColors';
+import CloseIcon from '@mui/icons-material/Close'
 import { Box, Dialog, DialogContent, DialogContentText, DialogTitle, Tab, Tabs, Typography } from '@mui/material';
 
 const gridCSS = {
@@ -108,6 +109,49 @@ const SearchBox = () => {
         setValue(newValue);
     };
 
+    const [teamMembers, setTeamMembers] = useState([])
+    const [singleTeamMember, setSingleTeamMember] = useState({
+        memberPic: '',
+        name: '',
+        bio: '',
+        socialLink: '',
+        position: ''
+
+    })
+
+    const handleTeamMemberPic = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setSingleTeamMember((prev) => ({ ...prev, memberPic: reader.result }));
+            setForm((prev) => ({ ...prev, changeStatus: 'change' }));
+        };
+    }
+
+    const saveSingleMember = () => {
+        setTeamMembers(prev => [...prev, singleTeamMember])
+        setSingleTeamMember({
+            memberPic: '',
+            name: '',
+            bio: '',
+            socialLink: '',
+            position: ''
+
+        })
+        console.log(singleTeamMember);
+    }
+
+    const cancelSingleMember = () => {
+        setSingleTeamMember({
+            memberPic: '',
+            name: '',
+            bio: '',
+            socialLink: '',
+            position: ''
+
+        })
+    }
 
     const [search, setSearch] = useState('')
     const allUsers = useSelector(state => state.conv.allUsers)
@@ -138,7 +182,8 @@ const SearchBox = () => {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value, changeStatus: 'change' }));
     };
 
-    const handleImage = (e) => {
+
+    const handlePitchBusiness = (e) => {
         const file = e.target.files[0];
         setFileBase(file);
     };
@@ -150,6 +195,35 @@ const SearchBox = () => {
         };
     };
 
+    const handlePitchFinancials = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setForm((prev) => ({ ...prev, changeStatus: 'change', financials: reader.result }));
+        };
+    };
+
+
+    const handlePitchLogo = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setForm((prev) => ({ ...prev, changeStatus: 'change', logo: reader.result }));
+        };
+    };
+
+
+    const handleBannerPic = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setForm((prev) => ({ ...prev, changeStatus: 'change', banner: reader.result }));
+        };
+    };
+
 
     const addconversation = async (e) => {
         e.preventDefault();
@@ -158,7 +232,8 @@ const SearchBox = () => {
             "receiverId": receiverMail,
             "pitch": file,
             "email": email,
-            "form": { ...form, pitchId: form?._id }
+            "form": { ...form, pitchId: form?._id },
+            'teamMembers': teamMembers
         }
         await ApiServices.addConversation(conversation).then((res) => {
             dispatch(getAllHistoricalConversations(email))
@@ -290,8 +365,9 @@ const SearchBox = () => {
 
 
                 <DialogContent style={{ height: '90vh', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                    <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setOpen(false)}><CloseIcon /></Box>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'space-between', marginTop: "20px", height: "22px", marginBottom: "7.5px", border: "none", alignItems: 'center' }}>
-                        <Tabs value={value}
+                        <Tabs value={value} className='pitchTabs'
                             textColor="primary"
                             indicatorColor="secondary"
                             onChange={handleChange} aria-label="basic tabs example"
@@ -333,6 +409,7 @@ const SearchBox = () => {
                                 <div>
                                     <select name="country" value={form?.country}
                                         onChange={handleChanges}>
+                                        <option value="">Select</option>
                                         <option value="india">India</option>
                                         <option value="pakisthan">Pakisthan</option>
                                         <option value="canada">Canada</option>
@@ -346,6 +423,7 @@ const SearchBox = () => {
                                 <div>
                                     <select name="industry1" value={form?.industry1}
                                         onChange={handleChanges}>
+                                        <option value="">Select</option>
                                         <option value="tea">Tea</option>
                                         <option value="charcoal">Charcoal</option>
                                     </select>
@@ -357,6 +435,8 @@ const SearchBox = () => {
                                 <div>
                                     <select name="stage" value={form?.stage}
                                         onChange={handleChanges}>
+                                        <option value="">Select</option>
+
                                         <option value="pre/startup">Pre/Startup</option>
                                         <option value="medium">Medium</option>
                                     </select>
@@ -368,7 +448,11 @@ const SearchBox = () => {
                                 <div>
                                     <select name="idealInvestor" value={form?.idealInvestor}
                                         onChange={handleChanges}>
+                                        <option value="">Select</option>
+
                                         <option value="investor">Investor Role</option>
+                                        <option value="mentor">mentor Role</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -380,7 +464,7 @@ const SearchBox = () => {
                                     name="previousRoundRaise"
                                     value={form?.previousRoundRaise}
                                     onChange={handleChanges}
-                                    placeholder="Enter tags for pitch *"
+                                    placeholder="Enter how much did you raise in previous? *"
                                 /></div>
                             </div>
 
@@ -391,7 +475,7 @@ const SearchBox = () => {
                                     name="raising"
                                     value={form?.raising}
                                     onChange={handleChanges}
-                                    placeholder="Enter tags for pitch *"
+                                    placeholder="Enter how much are you raising in total?"
                                 /></div>
                             </div>
 
@@ -402,7 +486,7 @@ const SearchBox = () => {
                                     name="raised"
                                     value={form?.raised}
                                     onChange={handleChanges}
-                                    placeholder="Enter tags for pitch *"
+                                    placeholder="Enter how much of this total you have raised?"
                                 /></div>
                             </div>
 
@@ -413,30 +497,11 @@ const SearchBox = () => {
                                     name="minimumInvestment"
                                     value={form?.minimumInvestment}
                                     onChange={handleChanges}
-                                    placeholder="Enter tags for pitch *"
+                                    placeholder="Enter the minimum investment per investor?"
                                 /></div>
                             </div>
 
-                            <div>
-                                <div><label>Tags seperated with commas(ex: cost, fee,)*</label></div>
-                                <div><input
-                                    type="text"
-                                    name="tags"
-                                    value={form?.tags}
-                                    onChange={handleChanges}
-                                    placeholder="Enter tags for pitch *"
-                                /></div>
-                            </div>
-                            <div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><label>Pitch Docs*</label>{form?.pitch?.secure_url !== undefined && form?.pitch?.secure_url !== '' &&
-                                    <a href={form?.pitch.secure_url} style={{ display: 'inline-block' }}>previous docs</a>}</div>
-                                <div>
-                                    <input
-                                        type="file"
-                                        name="name"
-                                        onChange={handleImage}
-                                    /></div>
-                            </div>
+                            
 
 
                         </div>
@@ -452,7 +517,7 @@ const SearchBox = () => {
                                     name="shortSummary"
                                     value={form?.shortSummary}
                                     onChange={handleChanges}
-                                   rows={10} cols={50}
+                                    rows={10} cols={50}
                                 ></textarea></div>
                             </div>
                             <div className='pitchformFields'>
@@ -495,25 +560,204 @@ const SearchBox = () => {
                                     rows={10} cols={80}
                                 ></textarea></div>
                             </div>
+                            <div>
+                                <div><label>Tags seperated with commas(ex: cost, fee,)*</label></div>
+                                <div><input
+                                    type="text"
+                                    name="tags"
+                                    value={form?.tags}
+                                    onChange={handleChanges}
+                                    placeholder="Enter tags for pitch *"
+                                /></div>
+                            </div>
                         </div>
 
                     </TabPanel>
+
+                    <TabPanel style={{ padding: 0 }} className="forecast-container" value={value} index={2}>
+
+                        <div className='pitchForm'>
+                            <div className='pitchformFields'>
+                                <div><label>Team Overview</label></div>
+                                <div><textarea
+                                    type="text"
+                                    name="teamOverview"
+                                    value={form?.teamOverview}
+                                    onChange={handleChanges}
+                                    rows={10} cols={70}
+                                ></textarea></div>
+                            </div>
+                            <div className='pitchformFields'>
+                                <div><label>Team Members</label></div>
+                                {teamMembers.length > 0 &&
+                                    <div className='listedTeam'>
+                                        {teamMembers.map((t, i) => (
+                                            <div className='singleMember'>
+                                                <div>{t.name}</div>
+                                                <div onClick={(e) => {
+                                                    setTeamMembers(teamMembers.filter((f, j) => i !== j))
+                                                }}><CloseIcon className='deleteMember' /></div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                }
+                                <div className='addTeamMembers'>
+
+                                    <div className='teamInputs'>
+                                        <div>
+                                            <div><label>Upload Photo*</label></div>
+                                            <input
+                                                type="file"
+                                                name="name"
+                                                onChange={handleTeamMemberPic}
+                                            />
+                                        </div>
+                                        <div>
+                                            <div><label>Name*</label></div>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                placeholder='Name'
+                                                value={singleTeamMember?.name}
+                                                onChange={(e) => {
+                                                    setSingleTeamMember(prev => ({ ...prev, name: e.target.value }))
+                                                    setForm((prev) => ({ ...prev, changeStatus: 'change'}));
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <div><label>Bio</label></div>
+                                            <input
+                                                type="text"
+                                                name="bio"
+                                                placeholder='Bio'
+                                                value={singleTeamMember?.bio}
+                                                onChange={(e) => {
+                                                    setSingleTeamMember(prev => ({ ...prev, bio: e.target.value }))
+                                                    setForm((prev) => ({ ...prev, changeStatus: 'change' }));
+                                                }
+                                                }
+                                            />
+                                        </div>
+                                        <div>
+                                            <div><label>Social Link</label></div>
+                                            <input
+                                                type="text"
+                                                name="socialLink"
+                                                placeholder='Social Links'
+                                                value={singleTeamMember?.socialLink}
+                                                onChange={(e) => {
+                                                    setSingleTeamMember(prev => ({ ...prev, socialLink: e.target.value }))
+                                                    setForm((prev) => ({ ...prev, changeStatus: 'change' }));
+                                                }
+                                                }
+                                            />
+                                        </div>
+                                        <div>
+                                            <div><label>Position</label></div>
+                                            <input
+                                                type="text"
+                                                name="position"
+                                                placeholder='position'
+                                                value={singleTeamMember?.position}
+                                                onChange={(e) => {
+                                                    setSingleTeamMember(prev => ({ ...prev, position: e.target.value }))
+                                                    setForm((prev) => ({ ...prev, changeStatus: 'change' }));
+                                                }
+                                                }
+                                            />
+                                        </div>
+                                        <div style={{ marginBottom: '-20px' }}>
+                                            <button onClick={saveSingleMember} disabled={singleTeamMember.name == '' || singleTeamMember.memberPic == ''}>Save</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </TabPanel>
+
+
+                    <TabPanel style={{ padding: 0 }} className="forecast-container" value={value} index={3}>
+
+                        <div className='pitchForm'>
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><label>Logo*</label>{form?.logo?.secure_url !== undefined && form?.logo?.secure_url !== '' &&
+                                    <a href={form?.logo.secure_url} style={{ display: 'inline-block' }}>previous data</a>}</div>
+                                <div>
+                                    <input
+                                        type="file"
+                                        name="name"
+                                        onChange={handlePitchLogo}
+                                    /></div>
+                            </div>
+
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><label>Banner Image</label>{form?.banner?.secure_url !== undefined && form?.banner?.secure_url !== '' &&
+                                    <a href={form?.banner.secure_url} style={{ display: 'inline-block' }}>previous data</a>}</div>
+                                <div>
+                                    <input
+                                        type="file"
+                                        name="name"
+                                        onChange={handleBannerPic}
+                                    /></div>
+                            </div>
+                            
+                        </div>
+
+                    </TabPanel>
+
+
+                    <TabPanel style={{ padding: 0 }} className="forecast-container" value={value} index={4}>
+
+                        <div className='pitchForm'>
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><label>Pitch Docs/Business Plan*</label>{form?.pitch?.secure_url !== undefined && form?.pitch?.secure_url !== '' &&
+                                    <a href={form?.pitch.secure_url} style={{ display: 'inline-block' }}>previous data</a>}</div>
+                                <div>
+                                    <input
+                                        type="file"
+                                        name="name"
+                                        onChange={handlePitchBusiness}
+                                    /></div>
+                            </div>
+
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><label>Financials*</label>{form?.financials?.secure_url !== undefined && form?.financials?.secure_url !== '' &&
+                                    <a href={form?.financials.secure_url} style={{ display: 'inline-block' }}>previous data</a>}</div>
+                                <div>
+                                    <input
+                                        type="file"
+                                        name="name"
+                                        onChange={handlePitchFinancials}
+                                    /></div>
+                            </div>
+                            
+                        </div>
+
+                    </TabPanel>
+
+
+
                     {value == 4 ? <div className='pitchSubmit'>
                         <button type="submit" onClick={addconversation}>
                             Send request
                         </button>
                     </div> : <div className='pitchSubmit'>
-                            <button type="submit" onClick={() => {
-                                if (value < 4) {
-                                    setValue(prev=>prev+1)
-                                }
+                        <button type="submit" onClick={() => {
+                            if (value < 4) {
+                                setValue(prev => prev + 1)
+                            }
                         }}>
                             Next
                         </button>
                     </div>}
                 </DialogContent>
             </Dialog>
-        </div>
+        </div >
     )
 }
 

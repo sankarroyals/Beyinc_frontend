@@ -87,7 +87,6 @@ top: -2px;
 }
 
 
-
 .tabs:hover{
     background: none !important;
 }
@@ -101,11 +100,22 @@ top: -2px;
     flex-wrap: wrap;
     column-gap: 20px;
     /* min-height: 62vh; */
-    max-height: 58vh;
+    max-height: 55vh;
     overflow-y: scroll;
+}
+
+.pitchTabs{
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: wrap;
 }
 select{
     min-width: 360px !important;
+}
+
+.addTeamMembers{
+    border: 1px dotted rgb(200, 190, 190);
+    padding: 5px;
 }
 
 
@@ -116,5 +126,38 @@ select{
    align-items: flex-end;
    flex: 1;
    justify-content: flex-end;
+}
+
+
+.teamInputs{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+.singleMember{
+    background: rgb(242, 240, 240);
+    padding: 15px;
+    position: relative;
+    border-radius: 10px;
+    margin: 5px 0px;
+}
+
+.deleteMember{
+    position: absolute;
+    top: -5px;
+    right: -3px;
+    cursor: pointer;
+    font-size: 15px !important;
+    background: rgba(255, 0, 0, 0.662);
+    color: white;
+    border-radius: 50%;
+}
+
+.listedTeam{
+    display: flex;
+    gap: 5px;
 }
 
