@@ -55,7 +55,6 @@ const Editprofile = () => {
 
   const [nameChanger, setNameChanger] = useState(false);
   const [roles, setRoles] = useState([]);
-  
 
   const [changeResume, setchangeDocuments] = useState({
     resume: "",
@@ -405,8 +404,11 @@ const Editprofile = () => {
           <div
             style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
           >
-            Profile last updated - <span style={{color: 'black'}}><i class="fas fa-clock"></i>
-            {format(updatedAt)}</span>
+            Profile last updated -{" "}
+            <span style={{ color: "black" }}>
+              <i class="fas fa-clock"></i>
+              {format(updatedAt)}
+            </span>
           </div>
           <div
             style={{
@@ -431,14 +433,76 @@ const Editprofile = () => {
                 style={{ width: "15px", height: "15px", marginLeft: "5px" }}
               />
               <br />
-              <i className="fas fa-phone"></i> {mobile}  {" "} 
+              <i className="fas fa-phone"></i> {mobile}{" "}
               <img
                 src="verify.png"
                 style={{ width: "15px", height: "15px", marginLeft: "5px" }}
               />
               <i
                 className="fas fa-pencil-alt"
+                onClick={(e) => {
+                  document
+                    .getElementsByClassName("mobile-verification")[0]
+                    .classList.toggle("showMobileVerification");
+                }}
               ></i>
+              <div className="mobile-verification">
+                <div className="input-container">
+                  <label style={{marginLeft: '30px'}}>Update Mobile Number</label>
+                  <input
+                    type="text"
+                    className={
+                      mobile !== null && (mobile.length === 10 ? "valid" : "invalid")
+                    }
+                    name="mobile"
+                    id="mobile"
+                    value={mobile}
+                    onChange={handleChanges}
+                    placeholder="Mobile Number"
+                  />
+                  {mobileVerified === true}
+
+                  {!isMobileOtpSent && isMobileValid && (
+                    <button
+                      type="button"
+                      className="otp_Button"
+                      onClick={sendMobileOtp}
+                    >
+                      Get OTP
+                    </button>
+                  )}
+                </div>
+
+                {isMobileOtpSent && mobileVerified !== true && (
+                  <>
+                    <div className="input-container">
+                      <input
+                        type="text"
+                        className={
+                          mobileOtp !== null &&
+                          (mobileOtp.length === 6 ? "valid" : "invalid")
+                        }
+                        name="mobileOtp"
+                        value={mobileOtp}
+                        onChange={handleChanges}
+                        placeholder="Enter Mobile OTP"
+                        id="mobileOtpInput"
+                      />
+                      {mobileOtp !== null && mobileOtp.length === 6 && (
+                        <button
+                          type="button"
+                          className="otp_Button"
+                          id="mobileVerify"
+                          onClick={verifyMobileOtp}
+                          style={{ whiteSpace: "noWrap" }}
+                        >
+                          Verify OTP
+                        </button>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -585,71 +649,6 @@ const Editprofile = () => {
               placeholder="Full Name*"
             />
           </div> */}
-
-          <div className="input-container">
-            <label>Mobile</label>
-            <input
-              type="text"
-              // className={
-              //   mobile !== null && (mobile.length === 10 ? "valid" : "invalid")
-              // }
-              name="mobile"
-              id="mobile"
-              value={mobile}
-              onChange={handleChanges}
-              placeholder="Mobile Number" 
-           /> 
-          {mobileVerified === true && (
-              <img
-                src="checked.png"
-                height={20}
-                alt="Your Alt Text"
-                className="successIcons"
-              />
-            )}
-
-            {!isMobileOtpSent && isMobileValid && (
-              <button
-                type="button"
-                className="otp_button"
-                onClick={sendMobileOtp}
-              >
-                Get OTP
-              </button>
-            )}
-          </div>
-
-          {isMobileOtpSent && mobileVerified !== true && (
-            <>
-              <div className="input-container">
-                <input
-                  type="text"
-                  className={
-                    mobileOtp !== null &&
-                    (mobileOtp.length === 6 ? "valid" : "invalid")
-                  }
-                  name="mobileOtp"
-                  value={mobileOtp}
-                  onChange={handleChanges}
-                  placeholder="Enter Mobile OTP"
-                  id="mobileOtpInput"
-                />
-                {mobileOtp !== null && mobileOtp.length === 6 && (
-                  <button
-                    type="button"
-                    className="otp_button"
-                    id="mobileVerify"
-                    onClick={verifyMobileOtp}
-                    style={{ whiteSpace: "noWrap" }}
-                  >
-                    Verify OTP
-                  </button>
-                )}
-              </div>
-            </>
-          )}
-
-
 
           <div
             style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
@@ -842,10 +841,10 @@ const Editprofile = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              width: '25%',
-              gap: '10px',
-              marginLeft: '30px',
-              marginTop: '5px'
+              width: "25%",
+              gap: "10px",
+              marginLeft: "30px",
+              marginTop: "5px",
             }}
           >
             <button
@@ -855,12 +854,7 @@ const Editprofile = () => {
             >
               Back
             </button>
-            <button
-             
-              type="submit"
-              disabled={!isFormValid}
-              onClick={update}
-            >
+            <button type="submit" disabled={!isFormValid} onClick={update}>
               Send for Approval
             </button>
           </div>
