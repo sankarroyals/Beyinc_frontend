@@ -1,13 +1,14 @@
 import React, { Suspense, useEffect }from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css'
-import AuthHoc, { LoginAuth } from "./AuthHoc";
+import AuthHoc, { AdminDeciderHoc, LoginAuth } from "./AuthHoc";
 import Toast from "./Components/Toast/Toast";
 import { useDispatch } from "react-redux";
 import { apicallloginDetails } from "./redux/AuthReducers/AuthReducer";
 import { ApiServices } from "./Services/ApiServices";
 import Conversations from "./Components/Conversation/Conversations";
 import Notifications from "./Components/Conversation/Notification/Notifications";
+import PitchDecider from "./Components/Admin/pitchDecider/PitchDecider";
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
 const Login = React.lazy(() => import("./Components/Login/Login"));
@@ -42,6 +43,8 @@ const App = () => {
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
           <Route path="/conversations" Component={AuthHoc(Conversations)} />
           <Route path="/notifications" Component={AuthHoc(Notifications)} />
+          <Route path="/pitchs" Component={AdminDeciderHoc(PitchDecider)} />
+
 
 
 
