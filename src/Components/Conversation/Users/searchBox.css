@@ -85,3 +85,36 @@ top: -2px;
 .approved, .pending {
     display: none;
 }
+
+
+
+.tabs:hover{
+    background: none !important;
+}
+
+.pitchForm{
+    /* padding-top: 20px; */
+    width: 90%;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    /* min-height: 62vh; */
+    max-height: 58vh;
+    overflow-y: scroll;
+}
+select{
+    min-width: 360px !important;
+}
+
+
+
+.pitchSubmit {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+   flex: 1;
+   justify-content: flex-end;
+}
+
