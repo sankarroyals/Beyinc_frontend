@@ -19,7 +19,8 @@
     align-items: center;
     background-color: #fff;
     border-radius: 10px;
-    width: 450px;
+    width: 1200px;
+    height: 230px;
     margin: auto;
     padding: 20px;
     margin-top: 20px;
@@ -38,12 +39,10 @@
 }
 
 .name{
-    width: 50% !important;
+    width: 25% !important;
     height: 2px !important;
     border: 1px solid green;
 }
-
-
 
 .resume{
     border: 1px dashed grey;
@@ -53,14 +52,6 @@
     width: 300px;
     
 }
-
-.resume>input[type="file"]{
-    /* opacity: 0; */
-    /* width: 100% !important; */
- /* padding: 25px !important; */
-}
-
-
 
 .profile-content{
   flex: 1; 

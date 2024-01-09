@@ -13,9 +13,6 @@ import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
 
-
-
-
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
     (store) => store.auth.loginDetails
@@ -395,7 +392,7 @@ const Editprofile = () => {
             ) : (
               name
             )}
-            <attr title='Edit name' style={{ borderRadius: '5px' }}>
+            <attr title="Edit name" style={{ borderRadius: "5px" }}>
               <i
                 className="fas fa-pencil-alt"
                 onClick={() => {
@@ -403,12 +400,12 @@ const Editprofile = () => {
                 }}
               ></i>
             </attr>
-
           </div>
           <div
             style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
           >
-            Profile last updated -{format(updatedAt)}
+            Profile last updated - <span style={{color: 'black'}}><i class="fas fa-clock"></i>
+            {format(updatedAt)}</span>
           </div>
           <div
             style={{
@@ -647,9 +644,14 @@ const Editprofile = () => {
               </div>
             </>
           )} */}
-          <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'center'}}>
+
+          <div
+            style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
+          >
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
                 <label>Resume</label>
                 {oldDocs.resume !== "" &&
                   oldDocs.resume !== undefined &&
@@ -660,7 +662,12 @@ const Editprofile = () => {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <img style={{height: '20px', width: '20px'}}
+                        <img
+                          style={{
+                            marginLeft: "260px",
+                            height: "30px",
+                            width: "30px",
+                          }}
                           src="view.png"
                           onMouseEnter={() => setShowPreviousFile(true)}
                           onMouseLeave={() => setShowPreviousFile(false)}
@@ -669,59 +676,80 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
-
-
-                <input className="resume"
-                  type="file"
-                  name="resume"
-                  onChange={handleResume}
-                />
-                
-
-
-
-            </div>
-            <div>
-              <label>Acheivements</label>
-              {oldDocs.acheivements !== "" &&
-                oldDocs.acheivements !== undefined &&
-                Object.keys(oldDocs.acheivements).length !== 0 && (
-                  <a
-                    href={oldDocs.acheivements?.secure_url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <img
-                      src="view.png"
-                      onMouseEnter={() => setShowPreviousFile(true)}
-                      onMouseLeave={() => setShowPreviousFile(false)}
-                    />
-                  </a>
-                )}
               <input
-                type="file"
                 className="resume"
-                name="acheivements"
+                type="file"
+                name="resume"
                 onChange={handleResume}
               />
             </div>
+
             <div>
-              <label>Degree</label>
-              {oldDocs.degree !== "" &&
-                oldDocs.degree !== undefined &&
-                Object.keys(oldDocs.degree).length !== 0 && (
-                  <a
-                    href={oldDocs.degree?.secure_url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <img
-                      src="view.png"
-                      onMouseEnter={() => setShowPreviousFile(true)}
-                      onMouseLeave={() => setShowPreviousFile(false)}
-                    />
-                  </a>
-                )}
+              <div>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <label>Acheivements</label>
+                  {oldDocs.acheivements !== "" &&
+                    oldDocs.acheivements !== undefined &&
+                    Object.keys(oldDocs.acheivements).length !== 0 && (
+                      <attr title="view previous acheivements">
+                        <a
+                          href={oldDocs.acheivements?.secure_url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <img
+                            style={{
+                              marginLeft: "210px",
+                              height: "30px",
+                              width: "30px",
+                            }}
+                            src="view.png"
+                            onMouseEnter={() => setShowPreviousFile(true)}
+                            onMouseLeave={() => setShowPreviousFile(false)}
+                          />
+                        </a>
+                      </attr>
+                    )}
+                </div>
+                <input
+                  type="file"
+                  className="resume"
+                  name="acheivements"
+                  onChange={handleResume}
+                />
+              </div>
+            </div>
+
+            <div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <label>Degree</label>
+                {oldDocs.degree !== "" &&
+                  oldDocs.degree !== undefined &&
+                  Object.keys(oldDocs.degree).length !== 0 && (
+                    <attr title="view previous degree ">
+                      <a
+                        href={oldDocs.degree?.secure_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          style={{
+                            marginLeft: "260px",
+                            height: "30px",
+                            width: "30px",
+                          }}
+                          src="view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
+                      </a>
+                    </attr>
+                  )}
+              </div>
               <input
                 type="file"
                 className="resume"
@@ -729,23 +757,35 @@ const Editprofile = () => {
                 onChange={handleResume}
               />
             </div>
+
             <div>
-              <label>Expertise</label>
-              {oldDocs.expertise !== "" &&
-                oldDocs.expertise !== undefined &&
-                Object.keys(oldDocs.expertise).length !== 0 && (
-                  <a
-                    href={oldDocs.expertise?.secure_url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <img
-                      src="view.png"
-                      onMouseEnter={() => setShowPreviousFile(true)}
-                      onMouseLeave={() => setShowPreviousFile(false)}
-                    />
-                  </a>
-                )}
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <label>Expertise</label>
+                {oldDocs.expertise !== "" &&
+                  oldDocs.expertise !== undefined &&
+                  Object.keys(oldDocs.expertise).length !== 0 && (
+                    <attr title="view previous expertise ">
+                      <a
+                        href={oldDocs.expertise?.secure_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          style={{
+                            marginLeft: "250px",
+                            height: "30px",
+                            width: "30px",
+                          }}
+                          src="view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
+                      </a>
+                    </attr>
+                  )}
+              </div>
               <input
                 type="file"
                 className="resume"
@@ -753,23 +793,35 @@ const Editprofile = () => {
                 onChange={handleResume}
               />
             </div>
+
             <div>
-              <label>Working</label>
-              {oldDocs.working !== "" &&
-                oldDocs.working !== undefined &&
-                Object.keys(oldDocs.working).length !== 0 && (
-                  <a
-                    href={oldDocs.working?.secure_url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <img
-                      src="view.png"
-                      onMouseEnter={() => setShowPreviousFile(true)}
-                      onMouseLeave={() => setShowPreviousFile(false)}
-                    />
-                  </a>
-                )}
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <label>Working</label>
+                {oldDocs.working !== "" &&
+                  oldDocs.working !== undefined &&
+                  Object.keys(oldDocs.working).length !== 0 && (
+                    <attr title="view previous working ">
+                      <a
+                        href={oldDocs.working?.secure_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          style={{
+                            marginLeft: "260px",
+                            height: "30px",
+                            width: "30px",
+                          }}
+                          src="view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
+                      </a>
+                    </attr>
+                  )}
+              </div>
               <input
                 type="file"
                 className="resume"
@@ -778,12 +830,17 @@ const Editprofile = () => {
               />
             </div>
           </div>
-          
-          
 
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '85px' }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginLeft: "85px",
+            }}
+          >
             <button
-              style={{ width: "30%", marginRight: "10px" }}
+              style={{ width: "30% ", marginRight: "10px "  }}
               onClick={() => {
                 navigate(-1);
               }}
@@ -796,7 +853,7 @@ const Editprofile = () => {
               disabled={!isFormValid}
               onClick={update}
             >
-              Submit
+              Send for Approval
             </button>
           </div>
         </form>
