@@ -11,11 +11,14 @@ import { useNavigate } from "react-router-dom/dist";
 import "./Editprofile.css";
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
+import { format } from "timeago.js";
 
 const Editprofile = () => {
-  const { email, role, userName } = useSelector(
+  const { email, role, userName, image, phone } = useSelector(
     (store) => store.auth.loginDetails
   );
+
+  const [showPreviousFile, setShowPreviousFile] = useState(false);
 
   const [inputs, setInputs] = useState({
     email: null,
@@ -47,22 +50,25 @@ const Editprofile = () => {
     isEmailValid,
     isMobileValid,
     isNameValid,
+    updatedAt,
   } = inputs;
-  const [roles, setRoles] = useState([])
+
+  const [nameChanger, setNameChanger] = useState(false);
+  const [roles, setRoles] = useState([]);
 
   const [changeResume, setchangeDocuments] = useState({
-    resume: '',
-    expertise: '',
-    acheivements: '',
-    working: '',
-    degree: ''
+    resume: "",
+    expertise: "",
+    acheivements: "",
+    working: "",
+    degree: "",
   });
   const [oldDocs, setOldDocs] = useState({
-    resume: '',
-    expertise: '',
-    acheivements: '',
-    working: '',
-    degree: ''
+    resume: "",
+    expertise: "",
+    acheivements: "",
+    working: "",
+    degree: "",
   });
   const handleResume = (e) => {
     const file = e.target.files[0];
@@ -72,7 +78,10 @@ const Editprofile = () => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setchangeDocuments((prev) => ({ ...prev, [e.target.name]: reader.result }));
+      setchangeDocuments((prev) => ({
+        ...prev,
+        [e.target.name]: reader.result,
+      }));
     };
   };
 
@@ -81,12 +90,13 @@ const Editprofile = () => {
       .then((res) => {
         setInputs((prev) => ({
           ...prev,
+          updatedAt: res.data.updatedAt,
           name: res.data.userName,
           mobile: res.data.phone,
           role: res.data.role,
           mobileVerified: true,
         }));
-        
+
         if (res.data.documents !== undefined) {
           setOldDocs((prev) => ({
             ...prev,
@@ -95,17 +105,16 @@ const Editprofile = () => {
             acheivements: res.data.documents.acheivements,
             working: res.data.documents.working,
             degree: res.data.documents.degree,
-          }))
+          }));
           setchangeDocuments((prev) => ({
             ...prev,
-            resume: res.data.documents?.resume || '',
-            expertise: res.data.documents?.expertise || '',
-            acheivements: res.data.documents?.acheivements || '',
-            working: res.data.documents?.working || '',
-            degree: res.data.documents?.degree || '',
-          }))
+            resume: res.data.documents?.resume || "",
+            expertise: res.data.documents?.expertise || "",
+            acheivements: res.data.documents?.acheivements || "",
+            working: res.data.documents?.working || "",
+            degree: res.data.documents?.degree || "",
+          }));
         }
-        
       })
       .catch((error) => {
         dispatch(
@@ -134,7 +143,11 @@ const Editprofile = () => {
         ...prev,
         isMobileValid: /^[0-9]{10}$/.test(e.target.value),
       }));
-      setInputs((prev) => ({ ...prev, mobileVerified: false, isMobileOtpSent: false}));
+      setInputs((prev) => ({
+        ...prev,
+        mobileVerified: false,
+        isMobileOtpSent: false,
+      }));
     }
   };
 
@@ -234,9 +247,12 @@ const Editprofile = () => {
         );
         document.getElementById("mobileVerify").style.display = "none";
         document.getElementById("mobileOtpInput").disabled = true;
+        document
+          .getElementsByClassName("mobile-verification")[0]
+          .classList.remove("showMobileVerification");
         // setmobileVerified(true);
         setInputs((prev) => ({ ...prev, mobileVerified: true }));
-        document.getElementById('mobile').disabled = true;
+        document.getElementById("mobile").disabled = true;
         if (name != "") {
           setInputs((prev) => ({ ...prev, isNameValid: true }));
         }
@@ -268,7 +284,8 @@ const Editprofile = () => {
       email: email,
       userName: name,
       phone: mobile,
-      role: role, documents: changeResume
+      role: role,
+      documents: changeResume,
     })
       .then((res) => {
         dispatch(
@@ -292,16 +309,16 @@ const Editprofile = () => {
           isEmailValid: null,
           isMobileValid: null,
           isNameValid: null,
-        })
+        });
         localStorage.setItem("user", JSON.stringify(res.data));
         dispatch(setLoginData(jwtDecode(res.data.accessToken)));
-        navigate('/')
+        navigate("/");
       })
       .catch((err) => {
         e.target.disabled = false;
         dispatch(
           setToast({
-            message: 'Error occured when sending profile to approval',
+            message: "Error occured when sending profile to approval",
             bgColor: ToastColors.failure,
             visibile: "yes",
           })
@@ -327,32 +344,202 @@ const Editprofile = () => {
   //   }, 1000);
   // };
 
-  const isFormValid = mobileVerified && (isNameValid || oldDocs.resume !== '' || oldDocs.expertise !== '' || oldDocs.acheivements !== '' || oldDocs.working !== '' || oldDocs.degree !== '' || changeResume.resume !== '' || changeResume.expertise !== '' || changeResume.acheivements !== '' || changeResume.working !== '' || changeResume.degree !== '');
+  const isFormValid =
+    mobileVerified &&
+    (isNameValid ||
+      oldDocs.resume !== "" ||
+      oldDocs.expertise !== "" ||
+      oldDocs.acheivements !== "" ||
+      oldDocs.working !== "" ||
+      oldDocs.degree !== "" ||
+      changeResume.resume !== "" ||
+      changeResume.expertise !== "" ||
+      changeResume.acheivements !== "" ||
+      changeResume.working !== "" ||
+      changeResume.degree !== "");
 
   const handleChangeRadio = (e) => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
   };
   useEffect(() => {
     ApiServices.getAllRoles().then((res) => {
-      setRoles(res.data)
-    })
-  }, [])
+      setRoles(res.data);
+    });
+  }, []);
 
   return (
     <div className="update-container">
+      <div className="heading">
+        <div>
+          <img
+            src={image !== undefined && image !== "" ? image : "profile.jpeg"}
+            style={{
+              width: "150px",
+              height: "150px",
+              borderRadius: "50%",
+            }}
+          />
+        </div>
+
+        <div className="profile-content">
+          <div style={{ fontSize: "24px" }}>
+            {nameChanger ? (
+              <input
+                className="name"
+                type="text"
+                value={name}
+                onChange={(e) => {
+                  setInputs((prev) => ({ ...prev, name: e.target.value }));
+                }}
+              />
+            ) : (
+              name
+            )}
+            <attr title="Edit Name" style={{ borderRadius: "5px" }}>
+              <i
+                className="fas fa-pencil-alt"
+                onClick={() => {
+                  setNameChanger(!nameChanger);
+                }}
+              ></i>
+            </attr>
+          </div>
+          <div
+            style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
+          >
+            Profile last updated -{" "}
+            <span style={{ color: "black" }}>
+              <i class="fas fa-clock"></i>
+              {format(updatedAt)}
+            </span>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              border: "0.2px solid #d3d3d3",
+              marginTop: "-20px",
+              marginBottom: "20px",
+            }}
+          ></div>
+
+          <div
+            style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
+          >
+            <div
+              style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
+            >
+              <i class="fas fa-user"></i> {role}
+              <br />
+              <i className="fas fa-envelope"></i> {email}{" "}
+              <img
+                src="verify.png"
+                style={{ width: "15px", height: "15px", marginLeft: "5px" }}
+              />
+              <br />
+              <i className="fas fa-phone"></i> {mobile}{" "}
+              {mobileVerified && (
+                <img
+                  src="verify.png"
+                  style={{ width: "15px", height: "15px", marginLeft: "5px" }}
+                />
+              )}
+              <attr title="Edit Mobile Number">
+                <i
+                  className="fas fa-pencil-alt"
+                  onClick={(e) => {
+                    document
+                      .getElementsByClassName("mobile-verification")[0]
+                      .classList.toggle("showMobileVerification");
+                  }}
+                ></i>
+              </attr>
+              <div className="mobile-verification">
+                <div
+                  className="closeIcon"
+                  onClick={() => {
+                    document
+                      .getElementsByClassName("mobile-verification")[0]
+                      .classList.remove("showMobileVerification");
+                  }}
+                >
+                  <i className="fas fa-times Cross"></i>
+                </div>
+                <div className="input-container">
+                  <label style={{ marginLeft: "30px" }}>
+                    Update Mobile Number
+                  </label>
+                  <input
+                    type="text"
+                    className={
+                      mobile !== null &&
+                      (mobile.length === 10 ? "valid" : "invalid")
+                    }
+                    name="mobile"
+                    id="mobile"
+                    value={mobile}
+                    onChange={handleChanges}
+                    placeholder="Mobile Number"
+                  />
+                  {mobileVerified === true}
+
+                  {!isMobileOtpSent && isMobileValid && (
+                    <button
+                      type="button"
+                      className="otp_Button"
+                      onClick={sendMobileOtp}
+                    >
+                      Get OTP
+                    </button>
+                  )}
+                </div>
+
+                {isMobileOtpSent && mobileVerified !== true && (
+                  <>
+                    <div className="input-container">
+                      <input
+                        type="text"
+                        className={
+                          mobileOtp !== null &&
+                          (mobileOtp.length === 6 ? "valid" : "invalid")
+                        }
+                        name="mobileOtp"
+                        value={mobileOtp}
+                        onChange={handleChanges}
+                        placeholder="Enter Mobile OTP"
+                        id="mobileOtpInput"
+                      />
+                      {mobileOtp !== null && mobileOtp.length === 6 && (
+                        <button
+                          type="button"
+                          className="otp_Button"
+                          id="mobileVerify"
+                          onClick={verifyMobileOtp}
+                          style={{ whiteSpace: "noWrap" }}
+                        >
+                          Verify OTP
+                        </button>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="update-form-container">
         <form className="update-form">
-          <center>
-            <h1 className="update-heading">Profile Update</h1>
-          </center>
+          <h3 className="update-heading">Upload files</h3>
 
-
+          {/* <label style={{marginTop: '10px'}}>Role</label>
           <div
             className="input-container"
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              marginRight: "80px",
+              marginTop: "10px"
             }}
           >
             <div
@@ -409,9 +596,10 @@ const Editprofile = () => {
               />
               <label for="Investor">Investor</label>
             </div>
-          </div>
+          </div> */}
 
-          <div className="input-container">
+          {/* <div className="input-container">
+            <label>Email</label>
             <input
               type="email"
               className={
@@ -423,11 +611,11 @@ const Editprofile = () => {
               onChange={handleChanges}
               // disabled={emailVerified}
               placeholder="Email Address*"
-              
             />
- <span className="lock-icon">
-    <i className="fas fa-lock"></i></span>
-            {/* {!isEmailOtpSent && isEmailValid && (
+            <span className="lock-icon">
+              <i className="fas fa-lock"></i>
+            </span> */}
+          {/* {!isEmailOtpSent && isEmailValid && (
                 <button
                   type="button"
                   className="otp_button"
@@ -436,7 +624,7 @@ const Editprofile = () => {
                   Get OTP
                 </button>
               )} */}
-          </div>
+          {/* </div> */}
 
           {/* {isEmailOtpSent && emailVerified !== true && (
               <>
@@ -467,8 +655,9 @@ const Editprofile = () => {
                 </div>
               </>
             )} */}
-
+          {/* 
           <div className="input-container">
+            <label>Name</label>
             <input
               type="text"
               className={
@@ -479,108 +668,216 @@ const Editprofile = () => {
               onChange={handleChanges}
               placeholder="Full Name*"
             />
-          </div>
+          </div> */}
 
-          
-          <div className="input-container">
-            <input
-              type="text"
-              className={
-                mobile !== null && (mobile.length === 10 ? "valid" : "invalid")
-              }
-              name="mobile"
-              id='mobile'
-              value={mobile}
-              onChange={handleChanges}
-              placeholder="Mobile Number*"
-            />
-            {mobileVerified === true && (
-              <img
-                src="checked.png"
-                height={20}
-                alt="Your Alt Text"
-                className="successIcons"
-              />
-            )}
-
-            {!isMobileOtpSent && isMobileValid && (
-              <button
-                type="button"
-                className="otp_button"
-                onClick={sendMobileOtp}
+          <div
+            style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
+          >
+            <div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
-                Get OTP
-              </button>
-            )}
-          </div>
-
-          {isMobileOtpSent && mobileVerified !== true && (
-            <>
-              <div className="input-container">
-                <input
-                  type="text"
-                  className={
-                    mobileOtp !== null &&
-                    (mobileOtp.length === 6 ? "valid" : "invalid")
-                  }
-                  name="mobileOtp"
-                  value={mobileOtp}
-                  onChange={handleChanges}
-                  placeholder="Enter Mobile OTP"
-                  id="mobileOtpInput"
-                />
-                {mobileOtp !== null && mobileOtp.length === 6 && (
-                  <button
-                    type="button"
-                    className="otp_button"
-                    id="mobileVerify"
-                    onClick={verifyMobileOtp}
-                    style={{ whiteSpace: "noWrap" }}
-                  >
-                    Verify OTP
-                  </button>
-                )}
+                <label>Resume</label>
+                {oldDocs.resume !== "" &&
+                  oldDocs.resume !== undefined &&
+                  Object.keys(oldDocs.resume).length !== 0 && (
+                    <attr title="view previous resume">
+                      <a
+                        href={oldDocs.resume?.secure_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          style={{
+                            marginLeft: "260px",
+                            height: "30px",
+                            width: "30px",
+                          }}
+                          src="view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
+                      </a>
+                    </attr>
+                  )}
               </div>
-            </>
-          )}
-          <div>
-            <label>Resume</label>
-            {oldDocs.resume !== '' && oldDocs.resume !== undefined && Object.keys(oldDocs.resume).length!==0 && <a href={oldDocs.resume?.secure_url} target="_blank" rel="noreferrer">Previous resume</a>}
-            <input type="file" name="resume" onChange={handleResume} />
-          </div>
-          <div>
-            <label>Acheivements</label>
-            {oldDocs.acheivements !== '' && oldDocs.acheivements !== undefined && Object.keys(oldDocs.acheivements).length !== 0 &&<a href={oldDocs.acheivements?.secure_url} target="_blank" rel="noreferrer">Previous Acheivements</a>}
-            <input type="file" name="acheivements" onChange={handleResume} />
-          </div>
-          <div>
-            <label>Degree</label>
-            {oldDocs.degree !== '' && oldDocs.degree !== undefined && Object.keys(oldDocs.degree).length !== 0 &&  <a href={oldDocs.degree?.secure_url} target="_blank" rel="noreferrer">Previous Degree</a>}
-            <input type="file" name="degree" onChange={handleResume} />
-          </div>
-          <div>
-            <label>Expertise</label>
-            {oldDocs.expertise !== '' && oldDocs.expertise !== undefined && Object.keys(oldDocs.expertise).length !== 0 && <a href={oldDocs.expertise?.secure_url} target="_blank" rel="noreferrer">Previous Expertise</a>}
-            <input type="file" name="expertise" onChange={handleResume} />
-          </div>
-          <div>
-            <label>Working</label>
-            {oldDocs.working !== '' && oldDocs.working !== undefined && Object.keys(oldDocs.working).length !== 0 && <a href={oldDocs.working?.secure_url} target="_blank" rel="noreferrer">Previous Working</a>}
-            <input type="file" name="working" onChange={handleResume} />
+              <input
+                className="resume"
+                type="file"
+                name="resume"
+                onChange={handleResume}
+              />
+            </div>
+
+            <div>
+              <div>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <label>Acheivements</label>
+                  {oldDocs.acheivements !== "" &&
+                    oldDocs.acheivements !== undefined &&
+                    Object.keys(oldDocs.acheivements).length !== 0 && (
+                      <attr title="view previous acheivements">
+                        <a
+                          href={oldDocs.acheivements?.secure_url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <img
+                            style={{
+                              marginLeft: "210px",
+                              height: "30px",
+                              width: "30px",
+                            }}
+                            src="view.png"
+                            onMouseEnter={() => setShowPreviousFile(true)}
+                            onMouseLeave={() => setShowPreviousFile(false)}
+                          />
+                        </a>
+                      </attr>
+                    )}
+                </div>
+                <input
+                  type="file"
+                  className="resume"
+                  name="acheivements"
+                  onChange={handleResume}
+                />
+              </div>
+            </div>
+
+            <div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <label>Degree</label>
+                {oldDocs.degree !== "" &&
+                  oldDocs.degree !== undefined &&
+                  Object.keys(oldDocs.degree).length !== 0 && (
+                    <attr title="view previous degree ">
+                      <a
+                        href={oldDocs.degree?.secure_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          style={{
+                            marginLeft: "260px",
+                            height: "30px",
+                            width: "30px",
+                          }}
+                          src="view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
+                      </a>
+                    </attr>
+                  )}
+              </div>
+              <input
+                type="file"
+                className="resume"
+                name="degree"
+                onChange={handleResume}
+              />
+            </div>
+
+            <div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <label>Expertise</label>
+                {oldDocs.expertise !== "" &&
+                  oldDocs.expertise !== undefined &&
+                  Object.keys(oldDocs.expertise).length !== 0 && (
+                    <attr title="view previous expertise ">
+                      <a
+                        href={oldDocs.expertise?.secure_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          style={{
+                            marginLeft: "250px",
+                            height: "30px",
+                            width: "30px",
+                          }}
+                          src="view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
+                      </a>
+                    </attr>
+                  )}
+              </div>
+              <input
+                type="file"
+                className="resume"
+                name="expertise"
+                onChange={handleResume}
+              />
+            </div>
+
+            <div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <label>Working</label>
+                {oldDocs.working !== "" &&
+                  oldDocs.working !== undefined &&
+                  Object.keys(oldDocs.working).length !== 0 && (
+                    <attr title="view previous working ">
+                      <a
+                        href={oldDocs.working?.secure_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          style={{
+                            marginLeft: "260px",
+                            height: "30px",
+                            width: "30px",
+                          }}
+                          src="view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
+                      </a>
+                    </attr>
+                  )}
+              </div>
+              <input
+                type="file"
+                className="resume"
+                name="working"
+                onChange={handleResume}
+              />
+            </div>
           </div>
 
-          <button type="submit" disabled={!isFormValid} onClick={update}>
-            Update
-          </button>
-          <p>
-            <div className = 'back'
-             onClick={() => {
-              navigate(`/`)
-          }}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "25%",
+              gap: "10px",
+              marginLeft: "30px",
+              marginTop: "5px",
+            }}
+          >
+            <button
+              onClick={() => {
+                navigate(-1);
+              }}
             >
-               <i className="fas fa-arrow-left" style={{marginRight: '5px'}}></i>Back to Home
-            </div>
-          </p>
+              Back
+            </button>
+            <button type="submit" disabled={!isFormValid} onClick={update}>
+              Send for Approval
+            </button>
+          </div>
         </form>
       </div>
     </div>

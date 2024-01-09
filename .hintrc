@@ -7,7 +7,8 @@
       "default",
       {
         "ignore": [
-          "line-break"
+          "line-break",
+          "position: sticky"
         ]
       }
     ]
