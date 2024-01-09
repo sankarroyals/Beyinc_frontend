@@ -69,4 +69,18 @@
 .individualPitchDetails{
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
+}
+.individualPitchDetails div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 5px;
+    min-width: 150px;
+    justify-content: center;
+}
+
+
+label{
+    white-space: nowrap;
 }

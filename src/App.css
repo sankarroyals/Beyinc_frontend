@@ -91,7 +91,7 @@ label {
    
 }
 
-input {
+input, select {
     width: 330px !important; 
     outline: 0;
     padding: 15px;
