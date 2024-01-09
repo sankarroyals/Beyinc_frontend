@@ -23,8 +23,10 @@
     color: black;
     padding: 15px;
     font-weight: 600;
-    width: 1300px;
-    margin: auto;
+    /* width: 1300px;
+    margin: auto; */
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between; 
     align-items: center; 
