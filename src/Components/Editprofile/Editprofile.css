@@ -2,9 +2,9 @@
 .update-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     background-color: #f0f0f0;
-    align-items: center;
 }
 
 .update-heading{
@@ -19,9 +19,8 @@
     align-items: center;
     background-color: #fff;
     border-radius: 10px;
-    width: 1100px;
+    width: 450px;
     margin: auto;
-    
     padding: 20px;
     margin-top: 20px;
     gap:20px;
@@ -29,22 +28,59 @@
     font-size: 18px;
 }
 
+.fa-pencil-alt{
+    font-size: 12px;
+    margin-left: 5px;
+}
+.fa-pencil-alt:hover{
+    transform: scale(1.2);
+    transition: all ease-in-out;
+}
+
+.name{
+    width: 50% !important;
+    height: 2px !important;
+    border: 1px solid green;
+}
+
+
+
 .resume{
-    border: none;
+    border: 1px dashed grey;
+    border-radius: 10px;
+    margin-left: 30px;
+    position: relative;
+    width: 300px;
+    
+}
+
+.resume>input[type="file"]{
+    /* opacity: 0; */
+    width: 100% !important;
+ padding: 25px !important;
+}
+
+.resume .upload{
+    position: absolute;
+    top: 40px;
+    left: 40%;
 }
 
 .profile-content{
   flex: 1; 
-    
 }
 
 .update-form-container {
-    width: 1100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
     margin-top: 20px;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
     margin-bottom: 30px;
+    
 }
 
 .update-form {
@@ -60,6 +96,7 @@ label {
     text-align:left;
     justify-content: left;
     font-weight: 600;
+    margin-left: 30px;
 }
 
 .input-container {

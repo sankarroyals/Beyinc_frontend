@@ -179,9 +179,9 @@ const Navbar = () => {
           />
           {verification === 'approved' && <abbr title="verified user">
             <img
-              src="checked.png"
+              src="verify.png"
               height={20}
-              style={{ right: "0", top: '0', height: '13px', width: '13px' }}
+              style={{ right: "2px", top: '3px', height: '13px', width: '13px' }}
               alt="Your Alt Text"
               className="successIcons"
             />

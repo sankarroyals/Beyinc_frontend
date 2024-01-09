@@ -12,6 +12,9 @@ import "./Editprofile.css";
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 
+
+
+
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
     (store) => store.auth.loginDetails
@@ -374,10 +377,12 @@ const Editprofile = () => {
             }}
           />
         </div>
+
         <div className="profile-content">
           <div style={{ fontSize: "24px" }}>
             {nameChanger ? (
               <input
+                className="name"
                 type="text"
                 value={name}
                 onChange={(e) => {
@@ -387,13 +392,15 @@ const Editprofile = () => {
             ) : (
               name
             )}
-            <i
-              className="fas fa-pencil-alt"
-              style={{ fontSize: "12px" }}
-              onClick={() => {
-                setNameChanger(!nameChanger);
-              }}
-            ></i>
+            <attr title='Edit name' style={{ borderRadius: '5px' }}>
+  <i
+    className="fas fa-pencil-alt"
+    onClick={() => {
+      setNameChanger(!nameChanger);
+    }}
+  ></i>
+</attr>
+
           </div>
           <div
             style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
@@ -403,11 +410,12 @@ const Editprofile = () => {
           <div
             style={{
               width: "100%",
-              border: "1px solid grey",
+              border: "0.2px solid #d3d3d3",
               marginTop: "-20px",
               marginBottom: "20px",
             }}
           ></div>
+
           <div
             style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
           >
@@ -637,31 +645,37 @@ const Editprofile = () => {
             </>
           )} */}
           <div>
-            <label>Resume</label>
+           <div style={{display: 'flex', alignItems: 'center', gap: '2px'}}>
+           <label>Resume</label>
             {oldDocs.resume !== "" &&
               oldDocs.resume !== undefined &&
               Object.keys(oldDocs.resume).length !== 0 && (
-                <attr title="view">
-                  <div
+                <attr title="view previous resume">
+                  <a
                     href={oldDocs.resume?.secure_url}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noreferrer" 
                   >
                     <img
-                      className="view"
                       src="view.png"
                       onMouseEnter={() => setShowPreviousFile(true)}
                       onMouseLeave={() => setShowPreviousFile(false)}
                     />
-                  </div>
+                  </a>
                 </attr>
               )}
-            <input
-              className="resume"
+           </div>
+           
+<div className="resume">
+<input
               type="file"
               name="resume"
               onChange={handleResume}
             />
+            <span className="upload">upload</span>
+</div>
+            
+            
           </div>
           <div>
             <label>Acheivements</label>
@@ -673,10 +687,19 @@ const Editprofile = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img src="view.png" /> View previous file
+                  <img
+                    src="view.png"
+                    onMouseEnter={() => setShowPreviousFile(true)}
+                    onMouseLeave={() => setShowPreviousFile(false)}
+                  />
                 </a>
               )}
-            <input type="file" name="acheivements" onChange={handleResume} />
+            <input
+              type="file"
+              className="resume"
+              name="acheivements"
+              onChange={handleResume}
+            />
           </div>
           <div>
             <label>Degree</label>
@@ -688,10 +711,19 @@ const Editprofile = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img src="view.png" /> View previous file
+                  <img
+                    src="view.png"
+                    onMouseEnter={() => setShowPreviousFile(true)}
+                    onMouseLeave={() => setShowPreviousFile(false)}
+                  />
                 </a>
               )}
-            <input type="file" name="degree" onChange={handleResume} />
+            <input
+              type="file"
+              className="resume"
+              name="degree"
+              onChange={handleResume}
+            />
           </div>
           <div>
             <label>Expertise</label>
@@ -703,10 +735,19 @@ const Editprofile = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img src="view.png" /> View previous file
+                  <img
+                    src="view.png"
+                    onMouseEnter={() => setShowPreviousFile(true)}
+                    onMouseLeave={() => setShowPreviousFile(false)}
+                  />
                 </a>
               )}
-            <input type="file" name="expertise" onChange={handleResume} />
+            <input
+              type="file"
+              className="resume"
+              name="expertise"
+              onChange={handleResume}
+            />
           </div>
           <div>
             <label>Working</label>
@@ -718,17 +759,26 @@ const Editprofile = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img src="view.png" /> View previous file
+                  <img
+                    src="view.png"
+                    onMouseEnter={() => setShowPreviousFile(true)}
+                    onMouseLeave={() => setShowPreviousFile(false)}
+                  />
                 </a>
               )}
-            <input type="file" name="working" onChange={handleResume} />
+            <input
+              type="file"
+              className="resume"
+              name="working"
+              onChange={handleResume}
+            />
           </div>
 
-          <div>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '85px'}}>
             <button
               style={{ width: "30%", marginRight: "10px" }}
               onClick={() => {
-                navigate(`/`);
+                navigate(-1);
               }}
             >
               Back
