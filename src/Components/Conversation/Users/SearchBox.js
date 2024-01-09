@@ -8,7 +8,7 @@ import { setToast } from '../../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../../Toast/ToastColors';
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, Dialog, DialogContent, DialogContentText, DialogTitle, Tab, Tabs, Typography } from '@mui/material';
-
+import CachedIcon from '@mui/icons-material/Cached';
 const gridCSS = {
     activeButton: {
         background: '#4297d3',
@@ -85,7 +85,6 @@ function a11yProps(index) {
 
 
 const SearchBox = () => {
-
     const [value, setValue] = React.useState(0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -308,12 +307,20 @@ const SearchBox = () => {
 
     return (
         <div style={{ position: 'relative' }} >
-            <div onClick={() => {
-                document.getElementsByClassName('newConversation')[0].classList.toggle('show')
-            }}>
-                <div className='newChat'>
+            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                <div className='newChat' onClick={() => {
+                    document.getElementsByClassName('newConversation')[0].classList.toggle('show')
+                }}>
                     <div><MapsUgcIcon /> </div>
                     <div>New Chat</div>
+                </div>
+
+                <div>
+                    <attr title='Reload for latest request updates'>
+                        <CachedIcon style={{ cursor: 'pointer' }} onClick={() => {
+                            dispatch(getAllHistoricalConversations(email))
+                        }} />
+                    </attr>
                 </div>
             </div>
             <div className='newConversation' ref={userDetailsRef}>
