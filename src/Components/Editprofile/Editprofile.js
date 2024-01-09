@@ -55,6 +55,7 @@ const Editprofile = () => {
 
   const [nameChanger, setNameChanger] = useState(false);
   const [roles, setRoles] = useState([]);
+  
 
   const [changeResume, setchangeDocuments] = useState({
     resume: "",
@@ -430,11 +431,14 @@ const Editprofile = () => {
                 style={{ width: "15px", height: "15px", marginLeft: "5px" }}
               />
               <br />
-              <i className="fas fa-phone"></i> {mobile}{" "}
+              <i className="fas fa-phone"></i> {mobile}  {" "} 
               <img
                 src="verify.png"
                 style={{ width: "15px", height: "15px", marginLeft: "5px" }}
               />
+              <i
+                className="fas fa-pencil-alt"
+              ></i>
             </div>
           </div>
         </div>
@@ -582,7 +586,7 @@ const Editprofile = () => {
             />
           </div> */}
 
-          {/* <div className="input-container">
+          <div className="input-container">
             <label>Mobile</label>
             <input
               type="text"
@@ -593,9 +597,9 @@ const Editprofile = () => {
               id="mobile"
               value={mobile}
               onChange={handleChanges}
-              placeholder="Mobile Number*" */}
-          {/* /> */}
-          {/* {mobileVerified === true && (
+              placeholder="Mobile Number" 
+           /> 
+          {mobileVerified === true && (
               <img
                 src="checked.png"
                 height={20}
@@ -643,7 +647,9 @@ const Editprofile = () => {
                 )}
               </div>
             </>
-          )} */}
+          )}
+
+
 
           <div
             style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
