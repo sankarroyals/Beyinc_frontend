@@ -32,6 +32,7 @@ io.on("connection", (socket) => {
     //send and get message
     socket.on("sendMessage", ({ senderId, receiverId, message, fileSent }) => {
         const user = getUser(receiverId);
+        console.log(senderId);
         console.log(user);
         console.log(receiverId);
         console.log(fileSent);

@@ -54,7 +54,7 @@ const Conversations = () => {
   // get friend based on params
   useEffect(() => {
     if (conversationId !== undefined) {
-      ApiServices.getFriendByConvID({ conversationId: conversationId }).then((res) => {
+      ApiServices.getFriendByConvID({ conversationId: conversationId, email: email }).then((res) => {
         dispatch(setReceiverId(res.data))
       })
     }

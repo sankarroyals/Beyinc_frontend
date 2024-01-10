@@ -79,13 +79,17 @@ const IndividualMessage = () => {
     };
 
     const sendText = async (e) => {
+        console.log({
+            "senderId": email,
+            "receiverId": receiverId?.email,
+        });
         if (sendMessage !== '' || file !== '') {
             await ApiServices.sendMessages(
                 {
                     "email": email,
                     "conversationId": conversationId,
                     "senderId": email,
-                    "receiverId": receiverId.email,
+                    "receiverId": receiverId?.email,
                     "message": sendMessage,
                     "file": file
                 }
