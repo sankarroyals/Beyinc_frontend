@@ -11,7 +11,7 @@ const Messages = () => {
     <div className='messages'>
       {(conversationId === '' || conversationId === undefined) ? (
         <div className="noSelected">
-          <img className="No_Conversation" src="No_Conversation.png" alt="No Conversation" />
+          <img className="No_Conversation" src="/No_Conversation.png" alt="No Conversation" />
           <div style={{ marginTop: '-50px' }}>
             No Conversations...yet!
             <p style={{ fontSize: '16px' }}>Start a new conversation</p>

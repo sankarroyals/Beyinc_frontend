@@ -388,7 +388,7 @@ const SearchBox = () => {
                     <img
                       src={
                         a.image === undefined || a.image == ""
-                          ? "profile.jpeg"
+                          ? "/profile.jpeg"
                           : a.image.url
                       }
                       alt=""
