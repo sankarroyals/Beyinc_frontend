@@ -78,12 +78,24 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    align-items: center;
     justify-content: space-between;
 }
-.sendBox input[type='text']{
+.sendBox input[type='text'], textarea{
+    /* flex: 1; */
+    width: 600px !important;
     flex: 1;
 }
 .sendBox .sendIcon{
     font-size: 30px;
     cursor: pointer;
+}
+
+.uploadingFileIcon{
+    cursor: pointer;
+    max-width: 200px;
+    margin: 0 10px;
+}
+.uploadingFileIcon .fileName{
+    white-space: wrap;
 }

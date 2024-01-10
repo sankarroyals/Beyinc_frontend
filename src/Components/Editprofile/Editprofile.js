@@ -9,6 +9,8 @@ import axiosInstance from "../axiosInstance";
 import { ApiServices } from "../../Services/ApiServices";
 import { useNavigate } from "react-router-dom/dist";
 import "./Editprofile.css";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
@@ -70,8 +72,17 @@ const Editprofile = () => {
     working: "",
     degree: "",
   });
+
+  const [recentUploadedDocs, setRecentUploadedDocs] = useState({
+    resume: "",
+    expertise: "",
+    acheivements: "",
+    working: "",
+    degree: "",
+  })
   const handleResume = (e) => {
     const file = e.target.files[0];
+    setRecentUploadedDocs((prev)=>({...prev, [e.target.name]: file?.name}))
     setFileBase(e, file);
   };
   const setFileBase = (e, file) => {
@@ -675,7 +686,7 @@ const Editprofile = () => {
           >
             <div>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
               >
                 <label>Resume</label>
                 {oldDocs.resume !== "" &&
@@ -689,7 +700,6 @@ const Editprofile = () => {
                       >
                         <img
                           style={{
-                            marginLeft: "260px",
                             height: "30px",
                             width: "30px",
                           }}
@@ -701,18 +711,20 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
+              <label htmlFor='resume' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.resume  || 'Upload'}</span></label>
               <input
                 className="resume"
                 type="file"
                 name="resume"
-                onChange={handleResume}
+                id="resume"
+                onChange={handleResume} style={{display: 'none'}}
               />
             </div>
 
             <div>
               <div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                  style={{ display: "flex", alignItems: "center", gap: "2px" , justifyContent: 'space-between'}}
                 >
                   <label>Acheivements</label>
                   {oldDocs.acheivements !== "" &&
@@ -726,7 +738,6 @@ const Editprofile = () => {
                         >
                           <img
                             style={{
-                              marginLeft: "210px",
                               height: "30px",
                               width: "30px",
                             }}
@@ -738,18 +749,20 @@ const Editprofile = () => {
                       </attr>
                     )}
                 </div>
+                <label htmlFor='acheivements' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.acheivements || 'Upload'}</span></label>
                 <input
                   type="file"
+                  id="acheivements"
                   className="resume"
                   name="acheivements"
-                  onChange={handleResume}
+                  onChange={handleResume} style={{ display: 'none' }}
                 />
               </div>
             </div>
 
             <div>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
               >
                 <label>Degree</label>
                 {oldDocs.degree !== "" &&
@@ -763,7 +776,6 @@ const Editprofile = () => {
                       >
                         <img
                           style={{
-                            marginLeft: "260px",
                             height: "30px",
                             width: "30px",
                           }}
@@ -775,17 +787,20 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
+              <label htmlFor='degree' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.degree || 'Upload'}</span></label>
+
               <input
                 type="file"
+                id="degree"
                 className="resume"
                 name="degree"
-                onChange={handleResume}
+                onChange={handleResume} style={{ display: 'none' }}
               />
             </div>
 
             <div>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
               >
                 <label>Expertise</label>
                 {oldDocs.expertise !== "" &&
@@ -799,7 +814,6 @@ const Editprofile = () => {
                       >
                         <img
                           style={{
-                            marginLeft: "250px",
                             height: "30px",
                             width: "30px",
                           }}
@@ -811,17 +825,20 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
+              <label htmlFor='expertise' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.expertise || 'Upload'}</span></label>
+
               <input
                 type="file"
+                id="expertise"
                 className="resume"
-                name="expertise"
+                name="expertise" style={{ display: 'none' }}
                 onChange={handleResume}
               />
             </div>
 
             <div>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
               >
                 <label>Working</label>
                 {oldDocs.working !== "" &&
@@ -835,7 +852,6 @@ const Editprofile = () => {
                       >
                         <img
                           style={{
-                            marginLeft: "260px",
                             height: "30px",
                             width: "30px",
                           }}
@@ -847,9 +863,12 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
+              <label htmlFor='working' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.working || 'Upload'}</span></label>
+
               <input
                 type="file"
-                className="resume"
+                id="working"
+                className="resume" style={{ display: 'none' }}
                 name="working"
                 onChange={handleResume}
               />

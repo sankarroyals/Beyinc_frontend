@@ -7,6 +7,7 @@ import { ToastColors } from '../../Toast/ToastColors';
 import { format } from "timeago.js";
 import { io } from 'socket.io-client';
 import { setOnlineUsers } from '../../../redux/Conversationreducer/ConversationReducer';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 const IndividualMessage = () => {
     const conversationId = useSelector(state => state.conv.conversationId)
     const receiverId = useSelector(state => state.conv.receiverId)
@@ -16,6 +17,8 @@ const IndividualMessage = () => {
     const [messages, setMessages] = useState([])
     const [sendMessage, setSendMessage] = useState('')
     const [file, setFile] = useState('');
+    const [messageTrigger, setMessageTrigger] = useState('')
+    const [normalFileName, setNormalFileName] = useState('')
     const scrollRef = useRef();
     const dispatch = useDispatch()
     
@@ -28,14 +31,30 @@ const IndividualMessage = () => {
 
 
     useEffect(() => {
-        if (conversationId !== '') {
+        if (conversationId !== '' ) {
             ApiServices.getMessages({
                 "conversationId": conversationId
             }).then((res) => {
                 setMessages(res.data)
+                setNormalFileName('')
+                setFile('')
+                setSendMessage('')
             })
         }
-    }, [conversationId])
+    }, [conversationId, messageTrigger])
+
+    useEffect(() => {
+        if (liveMessage?.fileSent == true) {
+            ApiServices.getMessages({
+                "conversationId": conversationId
+            }).then((res) => {
+                setMessages(res.data)
+                setNormalFileName('')
+                setFile('')
+                setSendMessage('')
+            })
+        }
+    }, [liveMessage?.fileSent])
 
     useEffect(() => {
         console.log(liveMessage);
@@ -46,6 +65,7 @@ const IndividualMessage = () => {
 
     const handleFile = (e) => {
         const file = e.target.files[0];
+        setNormalFileName(file.name)
         setFileBase(e, file);
     };
     const setFileBase = (e, file) => {
@@ -77,8 +97,12 @@ const IndividualMessage = () => {
                 socket.current.emit('sendMessage', {
                     senderId: email,
                     receiverId: receiverId,
-                    message: sendMessage
+                    message: sendMessage,
+                    fileSent: file !== ''
                 })
+                if (file !== '') {
+                    setMessageTrigger(!messageTrigger)
+                }
                 document.getElementById('chatFile').value=''
             }).catch((err) => {
                 dispatch(
@@ -115,7 +139,7 @@ const IndividualMessage = () => {
 
           </div>
           <div className="sendBox">
-              <input
+              <textarea
                   type="text"
                   name="message"
                   id='message'
@@ -123,7 +147,9 @@ const IndividualMessage = () => {
                   onChange={(e) => setSendMessage(e.target.value)}
                   placeholder="Enter a message"
               />
-              <input type='file' id='chatFile' onChange={handleFile}/>
+              <label htmlFor='chatFile' className='uploadingFileIcon'><CloudUploadIcon />
+                  <span className='fileName'>{normalFileName}</span></label>
+              <input type='file' id='chatFile' onChange={handleFile} style={{display: 'none'}}/>
               <SendIcon className='sendIcon' onClick={sendText} />
           </div>
       </div>
