@@ -120,6 +120,7 @@ const IndividualMessage = () => {
     }
 
     useEffect(() => {
+        console.log(messages);
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
