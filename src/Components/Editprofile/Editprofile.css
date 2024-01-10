@@ -107,6 +107,10 @@
   margin-left: 30px;
   position: relative;
   width: 300px;
+  color: gray;
+}
+.resume:hover{
+  color: blue;
 }
 .fileName{
   white-space: wrap !important;

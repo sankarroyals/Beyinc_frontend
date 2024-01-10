@@ -6,6 +6,8 @@ import { ApiServices } from "../../Services/ApiServices";
 import axiosInstance from "../axiosInstance";
 import { setLoginData, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 import { jwtDecode } from "jwt-decode";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -38,8 +40,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [changeImage, setchangeImage] = useState("");
+  const [originalImage, setOriginalImage] = useState('')
   const handleImage = (e) => {
     const file = e.target.files[0];
+    setOriginalImage(file.name)
     setFileBase(file);
   };
   const setFileBase = (file) => {
@@ -288,7 +292,8 @@ const Navbar = () => {
               />
             </div>
             <div>
-              <input type="file" name="" onChange={handleImage} />
+              <label htmlFor='profilePic' className="resume"><CloudUploadIcon /><span className="fileName">{originalImage || 'Upload'}</span></label>
+              <input type="file" name="" id="profilePic" onChange={handleImage} style={{display: 'none'}}/>
             </div>
             <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
 
