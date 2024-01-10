@@ -134,12 +134,20 @@ const IndividualMessage = () => {
             <div className='messageBox'>
                 {messages.length > 0 && messages.map((m) => (
                     <div className={`details ${m.senderId === email ? 'owner' : 'friend'}`} ref={scrollRef}>
-                        <div className='imageContainer'>
+                        <div className='imageContainer'
+                            style={{ display: m.senderId === email ? 'none' : 'flex' }}
+                        >
                             <img src={(image !== undefined && image !== '' && m.senderId === email) ? image : ((receiverId?.image?.url !== undefined && receiverId?.image?.url !== '' && m.senderId !== email) ? receiverId.image.url : '/profile.jpeg')} alt="" srcset="" />
-                            <div className="messageBottom">{format(m.createdAt)}</div>
+                            {/* <div className="messageBottom">{format(m.createdAt)}</div> */}
                         </div>
                         <div className='personalDetails'>
-                            <div className='email'>{m.senderId === email ? userName : receiverId?.userName}</div>
+                            <div className='email'>{m.senderId === email ?
+                                <div className='time'>{format(m.createdAt)}</div> :
+                                <div className='friendDetails'>
+                                    <div className='userName'>{receiverId?.userName}</div>
+                                    <div className='time'>{format(m.createdAt)}</div>
+                                </div>
+                            }</div>
                             {m.message !== '' && <div className='text'>{m.message}</div>}
                             {(m.file !== '' && m.file !== undefined) && <a href={m.file.secure_url} target='_blank' rel="noreferrer">sent an attachment</a>}
                         </div>
@@ -147,20 +155,28 @@ const IndividualMessage = () => {
                 ))}
 
             </div>
-            <div className="sendBox">
-                <textarea
-                    type="text"
-                    name="message"
-                    id='message'
-                    value={sendMessage}
-                    onChange={(e) => setSendMessage(e.target.value)}
-                    placeholder="Enter a message"
-                />
-                <label htmlFor='chatFile' className='uploadingFileIcon'><CloudUploadIcon />
-                    <span className='fileName'>{normalFileName}</span></label>
-                <input type='file' id='chatFile' onChange={handleFile} style={{ display: 'none' }} />
-                <SendIcon className='sendIcon' onClick={sendText} />
+            <div className='sendBoxContainer'>
+                <div className="sendBox">
+                    <div>
+                        <input
+                            type="text"
+                            name="message"
+                            id='message'
+                            value={sendMessage}
+                            onChange={(e) => setSendMessage(e.target.value)}
+                            placeholder="Enter a message"
+                        />
+                    </div>
+                    <div><label htmlFor='chatFile' className='uploadingFileIcon'><CloudUploadIcon />
+                        <span className='fileName'>{normalFileName}</span></label>
+                        <input type='file' id='chatFile' onChange={handleFile} style={{ display: 'none' }} /></div>
+
+                </div>
+                <div>
+                    {(sendMessage !== '' || file !== '') ? <SendIcon className='sendIcon' onClick={sendText} style={{ color: '#0b57d0', cursor: 'pointer', fontSize: '34px' }} /> : <SendIcon className='sendIcon' onClick={sendText} style={{ color: 'gray', fontSize: '34px' }} />}
+                </div>
             </div>
+            
         </div>
     )
 }

@@ -29,7 +29,7 @@
     display: flex;
     gap: 15px;
     cursor: pointer;
-    padding: 8px 0px 6px 0px;
+    padding: 5px 0px;
     padding-left: -10px;
     transition: all ease 0.2s;
     margin: 0px 0;
@@ -38,31 +38,32 @@
     border-radius: 30px;
 }
 .individuals:hover {
-    background:  #c2e7ff;
+    background:  #c2e7ff46;
 }
 .role{
     font-size: 12px;
 }
 
 .newChat {
-    padding: 15px;
-    background:  #c2e7ff;
+   padding: 15px;
+    background: white;
+    /* border: 1px solid rgb(224, 207, 207); */
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
     align-items: center;
     gap: 5px;
     border-radius: 12px;
-    width: 100px; 
+    width: auto;
     margin-bottom: 15px;
     cursor: pointer;
-    margin-top: 20px;
-    
-    transition: box-shadow 0.1s ease; 
+    margin-top: 12px;
+    font-size: 14px;
 }
 
-.newChat:hover {
+/* .newChat:hover {
     box-shadow: 2px 4px 10px  rgba(0, 0, 0, 0.5); 
     transition: box-shadow 0.3s ease, border 0.3s ease;
-}
+} */
 
 .historyChats{
     height: 70vh;
@@ -190,5 +191,5 @@ textarea{
 
 
 .selected{
-    background: rgb(199, 195, 195);
+    background: #C2E7FF;
 }

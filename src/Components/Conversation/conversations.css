@@ -1,16 +1,16 @@
 body{
     background: #f6f8fc;
+    overflow: hidden;
 }
 .conversationContainer {
     max-width: 1300px;
-    height: 82vh;
-    /* overflow: hidden; */
+    height: 80vh;
     /* border: 1px solid green; */
     margin: auto;
     display: flex;
     padding: 5px;
-    gap: 20px;
-    background: #ffffff;
+    /* gap: 20px; */
+    background:#f6f8fc;
     border-radius: 20px;
     
     
@@ -27,5 +27,5 @@ body{
 }
 .chatContainer{
  flex: 1 0 75%;
- padding: 10px;
+ padding: 12px 0px;
 }

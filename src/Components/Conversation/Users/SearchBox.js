@@ -345,7 +345,7 @@ const SearchBox = () => {
           }}
         >
           <div>
-            <MapsUgcIcon />{" "}
+            <MapsUgcIcon style={{fontSize: '24px'}}/>{" "}
           </div>
           <div>New Chat</div>
         </div>

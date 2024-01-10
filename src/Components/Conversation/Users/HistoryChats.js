@@ -26,28 +26,28 @@ const HistoryChats = () => {
 
 
     const handleMenuVisibile = (e) => {
-        if (e.target.classList[1] == 'fa-chevron-right') {
-            e.target.classList.remove('fa-chevron-right')
-            e.target.classList.add('fa-chevron-down')
+        if (e.target.classList[1] == 'fa-caret-right') {
+            e.target.classList.remove('fa-caret-right')
+            e.target.classList.add('fa-caret-down')
             document.getElementsByClassName(e.target.id)[0].style.display = 'block'
             
         } else {
-            e.target.classList.remove('fa-chevron-down')
-            e.target.classList.add('fa-chevron-right')
+            e.target.classList.remove('fa-caret-down')
+            e.target.classList.add('fa-caret-right')
             document.getElementsByClassName(e.target.id)[0].style.display = 'none'
 
         }
     }
     useEffect(() => {
-        document.getElementById('approved').classList.remove('fa-chevron-right')
-        document.getElementById('approved').classList.add('fa-chevron-down')
+        document.getElementById('approved').classList.remove('fa-caret-right')
+        document.getElementById('approved').classList.add('fa-caret-down')
         document.getElementsByClassName('approved')[0].style.display = 'block'
     }, [])
 
     return (
         <div className='historyChats'>
             <div className='statusHeader'>
-                <i class={`fas fa-chevron-right`} id='pending' onClick={handleMenuVisibile}></i>Pending
+                <i class={`fas fa-caret-right`} id='pending' onClick={handleMenuVisibile}></i>Pending
             </div>
             <div className='pending'>
                 {historicalConversations.length > 0 && historicalConversations.map((a) => (
@@ -57,7 +57,7 @@ const HistoryChats = () => {
 
             {/* approved */}
             <div className='statusHeader'>
-                <i class={`fas fa-chevron-right`} id='approved' onClick={handleMenuVisibile}></i>Approved
+                <i class={`fas fa-caret-right`} id='approved' onClick={handleMenuVisibile}></i>Approved
             </div>
             <div className='approved'>
                 {historicalConversations.length > 0 && historicalConversations.map((a) => (
