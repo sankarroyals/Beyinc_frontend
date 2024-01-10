@@ -8,8 +8,10 @@ import { format } from "timeago.js";
 import { io } from 'socket.io-client';
 import { setOnlineUsers } from '../../../redux/Conversationreducer/ConversationReducer';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useParams } from 'react-router';
 const IndividualMessage = () => {
-    const conversationId = useSelector(state => state.conv.conversationId)
+    // const conversationId = useSelector(state => state.conv.conversationId)
+    const { conversationId } = useParams()
     const receiverId = useSelector(state => state.conv.receiverId)
     const liveMessage = useSelector(state => state.conv.liveMessage)
 
@@ -21,7 +23,7 @@ const IndividualMessage = () => {
     const [normalFileName, setNormalFileName] = useState('')
     const scrollRef = useRef();
     const dispatch = useDispatch()
-    
+
 
     const socket = useRef()
     useEffect(() => {
@@ -31,7 +33,7 @@ const IndividualMessage = () => {
 
 
     useEffect(() => {
-        if (conversationId !== '' ) {
+        if (conversationId !== '') {
             ApiServices.getMessages({
                 "conversationId": conversationId
             }).then((res) => {
@@ -59,7 +61,7 @@ const IndividualMessage = () => {
     useEffect(() => {
         console.log(liveMessage);
         if (liveMessage) {
-            setMessages(prev=>[...prev, {...liveMessage, createdAt: Date.now()}])
+            setMessages(prev => [...prev, { ...liveMessage, createdAt: Date.now() }])
         }
     }, [liveMessage])
 
@@ -79,7 +81,8 @@ const IndividualMessage = () => {
     const sendText = async (e) => {
         if (sendMessage !== '' || file !== '') {
             await ApiServices.sendMessages(
-                {   "email": email,
+                {
+                    "email": email,
                     "conversationId": conversationId,
                     "senderId": email,
                     "receiverId": receiverId.email,
@@ -103,7 +106,7 @@ const IndividualMessage = () => {
                 if (file !== '') {
                     setMessageTrigger(!messageTrigger)
                 }
-                document.getElementById('chatFile').value=''
+                document.getElementById('chatFile').value = ''
             }).catch((err) => {
                 dispatch(
                     setToast({
@@ -119,47 +122,47 @@ const IndividualMessage = () => {
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
-    
-  return (
-      <div className='messageContainer'>
-          <div className='messageNavbar'>
-              <div>
-                  <img src={ (receiverId?.image?.url !== undefined && receiverId?.image?.url !== '' ) ? receiverId.image.url : 'Profile.jpeg'} alt="" srcset="" />
-              </div>
-              <div>{receiverId?.userName}</div>
-          </div>
-          <div className='messageBox'>
-              {messages.length > 0 && messages.map((m) => (
-                  <div className={`details ${m.senderId === email ? 'owner' : 'friend'}`} ref={scrollRef}>
-                      <div className='imageContainer'>
-                          <img src={(image !== undefined && image !== '' && m.senderId === email) ? image : ((receiverId?.image?.url !== undefined && receiverId?.image?.url !== '' && m.senderId !== email) ? receiverId.image.url :'Profile.jpeg')  } alt="" srcset="" />
-                          <div className="messageBottom">{format(m.createdAt)}</div>
-                      </div>
-                      <div className='personalDetails'>
-                          <div className='email'>{m.senderId === email ? userName : receiverId?.userName}</div>
-                          {m.message !== '' && <div className='text'>{m.message}</div>}
-                          {(m.file!=='' && m.file!==undefined) && <a href={m.file.secure_url} target='_blank' rel="noreferrer">sent an attachment</a> }
-                      </div>
-                  </div>
-              ))}
 
-          </div>
-          <div className="sendBox">
-              <textarea
-                  type="text"
-                  name="message"
-                  id='message'
-                  value={sendMessage}
-                  onChange={(e) => setSendMessage(e.target.value)}
-                  placeholder="Enter a message"
-              />
-              <label htmlFor='chatFile' className='uploadingFileIcon'><CloudUploadIcon />
-                  <span className='fileName'>{normalFileName}</span></label>
-              <input type='file' id='chatFile' onChange={handleFile} style={{display: 'none'}}/>
-              <SendIcon className='sendIcon' onClick={sendText} />
-          </div>
-      </div>
-  )
+    return (
+        <div className='messageContainer'>
+            <div className='messageNavbar'>
+                <div>
+                    <img src={(receiverId?.image?.url !== undefined && receiverId?.image?.url !== '') ? receiverId.image.url : '/profile.jpeg'} alt="" srcset="" />
+                </div>
+                <div>{receiverId?.userName}</div>
+            </div>
+            <div className='messageBox'>
+                {messages.length > 0 && messages.map((m) => (
+                    <div className={`details ${m.senderId === email ? 'owner' : 'friend'}`} ref={scrollRef}>
+                        <div className='imageContainer'>
+                            <img src={(image !== undefined && image !== '' && m.senderId === email) ? image : ((receiverId?.image?.url !== undefined && receiverId?.image?.url !== '' && m.senderId !== email) ? receiverId.image.url : '/profile.jpeg')} alt="" srcset="" />
+                            <div className="messageBottom">{format(m.createdAt)}</div>
+                        </div>
+                        <div className='personalDetails'>
+                            <div className='email'>{m.senderId === email ? userName : receiverId?.userName}</div>
+                            {m.message !== '' && <div className='text'>{m.message}</div>}
+                            {(m.file !== '' && m.file !== undefined) && <a href={m.file.secure_url} target='_blank' rel="noreferrer">sent an attachment</a>}
+                        </div>
+                    </div>
+                ))}
+
+            </div>
+            <div className="sendBox">
+                <textarea
+                    type="text"
+                    name="message"
+                    id='message'
+                    value={sendMessage}
+                    onChange={(e) => setSendMessage(e.target.value)}
+                    placeholder="Enter a message"
+                />
+                <label htmlFor='chatFile' className='uploadingFileIcon'><CloudUploadIcon />
+                    <span className='fileName'>{normalFileName}</span></label>
+                <input type='file' id='chatFile' onChange={handleFile} style={{ display: 'none' }} />
+                <SendIcon className='sendIcon' onClick={sendText} />
+            </div>
+        </div>
+    )
 }
 
 export default IndividualMessage

@@ -27,9 +27,9 @@ const Navbar = () => {
   const userDetailsRef = useRef(null);
 
   const handleClickOpen = () => {
-      document
-        .getElementsByClassName("userDetails")[0]
-        .classList.remove("showUserDetails");
+    document
+      .getElementsByClassName("userDetails")[0]
+      .classList.remove("showUserDetails");
     setOpen(true);
   };
 
@@ -169,7 +169,7 @@ const Navbar = () => {
             navigate('/notifications')
           }} />
         </div>
-        <div style={{position: 'relative'}}
+        <div style={{ position: 'relative' }}
           onClick={(e) => {
             document
               .getElementsByClassName("userDetails")[0]
@@ -178,12 +178,12 @@ const Navbar = () => {
         >
           <img
             className="Profile-img"
-            src={(image !== undefined && image !== '') ? image : "profile.jpeg"}
+            src={(image !== undefined && image !== '') ? image : "/profile.jpeg"}
             alt=""
           />
           {verification === 'approved' && <abbr title="verified user">
             <img
-              src="verify.png"
+              src="/verify.png"
               height={20}
               style={{ right: "2px", top: '3px', height: '13px', width: '13px' }}
               alt="Your Alt Text"
@@ -192,7 +192,7 @@ const Navbar = () => {
           </abbr>}
         </div>
       </div>
-      
+
       <div className="userDetails" ref={userDetailsRef}>
         <div
           className="closeIcon"
@@ -213,7 +213,7 @@ const Navbar = () => {
                 cursor: "pointer",
                 maxWidth: "100%",
               }}
-              src={(image !== undefined && image !== '') ? image : "profile.jpeg"}
+              src={(image !== undefined && image !== '') ? image : "/profile.jpeg"}
               alt="Profile"
             />
             <i
@@ -287,22 +287,22 @@ const Navbar = () => {
                   height: "150px",
                   width: "150px",
                 }}
-                src={(image !== undefined && image !== '') ? image : "Profile.jpeg" }
+                src={(image !== undefined && image !== '') ? image : "/profile.jpeg"}
                 alt="Profile"
               />
             </div>
             <div>
               <label htmlFor='profilePic' className="resume"><CloudUploadIcon /><span className="fileName">{originalImage || 'Upload'}</span></label>
-              <input type="file" name="" id="profilePic" onChange={handleImage} style={{display: 'none'}}/>
+              <input type="file" name="" id="profilePic" onChange={handleImage} style={{ display: 'none' }} />
             </div>
             <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
 
-              <button onClick={submit} disabled = {changeImage ==''? true : false}>
-                <i class="fas fa-upload" style={{marginRight: '5px'}}></i> Update
+              <button onClick={submit} disabled={changeImage == '' ? true : false}>
+                <i class="fas fa-upload" style={{ marginRight: '5px' }}></i> Update
               </button>
 
               <button onClick={deleteImg}>
-                <i class="fas fa-trash-alt" style={{marginRight: '5px'}}></i> Delete
+                <i class="fas fa-trash-alt" style={{ marginRight: '5px' }}></i> Delete
               </button>
             </div>
           </DialogContentText>

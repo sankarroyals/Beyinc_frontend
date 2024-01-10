@@ -307,7 +307,7 @@ const SearchBox = () => {
 
     return (
         <div style={{ position: 'relative' }} >
-            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div className='newChat' onClick={() => {
                     document.getElementsByClassName('newConversation')[0].classList.toggle('show')
                 }}>
@@ -341,7 +341,7 @@ const SearchBox = () => {
                             setReceivermail(a.email)
                             setOpen(true)
                         }}>
-                            <div><img src={(a.image === undefined || a.image == '') ? 'profile.jpeg' : a.image.url} alt="" srcset="" /></div>
+                            <div><img src={(a.image === undefined || a.image == '') ? '/profile.jpeg' : a.image.url} alt="" srcset="" /></div>
                             <div>
                                 <div className='userName'>{a.userName}</div>
                                 <div className='role'>{a.role}</div>
@@ -498,7 +498,7 @@ const SearchBox = () => {
                                 /></div>
                             </div>
 
-                            
+
 
 
                         </div>
@@ -622,7 +622,7 @@ const SearchBox = () => {
                                                 value={singleTeamMember?.name}
                                                 onChange={(e) => {
                                                     setSingleTeamMember(prev => ({ ...prev, name: e.target.value }))
-                                                    setForm((prev) => ({ ...prev, changeStatus: 'change'}));
+                                                    setForm((prev) => ({ ...prev, changeStatus: 'change' }));
                                                 }}
                                             />
                                         </div>
@@ -706,7 +706,7 @@ const SearchBox = () => {
                                         onChange={handleBannerPic}
                                     /></div>
                             </div>
-                            
+
                         </div>
 
                     </TabPanel>
@@ -736,7 +736,7 @@ const SearchBox = () => {
                                         onChange={handlePitchFinancials}
                                     /></div>
                             </div>
-                            
+
                         </div>
 
                     </TabPanel>
