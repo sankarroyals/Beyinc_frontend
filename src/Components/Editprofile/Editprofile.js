@@ -82,7 +82,7 @@ const Editprofile = () => {
   })
   const handleResume = (e) => {
     const file = e.target.files[0];
-    setRecentUploadedDocs((prev)=>({...prev, [e.target.name]: file?.name}))
+    setRecentUploadedDocs((prev) => ({ ...prev, [e.target.name]: file?.name }))
     setFileBase(e, file);
   };
   const setFileBase = (e, file) => {
@@ -383,7 +383,7 @@ const Editprofile = () => {
       <div className="heading">
         <div>
           <img
-            src={image !== undefined && image !== "" ? image : "profile.jpeg"}
+            src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
             style={{
               width: "150px",
               height: "150px",
@@ -443,14 +443,14 @@ const Editprofile = () => {
               <br />
               <i className="fas fa-envelope"></i> {email}{" "}
               <img
-                src="verify.png"
+                src="/verify.png"
                 style={{ width: "15px", height: "15px", marginLeft: "5px" }}
               />
               <br />
               <i className="fas fa-phone"></i> {mobile}{" "}
               {mobileVerified && (
                 <img
-                  src="verify.png"
+                  src="/verify.png"
                   style={{ width: "15px", height: "15px", marginLeft: "5px" }}
                 />
               )}
@@ -711,20 +711,20 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
-              <label htmlFor='resume' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.resume  || 'Upload'}</span></label>
+              <label htmlFor='resume' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.resume || 'Upload'}</span></label>
               <input
                 className="resume"
                 type="file"
                 name="resume"
                 id="resume"
-                onChange={handleResume} style={{display: 'none'}}
+                onChange={handleResume} style={{ display: 'none' }}
               />
             </div>
 
             <div>
               <div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "2px" , justifyContent: 'space-between'}}
+                  style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
                 >
                   <label>Acheivements</label>
                   {oldDocs.acheivements !== "" &&

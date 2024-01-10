@@ -29,7 +29,8 @@
     /* justify-content: space-between; */
     flex-direction: column;
     gap: 40px;
-    margin-top: 25px;
+    padding: 6px;
+    /* margin-top: -10px; */
     height: 70vh;
     overflow-y: scroll;
 }
@@ -70,6 +71,9 @@
 .email, .text{
     font-size: 14px;
 }
+.email{
+align-self: flex-start !important;
+}
 
 .sendBox{
     position: sticky;
@@ -98,4 +102,11 @@
 }
 .uploadingFileIcon .fileName{
     white-space: wrap;
+}
+.messageNavbar{
+    padding: 5px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    /* border-bottom: 1px solid gray; */
 }

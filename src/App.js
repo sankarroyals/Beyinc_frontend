@@ -42,6 +42,7 @@ const App = () => {
           <Route path="/" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
           <Route path="/conversations" Component={AuthHoc(Conversations)} />
+          <Route path="/conversations/:conversationId" Component={AuthHoc(Conversations)} />
           <Route path="/notifications" Component={AuthHoc(Notifications)} />
           <Route path="/pitchs" Component={AdminDeciderHoc(PitchDecider)} />
 

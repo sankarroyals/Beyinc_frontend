@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import './searchBox.css'
 import { ApiServices } from '../../../Services/ApiServices'
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
-import { getAllHistoricalConversations } from '../../../redux/Conversationreducer/ConversationReducer'
+import { getAllHistoricalConversations, setConversationId } from '../../../redux/Conversationreducer/ConversationReducer'
 import { setToast } from '../../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../../Toast/ToastColors';
 import CloseIcon from '@mui/icons-material/Close'
@@ -307,7 +307,7 @@ const SearchBox = () => {
 
     return (
         <div style={{ position: 'relative' }} >
-            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div className='newChat' onClick={() => {
                     document.getElementsByClassName('newConversation')[0].classList.toggle('show')
                 }}>
@@ -319,6 +319,7 @@ const SearchBox = () => {
                     <attr title='Reload for latest request updates'>
                         <CachedIcon style={{ cursor: 'pointer' }} onClick={() => {
                             dispatch(getAllHistoricalConversations(email))
+                            dispatch(setConversationId(''))
                         }} />
                     </attr>
                 </div>
@@ -340,7 +341,7 @@ const SearchBox = () => {
                             setReceivermail(a.email)
                             setOpen(true)
                         }}>
-                            <div><img src={(a.image === undefined || a.image == '') ? 'profile.jpeg' : a.image.url} alt="" srcset="" /></div>
+                            <div><img src={(a.image === undefined || a.image == '') ? '/profile.jpeg' : a.image.url} alt="" srcset="" /></div>
                             <div>
                                 <div className='userName'>{a.userName}</div>
                                 <div className='role'>{a.role}</div>
@@ -497,7 +498,7 @@ const SearchBox = () => {
                                 /></div>
                             </div>
 
-                            
+
 
 
                         </div>
@@ -595,6 +596,7 @@ const SearchBox = () => {
                                                 <div>{t.name}</div>
                                                 <div onClick={(e) => {
                                                     setTeamMembers(teamMembers.filter((f, j) => i !== j))
+                                                    setForm((prev) => ({ ...prev, changeStatus: 'change' }));
                                                 }}><CloseIcon className='deleteMember' /></div>
                                             </div>
                                         ))}
@@ -620,7 +622,7 @@ const SearchBox = () => {
                                                 value={singleTeamMember?.name}
                                                 onChange={(e) => {
                                                     setSingleTeamMember(prev => ({ ...prev, name: e.target.value }))
-                                                    setForm((prev) => ({ ...prev, changeStatus: 'change'}));
+                                                    setForm((prev) => ({ ...prev, changeStatus: 'change' }));
                                                 }}
                                             />
                                         </div>
@@ -704,7 +706,7 @@ const SearchBox = () => {
                                         onChange={handleBannerPic}
                                     /></div>
                             </div>
-                            
+
                         </div>
 
                     </TabPanel>
@@ -734,7 +736,7 @@ const SearchBox = () => {
                                         onChange={handlePitchFinancials}
                                     /></div>
                             </div>
-                            
+
                         </div>
 
                     </TabPanel>
@@ -756,7 +758,7 @@ const SearchBox = () => {
                     </div>}
                 </DialogContent>
             </Dialog>
-        </div >
+        </div>
     )
 }
 

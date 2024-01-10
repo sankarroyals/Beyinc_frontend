@@ -287,4 +287,19 @@ export const ApiServices = {
 
         })
     },
+
+
+
+    getFriendByConvID: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/getFriendByConversationId`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
 }
