@@ -711,7 +711,7 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
-              <label htmlFor='resume' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.resume}</span></label>
+              <label htmlFor='resume' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.resume  || 'Upload'}</span></label>
               <input
                 className="resume"
                 type="file"
@@ -749,7 +749,7 @@ const Editprofile = () => {
                       </attr>
                     )}
                 </div>
-                <label htmlFor='acheivements' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.acheivements}</span></label>
+                <label htmlFor='acheivements' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.acheivements || 'Upload'}</span></label>
                 <input
                   type="file"
                   id="acheivements"
@@ -787,7 +787,7 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
-              <label htmlFor='degree' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.degree}</span></label>
+              <label htmlFor='degree' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.degree || 'Upload'}</span></label>
 
               <input
                 type="file"
@@ -825,7 +825,7 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
-              <label htmlFor='expertise' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.expertise}</span></label>
+              <label htmlFor='expertise' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.expertise || 'Upload'}</span></label>
 
               <input
                 type="file"
@@ -863,7 +863,7 @@ const Editprofile = () => {
                     </attr>
                   )}
               </div>
-              <label htmlFor='working' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.working}</span></label>
+              <label htmlFor='working' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.working || 'Upload'}</span></label>
 
               <input
                 type="file"
