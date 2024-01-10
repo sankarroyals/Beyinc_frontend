@@ -70,10 +70,12 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    align-items: center;
     justify-content: space-between;
 }
-.sendBox input[type='text']{
-    flex: 1;
+.sendBox input[type='text'], textarea{
+    /* flex: 1; */
+    width: 600px !important;
 }
 .sendBox .sendIcon{
     font-size: 30px;

@@ -17,6 +17,7 @@ const IndividualMessage = () => {
     const [messages, setMessages] = useState([])
     const [sendMessage, setSendMessage] = useState('')
     const [file, setFile] = useState('');
+    const [normalFileName, setNormalFileName] = useState('')
     const scrollRef = useRef();
     const dispatch = useDispatch()
     
@@ -34,6 +35,9 @@ const IndividualMessage = () => {
                 "conversationId": conversationId
             }).then((res) => {
                 setMessages(res.data)
+                setNormalFileName('')
+                setFile('')
+                setSendMessage('')
             })
         }
     }, [conversationId])
@@ -47,6 +51,7 @@ const IndividualMessage = () => {
 
     const handleFile = (e) => {
         const file = e.target.files[0];
+        setNormalFileName(file.name)
         setFileBase(e, file);
     };
     const setFileBase = (e, file) => {
@@ -116,7 +121,7 @@ const IndividualMessage = () => {
 
           </div>
           <div className="sendBox">
-              <input
+              <textarea
                   type="text"
                   name="message"
                   id='message'
@@ -124,7 +129,8 @@ const IndividualMessage = () => {
                   onChange={(e) => setSendMessage(e.target.value)}
                   placeholder="Enter a message"
               />
-              <label htmlFor='chatFile' className='uploadingFileIcon'><CloudUploadIcon /></label>
+              <label htmlFor='chatFile' className='uploadingFileIcon'><CloudUploadIcon />
+                  <div>{normalFileName || 'Click to Upload'}</div></label>
               <input type='file' id='chatFile' onChange={handleFile} style={{display: 'none'}}/>
               <SendIcon className='sendIcon' onClick={sendText} />
           </div>
