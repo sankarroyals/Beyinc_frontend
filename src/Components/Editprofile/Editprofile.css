@@ -99,9 +99,18 @@
 .resume {
   border: 1px dashed grey;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  padding: 10px;
   margin-left: 30px;
   position: relative;
   width: 300px;
+}
+.fileName{
+  white-space: wrap !important;
+  margin-left: 3px;
 }
 
 .profile-content {

@@ -35,6 +35,7 @@ const Conversations = () => {
       dispatch(setLiveMessage({
         message: data.message,
         senderId: data.senderId,
+        fileSent: data.fileSent
       }))
       // setMessages(prev => [...prev, data])
     })
