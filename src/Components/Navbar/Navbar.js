@@ -151,6 +151,7 @@ const Navbar = () => {
   }, []);
 
   return (
+    
     <div
       className="navbar"
       style={{ display: email == undefined ? "none" : "flex" }}
@@ -158,14 +159,16 @@ const Navbar = () => {
       <div className="logo" onClick={() => {
         navigate('/')
       }} >BEYINC</div>
+
       <div className="navRight">
-        <div>
-          <MessageIcon style={{ fontSize: '30px', cursor: 'pointer' }} onClick={() => {
+        <div className="navIcons">
+          <MessageIcon  onClick={() => {
             navigate('/conversations')
           }} />
         </div>
-        <div>
-          <NotificationsIcon style={{ fontSize: '30px', cursor: 'pointer' }} onClick={() => {
+        <div className="navIcons">
+        
+          <NotificationsIcon onClick={() => {
             navigate('/notifications')
           }} />
         </div>
@@ -292,7 +295,7 @@ const Navbar = () => {
               />
             </div>
             <div>
-              <label htmlFor='profilePic' className="resume"><CloudUploadIcon /><span className="fileName">{originalImage || 'Upload'}</span></label>
+              <label htmlFor='profilePic' className="profileImage"><CloudUploadIcon /><span className="fileName">{originalImage || 'Upload'}</span></label>
               <input type="file" name="" id="profilePic" onChange={handleImage} style={{display: 'none'}}/>
             </div>
             <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
