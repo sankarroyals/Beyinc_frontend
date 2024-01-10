@@ -79,3 +79,10 @@
     font-size: 30px;
     cursor: pointer;
 }
+
+.uploadingFileIcon{
+    position: absolute;
+    right: 40px;
+    top: 10px;
+    cursor: pointer;
+}

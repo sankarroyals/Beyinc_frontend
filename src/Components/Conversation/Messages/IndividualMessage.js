@@ -7,6 +7,7 @@ import { ToastColors } from '../../Toast/ToastColors';
 import { format } from "timeago.js";
 import { io } from 'socket.io-client';
 import { setOnlineUsers } from '../../../redux/Conversationreducer/ConversationReducer';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 const IndividualMessage = () => {
     const conversationId = useSelector(state => state.conv.conversationId)
     const receiverId = useSelector(state => state.conv.receiverId)
@@ -123,7 +124,8 @@ const IndividualMessage = () => {
                   onChange={(e) => setSendMessage(e.target.value)}
                   placeholder="Enter a message"
               />
-              <input type='file' id='chatFile' onChange={handleFile}/>
+              <label htmlFor='chatFile' className='uploadingFileIcon'><CloudUploadIcon /></label>
+              <input type='file' id='chatFile' onChange={handleFile} style={{display: 'none'}}/>
               <SendIcon className='sendIcon' onClick={sendText} />
           </div>
       </div>
