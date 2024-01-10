@@ -1,18 +1,31 @@
+body{
+    background: #f6f8fc;
+}
 .conversationContainer {
     max-width: 1300px;
-    height: 80vh;
+    height: 82vh;
     /* overflow: hidden; */
     /* border: 1px solid green; */
     margin: auto;
     display: flex;
-    padding: 15px;
+    padding: 5px;
     gap: 20px;
+    background: #ffffff;
+    border-radius: 20px;
+    
+    
+   
 }
 .users{
-     /* border: 1px solid yellow; */
       flex: 1 0 20%;
+      background:#f6f8fc;
+      margin-left: -80px;
+      margin-top: -15px;
+      padding: 20px 0 40px 20px;
+      height: 600px;
+    
 }
 .chatContainer{
- /* border: 1px solid blue; */
  flex: 1 0 75%;
+ padding: 10px;
 }

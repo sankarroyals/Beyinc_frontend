@@ -8,6 +8,8 @@ import { format } from "timeago.js";
 import { io } from 'socket.io-client';
 import { setOnlineUsers } from '../../../redux/Conversationreducer/ConversationReducer';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import './IndividualMessage.css'
+
 const IndividualMessage = () => {
     const conversationId = useSelector(state => state.conv.conversationId)
     const receiverId = useSelector(state => state.conv.receiverId)
