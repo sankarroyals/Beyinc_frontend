@@ -76,6 +76,7 @@
 .sendBox input[type='text'], textarea{
     /* flex: 1; */
     width: 600px !important;
+    flex: 1;
 }
 .sendBox .sendIcon{
     font-size: 30px;
@@ -83,8 +84,10 @@
 }
 
 .uploadingFileIcon{
-    position: absolute;
-    right: 40px;
-    top: 10px;
     cursor: pointer;
+    max-width: 200px;
+    margin: 0 10px;
+}
+.uploadingFileIcon .fileName{
+    white-space: wrap;
 }

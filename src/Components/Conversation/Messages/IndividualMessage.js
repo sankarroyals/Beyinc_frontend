@@ -130,7 +130,7 @@ const IndividualMessage = () => {
                   placeholder="Enter a message"
               />
               <label htmlFor='chatFile' className='uploadingFileIcon'><CloudUploadIcon />
-                  <div>{normalFileName || 'Click to Upload'}</div></label>
+                  <span className='fileName'>{normalFileName}</span></label>
               <input type='file' id='chatFile' onChange={handleFile} style={{display: 'none'}}/>
               <SendIcon className='sendIcon' onClick={sendText} />
           </div>
