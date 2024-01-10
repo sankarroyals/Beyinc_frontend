@@ -13,7 +13,7 @@ const IndividualMessage = () => {
     const receiverId = useSelector(state => state.conv.receiverId)
     const liveMessage = useSelector(state => state.conv.liveMessage)
 
-    const { email } = useSelector(state => state.auth.loginDetails)
+    const { email, image, userName } = useSelector(state => state.auth.loginDetails)
     const [messages, setMessages] = useState([])
     const [sendMessage, setSendMessage] = useState('')
     const [file, setFile] = useState('');
@@ -82,7 +82,7 @@ const IndividualMessage = () => {
                 {   "email": email,
                     "conversationId": conversationId,
                     "senderId": email,
-                    "receiverId": receiverId,
+                    "receiverId": receiverId.email,
                     "message": sendMessage,
                     "file": file
                 }
@@ -90,13 +90,13 @@ const IndividualMessage = () => {
                 setMessages(prev => [...prev, {
                     "conversationId": conversationId,
                     "senderId": email,
-                    "receiverId": receiverId,
+                    "receiverId": receiverId.email,
                     "message": sendMessage
                 }])
                 setSendMessage('')
                 socket.current.emit('sendMessage', {
                     senderId: email,
-                    receiverId: receiverId,
+                    receiverId: receiverId.email,
                     message: sendMessage,
                     fileSent: file !== ''
                 })
@@ -122,15 +122,21 @@ const IndividualMessage = () => {
     
   return (
       <div className='messageContainer'>
-          <div className='messageBox' >
+          <div className='messageNavbar'>
+              <div>
+                  <img src={ (receiverId?.image?.url !== undefined && receiverId?.image?.url !== '' ) ? receiverId.image.url : 'Profile.jpeg'} alt="" srcset="" />
+              </div>
+              <div>{receiverId?.userName}</div>
+          </div>
+          <div className='messageBox'>
               {messages.length > 0 && messages.map((m) => (
                   <div className={`details ${m.senderId === email ? 'owner' : 'friend'}`} ref={scrollRef}>
                       <div className='imageContainer'>
-                          <img src={m.image?.url === undefined ? 'Profile.jpeg' : m.image.url} alt="" srcset="" />
+                          <img src={(image !== undefined && image !== '' && m.senderId === email) ? image : ((receiverId?.image?.url !== undefined && receiverId?.image?.url !== '' && m.senderId !== email) ? receiverId.image.url :'Profile.jpeg')  } alt="" srcset="" />
                           <div className="messageBottom">{format(m.createdAt)}</div>
                       </div>
                       <div className='personalDetails'>
-                          <div className='email'>{m.senderId}</div>
+                          <div className='email'>{m.senderId === email ? userName : receiverId?.userName}</div>
                           {m.message !== '' && <div className='text'>{m.message}</div>}
                           {(m.file!=='' && m.file!==undefined) && <a href={m.file.secure_url} target='_blank' rel="noreferrer">sent an attachment</a> }
                       </div>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import './searchBox.css'
 import { ApiServices } from '../../../Services/ApiServices'
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
-import { getAllHistoricalConversations } from '../../../redux/Conversationreducer/ConversationReducer'
+import { getAllHistoricalConversations, setConversationId } from '../../../redux/Conversationreducer/ConversationReducer'
 import { setToast } from '../../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../../Toast/ToastColors';
 import CloseIcon from '@mui/icons-material/Close'
@@ -319,6 +319,7 @@ const SearchBox = () => {
                     <attr title='Reload for latest request updates'>
                         <CachedIcon style={{ cursor: 'pointer' }} onClick={() => {
                             dispatch(getAllHistoricalConversations(email))
+                            dispatch(setConversationId(''))
                         }} />
                     </attr>
                 </div>
@@ -595,6 +596,7 @@ const SearchBox = () => {
                                                 <div>{t.name}</div>
                                                 <div onClick={(e) => {
                                                     setTeamMembers(teamMembers.filter((f, j) => i !== j))
+                                                    setForm((prev) => ({ ...prev, changeStatus: 'change' }));
                                                 }}><CloseIcon className='deleteMember' /></div>
                                             </div>
                                         ))}
@@ -756,7 +758,7 @@ const SearchBox = () => {
                     </div>}
                 </DialogContent>
             </Dialog>
-        </div >
+        </div>
     )
 }
 

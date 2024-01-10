@@ -17,7 +17,10 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
     const storingDetails = () => {
         if (status !== 'pending') {
             dispatch(setConversationId(a._id))
-            dispatch(setReceiverId(a.members.filter((f) => f !== email)[0]))
+            ApiServices.getProfile({ email: a.members.filter((f) => f !== email)[0] }).then((res) => {
+                dispatch(setReceiverId(res.data))
+            })
+            
         }
     }
   return (
