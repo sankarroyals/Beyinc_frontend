@@ -17,6 +17,7 @@ const IndividualMessage = () => {
     const [messages, setMessages] = useState([])
     const [sendMessage, setSendMessage] = useState('')
     const [file, setFile] = useState('');
+    const [messageTrigger, setMessageTrigger] = useState('')
     const [normalFileName, setNormalFileName] = useState('')
     const scrollRef = useRef();
     const dispatch = useDispatch()
@@ -30,7 +31,7 @@ const IndividualMessage = () => {
 
 
     useEffect(() => {
-        if (conversationId !== '') {
+        if (conversationId !== '' ) {
             ApiServices.getMessages({
                 "conversationId": conversationId
             }).then((res) => {
@@ -40,7 +41,20 @@ const IndividualMessage = () => {
                 setSendMessage('')
             })
         }
-    }, [conversationId])
+    }, [conversationId, messageTrigger])
+
+    useEffect(() => {
+        if (liveMessage?.fileSent == true) {
+            ApiServices.getMessages({
+                "conversationId": conversationId
+            }).then((res) => {
+                setMessages(res.data)
+                setNormalFileName('')
+                setFile('')
+                setSendMessage('')
+            })
+        }
+    }, [liveMessage?.fileSent])
 
     useEffect(() => {
         console.log(liveMessage);
@@ -83,8 +97,12 @@ const IndividualMessage = () => {
                 socket.current.emit('sendMessage', {
                     senderId: email,
                     receiverId: receiverId,
-                    message: sendMessage
+                    message: sendMessage,
+                    fileSent: file !== ''
                 })
+                if (file !== '') {
+                    setMessageTrigger(!messageTrigger)
+                }
                 document.getElementById('chatFile').value=''
             }).catch((err) => {
                 dispatch(
