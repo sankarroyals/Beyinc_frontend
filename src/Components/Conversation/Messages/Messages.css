@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    
 }
 
 .No_Conversation {
@@ -22,6 +23,9 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 5px;
+   
+
+   
 }
 
 .messageBox{
@@ -33,19 +37,24 @@
     /* margin-top: -10px; */
     height: 70vh;
     overflow-y: scroll;
+    
 }
 
 .details{
     display: flex;
     align-items: center;
-    gap: 5px;
+    /* gap: 5px; */
+    /* padding: 5px; */
 
 }
 .details.owner{
     align-self: flex-end;
+   
 }
 .imageContainer{
     width: 80px;
+margin-top: 4px;
+padding: 10px;
 }
 .personalDetails{
     display: flex;
@@ -53,20 +62,23 @@
     gap: 2px;
     margin-top: 5px;
     width: 200px;
+    padding: 10px;
   
 }
 .text{
- background: rgb(240, 227, 227);
  padding: 10px;
  border-radius: 20px;
- word-wrap: break-word
+ word-wrap: break-word;
+ background: #0b57d0;
+ color: white;
 }
 .messageBottom{
     font-size: 10px;
 }
 
 .owner .personalDetails .text{
-    background: rgb(185, 184, 184);
+    background: #0b57d0;
+    color: white;
 }
 .email, .text{
     font-size: 14px;

@@ -19,7 +19,6 @@ const Editprofile = React.lazy(() => wait(1000).then(() => import("./Components/
 
 const ENV = process.env;
 
-
 const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {

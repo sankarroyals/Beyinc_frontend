@@ -165,4 +165,4 @@ const IndividualMessage = () => {
     )
 }
 
-export default IndividualMessage
+export default IndividualMessage;
