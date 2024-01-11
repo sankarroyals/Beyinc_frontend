@@ -58,6 +58,13 @@ const Editprofile = () => {
   const [nameChanger, setNameChanger] = useState(false);
   const [roles, setRoles] = useState([]);
 
+  const [experienceDetails, setExperience] = useState({
+    experience: '',
+    job: '',
+    qualification: '',
+    fee: 1
+  })
+
   const [changeResume, setchangeDocuments] = useState({
     resume: "",
     expertise: "",
@@ -80,6 +87,11 @@ const Editprofile = () => {
     working: "",
     degree: "",
   })
+
+  const handleChange = (e) => {
+    setExperience(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
   const handleResume = (e) => {
     const file = e.target.files[0];
     setRecentUploadedDocs((prev) => ({ ...prev, [e.target.name]: file?.name }))
@@ -107,6 +119,13 @@ const Editprofile = () => {
           role: res.data.role,
           mobileVerified: true,
         }));
+
+        setExperience({
+          experience: res.data.experience || '',
+          job: res.data.job || '',
+          qualification: res.data.qualification || '',
+          fee: +res.data.fee || 1
+        })
 
         if (res.data.documents !== undefined) {
           setOldDocs((prev) => ({
@@ -296,7 +315,7 @@ const Editprofile = () => {
       userName: name,
       phone: mobile,
       role: role,
-      documents: changeResume,
+      documents: changeResume, experienceDetails: experienceDetails
     })
       .then((res) => {
         dispatch(
@@ -380,359 +399,225 @@ const Editprofile = () => {
 
   return (
     <div className="update-container">
-      <div className="heading">
-        <div>
-          <img
-            src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
-            style={{
-              width: "150px",
-              height: "150px",
-              borderRadius: "50%",
-            }}
-          />
-        </div>
-
-        <div className="profile-content">
-          <div style={{ fontSize: "24px" }}>
-            {nameChanger ? (
-              <input
-                className="name"
-                type="text"
-                value={name}
-                onChange={(e) => {
-                  setInputs((prev) => ({ ...prev, name: e.target.value }));
-                }}
-              />
-            ) : (
-              name
-            )}
-            <attr title="Edit Name" style={{ borderRadius: "5px" }}>
-              <i
-                className="fas fa-pencil-alt"
-                onClick={() => {
-                  setNameChanger(!nameChanger);
-                }}
-              ></i>
-            </attr>
+      <div className="updateContainerWrapper">
+        <div className="heading">
+          <div>
+            <img
+              src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+              style={{
+                width: "150px",
+                height: "150px",
+                borderRadius: "50%",
+              }}
+            />
           </div>
-          <div
-            style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
-          >
-            Profile last updated -{" "}
-            <span style={{ color: "black" }}>
-              <i class="fas fa-clock"></i>
-              {format(updatedAt)}
-            </span>
-          </div>
-          <div
-            style={{
-              width: "100%",
-              border: "0.2px solid #d3d3d3",
-              marginTop: "-20px",
-              marginBottom: "20px",
-            }}
-          ></div>
 
-          <div
-            style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
-          >
+          <div className="profile-content">
+            <div style={{ fontSize: "24px" }}>
+              {nameChanger ? (
+                <input
+                  className="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => {
+                    setInputs((prev) => ({ ...prev, name: e.target.value }));
+                  }}
+                />
+              ) : (
+                name
+              )}
+              <attr title="Edit Name" style={{ borderRadius: "5px" }}>
+                <i
+                  className="fas fa-pencil-alt"
+                  onClick={() => {
+                    setNameChanger(!nameChanger);
+                  }}
+                ></i>
+              </attr>
+            </div>
+            <div
+              style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
+            >
+              Profile last updated -{" "}
+              <span style={{ color: "black" }}>
+                <i class="fas fa-clock"></i>
+                {format(updatedAt)}
+              </span>
+            </div>
+            <div
+              style={{
+                width: "100%",
+                border: "0.2px solid #d3d3d3",
+                marginTop: "-20px",
+                marginBottom: "20px",
+              }}
+            ></div>
+
             <div
               style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
             >
-              <i class="fas fa-user"></i> {role}
-              <br />
-              <i className="fas fa-envelope"></i> {email}{" "}
-              <img
-                src="/verify.png"
-                style={{ width: "15px", height: "15px", marginLeft: "5px" }}
-              />
-              <br />
-              <i className="fas fa-phone"></i> {mobile}{" "}
-              {mobileVerified && (
+              <div
+                style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
+              >
+                <i class="fas fa-user"></i> {role}
+                <br />
+                <i className="fas fa-envelope"></i> {email}{" "}
                 <img
                   src="/verify.png"
                   style={{ width: "15px", height: "15px", marginLeft: "5px" }}
                 />
-              )}
-              <attr title="Edit Mobile Number">
-                <i
-                  className="fas fa-pencil-alt"
-                  onClick={(e) => {
-                    document
-                      .getElementsByClassName("mobile-verification")[0]
-                      .classList.toggle("showMobileVerification");
-                  }}
-                ></i>
-              </attr>
-              <div className="mobile-verification">
-                <div
-                  className="closeIcon"
-                  onClick={() => {
-                    document
-                      .getElementsByClassName("mobile-verification")[0]
-                      .classList.remove("showMobileVerification");
-                  }}
-                >
-                  <i className="fas fa-times Cross"></i>
-                </div>
-                <div className="input-container">
-                  <label style={{ marginLeft: "30px" }}>
-                    Update Mobile Number
-                  </label>
-                  <input
-                    type="text"
-                    className={
-                      mobile !== null &&
-                      (mobile.length === 10 ? "valid" : "invalid")
-                    }
-                    name="mobile"
-                    id="mobile"
-                    value={mobile}
-                    onChange={handleChanges}
-                    placeholder="Mobile Number"
+                <br />
+                <i className="fas fa-phone"></i> {mobile}{" "}
+                {mobileVerified && (
+                  <img
+                    src="/verify.png"
+                    style={{ width: "15px", height: "15px", marginLeft: "5px" }}
                   />
-                  {mobileVerified === true}
+                )}
+                <attr title="Edit Mobile Number">
+                  <i
+                    className="fas fa-pencil-alt"
+                    onClick={(e) => {
+                      document
+                        .getElementsByClassName("mobile-verification")[0]
+                        .classList.toggle("showMobileVerification");
+                    }}
+                  ></i>
+                </attr>
+                <div className="mobile-verification">
+                  <div
+                    className="closeIcon"
+                    onClick={() => {
+                      document
+                        .getElementsByClassName("mobile-verification")[0]
+                        .classList.remove("showMobileVerification");
+                    }}
+                  >
+                    <i className="fas fa-times Cross"></i>
+                  </div>
+                  <div className="input-container">
+                    <label style={{ marginLeft: "30px" }}>
+                      Update Mobile Number
+                    </label>
+                    <input
+                      type="text"
+                      className={
+                        mobile !== null &&
+                        (mobile.length === 10 ? "valid" : "invalid")
+                      }
+                      name="mobile"
+                      id="mobile"
+                      value={mobile}
+                      onChange={handleChanges}
+                      placeholder="Mobile Number"
+                    />
+                    {mobileVerified === true}
 
-                  {!isMobileOtpSent && isMobileValid && (
-                    <button
-                      type="button"
-                      className="otp_Button"
-                      onClick={sendMobileOtp}
-                    >
-                      Get OTP
-                    </button>
+                    {!isMobileOtpSent && isMobileValid && (
+                      <button
+                        type="button"
+                        className="otp_Button"
+                        onClick={sendMobileOtp}
+                      >
+                        Get OTP
+                      </button>
+                    )}
+                  </div>
+
+                  {isMobileOtpSent && mobileVerified !== true && (
+                    <>
+                      <div className="input-container">
+                        <input
+                          type="text"
+                          className={
+                            mobileOtp !== null &&
+                            (mobileOtp.length === 6 ? "valid" : "invalid")
+                          }
+                          name="mobileOtp"
+                          value={mobileOtp}
+                          onChange={handleChanges}
+                          placeholder="Enter Mobile OTP"
+                          id="mobileOtpInput"
+                        />
+                        {mobileOtp !== null && mobileOtp.length === 6 && (
+                          <button
+                            type="button"
+                            className="otp_Button"
+                            id="mobileVerify"
+                            onClick={verifyMobileOtp}
+                            style={{ whiteSpace: "noWrap" }}
+                          >
+                            Verify OTP
+                          </button>
+                        )}
+                      </div>
+                    </>
                   )}
                 </div>
-
-                {isMobileOtpSent && mobileVerified !== true && (
-                  <>
-                    <div className="input-container">
-                      <input
-                        type="text"
-                        className={
-                          mobileOtp !== null &&
-                          (mobileOtp.length === 6 ? "valid" : "invalid")
-                        }
-                        name="mobileOtp"
-                        value={mobileOtp}
-                        onChange={handleChanges}
-                        placeholder="Enter Mobile OTP"
-                        id="mobileOtpInput"
-                      />
-                      {mobileOtp !== null && mobileOtp.length === 6 && (
-                        <button
-                          type="button"
-                          className="otp_Button"
-                          id="mobileVerify"
-                          onClick={verifyMobileOtp}
-                          style={{ whiteSpace: "noWrap" }}
-                        >
-                          Verify OTP
-                        </button>
-                      )}
-                    </div>
-                  </>
-                )}
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="update-form-container">
-        <form className="update-form">
-          <h3 className="update-heading">Upload files</h3>
-
-          {/* <label style={{marginTop: '10px'}}>Role</label>
-          <div
-            className="input-container"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginRight: "80px",
-              marginTop: "10px"
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="radio"
-                name="role"
-                disabled
-                checked={role === "Entrepreneur"}
-                value="Entrepreneur"
-                id="Entrepreneur"
-                onClick={handleChangeRadio}
-              />
-              <label for="Entrepreneur">Entrepreneur</label>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="radio"
-                name="role"
-                disabled
-                checked={role === "Mentor"}
-                value="Mentor"
-                id="Mentor"
-                onClick={handleChangeRadio}
-              />
-              <label for="Mentor">Mentor</label>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="radio"
-                name="role"
-                disabled
-                checked={role === "Investor"}
-                value="Investor"
-                id="Investor"
-                onClick={handleChangeRadio}
-              />
-              <label for="Investor">Investor</label>
-            </div>
-          </div> */}
-
-          {/* <div className="input-container">
-            <label>Email</label>
-            <input
-              type="email"
-              className={
-                isEmailValid !== null && (isEmailValid ? "valid" : "invalid")
-              }
-              value={email}
-              name="email"
-              disabled
-              onChange={handleChanges}
-              // disabled={emailVerified}
-              placeholder="Email Address*"
-            />
-            <span className="lock-icon">
-              <i className="fas fa-lock"></i>
-            </span> */}
-          {/* {!isEmailOtpSent && isEmailValid && (
-                <button
-                  type="button"
-                  className="otp_button"
-                  onClick={sendEmailOtp}
-                >
-                  Get OTP
-                </button>
-              )} */}
-          {/* </div> */}
-
-          {/* {isEmailOtpSent && emailVerified !== true && (
-              <>
-                <div className="input-container">
-                  <input
-                    type="text"
-                    className={
-                      emailOtp !== null &&
-                      (emailOtp.length === 6 ? "valid" : "invalid")
-                    }
-                    value={emailOtp}
-                    name="emailOtp"
-                    onChange={handleChanges}
-                    placeholder="Enter Email OTP"
-                    id="emailOtpInput"
-                  />
-                  {emailOtp !== null && emailOtp.length === 6 && (
-                    <button
-                      type="button"
-                      className="otp_button"
-                      id="emailVerify"
-                      onClick={verifyOtp}
-                      style={{ whiteSpace: "noWrap" }}
-                    >
-                      Verify OTP
-                    </button>
-                  )}
+        {role == 'Mentor' && <div className="update-form-container">
+          <form className="update-form">
+            <h3 className="update-heading">Experience / Fee Negotiation</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div>
+                  <label>Experience</label>
                 </div>
-              </>
-            )} */}
-          {/* 
-          <div className="input-container">
-            <label>Name</label>
-            <input
-              type="text"
-              className={
-                isNameValid !== null && (isNameValid ? "valid" : "invalid")
-              }
-              value={name}
-              name="name"
-              onChange={handleChanges}
-              placeholder="Full Name*"
-            />
-          </div> */}
-
-          <div
-            style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
-          >
-            <div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
-              >
-                <label>Resume</label>
-                {oldDocs.resume !== "" &&
-                  oldDocs.resume !== undefined &&
-                  Object.keys(oldDocs.resume).length !== 0 && (
-                    <attr title="view previous resume">
-                      <a
-                        href={oldDocs.resume?.secure_url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <img
-                          style={{
-                            height: "30px",
-                            width: "30px",
-                          }}
-                          src="view.png"
-                          onMouseEnter={() => setShowPreviousFile(true)}
-                          onMouseLeave={() => setShowPreviousFile(false)}
-                        />
-                      </a>
-                    </attr>
-                  )}
+                <div>
+                  <input type="text" value={experienceDetails.experience} name="experience" id="" onChange={handleChange} placeholder="Enter Your Experience" />
+                </div>
               </div>
-              <label htmlFor='resume' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.resume || 'Upload'}</span></label>
-              <input
-                className="resume"
-                type="file"
-                name="resume"
-                id="resume"
-                onChange={handleResume} style={{ display: 'none' }}
-              />
+              <div>
+                <div>
+                  <label>Profession</label>
+                </div>
+                <div>
+                  <input type="text" name="job" value={experienceDetails.job} id="" onChange={handleChange} placeholder="Enter Your Profession" />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <label>Qualification</label>
+                </div>
+                <div>
+                  <input type="text" name="qualification" id="" value={experienceDetails.qualification} onChange={handleChange} placeholder="Enter Your Qualification" />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <label>Fee request</label>
+                </div>
+                <div>
+                  <input type="range" min={1} max={50} name="fee" value={experienceDetails.fee} id="" onChange={handleChange} placeholder="Enter Fee request per minute" /> &#8377; {experienceDetails.fee} / per min
+                </div>
+              </div>
             </div>
 
-            <div>
+          </form>
+        </div>}
+        <div className="update-form-container">
+          <form className="update-form">
+            <h3 className="update-heading">Upload files</h3>
+
+
+
+            <div
+              style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
+            >
               <div>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
                 >
-                  <label>Acheivements</label>
-                  {oldDocs.acheivements !== "" &&
-                    oldDocs.acheivements !== undefined &&
-                    Object.keys(oldDocs.acheivements).length !== 0 && (
-                      <attr title="view previous acheivements">
+                  <label>Resume</label>
+                  {oldDocs.resume !== "" &&
+                    oldDocs.resume !== undefined &&
+                    Object.keys(oldDocs.resume).length !== 0 && (
+                      <attr title="view previous resume">
                         <a
-                          href={oldDocs.acheivements?.secure_url}
+                          href={oldDocs.resume?.secure_url}
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -749,156 +634,195 @@ const Editprofile = () => {
                       </attr>
                     )}
                 </div>
-                <label htmlFor='acheivements' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.acheivements || 'Upload'}</span></label>
+                <label htmlFor='resume' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.resume || 'Upload'}</span></label>
+                <input
+                  className="resume"
+                  type="file"
+                  name="resume"
+                  id="resume"
+                  onChange={handleResume} style={{ display: 'none' }}
+                />
+              </div>
+
+              <div>
+                <div>
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
+                  >
+                    <label>Acheivements</label>
+                    {oldDocs.acheivements !== "" &&
+                      oldDocs.acheivements !== undefined &&
+                      Object.keys(oldDocs.acheivements).length !== 0 && (
+                        <attr title="view previous acheivements">
+                          <a
+                            href={oldDocs.acheivements?.secure_url}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <img
+                              style={{
+                                height: "30px",
+                                width: "30px",
+                              }}
+                              src="view.png"
+                              onMouseEnter={() => setShowPreviousFile(true)}
+                              onMouseLeave={() => setShowPreviousFile(false)}
+                            />
+                          </a>
+                        </attr>
+                      )}
+                  </div>
+                  <label htmlFor='acheivements' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.acheivements || 'Upload'}</span></label>
+                  <input
+                    type="file"
+                    id="acheivements"
+                    className="resume"
+                    name="acheivements"
+                    onChange={handleResume} style={{ display: 'none' }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
+                >
+                  <label>Degree</label>
+                  {oldDocs.degree !== "" &&
+                    oldDocs.degree !== undefined &&
+                    Object.keys(oldDocs.degree).length !== 0 && (
+                      <attr title="view previous degree ">
+                        <a
+                          href={oldDocs.degree?.secure_url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <img
+                            style={{
+                              height: "30px",
+                              width: "30px",
+                            }}
+                            src="view.png"
+                            onMouseEnter={() => setShowPreviousFile(true)}
+                            onMouseLeave={() => setShowPreviousFile(false)}
+                          />
+                        </a>
+                      </attr>
+                    )}
+                </div>
+                <label htmlFor='degree' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.degree || 'Upload'}</span></label>
+
                 <input
                   type="file"
-                  id="acheivements"
+                  id="degree"
                   className="resume"
-                  name="acheivements"
+                  name="degree"
                   onChange={handleResume} style={{ display: 'none' }}
+                />
+              </div>
+
+              <div>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
+                >
+                  <label>Expertise</label>
+                  {oldDocs.expertise !== "" &&
+                    oldDocs.expertise !== undefined &&
+                    Object.keys(oldDocs.expertise).length !== 0 && (
+                      <attr title="view previous expertise ">
+                        <a
+                          href={oldDocs.expertise?.secure_url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <img
+                            style={{
+                              height: "30px",
+                              width: "30px",
+                            }}
+                            src="view.png"
+                            onMouseEnter={() => setShowPreviousFile(true)}
+                            onMouseLeave={() => setShowPreviousFile(false)}
+                          />
+                        </a>
+                      </attr>
+                    )}
+                </div>
+                <label htmlFor='expertise' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.expertise || 'Upload'}</span></label>
+
+                <input
+                  type="file"
+                  id="expertise"
+                  className="resume"
+                  name="expertise" style={{ display: 'none' }}
+                  onChange={handleResume}
+                />
+              </div>
+
+              <div>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
+                >
+                  <label>Working</label>
+                  {oldDocs.working !== "" &&
+                    oldDocs.working !== undefined &&
+                    Object.keys(oldDocs.working).length !== 0 && (
+                      <attr title="view previous working ">
+                        <a
+                          href={oldDocs.working?.secure_url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <img
+                            style={{
+                              height: "30px",
+                              width: "30px",
+                            }}
+                            src="view.png"
+                            onMouseEnter={() => setShowPreviousFile(true)}
+                            onMouseLeave={() => setShowPreviousFile(false)}
+                          />
+                        </a>
+                      </attr>
+                    )}
+                </div>
+                <label htmlFor='working' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.working || 'Upload'}</span></label>
+
+                <input
+                  type="file"
+                  id="working"
+                  className="resume" style={{ display: 'none' }}
+                  name="working"
+                  onChange={handleResume}
                 />
               </div>
             </div>
 
-            <div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
-              >
-                <label>Degree</label>
-                {oldDocs.degree !== "" &&
-                  oldDocs.degree !== undefined &&
-                  Object.keys(oldDocs.degree).length !== 0 && (
-                    <attr title="view previous degree ">
-                      <a
-                        href={oldDocs.degree?.secure_url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <img
-                          style={{
-                            height: "30px",
-                            width: "30px",
-                          }}
-                          src="view.png"
-                          onMouseEnter={() => setShowPreviousFile(true)}
-                          onMouseLeave={() => setShowPreviousFile(false)}
-                        />
-                      </a>
-                    </attr>
-                  )}
-              </div>
-              <label htmlFor='degree' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.degree || 'Upload'}</span></label>
-
-              <input
-                type="file"
-                id="degree"
-                className="resume"
-                name="degree"
-                onChange={handleResume} style={{ display: 'none' }}
-              />
-            </div>
-
-            <div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
-              >
-                <label>Expertise</label>
-                {oldDocs.expertise !== "" &&
-                  oldDocs.expertise !== undefined &&
-                  Object.keys(oldDocs.expertise).length !== 0 && (
-                    <attr title="view previous expertise ">
-                      <a
-                        href={oldDocs.expertise?.secure_url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <img
-                          style={{
-                            height: "30px",
-                            width: "30px",
-                          }}
-                          src="view.png"
-                          onMouseEnter={() => setShowPreviousFile(true)}
-                          onMouseLeave={() => setShowPreviousFile(false)}
-                        />
-                      </a>
-                    </attr>
-                  )}
-              </div>
-              <label htmlFor='expertise' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.expertise || 'Upload'}</span></label>
-
-              <input
-                type="file"
-                id="expertise"
-                className="resume"
-                name="expertise" style={{ display: 'none' }}
-                onChange={handleResume}
-              />
-            </div>
-
-            <div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
-              >
-                <label>Working</label>
-                {oldDocs.working !== "" &&
-                  oldDocs.working !== undefined &&
-                  Object.keys(oldDocs.working).length !== 0 && (
-                    <attr title="view previous working ">
-                      <a
-                        href={oldDocs.working?.secure_url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <img
-                          style={{
-                            height: "30px",
-                            width: "30px",
-                          }}
-                          src="view.png"
-                          onMouseEnter={() => setShowPreviousFile(true)}
-                          onMouseLeave={() => setShowPreviousFile(false)}
-                        />
-                      </a>
-                    </attr>
-                  )}
-              </div>
-              <label htmlFor='working' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.working || 'Upload'}</span></label>
-
-              <input
-                type="file"
-                id="working"
-                className="resume" style={{ display: 'none' }}
-                name="working"
-                onChange={handleResume}
-              />
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "25%",
-              gap: "10px",
-              marginLeft: "30px",
-              marginTop: "5px",
-            }}
-          >
-            <button
-              onClick={() => {
-                navigate(-1);
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "25%",
+                gap: "10px",
+                marginLeft: "30px",
+                marginTop: "5px",
               }}
             >
-              Back
-            </button>
-            <button type="submit" disabled={!isFormValid} onClick={update}>
-              Send for Approval
-            </button>
-          </div>
-        </form>
-      </div>
+              <button
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                Back
+              </button>
+              <button type="submit" disabled={!isFormValid} onClick={update}>
+                Send for Approval
+              </button>
+            </div>
+          </form>
+        </div>
+     </div>
     </div>
   );
 };

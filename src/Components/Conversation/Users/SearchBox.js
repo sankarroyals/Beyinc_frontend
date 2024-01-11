@@ -384,7 +384,7 @@ const SearchBox = () => {
                     setOpen(true);
                   }}
                 >
-                  <div>
+                  <div className="searchPic">
                     <img
                       src={
                         a.image === undefined || a.image == ""
@@ -394,7 +394,19 @@ const SearchBox = () => {
                       alt=""
                       srcset=""
                     />
+                    {a.verification === 'approved' && <div style={{ right: "8px", top: '3px', height: '13px', width: '13px', position: 'absolute' }}>
+                      <abbr title="verified user">
+                        <img
+                          src="/verify.png"
+                          height={20}
+                          style={{ height: '13px', width: '13px' }}
+                          alt="Your Alt Text"
+                          className=""
+                        />
+                      </abbr>
+                    </div>}
                   </div>
+                  
                   <div>
                     <div className="userName">{a.userName}</div>
                     <div className="role">{a.role}</div>
