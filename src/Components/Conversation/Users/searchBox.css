@@ -46,7 +46,7 @@
 
 .newChat {
    padding: 15px;
-    background: white;
+    background: #C2E7FF;
     /* border: 1px solid rgb(224, 207, 207); */
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
@@ -60,10 +60,10 @@
     font-size: 14px;
 }
 
-/* .newChat:hover {
+.newChat:hover {
     box-shadow: 2px 4px 10px  rgba(0, 0, 0, 0.5); 
     transition: box-shadow 0.3s ease, border 0.3s ease;
-} */
+}
 
 .historyChats{
     height: 70vh;

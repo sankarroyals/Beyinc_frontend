@@ -182,9 +182,7 @@ label {
   input[type="email"] {
     width: 80% !important;
   }
-  button {
-    width: 89% !important;
-  }
+  
   .successIcons {
     position: absolute;
     right: 50px;

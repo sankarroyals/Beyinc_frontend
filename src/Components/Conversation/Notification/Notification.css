@@ -36,6 +36,12 @@
     gap: 10px;
 }
 
+.no-request{
+    height: 600px;
+    width: 600px;
+    margin-top: -30px;
+}
+
 .approveRequest, .rejectRequest{
     font-size: 14px;
     cursor: pointer;

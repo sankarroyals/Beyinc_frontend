@@ -22,9 +22,11 @@ const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
   );
+  
 
   const [open, setOpen] = React.useState(false);
   const userDetailsRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClickOpen = () => {
     document
@@ -54,8 +56,10 @@ const Navbar = () => {
     };
   };
   console.log(image)
+  
   const submit = async (e) => {
     e.target.disabled = true;
+    setIsLoading(true);
     await ApiServices.updateuserProfileImage({
       email: email,
       image: changeImage,
@@ -85,6 +89,7 @@ const Navbar = () => {
         e.target.disabled = false;
       });
     setTimeout(() => {
+      setIsLoading(false);
       dispatch(
         setToast({
           message: "",
@@ -156,7 +161,7 @@ const Navbar = () => {
       className="navbar"
       style={{ display: email == undefined ? "none" : "flex" }}
     >
-      <div className="logo" onClick={() => {
+      <div className="logo" style={{cursor: 'pointer'}} onClick={() => {
         navigate('/')
       }} >BEYINC</div>
 
@@ -300,9 +305,19 @@ const Navbar = () => {
             </div>
             <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
 
-              <button onClick={submit} disabled={changeImage == '' ? true : false}>
-                <i class="fas fa-upload" style={{ marginRight: '5px' }}></i> Update
-              </button>
+            <button onClick={submit} disabled={changeImage === '' && isLoading}>
+  {isLoading ? (
+    <>
+      <img src="loading-button.gif" style={{ height: '25px', width: '25px'}} alt="Loading..." /> 
+      <span style={{marginLeft: '8px'}}>Uploading...</span>
+    </>
+  ) : (
+    <>
+      <i className="fas fa-upload" style={{ marginRight: '5px', top: '-5px' }}></i> Update
+    </>
+  )}
+</button>
+
 
               <button onClick={deleteImg}>
                 <i class="fas fa-trash-alt" style={{ marginRight: '5px' }}></i> Delete

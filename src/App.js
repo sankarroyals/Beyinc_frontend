@@ -6,9 +6,6 @@ import Toast from "./Components/Toast/Toast";
 import { useDispatch } from "react-redux";
 import { apicallloginDetails } from "./redux/AuthReducers/AuthReducer";
 import { ApiServices } from "./Services/ApiServices";
-import Conversations from "./Components/Conversation/Conversations";
-import Notifications from "./Components/Conversation/Notification/Notifications";
-import PitchDecider from "./Components/Admin/pitchDecider/PitchDecider";
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
 const Login = React.lazy(() => import("./Components/Login/Login"));
@@ -16,6 +13,10 @@ const ForgotPassword = React.lazy(() => wait(1000).then(() => import("./Componen
 const Navbar = React.lazy(() => import("./Components/Navbar/Navbar"));
 const Home = React.lazy(() => wait(1000).then(() => import("./Components/Home/Home")));
 const Editprofile = React.lazy(() => wait(1000).then(() => import("./Components/Editprofile/Editprofile")));
+const Conversations = React.lazy(() => wait(1000).then(()=> import("./Components/Conversation/Conversations")));
+const  Notifications= React.lazy(() => wait(1000).then(()=> import("./Components/Conversation/Notification/Notifications")));
+const  PitchDecider= React.lazy(() => wait(1000).then(()=> import("./Components/Admin/pitchDecider/PitchDecider")));
+
 
 const ENV = process.env;
 

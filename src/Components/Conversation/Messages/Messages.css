@@ -14,6 +14,7 @@
     margin-top: -30px;
 }
 
+
 .messages {
     height: 83vh;
 }
@@ -145,7 +146,15 @@ align-self: flex-start !important;
     cursor: pointer;
     max-width: 200px;
     margin: 0 10px;
+    color: grey;
+    padding: 10px 12px;
 }
+.uploadingFileIcon:hover{
+    color: #0b57d0;
+    background-color: rgba(198, 203, 208, 0.5);
+    border-radius: 50% !important; 
+}
+
 .uploadingFileIcon .fileName{
     white-space: wrap;
 }

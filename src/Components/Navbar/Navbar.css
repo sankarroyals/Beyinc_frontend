@@ -41,6 +41,7 @@
     padding: 10px;
     margin-left: 100px;
     position: relative;
+    gap: 5px;
     width: 300px;
     color: gray;
   }
