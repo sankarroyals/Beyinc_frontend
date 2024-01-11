@@ -140,7 +140,7 @@
   margin-left: 10px;
 }
 
-label {
+.update-form-label {
   margin-top: 5px;
   margin-bottom: 5px;
   display: flex;

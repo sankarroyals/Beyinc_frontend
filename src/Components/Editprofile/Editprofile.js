@@ -567,7 +567,7 @@ const Editprofile = () => {
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div>
-                  <label>Experience</label>
+                  <label className="update-form-label">Experience</label>
                 </div>
                 <div>
                   <input type="text" value={experienceDetails.experience} name="experience" id="" onChange={handleChange} placeholder="Enter Your Experience" />
@@ -575,7 +575,7 @@ const Editprofile = () => {
               </div>
               <div>
                 <div>
-                  <label>Profession</label>
+                  <label className="update-form-label">Profession</label>
                 </div>
                 <div>
                   <input type="text" name="job" value={experienceDetails.job} id="" onChange={handleChange} placeholder="Enter Your Profession" />
@@ -583,7 +583,7 @@ const Editprofile = () => {
               </div>
               <div>
                 <div>
-                  <label>Qualification</label>
+                  <label className="update-form-label">Qualification</label>
                 </div>
                 <div>
                   <input type="text" name="qualification" id="" value={experienceDetails.qualification} onChange={handleChange} placeholder="Enter Your Qualification" />
@@ -591,7 +591,7 @@ const Editprofile = () => {
               </div>
               <div>
                 <div>
-                  <label>Fee request</label>
+                  <label className="update-form-label">Fee request</label>
                 </div>
                 <div>
                   <input type="range" min={1} max={50} name="fee" value={experienceDetails.fee} id="" onChange={handleChange} placeholder="Enter Fee request per minute" /> &#8377; {experienceDetails.fee} / per min
@@ -614,7 +614,7 @@ const Editprofile = () => {
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
                 >
-                  <label>Resume</label>
+                  <label className="update-form-label">Resume</label>
                   {oldDocs.resume !== "" &&
                     oldDocs.resume !== undefined &&
                     Object.keys(oldDocs.resume).length !== 0 && (
@@ -652,7 +652,7 @@ const Editprofile = () => {
                   <div
                     style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
                   >
-                    <label>Acheivements</label>
+                    <label className="update-form-label">Acheivements</label>
                     {oldDocs.acheivements !== "" &&
                       oldDocs.acheivements !== undefined &&
                       Object.keys(oldDocs.acheivements).length !== 0 && (
@@ -690,7 +690,7 @@ const Editprofile = () => {
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
                 >
-                  <label>Degree</label>
+                  <label className="update-form-label">Degree</label>
                   {oldDocs.degree !== "" &&
                     oldDocs.degree !== undefined &&
                     Object.keys(oldDocs.degree).length !== 0 && (
@@ -728,7 +728,7 @@ const Editprofile = () => {
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
                 >
-                  <label>Expertise</label>
+                  <label className="update-form-label">Expertise</label>
                   {oldDocs.expertise !== "" &&
                     oldDocs.expertise !== undefined &&
                     Object.keys(oldDocs.expertise).length !== 0 && (
@@ -766,7 +766,7 @@ const Editprofile = () => {
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
                 >
-                  <label>Working</label>
+                  <label className="update-form-label">Working</label>
                   {oldDocs.working !== "" &&
                     oldDocs.working !== undefined &&
                     Object.keys(oldDocs.working).length !== 0 && (
