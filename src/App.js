@@ -6,6 +6,8 @@ import Toast from "./Components/Toast/Toast";
 import { useDispatch } from "react-redux";
 import { apicallloginDetails } from "./redux/AuthReducers/AuthReducer";
 import { ApiServices } from "./Services/ApiServices";
+import UserRequests from "./Components/Admin/UserRequests/UserRequests";
+import { SingleRequestProfile } from "./Components/Admin/UserRequests/SingleProfile";
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
 const Login = React.lazy(() => import("./Components/Login/Login"));
@@ -45,6 +47,10 @@ const App = () => {
           <Route path="/conversations/:conversationId" Component={AuthHoc(Conversations)} />
           <Route path="/notifications" Component={AuthHoc(Notifications)} />
           <Route path="/pitchs" Component={AdminDeciderHoc(PitchDecider)} />
+          <Route path="/profileRequests" Component={AdminDeciderHoc(UserRequests)} />
+          <Route path="/singleProfileRequest/:email" Component={AuthHoc(SingleRequestProfile)} />
+
+
 
 
 

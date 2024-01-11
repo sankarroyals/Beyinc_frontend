@@ -629,7 +629,7 @@ const Editprofile = () => {
                               height: "30px",
                               width: "30px",
                             }}
-                            src="view.png"
+                            src="/view.png"
                             onMouseEnter={() => setShowPreviousFile(true)}
                             onMouseLeave={() => setShowPreviousFile(false)}
                           />
@@ -667,7 +667,7 @@ const Editprofile = () => {
                                 height: "30px",
                                 width: "30px",
                               }}
-                              src="view.png"
+                              src="/view.png"
                               onMouseEnter={() => setShowPreviousFile(true)}
                               onMouseLeave={() => setShowPreviousFile(false)}
                             />
@@ -705,7 +705,7 @@ const Editprofile = () => {
                               height: "30px",
                               width: "30px",
                             }}
-                            src="view.png"
+                            src="/view.png"
                             onMouseEnter={() => setShowPreviousFile(true)}
                             onMouseLeave={() => setShowPreviousFile(false)}
                           />
@@ -743,7 +743,7 @@ const Editprofile = () => {
                               height: "30px",
                               width: "30px",
                             }}
-                            src="view.png"
+                            src="/view.png"
                             onMouseEnter={() => setShowPreviousFile(true)}
                             onMouseLeave={() => setShowPreviousFile(false)}
                           />
@@ -781,7 +781,7 @@ const Editprofile = () => {
                               height: "30px",
                               width: "30px",
                             }}
-                            src="view.png"
+                            src="/view.png"
                             onMouseEnter={() => setShowPreviousFile(true)}
                             onMouseLeave={() => setShowPreviousFile(false)}
                           />

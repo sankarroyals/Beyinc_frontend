@@ -54,7 +54,6 @@ const Navbar = () => {
       setchangeImage(reader.result);
     };
   };
-  console.log(image);
 
   const submit = async (e) => {
     e.target.disabled = true;
@@ -184,6 +183,14 @@ const Navbar = () => {
             }}
           />
         </div>
+        {role === 'Admin' && <abbr title="Profile Requests">
+          <div className="navIcons" onClick={() => {
+            navigate("/profileRequests");
+          }}>
+            <i class="fas fa-users"></i>
+          </div>
+        </abbr>
+        }
         <div
           style={{ position: "relative" }}
           onClick={(e) => {
