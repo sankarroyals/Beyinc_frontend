@@ -6,7 +6,7 @@ import { ApiServices } from "../../Services/ApiServices";
 import axiosInstance from "../axiosInstance";
 import { setLoginData, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import { jwtDecode } from "jwt-decode";
 import Button from "@mui/material/Button";
@@ -15,14 +15,13 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import MessageIcon from '@mui/icons-material/Message';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import MessageIcon from "@mui/icons-material/Message";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
   );
-  
 
   const [open, setOpen] = React.useState(false);
   const userDetailsRef = useRef(null);
@@ -42,10 +41,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [changeImage, setchangeImage] = useState("");
-  const [originalImage, setOriginalImage] = useState('')
+  const [originalImage, setOriginalImage] = useState("");
   const handleImage = (e) => {
     const file = e.target.files[0];
-    setOriginalImage(file.name)
+    setOriginalImage(file.name);
     setFileBase(file);
   };
   const setFileBase = (file) => {
@@ -55,8 +54,8 @@ const Navbar = () => {
       setchangeImage(reader.result);
     };
   };
-  console.log(image)
-  
+  console.log(image);
+
   const submit = async (e) => {
     e.target.disabled = true;
     setIsLoading(true);
@@ -156,28 +155,37 @@ const Navbar = () => {
   }, []);
 
   return (
-    
     <div
       className="navbar"
       style={{ display: email == undefined ? "none" : "flex" }}
     >
-      <div className="logo" style={{cursor: 'pointer'}} onClick={() => {
-        navigate('/')
-      }} >BEYINC</div>
+      <div
+        className="logo"
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        BEYINC
+      </div>
 
       <div className="navRight">
         <div className="navIcons">
-          <MessageIcon  onClick={() => {
-            navigate('/conversations')
-          }} />
+          <MessageIcon
+            onClick={() => {
+              navigate("/conversations");
+            }}
+          />
         </div>
         <div className="navIcons">
-        
-          <NotificationsIcon onClick={() => {
-            navigate('/notifications')
-          }} />
+          <NotificationsIcon
+            onClick={() => {
+              navigate("/notifications");
+            }}
+          />
         </div>
-        <div style={{ position: 'relative' }}
+        <div
+          style={{ position: "relative" }}
           onClick={(e) => {
             document
               .getElementsByClassName("userDetails")[0]
@@ -186,22 +194,30 @@ const Navbar = () => {
         >
           <img
             className="Profile-img"
-            src={(image !== undefined && image !== '') ? image : "/profile.jpeg"}
+            src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
             alt=""
           />
-          {verification === 'approved' && <abbr title="verified user">
-            <img
-              src="/verify.png"
-              height={20}
-              style={{ right: "2px", top: '3px', height: '13px', width: '13px' }}
-              alt="Your Alt Text"
-              className="successIcons"
-            />
-          </abbr>}
+          {verification === "approved" && (
+            <abbr title="verified user">
+              <img
+                src="/verify.png"
+                height={20}
+                style={{
+                  right: "2px",
+                  top: "3px",
+                  height: "13px",
+                  width: "13px",
+                }}
+                alt="Your Alt Text"
+                className="successIcons"
+              />
+            </abbr>
+          )}
         </div>
       </div>
 
       <div className="userDetails" ref={userDetailsRef}>
+        <span class="loader"></span>
         <div
           className="closeIcon"
           onClick={() => {
@@ -221,7 +237,9 @@ const Navbar = () => {
                 cursor: "pointer",
                 maxWidth: "100%",
               }}
-              src={(image !== undefined && image !== '') ? image : "/profile.jpeg"}
+              src={
+                image !== undefined && image !== "" ? image : "/profile.jpeg"
+              }
               alt="Profile"
             />
             <i
@@ -295,32 +313,53 @@ const Navbar = () => {
                   height: "150px",
                   width: "150px",
                 }}
-                src={(image !== undefined && image !== '') ? image : "/profile.jpeg"}
+                src={
+                  image !== undefined && image !== "" ? image : "/profile.jpeg"
+                }
                 alt="Profile"
               />
             </div>
             <div>
-              <label htmlFor='profilePic' className="profileImage"><CloudUploadIcon /><span className="fileName">{originalImage || 'Upload'}</span></label>
-              <input type="file" name="" id="profilePic" onChange={handleImage} style={{display: 'none'}}/>
+              <label htmlFor="profilePic" className="profileImage">
+                <CloudUploadIcon />
+                <span className="fileName">{originalImage || "Upload"}</span>
+              </label>
+              <input
+                type="file"
+                name=""
+                id="profilePic"
+                onChange={handleImage}
+                style={{ display: "none" }}
+              />
             </div>
             <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
-
-            <button onClick={submit} disabled={changeImage === '' && isLoading}>
-  {isLoading ? (
-    <>
-      <img src="loading-button.gif" style={{ height: '25px', width: '25px'}} alt="Loading..." /> 
-      <span style={{marginLeft: '8px'}}>Uploading...</span>
-    </>
-  ) : (
-    <>
-      <i className="fas fa-upload" style={{ marginRight: '5px', top: '-5px' }}></i> Update
-    </>
-  )}
-</button>
-
+              <button
+                onClick={submit}
+                disabled={changeImage === "" && isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <img
+                      src="loading-button.gif"
+                      style={{ height: "25px", width: "25px" }}
+                      alt="Loading..."
+                    />
+                    <span style={{ marginLeft: "8px" }}>Uploading...</span>
+                  </>
+                ) : (
+                  <>
+                    <i
+                      className="fas fa-upload"
+                      style={{ marginRight: "5px", top: "-5px" }}
+                    ></i>{" "}
+                    Update
+                  </>
+                )}
+              </button>
 
               <button onClick={deleteImg}>
-                <i class="fas fa-trash-alt" style={{ marginRight: '5px' }}></i> Delete
+                <i class="fas fa-trash-alt" style={{ marginRight: "5px" }}></i>{" "}
+                Delete
               </button>
             </div>
           </DialogContentText>
