@@ -1,6 +1,7 @@
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close'
-
+import '../Conversation/Users/searchBox.css'
+import '../Conversation/Notification/Notification.css'
 import { Box, Dialog, DialogContent, Tab, Tabs, Typography } from '@mui/material'
 import { gridCSS } from '../CommonStyles';
 function a11yProps(index) {
@@ -35,6 +36,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    console.log(pitchDetails);
     const handleClose = () => {
         setOpen(false);
     };

@@ -8,6 +8,7 @@ import { apicallloginDetails } from "./redux/AuthReducers/AuthReducer";
 import { ApiServices } from "./Services/ApiServices";
 import UserRequests from "./Components/Admin/UserRequests/UserRequests";
 import { SingleRequestProfile } from "./Components/Admin/UserRequests/SingleProfile";
+import AllPitches from "./Components/Admin/pitchDecider/AllPitches";
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
 const Login = React.lazy(() => import("./Components/Login/Login"));
@@ -17,7 +18,6 @@ const Home = React.lazy(() => wait(1000).then(() => import("./Components/Home/Ho
 const Editprofile = React.lazy(() => wait(1000).then(() => import("./Components/Editprofile/Editprofile")));
 const Conversations = React.lazy(() => wait(1000).then(()=> import("./Components/Conversation/Conversations")));
 const  Notifications= React.lazy(() => wait(1000).then(()=> import("./Components/Conversation/Notification/Notifications")));
-const  PitchDecider= React.lazy(() => wait(1000).then(()=> import("./Components/Admin/pitchDecider/PitchDecider")));
 
 
 const ENV = process.env;
@@ -46,7 +46,7 @@ const App = () => {
           <Route path="/conversations" Component={AuthHoc(Conversations)} />
           <Route path="/conversations/:conversationId" Component={AuthHoc(Conversations)} />
           <Route path="/notifications" Component={AuthHoc(Notifications)} />
-          <Route path="/pitchs" Component={AdminDeciderHoc(PitchDecider)} />
+          <Route path="/pitches" Component={AdminDeciderHoc(AllPitches)} />
           <Route path="/profileRequests" Component={AdminDeciderHoc(UserRequests)} />
           <Route path="/singleProfileRequest/:email" Component={AuthHoc(SingleRequestProfile)} />
 

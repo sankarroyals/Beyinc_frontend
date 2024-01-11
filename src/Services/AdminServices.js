@@ -43,5 +43,31 @@ export const AdminServices = {
                 .catch((err) => reject(err));
 
         })
-    }
+    },
+
+    getAllPitches: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.get(`/pitch/allPitches`)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    updatePitch: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/changePitchStatus`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
 }

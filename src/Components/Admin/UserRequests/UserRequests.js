@@ -31,7 +31,7 @@ export default function UserRequests() {
     const [data, setData] = useState([])
     const [filteredData, setFilteredData] = useState([])
     const getAllUsers = async () => {
-        await AdminServices.getRequestedUsersBasedOnFilters({ filters: filters }).then((res) => {
+        await AdminServices.getRequestedUsersBasedOnFilters().then((res) => {
             setData(res.data);
             const emails = []
             res.data?.map(r => {

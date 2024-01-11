@@ -183,13 +183,19 @@ const Navbar = () => {
             }}
           />
         </div>
-        {role === 'Admin' && <abbr title="Profile Requests">
+        {role === 'Admin' && <><abbr title="Profile Requests">
           <div className="navIcons" onClick={() => {
             navigate("/profileRequests");
-          }}>
+          } }>
             <i class="fas fa-users"></i>
           </div>
         </abbr>
+            <div title="Profile Requests" className="navIcons" onClick={() => {
+              navigate("/pitches");
+            } }>
+              pitch
+            </div>
+          </>
         }
         <div
           style={{ position: "relative" }}
