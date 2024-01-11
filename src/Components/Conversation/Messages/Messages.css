@@ -131,7 +131,7 @@ align-self: flex-start !important;
     border-radius: 50px; */
     /* padding: 5px; */
 }
-.sendBox input[type='text'], textarea{
+.sendBox input[type='text'],.sendBox textarea{
  margin-bottom: -2px;
  height: auto;
  border: 0;

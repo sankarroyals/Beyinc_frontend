@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApiServices } from '../../../Services/ApiServices'
-import { setConversationId, setReceiverId } from '../../../redux/Conversationreducer/ConversationReducer'
+import { getAllHistoricalConversations, setConversationId, setReceiverId } from '../../../redux/Conversationreducer/ConversationReducer'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useNavigate, useParams } from 'react-router';
+import { Box, Dialog, DialogContent } from '@mui/material';
+import CloseIcon from "@mui/icons-material/Close";
+
+import { gridCSS } from '../../CommonStyles';
 const IndividualHistory = ({ a, onlineEmails, status }) => {
     const { conversationId } = useParams()
-
+    const [open, setOpen] = useState(false)
+    const handleClose = () => {
+        setOpen(false);
+    };
     const [friend, setFriend] = useState({})
     const { email } = useSelector(state => state.auth.loginDetails)
     const navigate = useNavigate()
@@ -29,16 +36,24 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
         }
     }
 
+
+    const deletePendingRequest = async () => {
+        await ApiServices.deleteConversation({ conversationId: a._id }).then((res) => {
+            dispatch(getAllHistoricalConversations(email))
+
+        })
+    }
+
     return (
-        <div className={`individuals ${conversationId == a._id && 'selected'}`}  onClick={storingDetails} style={{ display: (a.requestedTo === email && status == 'pending') && 'none' }}>
+        <div className={`individuals ${conversationId == a._id && 'selected'}`} onClick={storingDetails} style={{ display: (a.requestedTo === email && status == 'pending') && 'none' }}>
             <div><img src={friend.image?.url === undefined ? '/profile.jpeg' : friend.image.url} alt="" srcset="" /></div>
             <div className='onlineHolder'>
-                <div className='userName'>{friend.userName}</div>
-                {status === 'pending' ? <abbr title='pending'>
+                <abbr title={friend.email} style={{ textDecoration: 'none' }}><div className='userName'>{friend.userName}</div></abbr>
+                {status === 'pending' ? <><abbr title='pending'>
                     <div className='pendingStatusIcon'>
                         <AccessTimeIcon style={{ fontSize: '14px' }} />
                     </div>
-                </abbr>
+                </abbr></>
                     :
                     <abbr title={onlineEmails.includes(friend.email) ? 'online' : 'away'}>
                         <div className={onlineEmails.includes(friend.email) ? 'online' : 'away'}>
@@ -46,8 +61,51 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
                         </div>
                     </abbr>
                 }
-                <div className='role'>{friend.role}</div>
+                <div className='deleteConv'>
+                    <div className='role'>{friend.role}</div>
+                    {status == 'pending' && <div className=''>
+                        <i className='fas fa-trash' onClick={() => setOpen(true)}></i>
+                    </div>}
+                </div>
             </div>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                maxWidth="xl"
+                sx={gridCSS.tabContainer}
+            // sx={ gridCSS.tabContainer }
+            >
+                <DialogContent
+                    style={{
+                        // height: "90vh",
+                        position: "relative",
+                        display: "flex",
+                        flexDirection: "column",
+                    }}
+                >
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            top: "5px",
+                            right: "10px",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => setOpen(false)}
+                    >
+                        <CloseIcon />
+                    </Box>
+                    <Box style={{ padding: '10px', marginBottom: '10px' }}>
+                        Are you sure to delete the <b>{friend.userName}</b> conversation?
+                    </Box>
+                    <button onClick={deletePendingRequest} style={{ width: 'auto' }}>
+                        Yes
+                    </button>
+
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }

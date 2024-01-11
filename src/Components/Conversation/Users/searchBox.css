@@ -36,6 +36,10 @@
     width: 90%;
     font-size: 12px;
     border-radius: 30px;
+    position: relative;
+}
+.searchPic{
+    position: relative;
 }
 .individuals:hover {
     background:  #c2e7ff46;
@@ -192,4 +196,18 @@ textarea{
 
 .selected{
     background: #C2E7FF;
+}
+
+
+
+.deleteConv{
+    display: flex;
+    justify-content: space-between;
+}
+.deleteConv .fa-trash{
+    color: red;
+    transition: all ease 0.2s;
+}
+.deleteConv .fa-trash:hover{
+    transform:scale(1.3)
 }

@@ -132,8 +132,8 @@ const MessageRequest = ({ m, setMessageRequest }) => {
                 <div>{m.members?.filter((f) => f !== email)[0]} sent you a message request</div>
                 <div className='updateActions'>
                     <div>{format(m.createdAt)}</div>
-                    <div onClick={() => update('approved')} className='approveRequest'><i class="fas fa-check"></i></div>
-                    <div onClick={() => update('rejected')} className='rejectRequest'><i class="fas fa-trash"></i></div>
+                    {/* <div onClick={() => update('approved')} className='approveRequest'><i class="fas fa-check"></i></div>
+                    <div onClick={() => update('rejected')} className='rejectRequest'><i class="fas fa-trash"></i></div> */}
                     <attr title='Preview Pitch Details'>
                         <div className='extraDetails'
                             onClick={() => {
@@ -154,6 +154,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
 
 
                     <DialogContent style={{ height: '90vh', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                        <Box>Pitch Status: {pitchDetails?.status}</Box>
                         <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setOpen(false)}><CloseIcon /></Box>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'space-between', marginTop: "20px", height: "22px", marginBottom: "7.5px", border: "none", alignItems: 'center' }}>
                             <Tabs value={value} className='pitchTabs'
@@ -449,13 +450,12 @@ const MessageRequest = ({ m, setMessageRequest }) => {
 
 
 
-                        {value == 4 ? <div className='pitchSubmit'>
-                            <button type="submit" onClick={() => {
-                                if (value < 4) {
-                                    setValue(prev => prev - 1)
-                                }
-                            }}>
-                                Back
+                        {value == 4 ? <div className='pitchSubmit' style={{display: 'flex', gap: '10px', flexDirection: 'row'}}>
+                           <button type="submit" onClick={() => update('approved')}>
+                                Approve
+                            </button>
+                            <button type="submit" style={{ background: 'red' }} onClick={() => update('rejected')}>
+                                Reject
                             </button>
                         </div> : <div className='pitchSubmit'>
                             <button type="submit" onClick={() => {
