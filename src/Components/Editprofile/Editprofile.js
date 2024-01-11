@@ -443,7 +443,7 @@ const Editprofile = () => {
             >
               Profile last updated -{" "}
               <span style={{ color: "black" }}>
-                <i class="fas fa-clock"></i>
+                <i class="fas fa-clock" style={{ marginRight: '5px' }}></i>
                 {format(updatedAt)}
               </span>
             </div>
