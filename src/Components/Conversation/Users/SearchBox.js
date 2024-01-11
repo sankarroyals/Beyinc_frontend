@@ -141,7 +141,7 @@ const SearchBox = () => {
 
   const [search, setSearch] = useState("");
   const allUsers = useSelector((state) => state.conv.allUsers);
-  const { email } = useSelector((state) => state.auth.loginDetails);
+  const { email, role } = useSelector((state) => state.auth.loginDetails);
   const [filteredusers, setFilteredUsers] = useState([]);
   const userDetailsRef = useRef(null);
   const [open, setOpen] = React.useState(false);
@@ -234,7 +234,7 @@ const SearchBox = () => {
       senderId: email,
       receiverId: receiverMail,
       pitch: file,
-      email: email,
+      email: email, role: role,
       form: { ...form, pitchId: form?._id },
       teamMembers: teamMembers,
     };
