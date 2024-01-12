@@ -24,11 +24,22 @@ export default function MultipleSelectCheckmarks({ names, filterName, setFilters
     const {
       target: { value },
     } = event;
-    setFilters(prev => ({ ...prev, [filterName]: typeof value === 'string' ? value.split(',') : value}))
-    // setPersonName(
-    //   // On autofill we get a stringified value.
-    //   typeof value === 'string' ? value.split(',') : value,
-    // );
+    if (value[value.length - 1] === 'Select All') {
+      const str = ['Select All']
+      names.map(r => {
+        str.push(r)
+      })
+      // setFilters(prev => ({ ...prev, [filterName]: [...names] }))
+      setFilters(prev => ({ ...prev, [filterName]: [...str] }))
+    } else if (filters[filterName]?.includes('Select All') && !value.includes('Select All')) {
+      setFilters(prev => ({ ...prev, [filterName]: [] }))
+    } else if (filters[filterName]?.includes('Select All') && value.length !== names.length-1) {
+      const tepVal = Array.from(value)
+      tepVal.splice(tepVal.indexOf('Select All'), 1)
+      setFilters(prev => ({ ...prev, [filterName]: tepVal }))
+    } else {
+      setFilters(prev => ({ ...prev, [filterName]: typeof value === 'string' ? value.split(',') : value }))
+    }
   };
 
   return (
@@ -45,6 +56,10 @@ export default function MultipleSelectCheckmarks({ names, filterName, setFilters
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
+          <MenuItem value={'Select All'}>
+            <Checkbox checked={filters[filterName].includes('Select All')} />
+            <ListItemText primary={'Select All'} />
+          </MenuItem>
           {names.map((name) => (
             <MenuItem key={name} value={name}>
               <Checkbox checked={filters[filterName].indexOf(name) > -1} />
