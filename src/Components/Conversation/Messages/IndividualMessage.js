@@ -269,13 +269,13 @@ const IndividualMessage = () => {
             <SendIcon
               className="sendIcon"
               onClick={sendText}
-              style={{ color: "#0b57d0", cursor: "pointer", fontSize: "34px" }}
+              style={{ color: "#0b57d0", cursor: "pointer", fontSize: "24px" }}
             />
           ) : (
             <SendIcon
               className="sendIcon"
               onClick={sendText}
-              style={{ color: "gray", fontSize: "34px" }}
+              style={{ color: "gray", fontSize: "24px" }}
             />
           )}
         </div>
