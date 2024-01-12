@@ -15,8 +15,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-
-
 const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
@@ -86,7 +84,6 @@ const Navbar = () => {
         );
         setIsLoading(false);
         e.target.disabled = false;
-       
       });
     setTimeout(() => {
       dispatch(
@@ -154,25 +151,30 @@ const Navbar = () => {
     };
   }, []);
 
-
   useEffect(() => {
-    console.log(window.location.pathname.slice(1,));
-    
-    if (document.getElementsByClassName('navSelected')?.length > 0) {
-        document.getElementsByClassName('navSelected')[0]?.classList.remove('navSelected')
-    }
-    if (document.getElementsByClassName('highletNavImg')?.length > 0) {
-      document.getElementsByClassName('highletNavImg')[0]?.classList.remove('highletNavImg')
+    console.log(window.location.pathname.slice(1));
 
+    if (document.getElementsByClassName("navSelected")?.length > 0) {
+      document
+        .getElementsByClassName("navSelected")[0]
+        ?.classList.remove("navSelected");
+    }
+    if (document.getElementsByClassName("highletNavImg")?.length > 0) {
+      document
+        .getElementsByClassName("highletNavImg")[0]
+        ?.classList.remove("highletNavImg");
     }
 
-    if (window.location.pathname.slice(1,) !== 'editProfile') {
-      document.getElementById(window.location.pathname.slice(1,))?.classList.add('navSelected')
+    if (window.location.pathname.slice(1) !== "editProfile") {
+      document
+        .getElementById(window.location.pathname.slice(1))
+        ?.classList.add("navSelected");
     } else {
-      document.getElementById(window.location.pathname.slice(1,))?.children[0].classList.add('highletNavImg')
-
+      document
+        .getElementById(window.location.pathname.slice(1))
+        ?.children[0].classList.add("highletNavImg");
     }
-  }, [window.location.pathname])
+  }, [window.location.pathname]);
 
   return (
     <div
@@ -190,34 +192,51 @@ const Navbar = () => {
       </div>
 
       <div className="navRight">
-       <div className="navIcons">
-       <div id='conversations' className="icon">
-        <i className="far fa-comment-alt"  onClick={() => {
-              navigate("/conversations");
-            }}></i>
-          
-        </div>
-        <div id='notifications' className="icon">
-        <i className="far fa-bell"  onClick={() => {
-              navigate("/notifications");
-            }}></i>
-        </div>
-       </div>
-        {role === 'Admin' && <><abbr title="Profile Requests">
-          <div id='profileRequests' className="navIcons" onClick={() => {
-            navigate("/profileRequests");
-          } }>
-            <i class="fas fa-users"></i>
+        <div className="navIcons">
+          <div id="conversations" className="icon">
+            <i
+              className="far fa-comment-alt"
+              onClick={() => {
+                navigate("/conversations");
+              }}
+            ></i>
           </div>
-        </abbr>
-          <div id='pitches' title="Profile Requests" className="navIcons" onClick={() => {
-              navigate("/pitches");
-            } }>
+          <div id="notifications" className="icon">
+            <i
+              className="far fa-bell"
+              onClick={() => {
+                navigate("/notifications");
+              }}
+            ></i>
+          </div>
+        </div>
+        {role === "Admin" && (
+          <>
+            <abbr title="Profile Requests">
+              <div
+                id="profileRequests"
+                className="navIcons"
+                onClick={() => {
+                  navigate("/profileRequests");
+                }}
+              >
+                <i class="fas fa-users"></i>
+              </div>
+            </abbr>
+            <div
+              id="pitches"
+              title="Profile Requests"
+              className="navIcons"
+              onClick={() => {
+                navigate("/pitches");
+              }}
+            >
               pitch
             </div>
           </>
-        }
-        <div id="editProfile"
+        )}
+        <div
+          id="editProfile"
           style={{ position: "relative" }}
           onClick={(e) => {
             document
@@ -368,14 +387,20 @@ const Navbar = () => {
             <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
               <button
                 onClick={submit}
-                style={{whiteSpace: 'nowrap', position: 'relative'}}
-                disabled={changeImage === ""  && isLoading}
+                style={{ whiteSpace: "nowrap", position: "relative" }}
+                disabled={changeImage === "" && isLoading}
               >
                 {isLoading ? (
                   <>
                     <img
                       src="/loading-button.gif"
-                      style={{ height: "20px", width: "20px", position: 'absolute', left: '55px', marginTop: '-4px' }}
+                      style={{
+                        height: "20px",
+                        width: "20px",
+                        position: "absolute",
+                        left: "55px",
+                        marginTop: "-4px",
+                      }}
                       alt="Loading..."
                     />
                     <span style={{ marginLeft: "10px" }}>Updating...</span>
