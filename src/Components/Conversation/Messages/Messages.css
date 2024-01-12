@@ -160,7 +160,7 @@ align-self: flex-start !important;
     white-space: wrap;
 }
 .messageNavbar{
-    padding: 2px 0px;
+    padding: 19px 0px 0px 0px;
     display: flex;
     gap: 10px;
     align-items: center;
