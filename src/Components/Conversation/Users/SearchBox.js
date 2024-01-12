@@ -139,6 +139,36 @@ const SearchBox = () => {
     });
   };
 
+
+  const decidingRolesMessage = async (receiverMail) => {
+    if (role === 'Admin') {
+      await ApiServices.directConversationCreation({ email: email, receiverId: receiverMail }).then((res) => {
+        dispatch(getAllHistoricalConversations(email));
+        dispatch(
+          setToast({
+            message: res.data,
+            bgColor: ToastColors.success,
+            visibile: "yes",
+          })
+        );
+        setOpen(false);
+        setdefaultTrigger(!defaultTrigger);
+      })
+        .catch((err) => {
+          console.log(err);
+          dispatch(
+            setToast({
+              message: `Error Occured`,
+              bgColor: ToastColors.failure,
+              visibile: "yes",
+            })
+          );
+      })
+    } else {
+      setOpen(true);
+    }
+  }
+
   const [search, setSearch] = useState("");
   const allUsers = useSelector((state) => state.conv.allUsers);
   const { email, role } = useSelector((state) => state.auth.loginDetails);
@@ -381,7 +411,7 @@ const SearchBox = () => {
                   className="individuals"
                   onClick={() => {
                     setReceivermail(a.email);
-                    setOpen(true);
+                    decidingRolesMessage(a.email)
                   }}
                 >
                   <div className="searchPic">

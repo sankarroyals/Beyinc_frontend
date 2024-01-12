@@ -1,0 +1,25 @@
+.usersFilterContainer{
+    display: flex;
+    max-width: 1300px;
+    margin: auto;
+    flex-direction: column;
+    gap: 20px;
+    /* align-items: center; */
+    /* border: 1px solid green; */
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.filteredUsers{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.userCardImage{
+    width: 150px;
+    height: 150px;
+  
+}
