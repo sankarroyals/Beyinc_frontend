@@ -184,6 +184,8 @@ const Editprofile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
+  
   const sendMobileOtp = async (e) => {
     e.preventDefault();
     e.target.disabled = true;
@@ -443,7 +445,7 @@ const Editprofile = () => {
             >
               Profile last updated -{" "}
               <span style={{ color: "black" }}>
-                <i class="fas fa-clock"></i>
+                <i class="fas fa-clock" style={{marginRight: '5px'}}></i>
                 {format(updatedAt)}
               </span>
             </div>
@@ -806,7 +808,7 @@ const Editprofile = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                width: "25%",
+                width: "30%",
                 gap: "10px",
                 marginLeft: "30px",
                 marginTop: "5px",
@@ -814,7 +816,7 @@ const Editprofile = () => {
             >
               <button
                 onClick={() => {
-                  navigate(-1);
+                  navigate(`/`);
                 }}
               >
                 <i className="fas fa-arrow-left" style={{ marginRight: '5px' }}></i>  Back

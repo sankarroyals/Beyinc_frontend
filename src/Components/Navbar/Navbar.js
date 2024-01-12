@@ -86,9 +86,9 @@ const Navbar = () => {
           })
         );
         e.target.disabled = false;
+        setIsLoading(false);
       });
     setTimeout(() => {
-      setIsLoading(false);
       dispatch(
         setToast({
           message: "",
@@ -335,16 +335,17 @@ const Navbar = () => {
             <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
               <button
                 onClick={submit}
+                style={{whiteSpace: 'nowrap', position: 'relative'}}
                 disabled={changeImage === "" && isLoading}
               >
                 {isLoading ? (
                   <>
                     <img
                       src="loading-button.gif"
-                      style={{ height: "25px", width: "25px" }}
+                      style={{ height: "20px", width: "20px", position: 'absolute', left: '55px', marginTop: '-4px' }}
                       alt="Loading..."
                     />
-                    <span style={{ marginLeft: "8px" }}>Uploading...</span>
+                    <span style={{ marginLeft: "10px" }}>Uploading...</span>
                   </>
                 ) : (
                   <>
