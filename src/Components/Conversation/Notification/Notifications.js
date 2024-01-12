@@ -9,6 +9,17 @@ const Notifications = () => {
   const { email } = useSelector((state) => state.auth.loginDetails);
   const [messageRequest, setMessageRequest] = useState([]);
   const [notificationTrigger, setNotificationtrigger] = useState(false);
+  const [isSpinning, setSpinning] = useState(false);
+
+  const handleReloadClick = () => {
+    setSpinning(true);
+
+    // Stop the spinning after 2 seconds
+    setTimeout(() => {
+      setSpinning(false);
+    }, 2000);
+  };
+
   useEffect(() => {
     ApiServices.getUserRequest({ email: email }).then((res) => {
       setMessageRequest(res.data);
@@ -16,16 +27,15 @@ const Notifications = () => {
   }, [email, notificationTrigger]);
   return (
     <div className="messageRequests">
-      <div className="reloadNotification">
-        <attr title="Reload for latest notification updates">
-          <CachedIcon
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setNotificationtrigger(!notificationTrigger);
-            }}
-          />
-        </attr>
-      </div>
+         <div className="reloadNotification" title="Reload for latest notification updates">
+      <img
+        src="/refresh.png"
+        alt="Reload"
+        className={isSpinning ? 'spin' : ''}
+        style={{ cursor: "pointer", marginTop: '5px' }}
+        onClick={handleReloadClick}
+      />
+    </div>
       {messageRequest.length > 0 ? (
         messageRequest.map((m) => (
           <MessageRequest m={m} setMessageRequest={setMessageRequest} />
