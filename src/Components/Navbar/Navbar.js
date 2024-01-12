@@ -155,6 +155,26 @@ const Navbar = () => {
     };
   }, []);
 
+
+  useEffect(() => {
+    console.log(window.location.pathname.slice(1,));
+    
+    if (document.getElementsByClassName('navSelected')?.length > 0) {
+        document.getElementsByClassName('navSelected')[0]?.classList.remove('navSelected')
+    }
+    if (document.getElementsByClassName('highletNavImg')?.length > 0) {
+      document.getElementsByClassName('highletNavImg')[0]?.classList.remove('highletNavImg')
+
+    }
+
+    if (window.location.pathname.slice(1,) !== 'editProfile') {
+      document.getElementById(window.location.pathname.slice(1,))?.classList.add('navSelected')
+    } else {
+      document.getElementById(window.location.pathname.slice(1,))?.children[0].classList.add('highletNavImg')
+
+    }
+  }, [window.location.pathname])
+
   return (
     <div
       className="navbar"
@@ -171,14 +191,14 @@ const Navbar = () => {
       </div>
 
       <div className="navRight">
-        <div className="navIcons">
+        <div id='conversations' className="navIcons">
           <MessageIcon
             onClick={() => {
               navigate("/conversations");
             }}
           />
         </div>
-        <div className="navIcons">
+        <div id='notifications' className="navIcons">
           <NotificationsIcon
             onClick={() => {
               navigate("/notifications");
@@ -186,20 +206,20 @@ const Navbar = () => {
           />
         </div>
         {role === 'Admin' && <><abbr title="Profile Requests">
-          <div className="navIcons" onClick={() => {
+          <div id='profileRequests' className="navIcons" onClick={() => {
             navigate("/profileRequests");
           } }>
             <i class="fas fa-users"></i>
           </div>
         </abbr>
-            <div title="Profile Requests" className="navIcons" onClick={() => {
+          <div id='pitches' title="Profile Requests" className="navIcons" onClick={() => {
               navigate("/pitches");
             } }>
               pitch
             </div>
           </>
         }
-        <div
+        <div id="editProfile"
           style={{ position: "relative" }}
           onClick={(e) => {
             document
