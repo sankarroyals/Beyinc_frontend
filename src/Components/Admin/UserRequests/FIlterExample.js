@@ -37,6 +37,8 @@ export default function MultipleSelectCheckmarks({ names, filterName, setFilters
       const tepVal = Array.from(value)
       tepVal.splice(tepVal.indexOf('Select All'), 1)
       setFilters(prev => ({ ...prev, [filterName]: tepVal }))
+    } else if (!filters[filterName]?.includes('Select All') && value.length == names.length) { 
+      setFilters(prev => ({ ...prev, [filterName]: ['Select All', ...names ] }))
     } else {
       setFilters(prev => ({ ...prev, [filterName]: typeof value === 'string' ? value.split(',') : value }))
     }
