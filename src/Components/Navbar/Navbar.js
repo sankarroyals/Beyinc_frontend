@@ -356,7 +356,7 @@ const Navbar = () => {
                 {isLoading ? (
                   <>
                     <img
-                      src="loading-button.gif"
+                      src="/loading-button.gif"
                       style={{ height: "20px", width: "20px", position: 'absolute', left: '55px', marginTop: '-4px' }}
                       alt="Loading..."
                     />

@@ -825,7 +825,7 @@ const Editprofile = () => {
                 {isLoading ? (
                   <>
                     <img
-                      src="loading-button.gif"
+                      src="/loading-button.gif"
                       style={{ height: "20px", width: "20px", position: 'absolute', left: '-10px', top: '12px' }}
                       alt="Loading..."
                     />
