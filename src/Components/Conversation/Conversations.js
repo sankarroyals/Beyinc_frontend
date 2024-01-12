@@ -9,40 +9,43 @@ import SearchBox from './Users/SearchBox'
 import {io} from 'socket.io-client'
 import { useParams } from 'react-router'
 const Conversations = () => {
-
-  const {conversationId} = useParams()
-  const dispatch = useDispatch()
-  // intialize socket io
-  const socket = useRef()
   const { email } = useSelector(
     (store) => store.auth.loginDetails
   );
 
-  useEffect(() => {
-    socket.current = io(process.env.REACT_APP_SOCKET_IO)
-  }, [])
+  const {conversationId} = useParams()
+  const dispatch = useDispatch()
+  // // intialize socket io
+  // const socket = useRef()
+  // const { email } = useSelector(
+  //   (store) => store.auth.loginDetails
+  // );
 
-  // adding online users to socket io
-  useEffect(() => {
-    socket.current.emit("addUser", email);
-    socket.current.on("getUsers", users => {
-      console.log('online', users);
-      dispatch(setOnlineUsers(users))
-    })
-  }, [email])
+  // useEffect(() => {
+  //   socket.current = io(process.env.REACT_APP_SOCKET_IO)
+  // }, [])
 
-  // live message updates
-  useEffect(() => {
-    socket.current.on('getMessage', data => {
-      console.log(data);
-      dispatch(setLiveMessage({
-        message: data.message,
-        senderId: data.senderId,
-        fileSent: data.fileSent
-      }))
-      // setMessages(prev => [...prev, data])
-    })
-  }, [])
+  // // adding online users to socket io
+  // useEffect(() => {
+  //   socket.current.emit("addUser", email);
+  //   socket.current.on("getUsers", users => {
+  //     console.log('online', users);
+  //     dispatch(setOnlineUsers(users))
+  //   })
+  // }, [email])
+
+  // // live message updates
+  // useEffect(() => {
+  //   socket.current.on('getMessage', data => {
+  //     console.log(data);
+  //     dispatch(setLiveMessage({
+  //       message: data.message,
+  //       senderId: data.senderId,
+  //       fileSent: data.fileSent
+  //     }))
+  //     // setMessages(prev => [...prev, data])
+  //   })
+  // }, [])
 
   useEffect(() => {
     ApiServices.getAllUsers({ type: '' }).then((res) => {
@@ -56,6 +59,8 @@ const Conversations = () => {
     if (conversationId !== undefined) {
       ApiServices.getFriendByConvID({ conversationId: conversationId, email: email }).then((res) => {
         dispatch(setReceiverId(res.data))
+      }).catch(err => {
+        window.location.href = '/conversations'
       })
     }
   }, [conversationId])

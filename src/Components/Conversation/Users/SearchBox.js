@@ -18,6 +18,7 @@ import {
   Typography,
 } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
+import { io } from "socket.io-client";
 const gridCSS = {
   activeButton: {
     background: "#4297d3",
@@ -169,6 +170,10 @@ const SearchBox = () => {
     }
   }
 
+  const socket = useRef()
+  useEffect(() => {
+    socket.current = io(process.env.REACT_APP_SOCKET_IO)
+  }, [])
   const [search, setSearch] = useState("");
   const allUsers = useSelector((state) => state.conv.allUsers);
   const { email, role } = useSelector((state) => state.auth.loginDetails);
@@ -282,6 +287,10 @@ const SearchBox = () => {
         setOpen(false);
         setdefaultTrigger(!defaultTrigger);
         e.target.disabled = false;
+        socket.current.emit("sendNotification", {
+          senderId: email,
+          receiverId: receiverMail,
+        });
       })
       .catch((err) => {
         console.log(err);

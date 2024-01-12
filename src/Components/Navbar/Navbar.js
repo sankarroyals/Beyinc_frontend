@@ -17,11 +17,15 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { io } from "socket.io-client";
 
 const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
   );
+
+  const notificationAlert = useSelector(state => state.conv.notificationAlert);
+
 
   const [open, setOpen] = React.useState(false);
   const userDetailsRef = useRef(null);
@@ -157,8 +161,6 @@ const Navbar = () => {
 
 
   useEffect(() => {
-    console.log(window.location.pathname.slice(1,));
-    
     if (document.getElementsByClassName('navSelected')?.length > 0) {
         document.getElementsByClassName('navSelected')[0]?.classList.remove('navSelected')
     }
@@ -174,6 +176,8 @@ const Navbar = () => {
 
     }
   }, [window.location.pathname])
+
+
 
   return (
     <div

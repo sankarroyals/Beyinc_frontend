@@ -56,6 +56,8 @@ const IndividualMessage = () => {
         setNormalFileName("");
         setFile("");
         setSendMessage("");
+      }).catch(err => {
+        navigate('/conversations')
       });
     }
   }, [conversationId, messageTrigger]);
@@ -69,7 +71,9 @@ const IndividualMessage = () => {
         setNormalFileName("");
         setFile("");
         setSendMessage("");
-      });
+      }).catch(err => {
+        navigate('/conversations')
+      });;
     }
   }, [liveMessage?.fileSent]);
 

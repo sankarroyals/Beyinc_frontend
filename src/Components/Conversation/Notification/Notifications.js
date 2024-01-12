@@ -1,19 +1,37 @@
 import React, { useEffect, useState } from "react";
 import "./Notification.css";
 import { ApiServices } from "../../../Services/ApiServices";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MessageRequest from "./MessageRequest";
 import CachedIcon from "@mui/icons-material/Cached";
+import { setNotification } from "../../../redux/Conversationreducer/ConversationReducer";
 
 const Notifications = () => {
   const { email } = useSelector((state) => state.auth.loginDetails);
+  const notificationAlert = useSelector(state => state.conv.notificationAlert);
   const [messageRequest, setMessageRequest] = useState([]);
   const [notificationTrigger, setNotificationtrigger] = useState(false);
-  useEffect(() => {
-    ApiServices.getUserRequest({ email: email }).then((res) => {
+  const dispatch = useDispatch()
+
+  const getNotifys = async () => {
+    await ApiServices.getUserRequest({ email: email }).then((res) => {
       setMessageRequest(res.data);
     });
+  }
+
+  useEffect(() => {
+    getNotifys()
   }, [email, notificationTrigger]);
+
+
+  useEffect(() => {
+    if (notificationAlert == true) {
+      dispatch(setNotification(false))
+      getNotifys()
+    }
+    
+  }, [notificationAlert])
+
   return (
     <div className="messageRequests">
       <div className="reloadNotification">
