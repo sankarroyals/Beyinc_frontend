@@ -80,53 +80,6 @@ export default function UserRequests() {
                         <i className='fas fa-search'></i>
                     </button>
                 </div>
-                {/* <div style={{display: 'flex', gap: '5px', flexWrap: 'wrap'}}>
-                    <div>
-                        <select onChange={(e) => {
-                            if (e.target.value != '') {
-
-                                setFilters(prev => ({ ...prev, role: e.target.value }))
-                            }
-                        }}>
-                            <option value=''>Select</option>
-
-                            {roles.map(r => (
-                                <option value={r.role}>{r.role}</option>
-                            ))}
-
-                        </select>
-                    </div>
-                    <div>
-                        <select onChange={(e) => {
-                            if (e.target.value != '') {
-                                setFilters(prev => ({ ...prev, verification: e.target.value }))
-                            }
-                        }}>
-                            <option value=''>Select</option>
-
-                            {['pending','approved','rejected'].map(r => (
-                                <option value={r}>{r}</option>
-                            ))}
-
-                        </select>
-                    </div>
-                    <div>
-                        <select onChange={(e) => {
-                            
-                            setFilters(prev => ({ ...prev, email: e.target.value }))
-                        }}>
-                            <option value=''>Select</option>
-
-                            {data.map(d => (
-                                <option value={d.email}>{d.email}</option>
-                            ))}
-
-                        </select>
-                    </div>
-                    <button style={{width: '50px', height: '50px'}} onClick={filterUsers}>
-                        <i className='fas fa-search'></i>
-                    </button>
-                </div> */}
                 <div className='filteredUsers'>
                     {filteredData?.length > 0 ?
                         filteredData?.map((d) => (
