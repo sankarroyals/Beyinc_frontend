@@ -17,6 +17,7 @@
 
 .messages {
     height: 83vh;
+    margin-top: -30px;
 }
 
 .messageContainer{

@@ -8,7 +8,7 @@ import { format } from "timeago.js";
 import { io } from 'socket.io-client';
 import { setOnlineUsers } from '../../../redux/Conversationreducer/ConversationReducer';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 const IndividualMessage = () => {
     // const conversationId = useSelector(state => state.conv.conversationId)
     const { conversationId } = useParams()
@@ -23,7 +23,7 @@ const IndividualMessage = () => {
     const [normalFileName, setNormalFileName] = useState('')
     const scrollRef = useRef();
     const dispatch = useDispatch()
-
+const navigate = useNavigate(); 
 
     const socket = useRef()
     useEffect(() => {
@@ -130,7 +130,13 @@ const IndividualMessage = () => {
 
     return (
         <div className='messageContainer'>
-            <div className='messageNavbar'>
+            <div className='messageNavbar' >
+            <div onClick={()=>{
+                navigate(-1)
+            }
+            }>
+             <i className="fas fa-arrow-left" title='back'></i>
+            </div>
                 <div>
                     <img src={(receiverId?.image?.url !== undefined && receiverId?.image?.url !== '') ? receiverId.image.url : '/profile.jpeg'} alt="" srcset="" />
                 </div>

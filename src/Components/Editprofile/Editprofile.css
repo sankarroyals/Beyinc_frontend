@@ -13,6 +13,7 @@
   color: #6a73fa;
 }
 
+
 .heading {
   display: flex;
   justify-content: space-between;
@@ -97,6 +98,7 @@
   border: 1px solid green;
 }
 
+
 .resume {
   border: 1px dashed grey;
   border-radius: 10px;
@@ -147,7 +149,7 @@
   text-align: left;
   justify-content: left;
   font-weight: 600;
-  margin-left: 30px;
+  margin-left: 6px;
 }
 
 .input-container {

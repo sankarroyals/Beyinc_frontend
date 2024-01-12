@@ -75,6 +75,7 @@ const Navbar = () => {
           })
         );
         e.target.disabled = false;
+        setIsLoading(false);
       })
       .catch((err) => {
         dispatch(
@@ -84,8 +85,9 @@ const Navbar = () => {
             visibile: "yes",
           })
         );
-        e.target.disabled = false;
         setIsLoading(false);
+        e.target.disabled = false;
+       
       });
     setTimeout(() => {
       dispatch(
@@ -349,7 +351,7 @@ const Navbar = () => {
               <button
                 onClick={submit}
                 style={{whiteSpace: 'nowrap', position: 'relative'}}
-                disabled={changeImage === "" && isLoading}
+                disabled={changeImage === ""  && isLoading}
               >
                 {isLoading ? (
                   <>
@@ -358,7 +360,7 @@ const Navbar = () => {
                       style={{ height: "20px", width: "20px", position: 'absolute', left: '55px', marginTop: '-4px' }}
                       alt="Loading..."
                     />
-                    <span style={{ marginLeft: "10px" }}>Uploading...</span>
+                    <span style={{ marginLeft: "10px" }}>Updating...</span>
                   </>
                 ) : (
                   <>

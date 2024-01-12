@@ -62,6 +62,7 @@ export default function UserRequests() {
         }
         setFilteredData(filteredData);
     }
+
     return (
         <>
             <div className='usersFilterContainer'>
@@ -76,6 +77,7 @@ export default function UserRequests() {
                     <div>
                         <MultipleSelectCheckmarks names={emails} filterName='email' setFilters={setFilters} filters={filters} />
                     </div>
+                    
                     <button style={{ width: '50px', height: '50px', marginTop: '8px' }} onClick={filterUsers}>
                         <i className='fas fa-search'></i>
                     </button>

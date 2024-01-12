@@ -596,7 +596,7 @@ const Editprofile = () => {
                   <label className="update-form-label">Fee request</label>
                 </div>
                 <div>
-                  <input type="range" min={1} max={50} name="fee" value={experienceDetails.fee} id="" onChange={handleChange} placeholder="Enter Fee request per minute" /> &#8377; {experienceDetails.fee} / per min
+                  <input type="range" min={1} max={50} name="fee" value={experienceDetails.fee} id=""  onChange={handleChange} placeholder="Enter Fee request per minute" /> &#8377; {experienceDetails.fee} / per min
                 </div>
               </div>
             </div>

@@ -12,10 +12,8 @@ body{
     /* gap: 20px; */
     background:#f6f8fc;
     border-radius: 20px;
-    
-    
-   
 }
+
 .users{
       flex: 1 0 20%;
       background:#f6f8fc;
