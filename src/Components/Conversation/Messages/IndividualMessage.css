@@ -8,12 +8,11 @@
 }
 
 .Dp{
-    margin-top: 15px;
-    height: 55px;
-    width: 55px;
+    height: 50px;
+    width: 50px;
 }
 .User-name{
-    margin-top: 10px;
     font-weight: 600; 
+    margin-top: -8px;
 }
 

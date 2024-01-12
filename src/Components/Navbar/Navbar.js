@@ -7,7 +7,6 @@ import axiosInstance from "../axiosInstance";
 import { setLoginData, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-
 import { jwtDecode } from "jwt-decode";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -15,8 +14,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import MessageIcon from "@mui/icons-material/Message";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+
+
 
 const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
@@ -191,20 +190,19 @@ const Navbar = () => {
       </div>
 
       <div className="navRight">
-        <div id='conversations' className="navIcons">
-          <MessageIcon
-            onClick={() => {
+       <div className="navIcons">
+       <div id='conversations' className="icon">
+        <i className="far fa-comment-alt"  onClick={() => {
               navigate("/conversations");
-            }}
-          />
+            }}></i>
+          
         </div>
-        <div id='notifications' className="navIcons">
-          <NotificationsIcon
-            onClick={() => {
+        <div id='notifications' className="icon">
+        <i className="far fa-bell"  onClick={() => {
               navigate("/notifications");
-            }}
-          />
+            }}></i>
         </div>
+       </div>
         {role === 'Admin' && <><abbr title="Profile Requests">
           <div id='profileRequests' className="navIcons" onClick={() => {
             navigate("/profileRequests");

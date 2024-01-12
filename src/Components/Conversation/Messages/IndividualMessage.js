@@ -160,7 +160,7 @@ const IndividualMessage = () => {
           <i
             className="fas fa-arrow-left"
             title="back"
-            style={{ marginLeft: "20px", marginTop: "15px", color: "grey" }}
+            style={{ marginLeft: "20px", color: "grey" }}
           ></i>
         </div>
         <div>
@@ -178,17 +178,25 @@ const IndividualMessage = () => {
         </div>
         <div>
           <div className="User-name">{receiverId?.userName}</div>
-          <div style={{display: 'flex', alignItems: 'center' , marginLeft: '10px'}}>
           <div
-            title={onlineEmails.includes(receiverId.email) ? "online" : "away"}
-            style={{ position: "relative", marginLeft: "10px" }}
-            className={
-              onlineEmails.includes(receiverId.email) ? "online" : "away"
-            }
-          ></div>
-          <div style={{marginLeft: '-16px', fontSize: '12px'}}>
-            {onlineEmails.includes(receiverId.email) ? "online" : "away"}
-          </div>
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginLeft: "10px",
+            }}
+          >
+            <div
+              title={
+                onlineEmails.includes(receiverId.email) ? "online" : "away"
+              }
+              style={{ position: "relative", marginLeft: "10px" }}
+              className={
+                onlineEmails.includes(receiverId.email) ? "online" : "away"
+              }
+            ></div>
+            <div style={{ marginLeft: "-16px", fontSize: "12px" }}>
+              {onlineEmails.includes(receiverId.email) ? "online" : "away"}
+            </div>
           </div>
         </div>
       </div>
@@ -239,6 +247,8 @@ const IndividualMessage = () => {
             </div>
           ))}
       </div>
+      <div className="bottom-line"></div>
+
       <div className="sendBoxContainer">
         <div className="sendBox">
           <div>
@@ -248,7 +258,13 @@ const IndividualMessage = () => {
               id="message"
               value={sendMessage}
               onChange={(e) => setSendMessage(e.target.value)}
-              placeholder="Enter a message"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  sendText();
+                }
+              }}
+              placeholder="Type a message"
+              autoFocus
             />
           </div>
           <div>
@@ -275,7 +291,7 @@ const IndividualMessage = () => {
             <SendIcon
               className="sendIcon"
               onClick={sendText}
-              style={{ color: "gray", fontSize: "24px" }}
+              style={{ color: "gray", fontSize: "24px", marginTop: "10px" }}
             />
           )}
         </div>

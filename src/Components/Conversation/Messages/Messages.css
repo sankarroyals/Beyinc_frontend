@@ -1,127 +1,125 @@
 .noSelected {
-    font-size: 30px;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .No_Conversation {
-    height: 600px;
-    width: 600px;
-    margin-top: -30px;
+  height: 600px;
+  width: 600px;
+  margin-top: -30px;
 }
-
 
 .messages {
-    height: 83vh;
-    margin-top: -30px;
+  height: 83vh;
+  margin-top: -10px;
 }
 
-.messageContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 5px;
-    padding-bottom: 15px;   
-    border-radius: 50px;
-    background: white !important;
-    background: none;
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+  padding-bottom: 15px;
+  border-radius: 50px;
+  background: white !important;
+  background: none;
 }
 
-.messageBox{
-    display: flex;
-    /* justify-content: space-between; */
-    flex-direction: column;
-    /* gap: 40px; */
-    padding:0px 120px;
-    /* margin-top: -10px; */
-    height: 65vh;
-    overflow-y: scroll;
-    
+.messageBox {
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: column;
+  /* gap: 40px; */
+  padding: 0px 120px;
+  /* margin-top: -10px; */
+  height: 67vh;
+  overflow-y: scroll;
 }
 
-.details{
-    display: flex;
-    align-items: center;
-    /* gap: 5px; */
-    /* padding: 5px; */
-
+.details {
+  display: flex;
+  align-items: center;
+  /* gap: 5px; */
+  /* padding: 5px; */
 }
-.details.owner{
-    align-self: flex-end;
-   
+.details.owner {
+  align-self: flex-end;
 }
-.imageContainer{
-/* width: 80px; */
-margin-top: 4px;
-/* padding: 10px; */
+.imageContainer {
+  /* width: 80px; */
+  margin-top: 4px;
+  /* padding: 10px; */
 }
-.personalDetails{
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-top: 5px;
-    width: auto;
-    padding: 10px;
-  
+.personalDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 5px;
+  width: auto;
+  padding: 10px;
 }
-.time, .userName{
-    font-size: 10px;
-    align-self: flex-end;
+.time,
+.userName {
+  font-size: 10px;
+  align-self: flex-end;
 }
-.userName{
-    font-size: 12px;
-font-weight: 600;
+.userName {
+  font-size: 12px;
+  font-weight: 600;
 }
 
-.friendDetails{
-    display: flex;
-    gap: 5px;
+.friendDetails {
+  display: flex;
+  gap: 5px;
 }
-.text{
- padding: 10px;
- border-radius: 20px;
- word-wrap: break-word;
- background: #F2F2F2;
- color: black;
+.text {
+  padding: 10px;
+  border-radius: 20px;
+  word-wrap: break-word;
+  background: #f2f2f2;
+  color: black;
 }
-.messageBottom{
-    font-size: 10px;
-}
-
-.owner .personalDetails .text{
-    background: #C2E7FF;
-    color: black;
-}
-.email, .text{
-    font-size: 14px;
-}
-.email{
-align-self: flex-start !important;
+.messageBottom {
+  font-size: 10px;
 }
 
-
-.sendBoxContainer{
-    padding: 0 120px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.owner .personalDetails .text {
+  background: #c2e7ff;
+  color: black;
+}
+.email,
+.text {
+  font-size: 14px;
+}
+.email {
+  align-self: flex-start !important;
 }
 
-.sendBox{
-    position: sticky;
-    bottom:-10px;
-    border-radius: 50px;
-    border: 1px solid gray;
-    display: flex;
-    align-items: center;
-    padding:10px 25px;
-    justify-content: space-between;
-    /* width: 75%; */
-    /* display: flex;
+.sendBoxContainer {
+  padding: 0 120px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sendBox {
+  position: sticky;
+  bottom: -10px;
+  border-radius: 50px;
+  border: 1.5px solid lightgray;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  height: 5vh;
+  padding: 5px 15px;
+  justify-content: space-between;
+  /* width: 75%; */
+  /* display: flex;
     height: 10px;
     padding: 20px;
     margin: auto;
@@ -130,41 +128,54 @@ align-self: flex-start !important;
     align-items: center;
     justify-content: space-between;
     border-radius: 50px; */
-    /* padding: 5px; */
+  /* padding: 5px; */
 }
-.sendBox input[type='text'],.sendBox textarea{
- margin-bottom: -2px;
- height: auto;
- border: 0;
- outline: 0;
- white-space: wrap;
- padding: 10px !important;
- width: 650px !important;
+.sendBox input[type="text"],
+.sendBox textarea {
+  margin-bottom: -2px;
+  height: auto;
+  border: 0;
+  outline: 0;
+  white-space: wrap;
+  padding: 10px !important;
+  width: 650px !important;
+}
+
+.uploadingFileIcon {
+  cursor: pointer;
+  max-width: 200px;
+  margin: 0 4px;
+  color: grey;
+  padding: 6px 6px;
+  border-radius: 50% !important;
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.uploadingFileIcon:hover {
+  color: #0b57d0;
+  background-color: rgba(198, 203, 208, 0.5);
+  border-radius: 50% !important;
 }
 
 
-.uploadingFileIcon{
-    cursor: pointer;
-    max-width: 200px;
-    margin: 0 10px;
-    color: grey;
-    padding: 10px 12px;
+.uploadingFileIcon .fileName {
+  white-space: wrap;
 }
-.uploadingFileIcon:hover{
-    color: #0b57d0;
-    background-color: rgba(198, 203, 208, 0.5);
-    border-radius: 50% !important; 
+.messageNavbar {
+  padding: 19px 0px 0px 0px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 1px solid lightgray;
+  position: relative;
 }
-
-.uploadingFileIcon .fileName{
-    white-space: wrap;
-}
-.messageNavbar{
-    padding: 19px 0px 0px 0px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    border-bottom: 1px solid lightgray;
-    position: relative;
-    
+.bottom-line {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 0.1px solid rgb(238, 238, 238);
+  position: relative;
+  width: 85%;
+  margin-left: 8%;
+  margin-top: -5px;
 }
