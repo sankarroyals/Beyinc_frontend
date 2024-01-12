@@ -1,4 +1,19 @@
 #message{
     margin-bottom: 0px;
-   
 }
+
+.fas.fa-arrow-left:hover{
+    color: black !important;
+    transform: scale(1.2);
+}
+
+.Dp{
+    margin-top: 15px;
+    height: 55px;
+    width: 55px;
+}
+.User-name{
+    margin-top: 10px;
+    font-weight: 600; 
+}
+
