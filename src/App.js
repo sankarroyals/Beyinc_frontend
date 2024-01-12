@@ -1,13 +1,15 @@
-import React, { Suspense, useEffect }from "react";
+import React, { Suspense, useEffect, useRef }from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css'
 import AuthHoc, { AdminDeciderHoc, LoginAuth } from "./AuthHoc";
 import Toast from "./Components/Toast/Toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { apicallloginDetails } from "./redux/AuthReducers/AuthReducer";
 import { ApiServices } from "./Services/ApiServices";
 import UserRequests from "./Components/Admin/UserRequests/UserRequests";
 import { SingleRequestProfile } from "./Components/Admin/UserRequests/SingleProfile";
+import { Socket, io } from "socket.io-client";
+import { setLiveMessage, setNotification, setOnlineUsers } from "./redux/Conversationreducer/ConversationReducer";
 
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
@@ -26,6 +28,50 @@ const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(apicallloginDetails());
+  }, [])
+
+
+
+  // intialize socket io
+  const socket = useRef()
+  const { email } = useSelector(
+    (store) => store.auth.loginDetails
+  );
+
+  useEffect(() => {
+    socket.current = io(process.env.REACT_APP_SOCKET_IO)
+  }, [])
+
+  // adding online users to socket io
+  useEffect(() => {
+    socket.current.emit("addUser", email);
+    socket.current.on("getUsers", users => {
+      console.log('online', users);
+      dispatch(setOnlineUsers(users))
+    })
+  }, [email])
+
+  // live message updates
+  useEffect(() => {
+    socket.current.on('getMessage', data => {
+      console.log(data);
+      dispatch(setLiveMessage({
+        message: data.message,
+        senderId: data.senderId,
+        fileSent: data.fileSent
+      }))
+      // setMessages(prev => [...prev, data])
+    })
+  }, [])
+
+
+
+  useEffect(() => {
+    socket.current.on('getNotification', data => {
+      console.log(data);
+      dispatch(setNotification(true))
+      // setMessages(prev => [...prev, data])
+    })
   }, [])
 
   return (

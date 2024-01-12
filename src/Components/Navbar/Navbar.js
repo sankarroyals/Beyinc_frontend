@@ -14,11 +14,17 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import MessageIcon from "@mui/icons-material/Message";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import { io } from "socket.io-client";
 
 const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
   );
+
+  const notificationAlert = useSelector(state => state.conv.notificationAlert);
+
 
   const [open, setOpen] = React.useState(false);
   const userDetailsRef = useRef(null);
@@ -176,6 +182,8 @@ const Navbar = () => {
     }
   }, [window.location.pathname]);
 
+
+
   return (
     <div
       className="navbar"
@@ -212,17 +220,17 @@ const Navbar = () => {
         </div>
         {role === "Admin" && (
           <>
-            <abbr title="Profile Requests">
-              <div
+
+              <div title="Profile Requests"
                 id="profileRequests"
-                className="navIcons"
+              className="navIcons icon"
                 onClick={() => {
                   navigate("/profileRequests");
                 }}
               >
                 <i class="fas fa-users"></i>
               </div>
-            </abbr>
+
             <div
               id="pitches"
               title="Profile Requests"

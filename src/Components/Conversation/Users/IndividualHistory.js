@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApiServices } from '../../../Services/ApiServices'
 import { getAllHistoricalConversations, setConversationId, setReceiverId } from '../../../redux/Conversationreducer/ConversationReducer'
@@ -8,6 +8,7 @@ import { Box, Dialog, DialogContent } from '@mui/material';
 import CloseIcon from "@mui/icons-material/Close";
 
 import { gridCSS } from '../../CommonStyles';
+import { io } from 'socket.io-client';
 const IndividualHistory = ({ a, onlineEmails, status }) => {
     const { conversationId } = useParams()
     const [open, setOpen] = useState(false)
@@ -36,12 +37,19 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
         }
     }
 
-
+    const socket = useRef()
+    useEffect(() => {
+        socket.current = io(process.env.REACT_APP_SOCKET_IO)
+    }, [])
     const deletePendingRequest = async () => {
         await ApiServices.deleteConversation({ conversationId: a._id }).then((res) => {
             dispatch(getAllHistoricalConversations(email))
 
         })
+        socket.current.emit("sendNotification", {
+            senderId: email,
+            receiverId: friend.email,
+        });
     }
 
     return (
