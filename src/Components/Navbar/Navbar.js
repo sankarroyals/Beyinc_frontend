@@ -216,9 +216,11 @@ const Navbar = () => {
                 navigate("/notifications");
               }}
             ></i>
-            {notificationAlert && <div className="blinkBall"> </div>}
+            {notificationAlert &&
+              <div className="blinkBall"> </div>
+            }
            
-
+              
           </div>
         
         {role === "Admin" && (

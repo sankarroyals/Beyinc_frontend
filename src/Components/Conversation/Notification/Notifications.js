@@ -16,7 +16,7 @@ const [isSpinning, setSpinning] = useState(false);
 
   const handleReloadClick = () => {
     setSpinning(true);
-
+    getNotifys()
     // Stop the spinning after 2 seconds
     setTimeout(() => {
       setSpinning(false);
