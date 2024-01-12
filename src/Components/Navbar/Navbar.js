@@ -216,25 +216,28 @@ const Navbar = () => {
                 navigate("/notifications");
               }}
             ></i>
+            {notificationAlert && <div className="blinkBall"> </div>}
+           
+
           </div>
-        </div>
+        
         {role === "Admin" && (
           <>
 
-              <div title="Profile Requests"
-                id="profileRequests"
-              className="navIcons icon"
-                onClick={() => {
-                  navigate("/profileRequests");
-                }}
-              >
-                <i class="fas fa-users"></i>
-              </div>
+            <div title="Profile Requests"
+              id="profileRequests"
+              className="icon"
+              onClick={() => {
+                navigate("/profileRequests");
+              }}
+            >
+              <i class="fas fa-users"></i>
+            </div>
 
             <div
               id="pitches"
               title="Profile Requests"
-              className="navIcons"
+              className="icon"
               onClick={() => {
                 navigate("/pitches");
               }}
@@ -273,6 +276,7 @@ const Navbar = () => {
               />
             </abbr>
           )}
+          </div>
         </div>
       </div>
 
