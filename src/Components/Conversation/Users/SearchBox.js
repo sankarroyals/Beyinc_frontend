@@ -880,6 +880,7 @@ const SearchBox = () => {
                             setTeamMembers(
                               teamMembers.filter((f, j) => i !== j)
                             );
+                            setForm((prev) => ({ ...prev, changeStatus: "change" }));
                           }}
                         >
                           <CloseIcon className="deleteMember" />
