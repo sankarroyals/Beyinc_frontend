@@ -54,7 +54,10 @@ export const SingleRequestProfile = () => {
         qualification: '',
         fee: 1
     })
-
+    const [totalExperienceData, setTotalExperienceData] = useState([])
+    const [totalEducationData, setTotalEducationData] = useState([])
+    const [fee, setFee] = useState('')
+    const [bio, setBio] = useState('')
     const [oldDocs, setOldDocs] = useState({
         resume: "",
         expertise: "",
@@ -80,12 +83,6 @@ export const SingleRequestProfile = () => {
                     mobileVerified: true,
                 }));
 
-                setExperience({
-                    experience: res.data.experience || '',
-                    job: res.data.job || '',
-                    qualification: res.data.qualification || '',
-                    fee: +res.data.fee || 1
-                })
 
                 if (res.data.documents !== undefined) {
                     setOldDocs((prev) => ({
@@ -97,6 +94,10 @@ export const SingleRequestProfile = () => {
                         degree: res.data.documents.degree,
                     }));
                 }
+                setTotalEducationData(res.data.educationDetails || [])
+                setTotalExperienceData(res.data.experienceDetails || [])
+                setFee(res.data.fee)
+                setBio(res.data.bio)
             })
             .catch((error) => {
                 dispatch(
@@ -229,32 +230,129 @@ export const SingleRequestProfile = () => {
                         </div>
                     </div>
                 </div>
+                {role == 'Mentor' &&
+                    <>
+                    <div className="update-form-container" style={{ flexDirection: 'column' }}>
+                        <form className="update-form">
+                            <h3 className="update-heading">Experience Details</h3>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center'}}>
+                                <div style={{width: '380px'}}>
+                                    <div>
+                                        <label className="update-form-label">Years of experience*</label>
+                                    </div>
+                                </div>
+                                <div style={{ width: '380px' }}>
+                                    <div>
+                                        <label className="update-form-label">Company*</label>
+                                    </div>
+                                </div>
+                                <div style={{ width: '380px' }}>
+                                    <div>
+                                        <label className="update-form-label">Profession*</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                            {totalExperienceData.length > 0 &&
+                                totalExperienceData.map((te, i) => (
+                                    <div style={{ marginLeft: '-60px' }}>
+                                        <form className="update-form">
+                                            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <div>
+                                                        <input disabled type="text" value={te.year} />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <input disabled type="text" value={te.company} />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <input disabled type="text" value={te.profession} />
+                                                    </div>
+                                                </div>
+                                                
+
+
+
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </>}
+                <div className="update-form-container" style={{ flexDirection: 'column' }}>
+                    <form className="update-form">
+                        <h3 className="update-heading">Educational Details</h3>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+                            <div style={{ width: '380px' }}>
+                                <div>
+                                    <label className="update-form-label">Year</label>
+                                </div>
+                            </div>
+                            <div style={{ width: '380px' }}>
+                                <div>
+                                    <label className="update-form-label">Grade</label>
+                                </div>
+                            </div>
+                            <div style={{ width: '380px' }}>
+                                <div>
+                                    <label className="update-form-label">College/University</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    {totalEducationData.length > 0 &&
+                        totalEducationData.map((te, i) => (
+                            <div style={{ marginLeft: '-60px' }}>
+                                <form className="update-form">
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <div>
+                                                <input disabled type="text" value={te.year} />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <input disabled type="text" value={te.grade} />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <input disabled type="text" value={te.college} />
+                                            </div>
+                                        </div>
+                                        
+
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        ))
+                    }
+
+                </div>
                 {role == 'Mentor' && <div className="update-form-container">
                     <form className="update-form">
-                        <h3 className="update-heading">Experience / Fee Negotiation</h3>
+                        <h3 className="update-heading">Personal / Fee Negotiation</h3>
                         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <div>
-                                    <label className="update-form-label">Experience</label>
-                                </div>
-                                <div>
-                                    <input disabled type="text" value={experienceDetails.experience} name="experience" id="" placeholder="Enter Your Experience" />
-                                </div>
-                            </div>
+
                             <div>
                                 <div>
-                                    <label className="update-form-label">Profession</label>
+                                    <label className="update-form-label">Bio</label>
                                 </div>
                                 <div>
-                                    <input disabled type="text" name="job" value={experienceDetails.job} id="" placeholder="Enter Your Profession" />
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <label className="update-form-label">Qualification</label>
-                                </div>
-                                <div>
-                                    <input disabled type="text" name="qualification" id="" value={experienceDetails.qualification} placeholder="Enter Your Qualification" />
+                                    <textarea name="bio" cols={50} value={bio} id="" disabled placeholder="Enter your bio" />
                                 </div>
                             </div>
                             <div>
@@ -262,7 +360,7 @@ export const SingleRequestProfile = () => {
                                     <label className="update-form-label">Fee request</label>
                                 </div>
                                 <div>
-                                    <input disabled type="range" min={1} max={50} name="fee" value={experienceDetails.fee} id="" placeholder="Enter Fee request per minute" /> &#8377; {experienceDetails.fee} / per min
+                                    <input type="range" min={1} max={50} name="fee" value={fee} id="" disabled placeholder="Enter Fee request per minute" /> &#8377; {fee} / per min
                                 </div>
                             </div>
                         </div>

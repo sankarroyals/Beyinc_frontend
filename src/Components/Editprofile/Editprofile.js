@@ -58,12 +58,42 @@ const Editprofile = () => {
   const [nameChanger, setNameChanger] = useState(false);
   const [roles, setRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [totalExperienceData, setTotalExperienceData] = useState([])
+  const [totalEducationData, setTotalEducationData] = useState([])
   const [experienceDetails, setExperience] = useState({
-    experience: '',
-    job: '',
-    qualification: '',
-    fee: 1, bio: ''
+    year: '',
+    company: '',
+    profession: '',
   })
+  const [EducationDetails, setEducationDetails] = useState({
+    year: '',
+    grade: '',
+    college: '',
+  })
+  const [fee, setFee] = useState('')
+  const [bio, setBio] = useState('')
+
+
+  const addExperience = (e) => {
+    e.preventDefault()
+    setTotalExperienceData(prev => [...prev, experienceDetails])
+    setExperience({
+      profession: '',
+      company: '',
+      year: ''
+    })
+
+  }
+  const addEducation = (e) => {
+    e.preventDefault()
+    setTotalEducationData(prev => [...prev, EducationDetails])
+    setEducationDetails({
+      year: '',
+      grade: '',
+      college: '',
+    })
+
+  }
 
   const [changeResume, setchangeDocuments] = useState({
     resume: "",
@@ -90,6 +120,11 @@ const Editprofile = () => {
 
   const handleChange = (e) => {
     setExperience(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleEducationChange = (e) => {
+    setEducationDetails(prev => ({ ...prev, [e.target.name]: e.target.value }))
+
   }
 
   const handleResume = (e) => {
@@ -120,12 +155,6 @@ const Editprofile = () => {
           mobileVerified: true,
         }));
 
-        setExperience({
-          experience: res.data.experience || '',
-          job: res.data.job || '',
-          qualification: res.data.qualification || '',
-          fee: +res.data.fee || 1, bio: res.data.bio || ''
-        })
 
         if (res.data.documents !== undefined) {
           setOldDocs((prev) => ({
@@ -144,6 +173,10 @@ const Editprofile = () => {
             working: res.data.documents?.working || "",
             degree: res.data.documents?.degree || "",
           }));
+          setTotalEducationData(res.data.educationDetails|| [])
+          setTotalExperienceData(res.data.experienceDetails || [])
+          setFee(res.data.fee)
+          setBio(res.data.bio)
         }
       })
       .catch((error) => {
@@ -185,7 +218,6 @@ const Editprofile = () => {
   const navigate = useNavigate();
 
 
-  
   const sendMobileOtp = async (e) => {
     e.preventDefault();
     e.target.disabled = true;
@@ -317,8 +349,8 @@ const Editprofile = () => {
       email: email,
       userName: name,
       phone: mobile,
-      role: role,
-      documents: changeResume, experienceDetails: experienceDetails
+      role: role, fee: fee, bio: bio,
+      documents: changeResume, experienceDetails: totalExperienceData, educationdetails: totalEducationData
     })
       .then((res) => {
         dispatch(
@@ -563,32 +595,181 @@ const Editprofile = () => {
             </div>
           </div>
         </div>
-        {role == 'Mentor' && <div className="update-form-container">
+        {role == 'Mentor' &&
+          <>
+            <div className="update-form-container" style={{ flexDirection: 'column' }}>
+              <form className="update-form">
+                <h3 className="update-heading">Work Experience</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div>
+                      <label className="update-form-label">Years of experience*</label>
+                    </div>
+                    <div>
+                      <select name="year" id="" value={experienceDetails.year} onChange={handleChange}>
+                        <option value="">Select</option>
+                        <option value="0-2">0-2 years</option>
+                        <option value="2-5">2-5 years</option>
+                        <option value="5-8">5-8 years</option>
+                        <option value="above 8">above 8 years</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <label className="update-form-label">Company*</label>
+                    </div>
+                    <div>
+                      <input type="text" name="company" value={experienceDetails.company} id="" onChange={handleChange} placeholder="Enter Your Company name" />
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <label className="update-form-label">Profession*</label>
+                    </div>
+                    <div>
+                      <select name="profession" id="" value={experienceDetails.profession} onChange={handleChange}>
+                        <option value="">Select</option>
+                        <option value="employee">Employee</option>
+                        <option value="lead">Lead</option>
+                        <option value="ceo">CEO</option>
+                        <option value="coFounder">Co founder</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <button onClick={addExperience} disabled={experienceDetails.year==''||experienceDetails.company==''||experienceDetails.profession==''}>Add</button>
+                  </div>
+                </div>
+
+              </form>
+              {totalExperienceData.length > 0 &&
+                totalExperienceData.map((te, i) => (
+                  <div style={{ marginLeft: '-60px' }}>
+                    <form className="update-form">
+                      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <div>
+                            <input disabled type="text" value={te.year} />
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                            <input disabled type="text" value={te.company} />
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                            <input disabled type="text" value={te.profession} />
+                          </div>
+                        </div>
+                        <div>
+                          <i className="fas fa-trash" onClick={(e) => {
+                            setTotalExperienceData(prev => [...prev.filter((f, j) => j !== i)])
+                          }}></i>
+                        </div>
+
+
+
+                      </div>
+
+                    </form>
+                  </div>
+                ))
+              }
+            </div>
+            </>}
+        <div className="update-form-container" style={{ flexDirection: 'column' }}>
           <form className="update-form">
-            <h3 className="update-heading">Experience / Fee Negotiation</h3>
+            <h3 className="update-heading">Education Details</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div>
-                  <label className="update-form-label">Experience</label>
+                  <label className="update-form-label">Year*</label>
                 </div>
                 <div>
-                  <input type="text" value={experienceDetails.experience} name="experience" id="" onChange={handleChange} placeholder="Enter Your Experience" />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <label className="update-form-label">Profession</label>
-                </div>
-                <div>
-                  <input type="text" name="job" value={experienceDetails.job} id="" onChange={handleChange} placeholder="Enter Your Profession" />
+                  <input type="date" value={EducationDetails.year} name="year" id="" onChange={handleEducationChange} placeholder="Enter Your Experience" />
                 </div>
               </div>
               <div>
                 <div>
-                  <label className="update-form-label">Qualification</label>
+                  <label className="update-form-label">Grade*</label>
                 </div>
                 <div>
-                  <input type="text" name="qualification" id="" value={experienceDetails.qualification} onChange={handleChange} placeholder="Enter Your Qualification" />
+                  {/* <input type="text" name="grade" id="" value={EducationDetails.grade} onChange={handleEducationChange} placeholder="Enter Your Profession" /> */}
+                  <select name="grade" id="" value={EducationDetails.grade} onChange={handleEducationChange}>
+                    <option value="">Select</option>
+                    <option value="ssc">10th</option>
+                    <option value="inter">Inter/Equivalent</option>
+                    <option value="ug">UG (Btech, degree)</option>
+                    <option value="pg">PG</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <label className="update-form-label">College/University*</label>
+                </div>
+                <div>
+                  <input type="text" name="college" value={EducationDetails.college} id="" onChange={handleEducationChange} placeholder="Enter Your College/School/University" />
+                </div>
+              </div>
+
+
+              <div>
+                <button onClick={addEducation} disabled={EducationDetails.college == '' || EducationDetails.year == '' || EducationDetails.grade == '' }>Add</button>
+              </div>
+            </div>
+
+          </form>
+          {totalEducationData.length > 0 &&
+            totalEducationData.map((te, i) => (
+              <div style={{ marginLeft: '-60px' }}>
+                <form className="update-form">
+                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div>
+                        <input disabled type="text" value={te.year} />
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <input disabled type="text" value={te.grade} />
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <input disabled type="text" value={te.college} />
+                      </div>
+                    </div>
+                    <div>
+                      <i className="fas fa-trash" onClick={(e) => {
+                        setTotalEducationData(prev => [...prev.filter((f, j) => j !== i)])
+                      }}></i>
+                    </div>
+
+
+
+                  </div>
+
+                </form>
+              </div>
+            ))
+          }
+
+        </div>
+        {role == 'Mentor' && <div className="update-form-container">
+          <form className="update-form">
+            <h3 className="update-heading">Personal / Fee Negotiation</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+
+              <div>
+                <div>
+                  <label className="update-form-label">Bio</label>
+                </div>
+                <div>
+                  <textarea name="bio" cols={50} value={bio} id="" onChange={(e) => setBio(e.target.value)} placeholder="Enter your bio" />
                 </div>
               </div>
               <div>
@@ -596,15 +777,7 @@ const Editprofile = () => {
                   <label className="update-form-label">Fee request</label>
                 </div>
                 <div>
-                  <input type="range" min={1} max={50} name="fee" value={experienceDetails.fee} id=""  onChange={handleChange} placeholder="Enter Fee request per minute" /> &#8377; {experienceDetails.fee} / per min
-                </div>
-              </div>
-              <div>
-                <div>
-                  <label className="update-form-label">Bio</label>
-                </div>
-                <div>
-                  <textarea name="bio" cols={50} value={experienceDetails.bio} id="" onChange={handleChange} placeholder="Enter your bio" />
+                  <input type="range" min={1} max={50} name="fee" value={fee} id="" onChange={(e) => setFee(e.target.value)} placeholder="Enter Fee request per minute" /> &#8377; {fee} / per min
                 </div>
               </div>
             </div>
@@ -829,7 +1002,7 @@ const Editprofile = () => {
               >
                 <i className="fas fa-arrow-left" style={{ marginRight: '5px' }}></i>  Back
               </button>
-              <button type="submit" disabled={!isFormValid} onClick={update} style={{whiteSpace: 'nowrap', position: 'relative'}}>
+              <button type="submit" disabled={!isFormValid} onClick={update} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
                 {isLoading ? (
                   <>
                     <img
