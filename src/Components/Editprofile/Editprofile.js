@@ -62,7 +62,7 @@ const Editprofile = () => {
     experience: '',
     job: '',
     qualification: '',
-    fee: 1
+    fee: 1, bio: ''
   })
 
   const [changeResume, setchangeDocuments] = useState({
@@ -124,7 +124,7 @@ const Editprofile = () => {
           experience: res.data.experience || '',
           job: res.data.job || '',
           qualification: res.data.qualification || '',
-          fee: +res.data.fee || 1
+          fee: +res.data.fee || 1, bio: res.data.bio || ''
         })
 
         if (res.data.documents !== undefined) {
@@ -597,6 +597,14 @@ const Editprofile = () => {
                 </div>
                 <div>
                   <input type="range" min={1} max={50} name="fee" value={experienceDetails.fee} id=""  onChange={handleChange} placeholder="Enter Fee request per minute" /> &#8377; {experienceDetails.fee} / per min
+                </div>
+              </div>
+              <div>
+                <div>
+                  <label className="update-form-label">Bio</label>
+                </div>
+                <div>
+                  <textarea name="bio" cols={50} value={experienceDetails.bio} id="" onChange={handleChange} placeholder="Enter your bio" />
                 </div>
               </div>
             </div>
