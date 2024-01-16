@@ -77,7 +77,7 @@
   object-fit: fill;
 }
 
-.indiPitchDetailsContainer {
+.indiPitchDetailsContainer{
   width: 900px;
   margin: auto;
   background: white;
@@ -85,10 +85,24 @@
   border-radius: 10px;
 }
 
+
 .indiPitchDetails {
   border: 1px solid rgba(128, 128, 128, 0.473);
   padding: 15px;
   border-radius: 10px;
+}
+
+
+.commentsContainer{
+  width: 865px;
+  margin: auto;
+  background: white;
+   border: 1px solid rgba(128, 128, 128, 0.473);
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .indiPitchHeading {
@@ -102,6 +116,9 @@
   padding: 10px 0px;
   font-size: 14px;
 }
+.indiPitchDate{
+    font-weight: 400;
+}
 .indiPitchId {
   font-size: 12px;
 }
@@ -109,6 +126,7 @@
 .star-rating {
   display: flex;
   align-items: center;
+  gap: 5px;
 }
 
 .star {
@@ -130,7 +148,7 @@
   content: "★";
   position: absolute;
   left: 0;
-  top: 0;
+  top: -2.5px;
   mask: linear-gradient(to left, #ffd700 50%, transparent 50%);
   color: #ccc; /* Gray color for empty part of the star */
 }

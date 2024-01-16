@@ -448,12 +448,12 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
 
 
                   {value == 5 ? <div className='pitchSubmit' style={{ display: 'flex', gap: '10px', flexDirection: 'row' }}>
-                      <button type="submit" onClick={(e) => update(e, 'approved')}>
+                      {approve && <button type="submit" onClick={(e) => update(e, 'approved')}>
                           {approve}
-                      </button>
-                      <button type="submit" style={{ background: 'red' }} onClick={(e) => update(e, 'rejected')}>
+                      </button>}
+                      {reject && <button type="submit" style={{ background: 'red' }} onClick={(e) => update(e, 'rejected')}>
                           {reject}
-                      </button>
+                      </button>}
                   </div> : <div className='pitchSubmit'>
                       <button type="submit" onClick={() => {
                           if (value < 5) {
