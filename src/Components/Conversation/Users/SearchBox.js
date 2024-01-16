@@ -1178,7 +1178,7 @@ const SearchBox = () => {
                   ></textarea>
                 </div>
               </div>
-              <div>
+              {/* <div>
                 <div>
                   <label>Do you want pich hide/show after pitch go live?</label>
                 </div>
@@ -1193,7 +1193,7 @@ const SearchBox = () => {
                     <option value="show">Show</option>
                   </select>
                 </div>
-              </div>
+              </div> */}
 
             </div>
           </TabPanel>

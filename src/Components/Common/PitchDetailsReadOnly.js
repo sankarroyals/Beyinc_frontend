@@ -4,6 +4,7 @@ import '../Conversation/Users/searchBox.css'
 import '../Conversation/Notification/Notification.css'
 import { Box, Dialog, DialogContent, Tab, Tabs, Typography } from '@mui/material'
 import { gridCSS } from '../CommonStyles';
+import { useSelector } from 'react-redux'
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
@@ -32,7 +33,8 @@ function TabPanel(props) {
         </div>
     );
 }
-const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, update }) => {
+const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, update, approve, reject, setStatus }) => {
+    const {role} = useSelector(state=>state.auth.loginDetails)
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -416,34 +418,39 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                   ></textarea>
                               </div>
                           </div>
-                          <div>
+                          {role !== 'Admin' && window.location.pathname == '/userPitches' && pitchDetails?.status == 'approved' &&
                               <div>
-                                  <label>Do you want pich hide/show after pitch go live?</label>
+                                  <div>
+                                      <label>Do you want pich hide/show after pitch go live?</label>
+                                  </div>
+                                  <div>
+                                      <select
+                                          name="pitchRequiredStatus"
+                                          
+                                          onChange={(e) => {
+                                              setStatus(e.target.value);
+                                          }}
+                                      >
+                                          <option value="">Select</option>
+                                          <option value="hide">Hide</option>
+                                          <option value="show">Show</option>
+                                      </select>
+                                  </div>
                               </div>
-                              <div>
-                                  <select
-                                      name="pitchRequiredStatus"
-                                      value={pitchDetails?.pitchRequiredStatus}
-                                      disabled
-                                  >
-                                      <option value="">Select</option>
-                                      <option value="hide">Hide</option>
-                                      <option value="show">Show</option>
-                                  </select>
-                              </div>
-                          </div>
 
+                          }
+                        
                       </div>
                   </TabPanel>
 
 
 
                   {value == 5 ? <div className='pitchSubmit' style={{ display: 'flex', gap: '10px', flexDirection: 'row' }}>
-                      <button type="submit" onClick={() => update('approved')}>
-                          Approve
+                      <button type="submit" onClick={(e) => update(e, 'approved')}>
+                          {approve}
                       </button>
-                      <button type="submit" style={{ background: 'red' }} onClick={() => update('rejected')}>
-                          Reject
+                      <button type="submit" style={{ background: 'red' }} onClick={(e) => update(e, 'rejected')}>
+                          {reject}
                       </button>
                   </div> : <div className='pitchSubmit'>
                       <button type="submit" onClick={() => {

@@ -7,20 +7,20 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { ApiServices } from '../../../Services/ApiServices';
 import { useNavigate } from 'react-router';
-import PitchDetailsReadOnly from '../../Common/PitchDetailsReadOnly';
 import { useDispatch } from 'react-redux';
-import { setToast } from '../../../redux/AuthReducers/AuthReducer';
-import { ToastColors } from '../../Toast/ToastColors';
-import { AdminServices } from '../../../Services/AdminServices';
+import { ToastColors } from '../Toast/ToastColors';
+import { setToast } from '../../redux/AuthReducers/AuthReducer';
+import PitchDetailsReadOnly from '../Common/PitchDetailsReadOnly';
+import { ApiServices } from '../../Services/ApiServices';
 
-export default function PitchCard({ d }) {
+export default function LoggedInPitchCard({ d }) {
     const navigate = useNavigate()
     const [pitchDetails, setPitchdetails] = useState(null)
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(0)
     const [image, setImage] = React.useState('')
+    const [status, setStatus] = useState('')
     const dispatch = useDispatch()
     React.useEffect(() => {
         ApiServices.getProfile({ email: d.email }).then(res => {
@@ -28,9 +28,13 @@ export default function PitchCard({ d }) {
         })
     }, [d])
 
-    const update = async (e, status) => {
+    const update = async (e) => {
+        if (status == '') {
+            setOpen(false)
+            return
+        }
         e.target.disabled = true
-        await AdminServices.updatePitch({ pitchId: d._id, status: status }).then((res) => {
+        await ApiServices.updatePitch({ pitchId: d._id, status: status }).then((res) => {
 
             dispatch(
                 setToast({
@@ -40,8 +44,8 @@ export default function PitchCard({ d }) {
                 })
             );
             setOpen(false)
-            d.status = status
-            setPitchdetails(prev => ({ ...prev, status: status }))
+            d.status = 'pending'
+            setPitchdetails(prev => ({ ...prev, status: 'pending' }))
             e.target.disabled = false
 
 
@@ -51,6 +55,7 @@ export default function PitchCard({ d }) {
                 bgColor: ToastColors.failure,
                 visibile: "yes",
             })
+            e.target.disabled = false
         })
         setTimeout(() => {
             dispatch(
@@ -92,10 +97,10 @@ export default function PitchCard({ d }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={()=>setOpen(true)}>View Pitch Request</Button>
+                <Button size="small" onClick={() => setOpen(true)}>View Pitch Request</Button>
                 {/* <Button size="small">Learn More</Button> */}
                 {open &&
-                    <PitchDetailsReadOnly approve='Make Live' reject='Reject' open={open} setOpen={setOpen} update={update} value={value} setValue={setValue} pitchDetails={pitchDetails} />
+                    <PitchDetailsReadOnly setStatus={setStatus} approve='Update' reject='Cancel' open={open} setOpen={setOpen} update={update} value={value} setValue={setValue} pitchDetails={pitchDetails} />
                 }
             </CardActions>
         </Card>

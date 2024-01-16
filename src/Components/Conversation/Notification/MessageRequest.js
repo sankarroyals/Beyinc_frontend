@@ -16,8 +16,10 @@ const MessageRequest = ({ m, setMessageRequest }) => {
     
     const dispatch = useDispatch()
     
-    const update = async (status) => {
+    const update = async (e, status) => {
+        e.target.disabled = true
         await ApiServices.updateUserMessageRequest({ conversationId: m._id, status: status }).then((res) => {
+
             dispatch(
                 setToast({
                     message: `Message request ${status}`,
@@ -26,12 +28,16 @@ const MessageRequest = ({ m, setMessageRequest }) => {
                 })
             );
             setMessageRequest(prev => [...prev.filter((f) => f._id !== m._id)])
+            e.target.disabled = false
+
         }).catch(err => {
             setToast({
                 message: 'Error occured when updating request',
                 bgColor: ToastColors.failure,
                 visibile: "yes",
             })
+            e.target.disabled = false
+
         })
         setTimeout(() => {
             dispatch(
@@ -65,7 +71,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
                     </attr>
                 </div>
                 {open &&
-                    <PitchDetailsReadOnly open={open} setOpen={setOpen} update={update} value={value} setValue={setValue} pitchDetails={pitchDetails} />
+                    <PitchDetailsReadOnly approve='Approve Chat Request' reject='Reject' open={open} setOpen={setOpen} update={update} value={value} setValue={setValue} pitchDetails={pitchDetails} />
                 }
             </div>
 

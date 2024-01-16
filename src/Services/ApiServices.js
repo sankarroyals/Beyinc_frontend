@@ -289,6 +289,33 @@ export const ApiServices = {
     },
 
 
+    getuserPitches: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/userPitches`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    updatePitch: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/updatePitch`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
 
     getFriendByConvID: (obj) => {
         return new Promise((resolve, reject) => {

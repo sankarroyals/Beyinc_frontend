@@ -20,7 +20,9 @@ const Home = React.lazy(() => wait(1000).then(() => import("./Components/Home/Ho
 const Editprofile = React.lazy(() => wait(1000).then(() => import("./Components/Editprofile/Editprofile")));
 const Conversations = React.lazy(() => wait(1000).then(()=> import("./Components/Conversation/Conversations")));
 const  Notifications= React.lazy(() => wait(1000).then(()=> import("./Components/Conversation/Notification/Notifications")));
-const  AllPitches = React.lazy(() => wait(1000).then(()=> import("./Components/Admin/pitchDecider/AllPitches")));
+const AllPitches = React.lazy(() => wait(1000).then(() => import("./Components/Admin/pitchDecider/AllPitches")));
+
+const LoggedInPitches = React.lazy(() => wait(1000).then(() => import('./Components/LoggedInPitches/LoggedInPitches')))
 
 const ENV = process.env;
 
@@ -87,11 +89,16 @@ const App = () => {
           <Route path="/signup" Component={LoginAuth(SignUp)} />
           <Route path="/login" Component={LoginAuth(Login)} />
           <Route path="/forgotpassword" Component={LoginAuth(ForgotPassword)} />
+
+  
           <Route path="/" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
           <Route path="/conversations" Component={AuthHoc(Conversations)} />
           <Route path="/conversations/:conversationId" Component={AuthHoc(Conversations)} />
           <Route path="/notifications" Component={AuthHoc(Notifications)} />
+          <Route path="/userPitches" Component={AuthHoc(LoggedInPitches)} />
+
+          
           <Route path="/pitches" Component={AdminDeciderHoc(AllPitches)} />
           <Route path="/profileRequests" Component={AdminDeciderHoc(UserRequests)} />
           <Route path="/singleProfileRequest/:email" Component={AuthHoc(SingleRequestProfile)} />

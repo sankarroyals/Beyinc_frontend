@@ -244,10 +244,21 @@ const Navbar = () => {
                 navigate("/pitches");
               }}
             >
-              pitch
+              Pitch Requests
             </div>
           </>
-        )}
+          )}
+          
+          <div
+            id="userPitches"
+            title="Profile Requests"
+            className="icon"
+            onClick={() => {
+              navigate("/userPitches");
+            }}
+          >
+            pitch
+          </div>
         <div
           id="editProfile"
           style={{ position: "relative" }}
