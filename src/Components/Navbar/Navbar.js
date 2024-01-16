@@ -249,7 +249,7 @@ const Navbar = () => {
           </>
           )}
           
-          <div
+          {role !== 'Admin' && <div
             id="userPitches"
             title="Profile Requests"
             className="icon"
@@ -258,7 +258,7 @@ const Navbar = () => {
             }}
           >
             pitch
-          </div>
+          </div>}
         <div
           id="editProfile"
           style={{ position: "relative" }}
