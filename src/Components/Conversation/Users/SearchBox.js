@@ -96,6 +96,7 @@ const SearchBox = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [tags, setTags] = useState([]);
 
   const [teamMembers, setTeamMembers] = useState([]);
   const [singleTeamMember, setSingleTeamMember] = useState({
@@ -164,7 +165,7 @@ const SearchBox = () => {
               visibile: "yes",
             })
           );
-      })
+        })
     } else {
       setOpen(true);
     }
@@ -271,6 +272,7 @@ const SearchBox = () => {
       pitch: file,
       email: email, role: role,
       form: { ...form, pitchId: form?._id },
+      tags: tags,
       teamMembers: teamMembers,
     };
     await ApiServices.addConversation(conversation)
@@ -327,8 +329,9 @@ const SearchBox = () => {
               ...res.data[0],
               pitchId: res.data[0]._id,
               changeStatus: "",
-              tags: res.data[0].tags.join(","),
+              tags: '',
             });
+            setTags(res.data[0].tags)
             setTeamMembers(res.data[0].teamMembers);
           }
         })
@@ -384,7 +387,7 @@ const SearchBox = () => {
           }}
         >
           <div>
-            <MapsUgcIcon style={{fontSize: '24px'}}/>{" "}
+            <MapsUgcIcon style={{ fontSize: '24px' }} />{" "}
           </div>
           <div>New Chat</div>
         </div>
@@ -445,7 +448,7 @@ const SearchBox = () => {
                       </abbr>
                     </div>}
                   </div>
-                  
+
                   <div>
                     <div className="userName">{a.userName}</div>
                     <div className="role">{a.role}</div>
@@ -461,7 +464,7 @@ const SearchBox = () => {
         aria-describedby="alert-dialog-description"
         maxWidth="xl"
         sx={gridCSS.tabContainer}
-        // sx={ gridCSS.tabContainer }
+      // sx={ gridCSS.tabContainer }
       >
         <DialogContent
           style={{
@@ -837,19 +840,52 @@ const SearchBox = () => {
               </div>
               <div>
                 <div>
-                  <label>Tags seperated with commas(ex: cost, fee,)*</label>
+                  <label>Tags*</label>
                 </div>
                 <div>
-                  <input
-                    type="text"
-                    name="tags"
-                    value={form?.tags}
-                    onChange={handleChanges}
-                    placeholder="Enter tags for pitch *"
-                  />
+                  {tags.length > 0 && (
+                    <div className="listedTeam">
+                      {tags.map((t, i) => (
+                        <div className="singleMember">
+                         
+                          <div>{t}</div>
+                          <div
+                            onClick={(e) => {
+                              setTags(
+                                tags.filter((f, j) => i !== j)
+                              );
+                              setForm((prev) => ({ ...prev, changeStatus: "change" }));
+                            }}
+                          >
+                            <CloseIcon className="deleteMember" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                 </div>
+
+
+                  <div className="tags">
+                    <div>
+                      <input
+                        type="text"
+                        name="tags"
+                        value={form?.tags}
+                        onChange={handleChanges}
+                        placeholder="Enter tags for pitch *"
+                      />
+                    </div>
+                  <div className="addtags" onClick={() => {
+                    setTags(prev => [...prev, form.tags])
+                    setForm((prev) => ({ ...prev, changeStatus: "change", tags: '' }));
+                    }}>
+                      <i className="fas fa-plus"></i>
+
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
           </TabPanel>
 
           <TabPanel

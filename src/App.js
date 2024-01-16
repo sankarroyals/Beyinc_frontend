@@ -10,6 +10,8 @@ import UserRequests from "./Components/Admin/UserRequests/UserRequests";
 import { SingleRequestProfile } from "./Components/Admin/UserRequests/SingleProfile";
 import { Socket, io } from "socket.io-client";
 import { setLiveMessage, setNotification, setOnlineUsers } from "./redux/Conversationreducer/ConversationReducer";
+import LivePitches from "./Components/LivePitches/LivePitches";
+import IndividualPitch from "./Components/LivePitches/IndividualPitch";
 
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
@@ -97,6 +99,10 @@ const App = () => {
           <Route path="/conversations/:conversationId" Component={AuthHoc(Conversations)} />
           <Route path="/notifications" Component={AuthHoc(Notifications)} />
           <Route path="/userPitches" Component={AuthHoc(LoggedInPitches)} />
+          <Route path="/livePitches" Component={AuthHoc(LivePitches)} />
+          <Route path="/livePitches/:pitchId" Component={AuthHoc(IndividualPitch)} />
+
+
 
           
           <Route path="/pitches" Component={AdminDeciderHoc(AllPitches)} />

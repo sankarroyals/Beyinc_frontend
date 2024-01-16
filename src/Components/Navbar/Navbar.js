@@ -259,6 +259,16 @@ const Navbar = () => {
           >
             pitch
           </div>}
+         <div
+            id="livePitches"
+            title="Profile Requests"
+            className="icon"
+            onClick={() => {
+              navigate("/livePitches");
+            }}
+          >
+            Live Pitches
+          </div>
         <div
           id="editProfile"
           style={{ position: "relative" }}

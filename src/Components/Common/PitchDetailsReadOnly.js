@@ -56,7 +56,9 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
 
 
               <DialogContent style={{ height: '90vh', position: 'relative', display: 'flex', flexDirection: 'column' }}>
-                  <Box>Pitch Status: {pitchDetails?.status}</Box>
+                  <Box>Pitch Status: {pitchDetails?.status} <span title={pitchDetails?.pitchRequiredStatus == 'show' ? 'visible to all users' : 'not visibile to all users'}>
+                      {pitchDetails?.pitchRequiredStatus == 'show' ? <i class="fas fa-eye"></i> : <i class="fas fa-eye-slash"></i>}
+                  </span></Box>
                   <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setOpen(false)}><CloseIcon /></Box>
                   <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'space-between', marginTop: "20px", height: "22px", marginBottom: "7.5px", border: "none", alignItems: 'center' }}>
                       <Tabs value={value} className='pitchTabs'

@@ -1,0 +1,68 @@
+.livePitchesContainer{
+    background: #F0F0F0;
+padding: 10px;
+}
+.livePitchesWrapper{
+    width: 1300px;
+    margin: auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.livePitchesWrapper .filterContainer{
+    flex: 1 0 20%;
+    padding: 10px;
+}
+.pitchcontainer{
+    flex: 1 0 75%;
+    /* padding: 10px; */
+}
+
+.filterContainer, .pitchcontainer{
+    background: white;
+}
+
+.filterContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.filterContainer .filterHeader{
+    font-size: 18px
+}
+.tagFilter {
+display: flex;
+flex-direction: column;
+gap: 3px;
+}
+.tagFilter .inputTag input[type='text']{
+    width: 200px !important;
+    padding: 10px !important;
+    
+}
+.inputTag{
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+}
+.inputTag i{
+    transform: translate(-20px, -5px);
+}
+.singlePitch {
+    padding: 25px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+}
+.singlePitchWrapper:hover{
+    background: rgba(238, 238, 238, 0.596);
+}
+.singlePitch .desc{
+    font-size: 15px;
+}
+.tags span{
+    color: #007fed;
+}

@@ -211,3 +211,21 @@ textarea{
 .deleteConv .fa-trash:hover{
     transform:scale(1.3)
 }
+
+
+.tags{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.tags .addtags{
+    background: gray;
+    padding: 10px 5px 10px 10px;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

@@ -288,6 +288,19 @@ export const ApiServices = {
         })
     },
 
+    livePitches: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.get(`/pitch/livePitch`)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
 
     getuserPitches: (obj) => {
         return new Promise((resolve, reject) => {
