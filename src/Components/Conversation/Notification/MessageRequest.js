@@ -59,7 +59,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
     return (
         <div className='individualrequest'>
             <div className='individualrequestWrapper'>
-                <div>{m.members?.filter((f) => f !== email)[0]} sent you a message request</div>
+                <div>{m.members?.filter((f) => f.email !== email)[0].email} sent you a message request</div>
                 <div className='updateActions'>
                     <div>{format(m.createdAt)}</div>
                     <attr title='Preview Pitch Details'>

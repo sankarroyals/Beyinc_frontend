@@ -171,9 +171,9 @@ const IndividualMessage = () => {
           <img
             className="Dp"
             src={
-              receiverId?.image?.url !== undefined &&
-              receiverId?.image?.url !== ""
-                ? receiverId.image.url
+              receiverId?.profile_pic !== undefined &&
+              receiverId?.profile_pic !== ""
+                ? receiverId.profile_pic
                 : "/profile.jpeg"
             }
             alt=""
@@ -219,10 +219,10 @@ const IndividualMessage = () => {
                   src={
                     image !== undefined && image !== "" && m.senderId === email
                       ? image
-                      : receiverId?.image?.url !== undefined &&
-                        receiverId?.image?.url !== "" &&
+                      : receiverId?.profile_pic !== undefined &&
+                        receiverId?.profile_pic !== "" &&
                         m.senderId !== email
-                      ? receiverId.image.url
+                      ? receiverId.profile_pic
                       : "/profile.jpeg"
                   }
                   alt=""

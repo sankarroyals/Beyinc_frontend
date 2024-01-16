@@ -20,18 +20,21 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
-        const friendMail = a.members.filter((f) => f !== email)[0]
-        ApiServices.getProfile({ email: friendMail }).then((res) => {
-            setFriend(res.data)
-        })
+        const friendMail = a.members.filter((f) => f.email !== email)[0]
+        setFriend(friendMail)
+        // ApiServices.getProfile({ email: friendMail }).then((res) => {
+        //     setFriend(res.data)
+        // })
     }, [a])
 
-    const storingDetails = async () => {
+    const storingDetails = async (e) => {
+        e.preventDefault();
+        
         if (status !== 'pending') {
             dispatch(setConversationId(a._id))
-            await ApiServices.getProfile({ email: a.members.filter((f) => f !== email)[0] }).then((res) => {
-                dispatch(setReceiverId(res.data))
-            })
+            // await ApiServices.getProfile({ email: a.members.filter((f) => f.email !== email)[0].email }).then((res) => {
+            dispatch(setReceiverId(a.members.filter((f) => f.email !== email)[0].email))
+            // })
             navigate(`/conversations/${a._id}`)
 
         }
@@ -54,7 +57,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
 
     return (
         <div className={`individuals ${conversationId == a._id && 'selected'}`} onClick={storingDetails} style={{ display: (a.requestedTo === email && status == 'pending') && 'none' }}>
-            <div><img src={friend.image?.url === undefined ? '/profile.jpeg' : friend.image.url} alt="" srcset="" /></div>
+            <div><img src={friend.profile_pic === undefined ? '/profile.jpeg' : friend.profile_pic} alt="" srcset="" /></div>
             <div className='onlineHolder'>
                 <abbr title={friend.email} style={{ textDecoration: 'none' }}><div className='userName'>{friend.userName}</div></abbr>
                 {status === 'pending' ? <><abbr title='pending'>

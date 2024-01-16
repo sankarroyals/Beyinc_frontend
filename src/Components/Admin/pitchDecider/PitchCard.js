@@ -20,13 +20,12 @@ export default function PitchCard({ d }) {
     const [pitchDetails, setPitchdetails] = useState(null)
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(0)
-    const [image, setImage] = React.useState('')
     const dispatch = useDispatch()
-    React.useEffect(() => {
-        ApiServices.getProfile({ email: d.email }).then(res => {
-            setImage(res.data.image.url)
-        })
-    }, [d])
+    // React.useEffect(() => {
+    //     ApiServices.getProfile({ email: d.email }).then(res => {
+    //         setImage(res.data.image.url)
+    //     })
+    // }, [d])
 
     const update = async (e, status) => {
         e.target.disabled = true
@@ -64,15 +63,13 @@ export default function PitchCard({ d }) {
     }
 
     useEffect(() => {
-        ApiServices.fetchSinglePitch({ pitchId: d._id }).then(res => {
-            setPitchdetails(res.data)
-        })
+        setPitchdetails(d)
     }, [d])
     return (
         <Card sx={{ maxWidth: 345 }}>
             <div style={{ display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px' }}>
                 <img className='userCardImage'
-                    src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+                    src={d.profile_pic !== undefined && d.profile_pic !== "" ? d.profile_pic : "/profile.jpeg"}
                     title={d.email}
                 />
                 <div>{d.role}

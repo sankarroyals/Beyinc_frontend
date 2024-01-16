@@ -144,7 +144,7 @@ const SearchBox = () => {
 
   const decidingRolesMessage = async (receiverMail) => {
     if (role === 'Admin') {
-      await ApiServices.directConversationCreation({ email: email, receiverId: receiverMail }).then((res) => {
+      await ApiServices.directConversationCreation({ email: email, receiverId: receiverMail, senderId: email }).then((res) => {
         dispatch(getAllHistoricalConversations(email));
         dispatch(
           setToast({

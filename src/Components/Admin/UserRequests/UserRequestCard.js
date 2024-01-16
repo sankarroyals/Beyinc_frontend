@@ -10,17 +10,17 @@ import { useNavigate } from 'react-router';
 
 export default function UserRequestCard({ d }) {
     const navigate = useNavigate()
-    const [image, setImage] = React.useState('')
-    React.useEffect(() => {
-        ApiServices.getProfile({ email: d.email }).then(res => {
-            setImage(res.data.image.url)
-        })
-    }, [d])
+    // const [image, setImage] = React.useState('')
+    // React.useEffect(() => {
+    //     ApiServices.getProfile({ email: d.email }).then(res => {
+    //         setImage(res.data.image.url)
+    //     })
+    // }, [d])
     return (
         <Card sx={{ maxWidth: 345 }}>
             <div style={{display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px'}}>
                 <img className='userCardImage'
-                    src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+                    src={d.image !== undefined && d.image !== "" ? d.image : "/profile.jpeg"}
                     title={d.email}
                 />
                 <div>{d.role}

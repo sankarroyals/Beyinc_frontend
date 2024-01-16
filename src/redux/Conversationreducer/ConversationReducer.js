@@ -2,6 +2,7 @@
 /* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
 import { ApiServices } from '../../Services/ApiServices';
+import { setToast } from '../AuthReducers/AuthReducer';
 
 
 export const conversationSlice = createSlice(
@@ -43,6 +44,8 @@ export const conversationSlice = createSlice(
 export const getAllHistoricalConversations = (email) => async (dispatch) => {
     await ApiServices.getHistoricalConversations({ email: email }).then((res) => {
             dispatch(setHistoricalConversation(res.data))
+    }).catch(err => {
+            dispatch(setToast({}))
         })
     }
 
