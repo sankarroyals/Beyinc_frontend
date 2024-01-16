@@ -568,6 +568,19 @@ const SearchBox = () => {
                 label="Documents"
                 {...a11yProps(5)}
               />
+              <Tab
+                className="tabs"
+                sx={{
+                  width: "200px",
+                  background: "none",
+                  textTransform: "capitalize",
+                  padding: "0px",
+                  fontSize: "13px",
+                  fontWeight: 600,
+                }}
+                label="Requirements"
+                {...a11yProps(6)}
+              />
             </Tabs>
           </Box>
           <TabPanel
@@ -1109,7 +1122,83 @@ const SearchBox = () => {
             </div>
           </TabPanel>
 
-          {value == 4 ? (
+          <TabPanel
+            style={{ padding: 0 }}
+            className="forecast-container"
+            value={value}
+            index={5}
+          >
+            <div className="pitchForm">
+              <div className="pitchformFields">
+                <div>
+                  <label>Heading*</label>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="heading"
+                    value={form?.heading}
+                    onChange={handleChanges}
+                    placeholder="Enter heading to show pitch"
+                  />
+                </div>
+              </div>
+
+
+              <div>
+                <div>
+                  <label>People needed ?</label>
+                </div>
+                <div>
+                  <select
+                    name="hiringPositions"
+                    value={form?.hiringPositions}
+                    onChange={handleChanges}
+                  >
+                    <option value="">Select</option>
+                    <option value="coFounder">CoFounder</option>
+                    <option value="ceo">CEO</option>
+                    <option value="employee">Employee</option>
+                    <option value="freeLancer">Freelancer</option>
+                  </select>
+                </div>
+              </div>
+              <div className="pitchformFields">
+                <div>
+                  <label>Description*</label>
+                </div>
+                <div>
+                  <textarea
+                    type="text"
+                    name="description"
+                    value={form?.description}
+                    onChange={handleChanges}
+                    rows={10}
+                    cols={80}
+                  ></textarea>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <label>Do you want pich hide/show after pitch go live?</label>
+                </div>
+                <div>
+                  <select
+                    name="pitchRequiredStatus"
+                    value={form?.pitchRequiredStatus}
+                    onChange={handleChanges}
+                  >
+                    <option value="">Select</option>
+                    <option value="hide">Hide</option>
+                    <option value="show">Show</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </TabPanel>
+
+          {value == 5 ? (
             <div className="pitchSubmit">
               <button type="submit" onClick={addconversation}>
                 Send request
@@ -1120,7 +1209,7 @@ const SearchBox = () => {
               <button
                 type="submit"
                 onClick={() => {
-                  if (value < 4) {
+                  if (value < 5) {
                     setValue((prev) => prev + 1);
                   }
                 }}

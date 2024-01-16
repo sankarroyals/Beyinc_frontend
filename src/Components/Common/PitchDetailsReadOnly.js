@@ -67,6 +67,19 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                           <Tab className='tabs' sx={{ width: '200px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label="Team" {...a11yProps(2)} />
                           <Tab className='tabs' sx={{ width: '200px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label="Image & videos" {...a11yProps(3)} />
                           <Tab className='tabs' sx={{ width: '200px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label="Documents" {...a11yProps(5)} />
+                          <Tab
+                              className="tabs"
+                              sx={{
+                                  width: "200px",
+                                  background: "none",
+                                  textTransform: "capitalize",
+                                  padding: "0px",
+                                  fontSize: "13px",
+                                  fontWeight: 600,
+                              }}
+                              label="Requirements"
+                              {...a11yProps(6)}
+                          />
                       </Tabs>
                   </Box>
                   <TabPanel style={{ padding: 0 }} className="forecast-container" value={value} index={0}>
@@ -347,10 +360,85 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                       </div>
 
                   </TabPanel>
+                  <TabPanel
+                      style={{ padding: 0 }}
+                      className="forecast-container"
+                      value={value}
+                      index={5}
+                  >
+                      <div className="pitchForm">
+                          <div className="pitchformFields">
+                              <div>
+                                  <label>Heading*</label>
+                              </div>
+                              <div>
+                                  <input
+                                      type="text"
+                                      name="heading"
+                                      value={pitchDetails?.heading}
+                                      disabled
+                                      placeholder="Enter heading to show pitch"
+                                  />
+                              </div>
+                          </div>
+
+
+                          <div>
+                              <div>
+                                  <label>People needed ?</label>
+                              </div>
+                              <div>
+                                  <select
+                                      name="hiringPositions"
+                                      value={pitchDetails?.hiringPositions}
+                                      disabled
+                                  >
+                                      <option value="">Select</option>
+                                      <option value="coFounder">CoFounder</option>
+                                      <option value="ceo">CEO</option>
+                                      <option value="employee">Employee</option>
+                                      <option value="freeLancer">Freelancer</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div className="pitchformFields">
+                              <div>
+                                  <label>Description*</label>
+                              </div>
+                              <div>
+                                  <textarea
+                                      type="text"
+                                      name="description"
+                                      value={pitchDetails?.description}
+                                      disabled
+                                      rows={10}
+                                      cols={80}
+                                  ></textarea>
+                              </div>
+                          </div>
+                          <div>
+                              <div>
+                                  <label>Do you want pich hide/show after pitch go live?</label>
+                              </div>
+                              <div>
+                                  <select
+                                      name="pitchRequiredStatus"
+                                      value={pitchDetails?.pitchRequiredStatus}
+                                      disabled
+                                  >
+                                      <option value="">Select</option>
+                                      <option value="hide">Hide</option>
+                                      <option value="show">Show</option>
+                                  </select>
+                              </div>
+                          </div>
+
+                      </div>
+                  </TabPanel>
 
 
 
-                  {value == 4 ? <div className='pitchSubmit' style={{ display: 'flex', gap: '10px', flexDirection: 'row' }}>
+                  {value == 5 ? <div className='pitchSubmit' style={{ display: 'flex', gap: '10px', flexDirection: 'row' }}>
                       <button type="submit" onClick={() => update('approved')}>
                           Approve
                       </button>
@@ -359,7 +447,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                       </button>
                   </div> : <div className='pitchSubmit'>
                       <button type="submit" onClick={() => {
-                          if (value < 4) {
+                          if (value < 5) {
                               setValue(prev => prev + 1)
                           }
                       }}>
