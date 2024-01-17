@@ -110,6 +110,7 @@
   font-weight: 600;
   /* width: 1300px;
     margin: auto; */
+    z-index: 999;
   position: sticky;
   top: 0;
   display: flex;

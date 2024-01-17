@@ -288,6 +288,59 @@ export const ApiServices = {
         })
     },
 
+    addPitchComment: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/addPitchComment`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    addPitchReview: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/addStar`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
+    getStarsFrom: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/getStar`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    removePitchComment: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/removePitchComment`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
     livePitches: (obj) => {
         return new Promise((resolve, reject) => {
             axiosInstance.get(`/pitch/livePitch`)

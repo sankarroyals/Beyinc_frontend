@@ -16,7 +16,7 @@ const ReviewStars = ({ avg }) => {
                 starClass = 'half-filled';
             }
 
-            stars.push(<span key={i} className={`star ${starClass}`}>&#9733;</span>);
+            stars.push(<span key={i} className={`star ${starClass}`} style={{cursor: 'pointer'}}>&#9733;</span>);
         }
 
         return stars;
