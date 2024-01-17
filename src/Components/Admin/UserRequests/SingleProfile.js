@@ -105,7 +105,6 @@ export const SingleRequestProfile = () => {
                 settown(res.data.town || '')
                 setCountry(res.data.country || '')
                 setState(res.data.state || '')
-                console.log(res.data);
             })
             .catch((error) => {
                 dispatch(

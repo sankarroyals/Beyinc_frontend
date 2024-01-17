@@ -229,12 +229,8 @@ const Editprofile = () => {
             state: State.getStatesOfCountry(res.data.country.split('-')[1]) || [],
             town: City.getCitiesOfState(res.data.country.split('-')[1], res.data.state.split('-')[1]) || []
           })
-          console.log(res.data);
-          console.log({
-            country: Country.getAllCountries(),
-            state: State.getStatesOfCountry(res.data.country.split('-')[1]) || [],
-            town: City.getCitiesOfState(res.data.country.split('-')[1], res.data.state.split('-')[1]) || []
-          });
+          
+         
         }
       })
       .catch((error) => {
@@ -835,6 +831,8 @@ const Editprofile = () => {
                 </div>
                 <select name="country" id="" onChange={(e) => {
                   setCountry(e.target.value)
+                  setState('')
+                  settown('')
                   setPlaces(prev=>({...prev, state:[], town: []}))
                 }}>
                   <option value="">Select</option>
@@ -850,6 +848,7 @@ const Editprofile = () => {
                 </div>
                 <select name="state" id="" onChange={(e) => {
                   setState(e.target.value)
+                  settown('')
                   setPlaces(prev => ({ ...prev,  town: [] }))
                 }}>
                   <option value="">Select</option>
