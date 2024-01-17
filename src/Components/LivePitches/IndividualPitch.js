@@ -58,7 +58,7 @@ const IndividualPitch = () => {
                           </div>
                       </div>
                       <div>
-                          <div className='indiPitchDate'>Posted about {format(pitch?.createdAt)} by {pitch.email}</div>
+                          <div className='indiPitchDate'>Posted about {format(pitch?.createdAt)} by {pitch.userName}</div>
                       </div>
                       <div className='indiPitchDesc'>
                           <textarea style={{ width: '100%', border: 'none', fontFamily: "'Google Sans Text', sans- serif" }} disabled rows={13} value={pitch?.description}></textarea>
