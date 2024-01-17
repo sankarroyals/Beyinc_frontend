@@ -141,7 +141,7 @@ const IndividualMessage = () => {
             setToast({
               message: err.response.data.message,
               bgColor: ToastColors.failure,
-              visibile: "yes",
+              visible: "yes",
             })
           );
         });
@@ -172,7 +172,7 @@ const IndividualMessage = () => {
             className="Dp"
             src={
               receiverId?.profile_pic !== undefined &&
-              receiverId?.profile_pic !== ""
+                receiverId?.profile_pic !== ""
                 ? receiverId.profile_pic
                 : "/profile.jpeg"
             }
@@ -222,8 +222,8 @@ const IndividualMessage = () => {
                       : receiverId?.profile_pic !== undefined &&
                         receiverId?.profile_pic !== "" &&
                         m.senderId !== email
-                      ? receiverId.profile_pic
-                      : "/profile.jpeg"
+                        ? receiverId.profile_pic
+                        : "/profile.jpeg"
                   }
                   alt=""
                   srcset=""

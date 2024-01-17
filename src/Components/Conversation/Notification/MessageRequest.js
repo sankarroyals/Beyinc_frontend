@@ -13,9 +13,9 @@ const MessageRequest = ({ m, setMessageRequest }) => {
     const [pitchDetails, setPitchdetails] = useState(null)
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(0)
-    
+
     const dispatch = useDispatch()
-    
+
     const update = async (e, status) => {
         e.target.disabled = true
         await ApiServices.updateUserMessageRequest({ conversationId: m._id, status: status }).then((res) => {
@@ -24,7 +24,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
                 setToast({
                     message: `Message request ${status}`,
                     bgColor: ToastColors.success,
-                    visibile: "yes",
+                    visible: "yes",
                 })
             );
             setMessageRequest(prev => [...prev.filter((f) => f._id !== m._id)])
@@ -34,7 +34,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
             setToast({
                 message: 'Error occured when updating request',
                 bgColor: ToastColors.failure,
-                visibile: "yes",
+                visible: "yes",
             })
             e.target.disabled = false
 
@@ -44,7 +44,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
                 setToast({
                     message: "",
                     bgColor: "",
-                    visibile: "no",
+                    visible: "no",
                 })
             );
         }, 4000);

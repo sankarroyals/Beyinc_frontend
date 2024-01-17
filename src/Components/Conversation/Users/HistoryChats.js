@@ -25,12 +25,12 @@ const HistoryChats = () => {
     }, [])
 
 
-    const handleMenuVisibile = (e) => {
+    const handleMenuvisible = (e) => {
         if (e.target.classList[1] == 'fa-caret-right') {
             e.target.classList.remove('fa-caret-right')
             e.target.classList.add('fa-caret-down')
             document.getElementsByClassName(e.target.id)[0].style.display = 'block'
-            
+
         } else {
             e.target.classList.remove('fa-caret-down')
             e.target.classList.add('fa-caret-right')
@@ -47,7 +47,7 @@ const HistoryChats = () => {
     return (
         <div className='historyChats'>
             <div className='statusHeader'>
-                <i class={`fas fa-caret-right`} id='pending' onClick={handleMenuVisibile}></i>Pending
+                <i class={`fas fa-caret-right`} id='pending' onClick={handleMenuvisible}></i>Pending
             </div>
             <div className='pending'>
                 {historicalConversations.length > 0 && historicalConversations.map((a) => (
@@ -57,7 +57,7 @@ const HistoryChats = () => {
 
             {/* approved */}
             <div className='statusHeader'>
-                <i class={`fas fa-caret-right`} id='approved' onClick={handleMenuVisibile}></i>Approved
+                <i class={`fas fa-caret-right`} id='approved' onClick={handleMenuvisible}></i>Approved
             </div>
             <div className='approved'>
                 {historicalConversations.length > 0 && historicalConversations.map((a) => (

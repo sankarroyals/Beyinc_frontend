@@ -40,7 +40,7 @@ export default function LoggedInPitchCard({ d }) {
                 setToast({
                     message: `Pitch Status Updated`,
                     bgColor: ToastColors.success,
-                    visibile: "yes",
+                    visible: "yes",
                 })
             );
             setOpen(false)
@@ -53,7 +53,7 @@ export default function LoggedInPitchCard({ d }) {
             setToast({
                 message: 'Error occured when updating Pitch',
                 bgColor: ToastColors.failure,
-                visibile: "yes",
+                visible: "yes",
             })
             e.target.disabled = false
         })
@@ -62,7 +62,7 @@ export default function LoggedInPitchCard({ d }) {
                 setToast({
                     message: "",
                     bgColor: "",
-                    visibile: "no",
+                    visible: "no",
                 })
             );
         }, 4000);

@@ -173,7 +173,7 @@ const Editprofile = () => {
             working: res.data.documents?.working || "",
             degree: res.data.documents?.degree || "",
           }));
-          setTotalEducationData(res.data.educationDetails|| [])
+          setTotalEducationData(res.data.educationDetails || [])
           setTotalExperienceData(res.data.experienceDetails || [])
           setFee(res.data.fee)
           setBio(res.data.bio)
@@ -184,7 +184,7 @@ const Editprofile = () => {
           setToast({
             message: error.response.data.message,
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -230,7 +230,7 @@ const Editprofile = () => {
           setToast({
             message: "OTP sent successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         // setIsEmailOtpSent(true);
@@ -241,7 +241,7 @@ const Editprofile = () => {
           setToast({
             message: "OTP sent failed !",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -250,7 +250,7 @@ const Editprofile = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -267,7 +267,7 @@ const Editprofile = () => {
   //         setToast({
   //           message: "Email verified successfully !",
   //           bgColor: ToastColors.success,
-  //           visibile: "yes",
+  //           visible: "yes",
   //         })
   //       );
   //       document.getElementById("emailVerify").style.display = "none";
@@ -280,7 +280,7 @@ const Editprofile = () => {
   //         setToast({
   //           message: "Incorrect OTP",
   //           bgColor: ToastColors.failure,
-  //           visibile: "yes",
+  //           visible: "yes",
   //         })
   //       );
   //     });
@@ -289,7 +289,7 @@ const Editprofile = () => {
   //       setToast({
   //         message: "",
   //         bgColor: "",
-  //         visibile: "no",
+  //         visible: "no",
   //       })
   //     );
   //   }, 4000);
@@ -306,7 +306,7 @@ const Editprofile = () => {
           setToast({
             message: "Mobile verified successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         document.getElementById("mobileVerify").style.display = "none";
@@ -326,7 +326,7 @@ const Editprofile = () => {
           setToast({
             message: "Incorrect OTP",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -335,7 +335,7 @@ const Editprofile = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -357,7 +357,7 @@ const Editprofile = () => {
           setToast({
             message: "Profile Sent for approval!",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         setInputs({
@@ -386,7 +386,7 @@ const Editprofile = () => {
           setToast({
             message: "Error occured when sending profile to approval",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         setIsLoading(false);
@@ -396,7 +396,7 @@ const Editprofile = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -639,7 +639,7 @@ const Editprofile = () => {
                   </div>
 
                   <div>
-                    <button onClick={addExperience} disabled={experienceDetails.year==''||experienceDetails.company==''||experienceDetails.profession==''}>Add</button>
+                    <button onClick={addExperience} disabled={experienceDetails.year == '' || experienceDetails.company == '' || experienceDetails.profession == ''}>Add</button>
                   </div>
                 </div>
 
@@ -679,7 +679,7 @@ const Editprofile = () => {
                 ))
               }
             </div>
-            </>}
+          </>}
         <div className="update-form-container" style={{ flexDirection: 'column' }}>
           <form className="update-form">
             <h3 className="update-heading">Education Details</h3>
@@ -718,7 +718,7 @@ const Editprofile = () => {
 
 
               <div>
-                <button onClick={addEducation} disabled={EducationDetails.college == '' || EducationDetails.year == '' || EducationDetails.grade == '' }>Add</button>
+                <button onClick={addEducation} disabled={EducationDetails.college == '' || EducationDetails.year == '' || EducationDetails.grade == ''}>Add</button>
               </div>
             </div>
 

@@ -74,7 +74,7 @@ const Navbar = () => {
           setToast({
             message: "Image uploaded successfully",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         e.target.disabled = false;
@@ -85,7 +85,7 @@ const Navbar = () => {
           setToast({
             message: "Error during image upload",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         setIsLoading(false);
@@ -96,7 +96,7 @@ const Navbar = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -113,7 +113,7 @@ const Navbar = () => {
           setToast({
             message: "Image removed successfully",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         e.target.disabled = false;
@@ -123,7 +123,7 @@ const Navbar = () => {
           setToast({
             message: "Error during image delete",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         e.target.disabled = false;
@@ -133,7 +133,7 @@ const Navbar = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -219,36 +219,36 @@ const Navbar = () => {
             {notificationAlert &&
               <div className="blinkBall"> </div>
             }
-           
-              
+
+
           </div>
-        
-        {role === "Admin" && (
-          <>
 
-            <div title="Profile Requests"
-              id="profileRequests"
-              className="icon"
-              onClick={() => {
-                navigate("/profileRequests");
-              }}
-            >
-              <i class="fas fa-users"></i>
-            </div>
+          {role === "Admin" && (
+            <>
 
-            <div
-              id="pitches"
-              title="Profile Requests"
-              className="icon"
-              onClick={() => {
-                navigate("/pitches");
-              }}
-            >
-              Pitch Requests
-            </div>
-          </>
+              <div title="Profile Requests"
+                id="profileRequests"
+                className="icon"
+                onClick={() => {
+                  navigate("/profileRequests");
+                }}
+              >
+                <i class="fas fa-users"></i>
+              </div>
+
+              <div
+                id="pitches"
+                title="Profile Requests"
+                className="icon"
+                onClick={() => {
+                  navigate("/pitches");
+                }}
+              >
+                Pitch Requests
+              </div>
+            </>
           )}
-          
+
           {role !== 'Admin' && <div
             id="userPitches"
             title="Profile Requests"
@@ -259,7 +259,7 @@ const Navbar = () => {
           >
             pitch
           </div>}
-         <div
+          <div
             id="livePitches"
             title="Profile Requests"
             className="icon"
@@ -269,36 +269,36 @@ const Navbar = () => {
           >
             Live Pitches
           </div>
-        <div
-          id="editProfile"
-          style={{ position: "relative" }}
-          onClick={(e) => {
-            document
-              .getElementsByClassName("userDetails")[0]
-              .classList.toggle("showUserDetails");
-          }}
-        >
-          <img
-            className="Profile-img"
-            src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
-            alt=""
-          />
-          {verification === "approved" && (
-            <abbr title="verified user">
-              <img
-                src="/verify.png"
-                height={20}
-                style={{
-                  right: "2px",
-                  top: "3px",
-                  height: "13px",
-                  width: "13px",
-                }}
-                alt="Your Alt Text"
-                className="successIcons"
-              />
-            </abbr>
-          )}
+          <div
+            id="editProfile"
+            style={{ position: "relative" }}
+            onClick={(e) => {
+              document
+                .getElementsByClassName("userDetails")[0]
+                .classList.toggle("showUserDetails");
+            }}
+          >
+            <img
+              className="Profile-img"
+              src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+              alt=""
+            />
+            {verification === "approved" && (
+              <abbr title="verified user">
+                <img
+                  src="/verify.png"
+                  height={20}
+                  style={{
+                    right: "2px",
+                    top: "3px",
+                    height: "13px",
+                    width: "13px",
+                  }}
+                  alt="Your Alt Text"
+                  className="successIcons"
+                />
+              </abbr>
+            )}
           </div>
         </div>
       </div>

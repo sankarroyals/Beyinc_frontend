@@ -82,7 +82,7 @@ const ResetPassword = () => {
           setToast({
             message: "Password changed Successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         localStorage.setItem("user", JSON.stringify(res.data));
@@ -94,7 +94,7 @@ const ResetPassword = () => {
           setToast({
             message: err.response.data.message,
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -103,7 +103,7 @@ const ResetPassword = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -121,7 +121,7 @@ const ResetPassword = () => {
             setToast({
               message: "OTP sent successfully !",
               bgColor: ToastColors.success,
-              visibile: "yes",
+              visible: "yes",
             })
           );
           setOtpVisible(true);
@@ -131,7 +131,7 @@ const ResetPassword = () => {
             setToast({
               message: "OTP sent successfully !",
               bgColor: ToastColors.failure,
-              visibile: "yes",
+              visible: "yes",
             })
           );
         });
@@ -140,7 +140,7 @@ const ResetPassword = () => {
           setToast({
             message: "",
             bgColor: "",
-            visibile: "no",
+            visible: "no",
           })
         );
       }, 4000);
@@ -159,7 +159,7 @@ const ResetPassword = () => {
           setToast({
             message: "Email verified successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         document.getElementById("emailVerify").style.display = "none";
@@ -170,7 +170,7 @@ const ResetPassword = () => {
           setToast({
             message: "OTP Entered Wrong",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -179,7 +179,7 @@ const ResetPassword = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);

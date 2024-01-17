@@ -240,3 +240,23 @@ input[type='radio'] + label {
 }
 
 
+.loadingSubmit{
+  background: rgba(248, 245, 245, 0.47);
+  position: absolute;
+  z-index: 2000 !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* mix-blend-mode: color-burn; */
+}
+.loadingSubmit img{
+  width: 200px;
+  height: 200px;
+  
+}
+
+

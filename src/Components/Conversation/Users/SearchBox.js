@@ -4,7 +4,7 @@ import "./searchBox.css";
 import { ApiServices } from "../../../Services/ApiServices";
 import MapsUgcIcon from "@mui/icons-material/MapsUgc";
 import { getAllHistoricalConversations } from "../../../redux/Conversationreducer/ConversationReducer";
-import { setToast } from "../../../redux/AuthReducers/AuthReducer";
+import { setLoading, setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
 import CloseIcon from "@mui/icons-material/Close";
 import {
@@ -150,7 +150,7 @@ const SearchBox = () => {
           setToast({
             message: res.data,
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         setOpen(false);
@@ -162,7 +162,7 @@ const SearchBox = () => {
             setToast({
               message: `Error Occured`,
               bgColor: ToastColors.failure,
-              visibile: "yes",
+              visible: "yes",
             })
           );
         })
@@ -265,6 +265,7 @@ const SearchBox = () => {
 
   const addconversation = async (e) => {
     e.preventDefault();
+    dispatch(setLoading({visible: 'yes'}))
     e.target.disabled = true;
     const conversation = {
       senderId: email,
@@ -283,7 +284,7 @@ const SearchBox = () => {
           setToast({
             message: res.data,
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         setOpen(false);
@@ -293,6 +294,8 @@ const SearchBox = () => {
           senderId: email,
           receiverId: receiverMail,
         });
+        dispatch(setLoading({ visible: 'no' }))
+
       })
       .catch((err) => {
         console.log(err);
@@ -300,17 +303,19 @@ const SearchBox = () => {
           setToast({
             message: `Error Occured/try use different pitch title`,
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         e.target.disabled = false;
+        dispatch(setLoading({ visible: 'no' }))
+
       });
     setTimeout(() => {
       dispatch(
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -340,7 +345,7 @@ const SearchBox = () => {
             setToast({
               message: `Error Occured`,
               bgColor: ToastColors.failure,
-              visibile: "yes",
+              visible: "yes",
             })
           );
         });
@@ -349,7 +354,7 @@ const SearchBox = () => {
           setToast({
             message: "",
             bgColor: "",
-            visibile: "no",
+            visible: "no",
           })
         );
       }, 4000);

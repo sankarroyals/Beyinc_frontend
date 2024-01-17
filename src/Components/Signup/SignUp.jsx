@@ -47,7 +47,7 @@ const SignUp = () => {
     isNameValid,
     isPasswordValid,
   } = inputs;
-  
+
   const handleChanges = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     if (e.target.name === "name") {
@@ -91,7 +91,7 @@ const SignUp = () => {
           setToast({
             message: "OTP sent successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         // setIsEmailOtpSent(true);
@@ -102,7 +102,7 @@ const SignUp = () => {
           setToast({
             message: "OTP sent failed !",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         e.target.disabled = true;
@@ -112,7 +112,7 @@ const SignUp = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -129,7 +129,7 @@ const SignUp = () => {
           setToast({
             message: "Email verified successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         document.getElementById("emailVerify").style.display = "none";
@@ -142,7 +142,7 @@ const SignUp = () => {
           setToast({
             message: "Incorrect OTP",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -151,7 +151,7 @@ const SignUp = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -168,7 +168,7 @@ const SignUp = () => {
           setToast({
             message: "Mobile verified successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         document.getElementById("mobileVerify").style.display = "none";
@@ -181,7 +181,7 @@ const SignUp = () => {
           setToast({
             message: "Incorrect OTP",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -190,7 +190,7 @@ const SignUp = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -211,7 +211,7 @@ const SignUp = () => {
           setToast({
             message: "User Registered Successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         navigate("/login");
@@ -222,7 +222,7 @@ const SignUp = () => {
           setToast({
             message: err.response.data.message,
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -231,7 +231,7 @@ const SignUp = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);

@@ -1,34 +1,40 @@
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { jwtDecode } from 'jwt-decode';
 import axiosInstance from '../../Components/axiosInstance';
 import { ApiServices } from '../../Services/ApiServices';
 
 export const apiCallSlice = createSlice(
-    {
-      name: 'apiCall',
-      initialState: {
-        loginDetails: {},
+  {
+    name: 'apiCall',
+    initialState: {
+      loginDetails: {},
 
-        ToastDetails: {
-            message: '',
-            bgColor: '',
-            visibile: 'no'
-        }
+      ToastDetails: {
+        message: '',
+        bgColor: '',
+        visible: 'no'
       },
-      reducers: {
-        setLoginData: (state, action) => {
-          state.loginDetails = action.payload;
-        },
-        setToast: (state, action) => {
-            state.ToastDetails = action.payload;
-          },
+      LoadingDetails: {
+        visible: 'no'
+      }
+    },
+    reducers: {
+      setLoginData: (state, action) => {
+        state.loginDetails = action.payload;
+      },
+      setToast: (state, action) => {
+        state.ToastDetails = action.payload;
+      },
+      setLoading: (state, action) => {
+        state.LoadingDetails = action.payload;
+      },
     }
-    });
+  });
 
 
-export  const apicallloginDetails = () => async(dispatch) => {
+export const apicallloginDetails = () => async (dispatch) => {
   if (localStorage.getItem('user')) {
     await ApiServices.verifyAccessToken({ accessToken: JSON.parse(localStorage.getItem('user')).accessToken }).then((res) => {
       localStorage.setItem('user', JSON.stringify(res.data))
@@ -43,13 +49,13 @@ export  const apicallloginDetails = () => async(dispatch) => {
         localStorage.removeItem('user')
         window.location.href = '/login'
       })
-      
+
     })
-    
+
   }
 }
 
-export const {setLoginData, setToast} = apiCallSlice.actions;
+export const { setLoginData, setToast, setLoading } = apiCallSlice.actions;
 
 // this is for configureStore
 export default apiCallSlice.reducer;

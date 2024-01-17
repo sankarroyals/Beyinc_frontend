@@ -35,7 +35,7 @@ export default function PitchCard({ d }) {
                 setToast({
                     message: `Pitch Status Updated`,
                     bgColor: ToastColors.success,
-                    visibile: "yes",
+                    visible: "yes",
                 })
             );
             setOpen(false)
@@ -48,7 +48,7 @@ export default function PitchCard({ d }) {
             setToast({
                 message: 'Error occured when updating Pitch',
                 bgColor: ToastColors.failure,
-                visibile: "yes",
+                visible: "yes",
             })
         })
         setTimeout(() => {
@@ -56,7 +56,7 @@ export default function PitchCard({ d }) {
                 setToast({
                     message: "",
                     bgColor: "",
-                    visibile: "no",
+                    visible: "no",
                 })
             );
         }, 4000);
@@ -89,7 +89,7 @@ export default function PitchCard({ d }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={()=>setOpen(true)}>View Pitch Request</Button>
+                <Button size="small" onClick={() => setOpen(true)}>View Pitch Request</Button>
                 {/* <Button size="small">Learn More</Button> */}
                 {open &&
                     <PitchDetailsReadOnly approve='Make Live' reject='Reject' open={open} setOpen={setOpen} update={update} value={value} setValue={setValue} pitchDetails={pitchDetails} />

@@ -12,6 +12,7 @@ import { Socket, io } from "socket.io-client";
 import { setLiveMessage, setNotification, setOnlineUsers } from "./redux/Conversationreducer/ConversationReducer";
 import LivePitches from "./Components/LivePitches/LivePitches";
 import IndividualPitch from "./Components/LivePitches/IndividualPitch";
+import LoadingData from "./Components/Toast/Loading";
 
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
@@ -85,6 +86,7 @@ const App = () => {
         {/* <div className="Loading-Text">Loading...</div> */}
       </div>}>
         <Toast />
+        <LoadingData />
         <Navbar/>
 
         <Routes>

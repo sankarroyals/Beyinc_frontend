@@ -116,20 +116,20 @@ const Login = () => {
     //   dispatch(setToast({
     //     message: 'Email verified successfully !',
     //     bgColor: ToastColors.success,
-    //     visibile: 'yes'
+    //     visible: 'yes'
     //   }))
     // }).catch(err=>{
     //   dispatch(setToast({
     //     message: 'OTP Entered Wrong',
     //     bgColor: ToastColors.failure,
-    //     visibile: 'yes'
+    //     visible: 'yes'
     //   }))
     // })
     // setTimeout(()=>{
     //   dispatch(setToast({
     //     message: '',
     //     bgColor: '',
-    //     visibile: 'no'
+    //     visible: 'no'
     //   }))
     // }, 4000)
   };
@@ -147,7 +147,7 @@ const Login = () => {
           setToast({
             message: "User Logged In Successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         localStorage.setItem("user", JSON.stringify(res.data));
@@ -164,7 +164,7 @@ const Login = () => {
                 ? err?.response?.data?.message
                 : "Error Occured",
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -173,7 +173,7 @@ const Login = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);
@@ -192,7 +192,7 @@ const Login = () => {
           setToast({
             message: "User Logged In Successfully !",
             bgColor: ToastColors.success,
-            visibile: "yes",
+            visible: "yes",
           })
         );
         localStorage.setItem("user", JSON.stringify(res.data));
@@ -205,7 +205,7 @@ const Login = () => {
           setToast({
             message: err.response.data.message,
             bgColor: ToastColors.failure,
-            visibile: "yes",
+            visible: "yes",
           })
         );
       });
@@ -214,7 +214,7 @@ const Login = () => {
         setToast({
           message: "",
           bgColor: "",
-          visibile: "no",
+          visible: "no",
         })
       );
     }, 4000);

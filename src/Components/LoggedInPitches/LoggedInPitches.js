@@ -19,10 +19,10 @@ const LoggedInPitches = () => {
                 setToast({
                     message: "Error Occured",
                     bgColor: ToastColors.failure,
-                    visibile: "yes",
+                    visible: "yes",
                 })
             );
-        })  
+        })
     }, [])
     const [filters, setFilters] = useState({
         status: [],
@@ -47,32 +47,32 @@ const LoggedInPitches = () => {
         }
         setFilteredData(filteredData);
     }
-  return (
-      <>
-          <div className='usersFilterContainer'>
-              Filters:
-              <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
-                  <div>
-                      <MultipleSelectCheckmarks names={['pending', 'approved', 'rejected']} filterName='status' filters={filters} setFilters={setFilters} />
-                  </div>
-                  <div>
-                      <MultipleSelectCheckmarks names={['hide', 'show']} filterName='pitchRequiredStatus' filters={filters} setFilters={setFilters} />
-                  </div>
-                  <button style={{ width: '50px', height: '50px', marginTop: '8px' }} onClick={filterUsers}>
-                      <i className='fas fa-search'></i>
-                  </button>
-              </div>
+    return (
+        <>
+            <div className='usersFilterContainer'>
+                Filters:
+                <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+                    <div>
+                        <MultipleSelectCheckmarks names={['pending', 'approved', 'rejected']} filterName='status' filters={filters} setFilters={setFilters} />
+                    </div>
+                    <div>
+                        <MultipleSelectCheckmarks names={['hide', 'show']} filterName='pitchRequiredStatus' filters={filters} setFilters={setFilters} />
+                    </div>
+                    <button style={{ width: '50px', height: '50px', marginTop: '8px' }} onClick={filterUsers}>
+                        <i className='fas fa-search'></i>
+                    </button>
+                </div>
 
-              <div className='filteredUsers'>
-                  {filteredData?.length > 0 ?
-                      filteredData?.map((d) => (
-                          <LoggedInPitchCard d={d} />
-                      ))
-                      : <>No Requests</>}
-              </div>
-          </div>
-      </>
-  )
+                <div className='filteredUsers'>
+                    {filteredData?.length > 0 ?
+                        filteredData?.map((d) => (
+                            <LoggedInPitchCard d={d} />
+                        ))
+                        : <>No Requests</>}
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default LoggedInPitches 

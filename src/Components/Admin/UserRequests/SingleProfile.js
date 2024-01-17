@@ -104,7 +104,7 @@ export const SingleRequestProfile = () => {
                     setToast({
                         message: 'No User Found For Request',
                         bgColor: ToastColors.failure,
-                        visibile: "yes",
+                        visible: "yes",
                     })
                 );
                 navigate('/profileRequests')
@@ -132,7 +132,7 @@ export const SingleRequestProfile = () => {
                     setToast({
                         message: `Profile Status changed to ${status}`,
                         bgColor: ToastColors.success,
-                        visibile: "yes",
+                        visible: "yes",
                     })
                 );
                 // setIsLoading(false);
@@ -145,7 +145,7 @@ export const SingleRequestProfile = () => {
                     setToast({
                         message: "Error occured when changing status",
                         bgColor: ToastColors.failure,
-                        visibile: "yes",
+                        visible: "yes",
                     })
                 );
                 // setIsLoading(false);
@@ -155,7 +155,7 @@ export const SingleRequestProfile = () => {
                 setToast({
                     message: "",
                     bgColor: "",
-                    visibile: "no",
+                    visible: "no",
                 })
             );
         }, 4000);
@@ -163,7 +163,7 @@ export const SingleRequestProfile = () => {
 
 
     return (
-        <div className="update-container" style={{minHeight: '80vh'}}>
+        <div className="update-container" style={{ minHeight: '80vh' }}>
             <div className="updateContainerWrapper">
                 <div className="heading">
                     <div>
@@ -179,7 +179,7 @@ export const SingleRequestProfile = () => {
 
                     <div className="profile-content">
                         <div style={{ fontSize: "24px" }}>
-                                {name}
+                            {name}
                         </div>
                         <div
                             style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
@@ -225,36 +225,36 @@ export const SingleRequestProfile = () => {
                                         style={{ width: "15px", height: "15px", marginLeft: "5px" }}
                                     />
                                 )}
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
                 {role == 'Mentor' &&
                     <>
-                    <div className="update-form-container" style={{ flexDirection: 'column' }}>
-                        <form className="update-form">
-                            <h3 className="update-heading">Experience Details</h3>
-                            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center'}}>
-                                <div style={{width: '380px'}}>
-                                    <div>
-                                        <label className="update-form-label">Years of experience*</label>
+                        <div className="update-form-container" style={{ flexDirection: 'column' }}>
+                            <form className="update-form">
+                                <h3 className="update-heading">Experience Details</h3>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+                                    <div style={{ width: '380px' }}>
+                                        <div>
+                                            <label className="update-form-label">Years of experience*</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div style={{ width: '380px' }}>
-                                    <div>
-                                        <label className="update-form-label">Company*</label>
+                                    <div style={{ width: '380px' }}>
+                                        <div>
+                                            <label className="update-form-label">Company*</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div style={{ width: '380px' }}>
-                                    <div>
-                                        <label className="update-form-label">Profession*</label>
+                                    <div style={{ width: '380px' }}>
+                                        <div>
+                                            <label className="update-form-label">Profession*</label>
+                                        </div>
                                     </div>
+
                                 </div>
 
-                            </div>
-
-                        </form>
+                            </form>
 
                             {totalExperienceData.length > 0 &&
                                 totalExperienceData.map((te, i) => (
@@ -276,7 +276,7 @@ export const SingleRequestProfile = () => {
                                                         <input disabled type="text" value={te.profession} />
                                                     </div>
                                                 </div>
-                                                
+
 
 
 
@@ -331,7 +331,7 @@ export const SingleRequestProfile = () => {
                                                 <input disabled type="text" value={te.college} />
                                             </div>
                                         </div>
-                                        
+
 
 
                                     </div>
@@ -396,13 +396,13 @@ export const SingleRequestProfile = () => {
                                                             width: "30px",
                                                         }}
                                                         src="/view.png"
-                                                        
+
                                                     />
                                                 </a>
                                             </attr>
                                         )}
                                 </div>
-                                
+
                             </div>
 
                             <div>
@@ -426,13 +426,13 @@ export const SingleRequestProfile = () => {
                                                                 width: "30px",
                                                             }}
                                                             src="/view.png"
-                                                            
+
                                                         />
                                                     </a>
                                                 </attr>
                                             )}
                                     </div>
-                                   
+
                                 </div>
                             </div>
 
@@ -456,7 +456,7 @@ export const SingleRequestProfile = () => {
                                                             width: "30px",
                                                         }}
                                                         src="/view.png"
-                                                        
+
                                                     />
                                                 </a>
                                             </attr>
@@ -484,13 +484,13 @@ export const SingleRequestProfile = () => {
                                                             width: "30px",
                                                         }}
                                                         src="/view.png"
-                                                        
+
                                                     />
                                                 </a>
                                             </attr>
                                         )}
                                 </div>
-                               
+
                             </div>
 
                             <div>
@@ -513,13 +513,13 @@ export const SingleRequestProfile = () => {
                                                             width: "30px",
                                                         }}
                                                         src="/view.png"
-                                                        
+
                                                     />
                                                 </a>
                                             </attr>
                                         )}
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -534,7 +534,7 @@ export const SingleRequestProfile = () => {
                                 marginTop: "5px",
                             }}
                         >
-                            <button type="submit" onClick={(e) => update(e,'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
+                            <button type="submit" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
                                 {/* {isLoading ? (
                                     <>
                                         <img
@@ -545,10 +545,10 @@ export const SingleRequestProfile = () => {
                                         <span style={{ marginLeft: "12px" }}>Rejecting...</span>
                                     </>
                                 ) : ( */}
-                                    <>Reject</>
+                                <>Reject</>
                                 {/* )} */}
                             </button>
-                            <button type="submit" onClick={(e)=>update(e,'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
+                            <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
                                 {isLoading ? (
                                     <>
                                         <img
