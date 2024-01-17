@@ -69,7 +69,7 @@ const IndividualPitch = () => {
                   </div>
               </div>
           </div>
-          {pitch?.comments.length > 0 && <div className='commentsContainer'>
+          {pitch?.comments?.length > 0 && <div className='commentsContainer'>
               {pitch.comments?.map(c => (
                   <IndividualPitchComment c={c} />
               ))}
