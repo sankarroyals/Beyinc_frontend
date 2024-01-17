@@ -1271,6 +1271,7 @@ const SearchBox = () => {
                   >
                     <option value="">Select</option>
                     <option value="coFounder">CoFounder</option>
+                    <option value="mentor">Mentor</option>
                     <option value="ceo">CEO</option>
                     <option value="employee">Employee</option>
                     <option value="freeLancer">Freelancer</option>
