@@ -877,8 +877,10 @@ const SearchBox = () => {
                       />
                     </div>
                   <div className="addtags" onClick={() => {
-                    setTags(prev => [...prev, form.tags])
-                    setForm((prev) => ({ ...prev, changeStatus: "change", tags: '' }));
+                    if (form.tags !== '') {
+                      setTags(prev => [...prev, form.tags])
+                      setForm((prev) => ({ ...prev, changeStatus: "change", tags: '' }));
+                    }
                     }}>
                       <i className="fas fa-plus"></i>
 
