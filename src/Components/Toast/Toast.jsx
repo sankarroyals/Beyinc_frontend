@@ -8,7 +8,7 @@ const Toast = () => {
   const dispatch = useDispatch()
   return (
     <div style={{ justifyContent: 'center', display: visible === 'yes' ? 'flex' : 'none' }}>
-      <div className='toastStyles' style={{ backgroundColor: bgColor, color: 'white' }}>
+      <div className='toastStyles' style={{ backgroundColor: bgColor, color: 'white',zIndex: '1401' }}>
         <div>{message}</div>
         <CloseIcon style={{ cursor: 'pointer' }} onClick={() => {
           dispatch(
