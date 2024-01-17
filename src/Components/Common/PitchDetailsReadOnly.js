@@ -267,16 +267,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                   rows={10} cols={80}
                               ></textarea></div>
                           </div>
-                          <div>
-                              <div><label>Tags seperated with commas(ex: cost, fee,)*</label></div>
-                              <div><input disabled
-                                  type="text"
-                                  name="tags"
-                                  value={pitchDetails?.tags}
-
-
-                              /></div>
-                          </div>
+                         
                       </div>
 
                   </TabPanel>
@@ -419,6 +410,16 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                       cols={80}
                                   ></textarea>
                               </div>
+                          </div>
+                          <div>
+                              <div><label>Tags seperated with commas(ex: cost, fee,)*</label></div>
+                              <div><input disabled
+                                  type="text"
+                                  name="tags"
+                                  value={pitchDetails?.tags}
+
+
+                              /></div>
                           </div>
                           {role !== 'Admin' && window.location.pathname == '/userPitches' && pitchDetails?.status == 'approved' &&
                               <div>

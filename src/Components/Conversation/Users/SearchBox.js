@@ -838,55 +838,7 @@ const SearchBox = () => {
                   ></textarea>
                 </div>
               </div>
-              <div>
-                <div>
-                  <label>Tags*</label>
-                </div>
-                <div>
-                  {tags.length > 0 && (
-                    <div className="listedTeam">
-                      {tags.map((t, i) => (
-                        <div className="singleMember">
-                         
-                          <div>{t}</div>
-                          <div
-                            onClick={(e) => {
-                              setTags(
-                                tags.filter((f, j) => i !== j)
-                              );
-                              setForm((prev) => ({ ...prev, changeStatus: "change" }));
-                            }}
-                          >
-                            <CloseIcon className="deleteMember" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                 </div>
-
-
-                  <div className="tags">
-                    <div>
-                      <input
-                        type="text"
-                        name="tags"
-                        value={form?.tags}
-                        onChange={handleChanges}
-                        placeholder="Enter tags for pitch *"
-                      />
-                    </div>
-                  <div className="addtags" onClick={() => {
-                    if (form.tags !== '') {
-                      setTags(prev => [...prev, form.tags])
-                      setForm((prev) => ({ ...prev, changeStatus: "change", tags: '' }));
-                    }
-                    }}>
-                      <i className="fas fa-plus"></i>
-
-                    </div>
-                  </div>
-                </div>
+             
               </div>
           </TabPanel>
 
@@ -1214,6 +1166,55 @@ const SearchBox = () => {
                     rows={10}
                     cols={80}
                   ></textarea>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <label>Tags*</label>
+                </div>
+                <div>
+                  {tags.length > 0 && (
+                    <div className="listedTeam">
+                      {tags.map((t, i) => (
+                        <div className="singleMember">
+
+                          <div>{t}</div>
+                          <div
+                            onClick={(e) => {
+                              setTags(
+                                tags.filter((f, j) => i !== j)
+                              );
+                              setForm((prev) => ({ ...prev, changeStatus: "change" }));
+                            }}
+                          >
+                            <CloseIcon className="deleteMember" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+
+                <div className="tags">
+                  <div>
+                    <input
+                      type="text"
+                      name="tags"
+                      value={form?.tags}
+                      onChange={handleChanges}
+                      placeholder="Enter tags for pitch *"
+                    />
+                  </div>
+                  <div className="addtags" onClick={() => {
+                    if (form.tags !== '') {
+                      setTags(prev => [...prev, form.tags])
+                      setForm((prev) => ({ ...prev, changeStatus: "change", tags: '' }));
+                    }
+                  }}>
+                    <i className="fas fa-plus"></i>
+
+                  </div>
                 </div>
               </div>
               {/* <div>
