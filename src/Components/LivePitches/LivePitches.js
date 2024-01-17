@@ -87,8 +87,10 @@ const LivePitches = () => {
                               <input type='text' value={tag} onChange={(e)=>settag(e.target.value)} />
                           </div>
                           <div onClick={() => {
-                              setFilters(prev => ({ ...prev, tags: [...filters.tags, tag]}))
-                              settag('')
+                              if (tag !== '') {
+                                  setFilters(prev => ({ ...prev, tags: [...filters.tags, tag] }))
+                                  settag('')
+                              }
                           }}>
                               <i className='fas fa-plus'></i>
                           </div>
