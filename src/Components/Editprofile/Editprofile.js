@@ -10,7 +10,7 @@ import { ApiServices } from "../../Services/ApiServices";
 import { useNavigate } from "react-router-dom/dist";
 import "./Editprofile.css";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
+import { Country, State, City } from 'country-state-city';
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
@@ -57,6 +57,7 @@ const Editprofile = () => {
   } = inputs;
 
   const [nameChanger, setNameChanger] = useState(false);
+  
   const [roles, setRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalExperienceData, setTotalExperienceData] = useState([])
@@ -77,6 +78,37 @@ const Editprofile = () => {
   })
   const [fee, setFee] = useState('')
   const [bio, setBio] = useState('')
+  const [state, setState] = useState('')
+  const [country, setCountry] = useState('')
+  const [town, settown] = useState('')
+  const [places, setPlaces] = useState({
+    country: [],
+    state: [],
+    town: []
+  })
+
+
+  useEffect(() => {
+    if (country == '' && state == '' && town == '') {
+      setPlaces({
+        country: Country.getAllCountries(),
+        state: [],
+        town: []
+      })
+    } else if (country !== '' && state == '' && town == '') {
+      setPlaces({
+        country: Country.getAllCountries(),
+        state: State.getStatesOfCountry(country.split('-')[1]),
+        town: []
+      })
+    } else if (country !== '' && state !== '' && town == '') {
+      setPlaces({
+        country: Country.getAllCountries(),
+        state: State.getStatesOfCountry(country.split('-')[1]),
+        town: City.getCitiesOfState(country.split('-')[1], state.split('-')[1])
+      })
+    } 
+  }, [country, state, town])
 
 
   const addExperience = (e) => {
@@ -187,8 +219,22 @@ const Editprofile = () => {
           }));
           setTotalEducationData(res.data.educationDetails || [])
           setTotalExperienceData(res.data.experienceDetails || [])
-          setFee(res.data.fee)
-          setBio(res.data.bio)
+          setFee(res.data.fee || '')
+          setBio(res.data.bio || '')
+          settown(res.data.town || '')
+          setCountry(res.data.country || '')
+          setState(res.data.state || '')
+          setPlaces({
+            country: Country.getAllCountries(),
+            state: State.getStatesOfCountry(res.data.country.split('-')[1]) || [],
+            town: City.getCitiesOfState(res.data.country.split('-')[1], res.data.state.split('-')[1]) || []
+          })
+          console.log(res.data);
+          console.log({
+            country: Country.getAllCountries(),
+            state: State.getStatesOfCountry(res.data.country.split('-')[1]) || [],
+            town: City.getCitiesOfState(res.data.country.split('-')[1], res.data.state.split('-')[1]) || []
+          });
         }
       })
       .catch((error) => {
@@ -358,7 +404,7 @@ const Editprofile = () => {
     e.target.disabled = true;
     setIsLoading(true);
     await ApiServices.sendForApproval({
-      email: email,
+      email: email, state: state, town: town, country: country,
       userName: name,
       phone: mobile,
       role: role, fee: fee, bio: bio,
@@ -785,10 +831,52 @@ const Editprofile = () => {
 
               <div>
                 <div>
+                  <label className="update-form-label">Country</label>
+                </div>
+                <select name="country" id="" onChange={(e) => {
+                  setCountry(e.target.value)
+                  setPlaces(prev=>({...prev, state:[], town: []}))
+                }}>
+                  <option value="">Select</option>
+                  {places.country?.map(op => (
+                    <option value={`${op.name}-${op.isoCode}`} selected={country.split('-')[0]==op.name}>{op.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <div>
+                  <label className="update-form-label">State</label>
+                </div>
+                <select name="state" id="" onChange={(e) => {
+                  setState(e.target.value)
+                  setPlaces(prev => ({ ...prev,  town: [] }))
+                }}>
+                  <option value="">Select</option>
+                  {places.state?.map(op => (
+                    <option value={`${op.name}-${op.isoCode}`} selected={state.split('-')[0] == op.name}>{op.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <div>
+                  <label className="update-form-label">Town/city</label>
+                </div>
+                <select name="town" id="" value={town} onChange={(e) => settown(e.target.value)}>
+                  <option value="">Select</option>
+                  {places.town?.map(op => (
+                    <option value={op.name} selected={town.split('-')[0] == op.name}>{op.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <div>
                   <label className="update-form-label">Bio</label>
                 </div>
                 <div>
-                  <textarea name="bio" cols={50} value={bio} id="" onChange={(e) => setBio(e.target.value)} placeholder="Enter your bio" />
+                  <textarea name="bio" cols={45} value={bio} id="" onChange={(e) => setBio(e.target.value)} placeholder="Enter your bio" />
                 </div>
               </div>
               <div>
@@ -810,7 +898,7 @@ const Editprofile = () => {
 
 
             <div
-              style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
+              style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: '30px' }}
             >
               <div>
                 <div
@@ -1010,8 +1098,7 @@ const Editprofile = () => {
                 alignItems: "center",
                 width: "30%",
                 gap: "10px",
-                marginLeft: "30px",
-                marginTop: "5px",
+                marginTop: "15px",
               }}
             >
               <button

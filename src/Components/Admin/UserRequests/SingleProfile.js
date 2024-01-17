@@ -59,6 +59,9 @@ export const SingleRequestProfile = () => {
     const [totalEducationData, setTotalEducationData] = useState([])
     const [fee, setFee] = useState('')
     const [bio, setBio] = useState('')
+    const [state, setState] = useState('')
+    const [country, setCountry] = useState('')
+    const [town, settown] = useState('')
     const [oldDocs, setOldDocs] = useState({
         resume: "",
         expertise: "",
@@ -97,8 +100,12 @@ export const SingleRequestProfile = () => {
                 }
                 setTotalEducationData(res.data.educationDetails || [])
                 setTotalExperienceData(res.data.experienceDetails || [])
-                setFee(res.data.fee)
-                setBio(res.data.bio)
+                setFee(res.data.fee || '')
+                setBio(res.data.bio || '')
+                settown(res.data.town || '')
+                setCountry(res.data.country || '')
+                setState(res.data.state || '')
+                console.log(res.data);
             })
             .catch((error) => {
                 dispatch(
@@ -295,13 +302,39 @@ export const SingleRequestProfile = () => {
                     <form className="update-form">
                         <h3 className="update-heading">Personal / Fee Negotiation</h3>
                         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                            <div>
+                                <div>
+                                    <label className="update-form-label">Country</label>
+                                </div>
+                                <div>
+                                    <input type="text" value={country} disabled/>
+                                </div>
+                            </div>
 
+                            <div>
+                                <div>
+                                    <label className="update-form-label">State</label>
+                                </div>
+                                <div>
+                                    <input type="text" value={state} disabled />
+                                </div>
+                                
+                            </div>
+
+                            <div>
+                                <div>
+                                    <label className="update-form-label">Town/city</label>
+                                </div>
+                                <div>
+                                    <input type="text" value={town} disabled />
+                                </div>
+                            </div>
                             <div>
                                 <div>
                                     <label className="update-form-label">Bio</label>
                                 </div>
                                 <div>
-                                    <textarea name="bio" cols={50} value={bio} id="" disabled placeholder="Enter your bio" />
+                                    <textarea name="bio" cols={45} value={bio} id="" disabled placeholder="Enter your bio" />
                                 </div>
                             </div>
                             <div>
@@ -479,8 +512,7 @@ export const SingleRequestProfile = () => {
                                 alignItems: "center",
                                 width: "25%",
                                 gap: "10px",
-                                marginLeft: "30px",
-                                marginTop: "5px",
+                                marginTop: "15px",
                             }}
                         >
                             <button type="submit" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
