@@ -35,7 +35,12 @@
 .icon:hover {
   transform: scale(1.2);
 }
-#notifications{
+#plus {
+  font-size: 10px;
+  margin-top: -150px;
+}
+
+#notifications {
   position: relative;
 }
 .blinkBall {
@@ -49,19 +54,18 @@
   position: absolute;
 }
 
-.blinkBall::before{
-  content: '';
+.blinkBall::before {
+  content: "";
   position: absolute;
   height: 10px;
   width: 10px;
   top: -3px;
   right: -3px;
   z-index: -1;
-  border-radius: 50% ;
+  border-radius: 50%;
   background: rgb(205, 205, 216);
   transform: scale(0);
   animation: blink 3s ease-in-out infinite forwards;
-
 }
 
 @keyframes blink {
@@ -74,9 +78,8 @@
   75% {
     transform: scale(4);
   }
-  100%{
-        opacity: 0;
-
+  100% {
+    opacity: 0;
   }
 }
 
@@ -167,7 +170,7 @@ h1 {
   }
 }
 
-.loader {
+.line-loader {
   width: 91%;
   /* border: 1px solid green; */
 
@@ -183,7 +186,7 @@ h1 {
   left: 18px;
 }
 
-.loader::after {
+.line-loader::after {
   content: "";
   width: 240px;
   height: 3px;

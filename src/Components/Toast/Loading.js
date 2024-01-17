@@ -6,8 +6,8 @@ const LoadingData = () => {
     const dispatch = useDispatch()
     return (
         <>
-            <div className="loadingSubmit" style={{ display: visible == 'yes' ? 'flex' : 'none' }}>
-                <img src="/Loader.gif" alt="" />
+            <div className="loader" style={{ display: visible == 'yes' ? 'flex' : 'none' }}>
+                
             </div>
         </>
     )

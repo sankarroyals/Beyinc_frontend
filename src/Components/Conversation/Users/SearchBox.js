@@ -7,6 +7,7 @@ import { getAllHistoricalConversations } from "../../../redux/Conversationreduce
 import { setLoading, setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
 import CloseIcon from "@mui/icons-material/Close";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import {
   Box,
   Dialog,
@@ -108,8 +109,15 @@ const SearchBox = () => {
   });
 
   const [defaultTrigger, setdefaultTrigger] = useState(false);
+  const [showPreviousFile, setShowPreviousFile] = useState(false);
+  const [Teampic, setTeampic] = useState('')
+  const [Logo, SetLogo] = useState('');
+  const [Banner, SetBanner] = useState('');
+  const [Business, SetBusiness] = useState('');
+  const [Financial, SetFinancial] = useState('');
 
   const handleTeamMemberPic = (e) => {
+    setTeampic(e.target.files[0].name)
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -120,6 +128,11 @@ const SearchBox = () => {
   };
 
   const saveSingleMember = () => {
+    setTeampic('')
+    SetLogo('')
+    SetBanner('')
+    SetBusiness('')
+    SetFinancial('')
     setTeamMembers((prev) => [...prev, singleTeamMember]);
     setSingleTeamMember({
       memberPic: "",
@@ -141,21 +154,25 @@ const SearchBox = () => {
     });
   };
 
-
   const decidingRolesMessage = async (receiverMail) => {
-    if (role === 'Admin') {
-      await ApiServices.directConversationCreation({ email: email, receiverId: receiverMail, senderId: email }).then((res) => {
-        dispatch(getAllHistoricalConversations(email));
-        dispatch(
-          setToast({
-            message: res.data,
-            bgColor: ToastColors.success,
-            visible: "yes",
-          })
-        );
-        setOpen(false);
-        setdefaultTrigger(!defaultTrigger);
+    if (role === "Admin") {
+      await ApiServices.directConversationCreation({
+        email: email,
+        receiverId: receiverMail,
+        senderId: email,
       })
+        .then((res) => {
+          dispatch(getAllHistoricalConversations(email));
+          dispatch(
+            setToast({
+              message: res.data,
+              bgColor: ToastColors.success,
+              visible: "yes",
+            })
+          );
+          setOpen(false);
+          setdefaultTrigger(!defaultTrigger);
+        })
         .catch((err) => {
           console.log(err);
           dispatch(
@@ -165,16 +182,23 @@ const SearchBox = () => {
               visible: "yes",
             })
           );
-        })
+        });
     } else {
       setOpen(true);
     }
-  }
+  };
+  const [isSpinning, setSpinning] = useState(false);
+  const handleReloadClick = () => {
+    setSpinning(true);
+    setTimeout(() => {
+      setSpinning(false);
+    }, 2000);
+  };
 
-  const socket = useRef()
+  const socket = useRef();
   useEffect(() => {
-    socket.current = io(process.env.REACT_APP_SOCKET_IO)
-  }, [])
+    socket.current = io(process.env.REACT_APP_SOCKET_IO);
+  }, []);
   const [search, setSearch] = useState("");
   const allUsers = useSelector((state) => state.conv.allUsers);
   const { email, role } = useSelector((state) => state.auth.loginDetails);
@@ -209,6 +233,7 @@ const SearchBox = () => {
   };
 
   const handlePitchBusiness = (e) => {
+    SetBusiness(e.target.files[0].name)
     const file = e.target.files[0];
     setFileBase(file);
   };
@@ -225,6 +250,7 @@ const SearchBox = () => {
   };
 
   const handlePitchFinancials = (e) => {
+    SetFinancial(e.target.files[0].name)
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -238,6 +264,7 @@ const SearchBox = () => {
   };
 
   const handlePitchLogo = (e) => {
+    SetLogo(e.target.files[0].name)
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -251,6 +278,7 @@ const SearchBox = () => {
   };
 
   const handleBannerPic = (e) => {
+    SetBanner(e.target.files[0].name)
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -265,16 +293,18 @@ const SearchBox = () => {
 
   const addconversation = async (e) => {
     e.preventDefault();
-    dispatch(setLoading({visible: 'yes'}))
+    dispatch(setLoading({ visible: "yes" }));
     e.target.disabled = true;
     const conversation = {
       senderId: email,
       receiverId: receiverMail,
       pitch: file,
-      email: email, role: role,
+      email: email,
+      role: role,
       form: { ...form, pitchId: form?._id },
       tags: tags,
-      teamMembers: teamMembers, pitchRequiredStatus: 'show'
+      teamMembers: teamMembers,
+      pitchRequiredStatus: "show",
     };
     await ApiServices.addConversation(conversation)
       .then((res) => {
@@ -294,8 +324,7 @@ const SearchBox = () => {
           senderId: email,
           receiverId: receiverMail,
         });
-        dispatch(setLoading({ visible: 'no' }))
-
+        dispatch(setLoading({ visible: "no" }));
       })
       .catch((err) => {
         console.log(err);
@@ -307,8 +336,7 @@ const SearchBox = () => {
           })
         );
         e.target.disabled = false;
-        dispatch(setLoading({ visible: 'no' }))
-
+        dispatch(setLoading({ visible: "no" }));
       });
     setTimeout(() => {
       dispatch(
@@ -334,9 +362,9 @@ const SearchBox = () => {
               ...res.data[0],
               pitchId: res.data[0]._id,
               changeStatus: "",
-              tags: '',
+              tags: "",
             });
-            setTags(res.data[0].tags)
+            setTags(res.data[0].tags);
             setTeamMembers(res.data[0].teamMembers);
           }
         })
@@ -392,20 +420,20 @@ const SearchBox = () => {
           }}
         >
           <div>
-            <MapsUgcIcon style={{ fontSize: '24px' }} />{" "}
+            <MapsUgcIcon style={{ fontSize: "24px" }} />{" "}
           </div>
           <div>New Chat</div>
         </div>
 
-        <div>
-          <attr title="Reload for latest request updates">
-            <CachedIcon
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                dispatch(getAllHistoricalConversations(email));
-              }}
-            />
-          </attr>
+        <div title="Reload for latest request updates">
+          <CachedIcon
+            style={{ cursor: "pointer" }}
+            className={isSpinning ? "spin" : ""}
+            onClick={() => {
+              handleReloadClick();
+              dispatch(getAllHistoricalConversations(email));
+            }}
+          />
         </div>
       </div>
       <div className="newConversation" ref={userDetailsRef}>
@@ -428,7 +456,7 @@ const SearchBox = () => {
                   className="individuals"
                   onClick={() => {
                     setReceivermail(a.email);
-                    decidingRolesMessage(a.email)
+                    decidingRolesMessage(a.email);
                   }}
                 >
                   <div className="searchPic">
@@ -441,17 +469,27 @@ const SearchBox = () => {
                       alt=""
                       srcset=""
                     />
-                    {a.verification === 'approved' && <div style={{ right: "8px", top: '3px', height: '13px', width: '13px', position: 'absolute' }}>
-                      <abbr title="verified user">
-                        <img
-                          src="/verify.png"
-                          height={20}
-                          style={{ height: '13px', width: '13px' }}
-                          alt="Your Alt Text"
-                          className=""
-                        />
-                      </abbr>
-                    </div>}
+                    {a.verification === "approved" && (
+                      <div
+                        style={{
+                          right: "8px",
+                          top: "3px",
+                          height: "13px",
+                          width: "13px",
+                          position: "absolute",
+                        }}
+                      >
+                        <abbr title="verified user">
+                          <img
+                            src="/verify.png"
+                            height={20}
+                            style={{ height: "13px", width: "13px" }}
+                            alt="Your Alt Text"
+                            className=""
+                          />
+                        </abbr>
+                      </div>
+                    )}
                   </div>
 
                   <div>
@@ -462,6 +500,7 @@ const SearchBox = () => {
               ))}
         </div>
       </div>
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -469,7 +508,7 @@ const SearchBox = () => {
         aria-describedby="alert-dialog-description"
         maxWidth="xl"
         sx={gridCSS.tabContainer}
-      // sx={ gridCSS.tabContainer }
+        // sx={ gridCSS.tabContainer }
       >
         <DialogContent
           style={{
@@ -843,8 +882,7 @@ const SearchBox = () => {
                   ></textarea>
                 </div>
               </div>
-             
-              </div>
+            </div>
           </TabPanel>
 
           <TabPanel
@@ -888,7 +926,10 @@ const SearchBox = () => {
                             setTeamMembers(
                               teamMembers.filter((f, j) => i !== j)
                             );
-                            setForm((prev) => ({ ...prev, changeStatus: "change" }));
+                            setForm((prev) => ({
+                              ...prev,
+                              changeStatus: "change",
+                            }));
                           }}
                         >
                           <CloseIcon className="deleteMember" />
@@ -901,12 +942,19 @@ const SearchBox = () => {
                   <div className="teamInputs">
                     <div>
                       <div>
-                        <label>Upload Photo*</label>
+                        <label>Photo*</label>
+                        <label htmlFor="photo" className="file">
+                          <CloudUploadIcon />
+                          <span className="fileName">{Teampic}</span>
+                        </label>
                       </div>
                       <input
+                        className="file"
                         type="file"
                         name="name"
+                        id="photo"
                         onChange={handleTeamMemberPic}
+                        style={{ display: "none" }}
                       />
                     </div>
                     <div>
@@ -1029,12 +1077,32 @@ const SearchBox = () => {
                         href={form?.logo.secure_url}
                         style={{ display: "inline-block" }}
                       >
-                        previous data
+                       <img title='view Previous Logo'
+                              style={{
+                                height: "30px",
+                                width: "30px",
+                                marginLeft: '270px'
+                              }}
+                              src="/view.png"
+                              onMouseEnter={() => setShowPreviousFile(true)}
+                              onMouseLeave={() => setShowPreviousFile(false)}
+                            />
                       </a>
                     )}
                 </div>
                 <div>
-                  <input type="file" name="name" onChange={handlePitchLogo} />
+                  <label htmlFor="logo" className="file">
+                    <CloudUploadIcon />
+                    <span className="fileName">{Logo}</span>
+                  </label>
+                  <input
+                    className="file"
+                    type="file"
+                    name="name"
+                    id="logo"
+                    onChange={handlePitchLogo}
+                    style={{ display: "none" }}
+                  />
                 </div>
               </div>
 
@@ -1049,12 +1117,32 @@ const SearchBox = () => {
                         href={form?.banner.secure_url}
                         style={{ display: "inline-block" }}
                       >
-                        previous data
+                      <img title='view Previous Banner Image'
+                              style={{
+                                height: "30px",
+                                width: "30px",
+                                marginLeft: '210px',
+                              }}
+                              src="/view.png"
+                              onMouseEnter={() => setShowPreviousFile(true)}
+                              onMouseLeave={() => setShowPreviousFile(false)}
+                            />
                       </a>
                     )}
                 </div>
                 <div>
-                  <input type="file" name="name" onChange={handleBannerPic} />
+                  <label htmlFor="Banner" className="file">
+                    <CloudUploadIcon />
+                    <span className="fileName">{Banner}</span>
+                  </label>
+                  <input
+                    className="file"
+                    id="Banner"
+                    type="file"
+                    name="name"
+                    onChange={handleBannerPic}
+                    style={{ display: "none" }}
+                  />
                 </div>
               </div>
             </div>
@@ -1078,15 +1166,31 @@ const SearchBox = () => {
                         href={form?.pitch.secure_url}
                         style={{ display: "inline-block" }}
                       >
-                        previous data
+                       <img title='view Previous Business Plan'
+                              style={{
+                                height: "30px",
+                                width: "30px",
+                                marginLeft: '110px'
+                              }}
+                              src="/view.png"
+                              onMouseEnter={() => setShowPreviousFile(true)}
+                              onMouseLeave={() => setShowPreviousFile(false)}
+                            />
                       </a>
                     )}
                 </div>
                 <div>
+                <label htmlFor="Business" className="file">
+                    <CloudUploadIcon />
+                    <span className="fileName">{Business}</span>
+                  </label>
                   <input
+                  className="file"
+                  id="Business"
                     type="file"
                     name="name"
                     onChange={handlePitchBusiness}
+                    style={{display: 'none'}}
                   />
                 </div>
               </div>
@@ -1102,15 +1206,31 @@ const SearchBox = () => {
                         href={form?.financials.secure_url}
                         style={{ display: "inline-block" }}
                       >
-                        previous data
+                       <img title='view Previous Financials'
+                              style={{
+                                height: "30px",
+                                width: "30px",
+                                marginLeft: '230px'
+                              }}
+                              src="/view.png"
+                              onMouseEnter={() => setShowPreviousFile(true)}
+                              onMouseLeave={() => setShowPreviousFile(false)}
+                            />
                       </a>
                     )}
                 </div>
                 <div>
+                <label htmlFor="Financials" className="file">
+                    <CloudUploadIcon />
+                    <span className="fileName">{Financial}</span>
+                  </label>
                   <input
+                  className="file"
+                  id='Financials'
                     type="file"
                     name="name"
                     onChange={handlePitchFinancials}
+                    style={{display: 'none'}}
                   />
                 </div>
               </div>
@@ -1138,7 +1258,6 @@ const SearchBox = () => {
                   />
                 </div>
               </div>
-
 
               <div>
                 <div>
@@ -1182,14 +1301,14 @@ const SearchBox = () => {
                     <div className="listedTeam">
                       {tags.map((t, i) => (
                         <div className="singleMember">
-
                           <div>{t}</div>
                           <div
                             onClick={(e) => {
-                              setTags(
-                                tags.filter((f, j) => i !== j)
-                              );
-                              setForm((prev) => ({ ...prev, changeStatus: "change" }));
+                              setTags(tags.filter((f, j) => i !== j));
+                              setForm((prev) => ({
+                                ...prev,
+                                changeStatus: "change",
+                              }));
                             }}
                           >
                             <CloseIcon className="deleteMember" />
@@ -1199,7 +1318,6 @@ const SearchBox = () => {
                     </div>
                   )}
                 </div>
-
 
                 <div className="tags">
                   <div>
@@ -1211,14 +1329,20 @@ const SearchBox = () => {
                       placeholder="Enter tags for pitch *"
                     />
                   </div>
-                  <div className="addtags" onClick={() => {
-                    if (form.tags !== '') {
-                      setTags(prev => [...prev, form.tags])
-                      setForm((prev) => ({ ...prev, changeStatus: "change", tags: '' }));
-                    }
-                  }}>
+                  <div
+                    className="addtags"
+                    onClick={() => {
+                      if (form.tags !== "") {
+                        setTags((prev) => [...prev, form.tags]);
+                        setForm((prev) => ({
+                          ...prev,
+                          changeStatus: "change",
+                          tags: "",
+                        }));
+                      }
+                    }}
+                  >
                     <i className="fas fa-plus"></i>
-
                   </div>
                 </div>
               </div>
@@ -1238,7 +1362,6 @@ const SearchBox = () => {
                   </select>
                 </div>
               </div> */}
-
             </div>
           </TabPanel>
 

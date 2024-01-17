@@ -3,7 +3,6 @@ import "./Notification.css";
 import { ApiServices } from "../../../Services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
 import MessageRequest from "./MessageRequest";
-import CachedIcon from "@mui/icons-material/Cached";
 import { setNotification } from "../../../redux/Conversationreducer/ConversationReducer";
 
 const Notifications = () => {
@@ -17,11 +16,11 @@ const Notifications = () => {
   const handleReloadClick = () => {
     setSpinning(true);
     getNotifys()
-    // Stop the spinning after 2 seconds
     setTimeout(() => {
       setSpinning(false);
     }, 2000);
   };
+
   const getNotifys = async () => {
     await ApiServices.getUserRequest({ email: email }).then((res) => {
       setMessageRequest(res.data);

@@ -203,7 +203,9 @@ const Navbar = () => {
         <div className="navIcons">
           <div id="conversations" className="icon">
             <i
+            
               className="far fa-comment-alt"
+              title="conversations"
               onClick={() => {
                 navigate("/conversations");
               }}
@@ -212,6 +214,7 @@ const Navbar = () => {
           <div id="notifications" className="icon">
             <i
               className="far fa-bell"
+              title="notifications"
               onClick={() => {
                 navigate("/notifications");
               }}
@@ -233,41 +236,43 @@ const Navbar = () => {
                   navigate("/profileRequests");
                 }}
               >
-                <i class="fas fa-users"></i>
+                <i className="fas fa-users"></i>
               </div>
 
               <div
                 id="pitches"
-                title="Profile Requests"
+                title="Pitch Request"
                 className="icon"
-                onClick={() => {
-                  navigate("/pitches");
-                }}
               >
-                Pitch Requests
+              <i className="far fa-file"  onClick={() => {
+                  navigate("/pitches");
+                }}></i><i className="fas fa-plus" id='plus'></i>
               </div>
             </>
           )}
 
           {role !== 'Admin' && <div
             id="userPitches"
-            title="Profile Requests"
+            title="User Pitch"
             className="icon"
-            onClick={() => {
-              navigate("/userPitches");
-            }}
           >
-            pitch
+              <i className="far fa-file"  onClick={() => {
+              navigate("/userPitches");
+            }}></i>
+
+
           </div>}
           <div
             id="livePitches"
-            title="Profile Requests"
+            title="Live Pitches"
             className="icon"
             onClick={() => {
               navigate("/livePitches");
             }}
           >
-            Live Pitches
+       <i className="far fa-comments"></i>
+
+
           </div>
           <div
             id="editProfile"
@@ -304,7 +309,7 @@ const Navbar = () => {
       </div>
 
       <div className="userDetails" ref={userDetailsRef}>
-        <span class="loader"></span>
+        <span className="line-loader"></span>
         <div
           className="closeIcon"
           onClick={() => {
@@ -406,6 +411,7 @@ const Navbar = () => {
                 alt="Profile"
               />
             </div>
+
             <div>
               <label htmlFor="profilePic" className="profileImage">
                 <CloudUploadIcon />
@@ -419,6 +425,7 @@ const Navbar = () => {
                 style={{ display: "none" }}
               />
             </div>
+            
             <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
               <button
                 onClick={submit}

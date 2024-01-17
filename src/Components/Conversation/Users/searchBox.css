@@ -106,6 +106,7 @@ top: -2px;
     cursor: pointer;
 }
 
+
 .approved, .pending {
     display: none;
 }
@@ -138,8 +139,10 @@ select{
 }
 
 .addTeamMembers{
-    border: 1px dotted rgb(200, 190, 190);
-    padding: 5px;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 10px;
+    width: 95%;
 }
 
 
@@ -219,13 +222,53 @@ textarea{
     align-items: center;
 }
 .tags .addtags{
-    background: gray;
+    background: #3b82f6;
     padding: 10px 5px 10px 10px;
     border-radius: 50%;
     color: white;
     font-size: 12px;
+    margin-top: -10px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 }
+.addtags:hover{
+    background: #1e4bb8;
+}
+
+.spin {
+    animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .file{
+    border: 1px solid lightgrey;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 3px;
+    justify-content: center;
+    padding: 12px;
+    position: relative;
+    width: 330px;
+    height: 22px;
+    color: gray;
+    margin-top: -3px;
+  }
+  .file:hover{
+    color: #0b57d0;
+  }
+
+  .fileName{
+    white-space: wrap !important;
+    margin-left: 3px;
+  }
