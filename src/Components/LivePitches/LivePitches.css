@@ -108,6 +108,7 @@
 .indiPitchHeading {
   font-size: 28px;
   font-weight: 600;
+  width: 700px;
 }
 
 .indiPitchDate,
@@ -156,4 +157,31 @@
 .average-rating {
   margin-left: 10px;
   font-weight: bold;
+}
+
+
+.IndicommentsSection{
+  display: flex;
+  gap: 20px;
+}
+
+.IndicommentsSectionDetails{
+  flex: 1 0 auto;
+}
+.IndicommentsSectionImage img{
+  height: 60px;
+  width: 60px;
+}
+
+.IndicommentsSectionDetailsUserName{
+  font-size: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.IndicommentsSectionDetailsUserName i{
+  font-size: 14px;
+}
+.IndicommentsSectionDetailsdate{
+font-size: 10px;
 }
