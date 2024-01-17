@@ -14,6 +14,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
+import { convertToDate, itPositions } from "../../Utils";
 
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
@@ -64,11 +65,15 @@ const Editprofile = () => {
     year: '',
     company: '',
     profession: '',
+    start: '',
+    end: ''
   })
   const [EducationDetails, setEducationDetails] = useState({
     year: '',
     grade: '',
     college: '',
+    Edstart: '',
+    Edend: ''
   })
   const [fee, setFee] = useState('')
   const [bio, setBio] = useState('')
@@ -79,6 +84,8 @@ const Editprofile = () => {
     setTotalExperienceData(prev => [...prev, experienceDetails])
     setExperience({
       profession: '',
+      start: '',
+      end: '',
       company: '',
       year: ''
     })
@@ -91,6 +98,8 @@ const Editprofile = () => {
       year: '',
       grade: '',
       college: '',
+      Edstart: '',
+      Edend: ''
     })
 
   }
@@ -126,6 +135,9 @@ const Editprofile = () => {
     setEducationDetails(prev => ({ ...prev, [e.target.name]: e.target.value }))
 
   }
+
+
+
 
   const handleResume = (e) => {
     const file = e.target.files[0];
@@ -601,7 +613,7 @@ const Editprofile = () => {
               <form className="update-form">
                 <h3 className="update-heading">Work Experience</h3>
                 <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {/* <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div>
                       <label className="update-form-label">Years of experience*</label>
                     </div>
@@ -613,6 +625,22 @@ const Editprofile = () => {
                         <option value="5-8">5-8 years</option>
                         <option value="above 8">above 8 years</option>
                       </select>
+                    </div>
+                  </div> */}
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div>
+                      <label className="update-form-label">Start Date*</label>
+                    </div>
+                    <div>
+                      <input type="date" value={experienceDetails.start} name="start" id="" onChange={handleChange}  />
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div>
+                      <label className="update-form-label">End Date*</label>
+                    </div>
+                    <div>
+                      <input type="date" value={experienceDetails.end} name="end" id="" onChange={handleChange} />
                     </div>
                   </div>
                   <div>
@@ -630,51 +658,42 @@ const Editprofile = () => {
                     <div>
                       <select name="profession" id="" value={experienceDetails.profession} onChange={handleChange}>
                         <option value="">Select</option>
-                        <option value="employee">Employee</option>
-                        <option value="lead">Lead</option>
-                        <option value="ceo">CEO</option>
-                        <option value="coFounder">Co founder</option>
+                      {itPositions.map(op => (
+                        <option value={op}>{op}</option>
+                        ))}
                       </select>
                     </div>
                   </div>
 
-                  <div>
-                    <button onClick={addExperience} disabled={experienceDetails.year == '' || experienceDetails.company == '' || experienceDetails.profession == ''}>Add</button>
+                  <div style={{ marginTop: '21px' }}>
+                    <button onClick={addExperience} disabled={experienceDetails.start == '' || experienceDetails.company == '' || experienceDetails.profession == ''}>Add</button>
                   </div>
                 </div>
 
               </form>
               {totalExperienceData.length > 0 &&
                 totalExperienceData.map((te, i) => (
-                  <div style={{ marginLeft: '-60px' }}>
-                    <form className="update-form">
-                      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <div>
-                            <input disabled type="text" value={te.year} />
-                          </div>
-                        </div>
-                        <div>
-                          <div>
-                            <input disabled type="text" value={te.company} />
-                          </div>
-                        </div>
-                        <div>
-                          <div>
-                            <input disabled type="text" value={te.profession} />
-                          </div>
-                        </div>
-                        <div>
-                          <i className="fas fa-trash" onClick={(e) => {
-                            setTotalExperienceData(prev => [...prev.filter((f, j) => j !== i)])
-                          }}></i>
-                        </div>
+                  <div>
 
-
-
+                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                        <div className="company">
+                          {te.company} <span>
+                            <i className="fas fa-trash" style={{fontSize: '12px'}} onClick={(e) => {
+                              setTotalExperienceData(prev => [...prev.filter((f, j) => j !== i)])
+                            }}></i>
+                          </span>
+                        </div>
+                        <div className="profession">
+                          {te.profession}
+                        </div>
+                        <div className="timeline">
+                          {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
+                        </div>
                       </div>
+                      
+                    </div>
 
-                    </form>
                   </div>
                 ))
               }
@@ -686,10 +705,18 @@ const Editprofile = () => {
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div>
-                  <label className="update-form-label">Year*</label>
+                  <label className="update-form-label">Start Date*</label>
                 </div>
                 <div>
-                  <input type="date" value={EducationDetails.year} name="year" id="" onChange={handleEducationChange} placeholder="Enter Your Experience" />
+                  <input type="date" value={EducationDetails.Edstart} name="Edstart" id="" onChange={handleEducationChange} />
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div>
+                  <label className="update-form-label">End Date*</label>
+                </div>
+                <div>
+                  <input type="date" value={EducationDetails.Edend} name="Edend" id="" onChange={handleEducationChange} />
                 </div>
               </div>
               <div>
@@ -704,6 +731,7 @@ const Editprofile = () => {
                     <option value="inter">Inter/Equivalent</option>
                     <option value="ug">UG (Btech, degree)</option>
                     <option value="pg">PG</option>
+                    <option value='other'>Other</option>
                   </select>
                 </div>
               </div>
@@ -717,43 +745,34 @@ const Editprofile = () => {
               </div>
 
 
-              <div>
-                <button onClick={addEducation} disabled={EducationDetails.college == '' || EducationDetails.year == '' || EducationDetails.grade == ''}>Add</button>
+              <div style={{ marginTop: '21px' }}>
+                <button onClick={addEducation} disabled={EducationDetails.Edstart == '' || EducationDetails.grade == '' || EducationDetails.college == ''}>Add</button>
               </div>
             </div>
 
           </form>
           {totalEducationData.length > 0 &&
             totalEducationData.map((te, i) => (
-              <div style={{ marginLeft: '-60px' }}>
-                <form className="update-form">
-                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <div>
-                        <input disabled type="text" value={te.year} />
-                      </div>
-                    </div>
-                    <div>
-                      <div>
-                        <input disabled type="text" value={te.grade} />
-                      </div>
-                    </div>
-                    <div>
-                      <div>
-                        <input disabled type="text" value={te.college} />
-                      </div>
-                    </div>
-                    <div>
-                      <i className="fas fa-trash" onClick={(e) => {
-                        setTotalEducationData(prev => [...prev.filter((f, j) => j !== i)])
-                      }}></i>
-                    </div>
+              <div>
 
-
-
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                    <div className="company">
+                      {te.college} <span>
+                        <i className="fas fa-trash" style={{ fontSize: '12px' }} onClick={(e) => {
+                          setTotalEducationData(prev => [...prev.filter((f, j) => j !== i)])
+                        }}></i></span>
+                    </div>
+                    <div className="profession">
+                      {te.grade}
+                    </div>
+                    <div className="timeline">
+                      {convertToDate(te.Edstart)}-{te.Edend == '' ? 'Present' : convertToDate(te.Edend)}
+                    </div>
                   </div>
 
-                </form>
+                </div>
+
               </div>
             ))
           }

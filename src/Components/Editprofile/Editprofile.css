@@ -126,8 +126,8 @@
 
 .update-form-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   width: 1200px;
   margin-top: 20px;
   padding: 20px;
@@ -203,4 +203,20 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-left: 10px;
   }
+}
+
+
+.company{
+  font-size: 18px;
+  font-weight: 600;
+}
+.profession{
+  font-size: 16px;
+}
+.timeline{
+    font-size: 14px;
+
+}
+.profession, .timeline{
+  margin-left: 20px;
 }

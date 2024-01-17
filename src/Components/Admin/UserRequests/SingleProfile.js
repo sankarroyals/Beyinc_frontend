@@ -14,6 +14,7 @@ import { format } from "timeago.js";
 import { AdminServices } from "../../../Services/AdminServices";
 import { setLoginData, setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
+import { convertToDate } from "../../../Utils";
 
 export const SingleRequestProfile = () => {
 
@@ -233,56 +234,28 @@ export const SingleRequestProfile = () => {
                 {role == 'Mentor' &&
                     <>
                         <div className="update-form-container" style={{ flexDirection: 'column' }}>
-                            <form className="update-form">
-                                <h3 className="update-heading">Experience Details</h3>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-                                    <div style={{ width: '380px' }}>
-                                        <div>
-                                            <label className="update-form-label">Years of experience*</label>
-                                        </div>
-                                    </div>
-                                    <div style={{ width: '380px' }}>
-                                        <div>
-                                            <label className="update-form-label">Company*</label>
-                                        </div>
-                                    </div>
-                                    <div style={{ width: '380px' }}>
-                                        <div>
-                                            <label className="update-form-label">Profession*</label>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </form>
+                           
+                        <h3 className="update-heading">Work Experience</h3>
 
                             {totalExperienceData.length > 0 &&
                                 totalExperienceData.map((te, i) => (
-                                    <div style={{ marginLeft: '-60px' }}>
-                                        <form className="update-form">
-                                            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                    <div>
-                                                        <input disabled type="text" value={te.year} />
-                                                    </div>
+                                    <div>
+
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                                                <div className="company">
+                                                    {te.company}
                                                 </div>
-                                                <div>
-                                                    <div>
-                                                        <input disabled type="text" value={te.company} />
-                                                    </div>
+                                                <div className="profession">
+                                                    {te.profession}
                                                 </div>
-                                                <div>
-                                                    <div>
-                                                        <input disabled type="text" value={te.profession} />
-                                                    </div>
+                                                <div className="timeline">
+                                                    {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
                                                 </div>
-
-
-
-
                                             </div>
 
-                                        </form>
+                                        </div>
+
                                     </div>
                                 ))
                             }
@@ -291,52 +264,28 @@ export const SingleRequestProfile = () => {
                 <div className="update-form-container" style={{ flexDirection: 'column' }}>
                     <form className="update-form">
                         <h3 className="update-heading">Educational Details</h3>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-                            <div style={{ width: '380px' }}>
-                                <div>
-                                    <label className="update-form-label">Year</label>
-                                </div>
-                            </div>
-                            <div style={{ width: '380px' }}>
-                                <div>
-                                    <label className="update-form-label">Grade</label>
-                                </div>
-                            </div>
-                            <div style={{ width: '380px' }}>
-                                <div>
-                                    <label className="update-form-label">College/University</label>
-                                </div>
-                            </div>
-
-                        </div>
+                        
                     </form>
 
                     {totalEducationData.length > 0 &&
                         totalEducationData.map((te, i) => (
-                            <div style={{ marginLeft: '-60px' }}>
-                                <form className="update-form">
-                                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                            <div>
-                                                <input disabled type="text" value={te.year} />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div>
-                                                <input disabled type="text" value={te.grade} />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div>
-                                                <input disabled type="text" value={te.college} />
-                                            </div>
-                                        </div>
+                            <div>
 
-
-
+                                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                                        <div className="company">
+                                            {te.college}
+                                        </div>
+                                        <div className="profession">
+                                            {te.grade}
+                                        </div>
+                                        <div className="timeline">
+                                            {convertToDate(te.Edstart)}
+                                        </div>
                                     </div>
 
-                                </form>
+                                </div>
+
                             </div>
                         ))
                     }
