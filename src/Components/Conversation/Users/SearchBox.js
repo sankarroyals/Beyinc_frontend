@@ -273,7 +273,7 @@ const SearchBox = () => {
       email: email, role: role,
       form: { ...form, pitchId: form?._id },
       tags: tags,
-      teamMembers: teamMembers,
+      teamMembers: teamMembers, pitchRequiredStatus: 'show'
     };
     await ApiServices.addConversation(conversation)
       .then((res) => {
