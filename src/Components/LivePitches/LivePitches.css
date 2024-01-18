@@ -229,6 +229,7 @@ font-size: 10px;
   flex-wrap: wrap;
   align-items: center;
   font-size: 12px;
+  margin: 5px 0px;
 }
 .hp{
   padding: 3px;

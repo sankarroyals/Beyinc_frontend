@@ -161,6 +161,18 @@ const IndividualPitch = () => {
                                 <div className='hp'>{h}</div>
                             ))}
                         </div>}
+                        {pitch?.industry1!==''&& <div className='indiPitchHiringPositions'>
+                            Domain:
+                           
+                                <div className='hp'>{pitch?.industry1}</div>
+                            
+                        </div>}
+                        {pitch?.industry2!==''&& <div className='indiPitchHiringPositions'>
+                            Tech:
+                           
+                                <div className='hp'>{pitch?.industry2}</div>
+                            
+                        </div>}
                         <div></div>
                         <div>
                             <AddReviewStars pitchId={pitchId} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} />
