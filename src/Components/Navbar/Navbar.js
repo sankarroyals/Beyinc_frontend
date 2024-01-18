@@ -201,18 +201,21 @@ const Navbar = () => {
 
       <div className="navRight">
         <div className="navIcons">
-          <div id="conversations" className="icon">
-            <i
-            
-              className="far fa-comment-alt"
-              title="conversations"
-              onClick={() => {
-                navigate("/conversations");
-              }}
-            ></i>
-           
-          </div>
-          <div className='Conversations-count' title='unread conversations'>8</div>
+          <div style={{position: 'relative'}}>
+            <div id="conversations" className="icon">
+              <i
+
+                className="far fa-comment-alt"
+                title="conversations"
+                onClick={() => {
+                  navigate("/conversations");
+                }}
+              ></i>
+
+            </div>
+            <div className='Conversations-count' title='unread conversations'>8</div>
+         </div>
+
           <div id="notifications" className="icon">
             <i
               className="far fa-bell"

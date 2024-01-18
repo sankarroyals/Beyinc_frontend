@@ -373,6 +373,9 @@ h1 {
 .highletNavImg {
   background: #eaf1fb;
 }
+.conversations{
+  position: relative ;
+}
 .Conversations-count{
   background: #0b57d0;
   color: white;
@@ -384,8 +387,8 @@ h1 {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 10px;
-  right: 198px; 
+  top: -8px;
+  right: -8px;
   font-size: 10px; 
   font-weight: bold; 
   cursor: pointer;

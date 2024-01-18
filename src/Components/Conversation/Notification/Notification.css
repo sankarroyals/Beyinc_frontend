@@ -1,134 +1,127 @@
-.messageRequests{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-
+.messageRequests {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }
 
 .spin {
-    animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+  animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
   }
-  
-  
-  
-  
-  
-
-.individualrequest{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 1300px;
-    margin: auto;
-    padding: 10px;
-    border-radius: 50px;
-    border: 1px solid gray;
-    transition: all ease 0.3s;
-}
-.individualrequestWrapper, .reloadNotification{
-     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 1300px;
-    margin: auto;
-   
-    padding: 10px;
-        transition: all ease 0.3s;
-
-}
-.reloadNotification{
-    justify-content: flex-end;
-}
-.updateActions{
-     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
 }
 
-.no-request{
-    height: 600px;
-    width: 600px;
-    margin-top: -30px;
+.individualrequest {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1300px;
+  margin: auto;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 50px;
+  border: 1px solid gray;
+  transition: all ease 0.3s;
+}
+.individualrequestWrapper,
+.reloadNotification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1300px;
+  margin: auto 5px;
+
+  padding: 10px;
+  transition: all ease 0.3s;
+}
+.reloadNotification {
+  justify-content: flex-end;
+}
+.updateActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.approveRequest, .rejectRequest{
-    font-size: 14px;
-    cursor: pointer;
-    transition: all ease 0.2s;
+.no-request {
+  height: 600px;
+  width: 600px;
+  margin-top: -30px;
 }
 
-.approveRequest:hover, .rejectRequest:hover{
-    font-size: 16px;
+.approveRequest,
+.rejectRequest {
+  font-size: 14px;
+  cursor: pointer;
+  transition: all ease 0.2s;
 }
 
-.approveRequest{
-    color: green;
+.approveRequest:hover,
+.rejectRequest:hover {
+  font-size: 16px;
 }
 
- .rejectRequest{
-    color: red;
+.approveRequest {
+  color: green;
 }
 
-.extraDetails{
-    margin:0px 20px;
+.rejectRequest {
+  color: red;
 }
 
-.pitchdetails{
-    display: none;
-    padding: 10px;
-    width: 98%;
-
-}
-.pitchdetails.show{
-    display: block;
+.extraDetails {
+  margin: 0px 20px;
 }
 
-.individualPitchDetails{
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+.pitchdetails {
+  display: none;
+  padding: 10px;
+  width: 98%;
 }
-.individualPitchDetails div{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding: 5px;
-    min-width: 150px;
-    justify-content: center;
+.pitchdetails.show {
+  display: block;
 }
 
-
-label{
-    white-space: nowrap;
+.individualPitchDetails {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.individualPitchDetails div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 5px;
+  min-width: 150px;
+  justify-content: center;
 }
 
-.notifySingleMember{
-    flex-direction: column;
-    align-items: center;
-}
-.viewSingleMember{
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
+label {
+  white-space: nowrap;
 }
 
-
-
-.unread{
-    font-weight: 600;
+.notifySingleMember {
+  flex-direction: column;
+  align-items: center;
 }
-.read{
-    color: rgba(128, 128, 128, 0.758);
+.viewSingleMember {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}
+
+.unread {
+  font-weight: 600;
+}
+.read {
+  color: rgba(128, 128, 128, 0.758);
 }

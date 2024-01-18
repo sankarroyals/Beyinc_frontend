@@ -35,6 +35,7 @@ const IndividualMessage = () => {
 
   const [isSending, setIsSending] = useState(false);
 
+  const sendSoundRef = useRef();
   const socket = useRef();
   useEffect(() => {
     socket.current = io(process.env.REACT_APP_SOCKET_IO);
@@ -70,7 +71,12 @@ const IndividualMessage = () => {
   }, [conversationId, messageTrigger]);
 
   useEffect(() => {
+    sendSoundRef.current = new Audio(sendSound);
+  }, []);
+
+  useEffect(() => {
     if (liveMessage?.fileSent == true) {
+      
       ApiServices.getMessages({
         conversationId: conversationId,
       }).then((res) => {
@@ -78,15 +84,19 @@ const IndividualMessage = () => {
         setNormalFileName("");
         setFile("");
         setSendMessage("");
+        sendSoundRef?.current?.play()
       }).catch(err => {
         navigate('/conversations')
       });;
     }
   }, [liveMessage?.fileSent]);
+  
 
   useEffect(() => {
     console.log(liveMessage);
     if (liveMessage) {
+      sendSoundRef?.current?.play();
+
       setMessages((prev) => [
         ...prev,
         { ...liveMessage, createdAt: Date.now() },
@@ -94,9 +104,7 @@ const IndividualMessage = () => {
     }
   }, [liveMessage]);
 
-  useEffect(() => {
-    sendSoundRef.current = new Audio(sendSound);
-  }, []);
+ 
   
 
   const handleFile = (e) => {
@@ -114,7 +122,6 @@ const IndividualMessage = () => {
 
   const sendText = async (e) => {
     setIsSending(true);
-    sendSoundRef.current.play();
     setIsSending(false);
     console.log({
       senderId: email,
@@ -176,7 +183,6 @@ const IndividualMessage = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const sendSoundRef = useRef();
   return (
     <div className="messageContainer">
       <div className="messageNavbar">
