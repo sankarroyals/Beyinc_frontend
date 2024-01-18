@@ -237,7 +237,7 @@ export const SingleRequestProfile = () => {
                         </div>
                     </div>
                 </div>
-                {role == 'Mentor' &&
+               
                     <>
                         <div className="update-form-container" style={{ flexDirection: 'column' }}>
                            
@@ -266,7 +266,7 @@ export const SingleRequestProfile = () => {
                                 ))
                             }
                         </div>
-                    </>}
+                    </>
                 <div className="update-form-container" style={{ flexDirection: 'column' }}>
                     <form className="update-form">
                         <h3 className="update-heading">Educational Details</h3>
