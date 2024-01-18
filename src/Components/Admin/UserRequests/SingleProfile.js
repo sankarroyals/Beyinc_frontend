@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { io } from "socket.io-client";
+
 import { Link as RouterLink, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -46,6 +48,11 @@ export const SingleRequestProfile = () => {
         mobileVerified,
         updatedAt,
     } = inputs;
+
+    const socket = useRef();
+    useEffect(() => {
+        socket.current = io(process.env.REACT_APP_SOCKET_IO);
+    }, []);
 
 
     const [isLoading, setIsLoading] = useState(false);
@@ -142,6 +149,10 @@ export const SingleRequestProfile = () => {
                         visible: "yes",
                     })
                 );
+                socket.current.emit("sendNotification", {
+                    senderId: jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email,
+                    receiverId: email,
+                });
                 // setIsLoading(false);
                 e.target.disabled = false
                 navigate('/profileRequests')
