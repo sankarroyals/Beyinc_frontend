@@ -272,3 +272,20 @@ textarea{
     white-space: wrap !important;
     margin-left: 3px;
   }
+
+  .message-count {
+    background: #0b57d0b9;
+    color: white;
+    padding: 10px 10px;
+    border-radius: 50%;
+    width: 7px; 
+    height: 7px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: -120px; 
+    font-size: 12px; 
+    font-weight: bold; 
+}

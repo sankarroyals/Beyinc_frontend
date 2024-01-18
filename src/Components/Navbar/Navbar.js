@@ -210,7 +210,9 @@ const Navbar = () => {
                 navigate("/conversations");
               }}
             ></i>
+           
           </div>
+          <div className='Conversations-count' title='unread conversations'>8</div>
           <div id="notifications" className="icon">
             <i
               className="far fa-bell"

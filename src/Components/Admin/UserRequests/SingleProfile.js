@@ -172,6 +172,7 @@ export const SingleRequestProfile = () => {
     return (
         <div className="update-container" style={{ minHeight: '80vh' }}>
             <div className="updateContainerWrapper">
+           
                 <div className="heading">
                     <div>
                         <img
@@ -514,6 +515,8 @@ export const SingleRequestProfile = () => {
                                 marginTop: "15px",
                             }}
                         >
+                        <button type="button" onClick={() => navigate(-1)}>Back</button>
+
                             <button type="submit" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
                                 {/* {isLoading ? (
                                     <>

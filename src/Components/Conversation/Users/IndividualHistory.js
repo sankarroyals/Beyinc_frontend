@@ -60,10 +60,13 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
             <div><img src={friend.profile_pic === undefined ? '/profile.jpeg' : friend.profile_pic} alt="" srcset="" /></div>
             <div className='onlineHolder'>
                 <abbr title={friend.email} style={{ textDecoration: 'none' }}><div className='userName'>{friend.userName}</div></abbr>
+               
                 {status === 'pending' ? <><abbr title='pending'>
+                
                     <div className='pendingStatusIcon'>
                         <AccessTimeIcon style={{ fontSize: '14px' }} />
                     </div>
+                  
                 </abbr></>
                     :
                     <abbr title={onlineEmails.includes(friend.email) ? 'online' : 'away'}>
@@ -74,6 +77,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
                 }
                 <div className='deleteConv'>
                     <div className='role'>{friend.role}</div>
+                    <div className='message-count' title='unread messages'>8</div>
                     {status == 'pending' && <div className=''>
                         <i className='fas fa-trash' onClick={() => setOpen(true)}></i>
                     </div>}
