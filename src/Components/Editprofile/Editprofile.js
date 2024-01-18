@@ -22,6 +22,12 @@ const Editprofile = () => {
   );
 
   const [showPreviousFile, setShowPreviousFile] = useState(false);
+  const [universities, setUniversities] = useState([])
+  useEffect(() => {
+    axios.get('http://universities.hipolabs.com/search').then(res => {
+      setUniversities(res.data)
+    })
+  }, [])
 
   const [inputs, setInputs] = useState({
     email: null,
@@ -783,7 +789,16 @@ const Editprofile = () => {
                   <label className="update-form-label">College/University*</label>
                 </div>
                 <div>
-                  <input type="text" name="college" value={EducationDetails.college} id="" onChange={handleEducationChange} placeholder="Enter Your College/School/University" />
+                  {(EducationDetails.grade == 'ssc' || EducationDetails.grade == '') ? <input type="text" name="college" value={EducationDetails.college} id="" onChange={handleEducationChange} placeholder="Enter Your College/School/University" /> : 
+                    <select value={EducationDetails.college} name="college" onChange={handleEducationChange} >
+                      <option value=''>Select</option>
+                      {universities.length > 0 && universities.map(u => (
+                        <option value={u.name}>{u.name}</option>
+                      ))}
+                  </select>
+                  }
+
+
                 </div>
               </div>
 

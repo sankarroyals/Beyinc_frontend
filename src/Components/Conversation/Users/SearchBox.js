@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import { io } from "socket.io-client";
-import { itPositions } from "../../../Utils";
+import { domainPitch, itPositions, techPitch } from "../../../Utils";
 const gridCSS = {
   activeButton: {
     background: "#4297d3",
@@ -746,8 +746,28 @@ const SearchBox = () => {
                     onChange={handleChanges}
                   >
                     <option value="">Select</option>
-                    <option value="tea">Tea</option>
-                    <option value="charcoal">Charcoal</option>
+                    {domainPitch.map(d => (
+                      <option value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+
+              <div>
+                <div>
+                  <label>Industry 2</label>
+                </div>
+                <div>
+                  <select
+                    name="industry2"
+                    value={form?.industry2}
+                    onChange={handleChanges}
+                  >
+                    <option value="">Select</option>
+                    {techPitch.map(d => (
+                      <option value={d}>{d}</option>
+                    ))}
                   </select>
                 </div>
               </div>

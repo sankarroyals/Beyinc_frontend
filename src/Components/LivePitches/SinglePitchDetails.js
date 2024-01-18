@@ -17,9 +17,15 @@ const SinglePitchDetails = ({ d }) => {
           </div>
         </div>
         <div className='desc'>{d.description}</div>
-        <div className='tags'>{d.tags?.map(t => (
-          <span>{t}</span>
+        <div className='tags'>Tags: {d.tags?.map(t => (
+          <span style={{ fontSize: '14px' }} className='hp'>{t}</span>
         ))}</div>
+        {d?.hiringPositions?.length > 0 && <div className='tags'>
+          People Needed:
+          {d?.hiringPositions?.map(h => (
+            <span className='hp'>{h}</span>
+          ))}
+        </div>}
       </div>
     </div>
       

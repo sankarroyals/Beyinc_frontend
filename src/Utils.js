@@ -1,4 +1,5 @@
-
+export const domainPitch = ['health', 'education']
+export const techPitch = ['web development', 'teaching']
 export const itPositions = [
     'Lead',
     'CEO',

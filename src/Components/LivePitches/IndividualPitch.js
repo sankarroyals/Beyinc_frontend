@@ -154,6 +154,14 @@ const IndividualPitch = () => {
                             <textarea style={{ width: '100%', border: 'none', fontFamily: "'Google Sans Text', sans- serif" }} disabled rows={13} value={pitch?.description}></textarea>
                         </div>
                         <div className='indiPitchId'>Pitch ID: {pitch?._id}</div>
+                    
+                        {pitch?.hiringPositions?.length > 0 && <div className='indiPitchHiringPositions'>
+                            People Needed:
+                            {pitch?.hiringPositions?.map(h => (
+                                <div className='hp'>{h}</div>
+                            ))}
+                        </div>}
+                        <div></div>
                         <div>
                             <AddReviewStars pitchId={pitchId} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} />
                         </div>

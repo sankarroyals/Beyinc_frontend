@@ -37,14 +37,20 @@
   flex-direction: column;
   gap: 3px;
 }
-.tagFilter .inputTag input[type="text"] {
+.tagFilter .inputTag input[type="text"], .inputTag select {
   width: 200px !important;
   padding: 10px !important;
+}
+input[type='checkbox']{
+  width: 20px !important;
 }
 .inputTag {
   display: flex !important;
   flex-direction: row;
   align-items: center;
+}
+.inputTag select{
+  min-width: 220px !important;
 }
 .inputTag i {
   transform: translate(-20px, -5px);
@@ -213,4 +219,18 @@ font-size: 10px;
     white-space: nowrap;
     color: red;
     cursor: pointer;
+}
+
+
+
+.indiPitchHiringPositions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12px;
+}
+.hp{
+  padding: 3px;
+  border: 1px dashed green;
 }

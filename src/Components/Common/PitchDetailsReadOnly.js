@@ -6,6 +6,7 @@ import { Box, Dialog, DialogContent, Tab, Tabs, Typography } from '@mui/material
 import { gridCSS } from '../CommonStyles';
 import { useSelector } from 'react-redux'
 import { Country, State, City } from 'country-state-city';
+import { domainPitch, techPitch } from '../../Utils'
 
 function a11yProps(index) {
     return {
@@ -135,8 +136,21 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                     <select disabled name="industry1" value={pitchDetails?.industry1}
                                     >
                                         <option value="">Select</option>
-                                        <option value="tea">Tea</option>
-                                        <option value="charcoal">Charcoal</option>
+                                        {domainPitch.map(d => (
+                                            <option value={d}>{d}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <div><label>Industry 1</label></div>
+                                <div>
+                                    <select disabled name="industry2" value={pitchDetails?.industry2}
+                                    >
+                                        <option value="">Select</option>
+                                        {techPitch.map(d => (
+                                            <option value={d}>{d}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
