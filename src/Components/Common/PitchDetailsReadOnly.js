@@ -5,6 +5,8 @@ import '../Conversation/Notification/Notification.css'
 import { Box, Dialog, DialogContent, Tab, Tabs, Typography } from '@mui/material'
 import { gridCSS } from '../CommonStyles';
 import { useSelector } from 'react-redux'
+import { Country, State, City } from 'country-state-city';
+
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
@@ -114,13 +116,15 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             <div>
                                 <div><label>Where is management located ?</label></div>
                                 <div>
-                                    <select disabled name="country" value={pitchDetails?.country}
+                                    <select
+                                        name="memberscountry"
+                                        value={pitchDetails?.memberscountry}
+                                        disabled
                                     >
                                         <option value="">Select</option>
-                                        <option value="india">India</option>
-                                        <option value="pakisthan">Pakisthan</option>
-                                        <option value="canada">Canada</option>
-                                        <option value="peru">Peru</option>
+                                        {Country?.getAllCountries().length > 0 && Country?.getAllCountries().map(c => (
+                                            <option value={c.name}>{c.name}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
@@ -382,19 +386,18 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                 <div>
                                     <label>People needed ?</label>
                                 </div>
-                                <div>
-                                    <select
-                                        name="hiringPositions"
-                                        value={pitchDetails?.hiringPositions}
-                                        disabled
-                                    >
-                                        <option value="">Select</option>
-                                        <option value="coFounder">CoFounder</option>
-                                        <option value="ceo">CEO</option>
-                                        <option value="employee">Employee</option>
-                                        <option value="freeLancer">Freelancer</option>
-                                    </select>
-                                </div>
+                                {pitchDetails?.hiringPositions?.length > 0 && (
+                                    <div className="listedTeam">
+                                        {pitchDetails?.hiringPositions?.map((t, i) => (
+                                            <div className="singleMember">
+
+                                                <div>{t}</div>
+                                               
+                                               
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                             <div className="pitchformFields">
                                 <div>

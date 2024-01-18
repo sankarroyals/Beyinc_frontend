@@ -1,3 +1,4 @@
+
 export const itPositions = [
     'Lead',
     'CEO',
@@ -106,7 +107,7 @@ export const convertToDate = (inputDate) => {
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
-    const date = inputDate.split('-')[1][0] == '0' ? inputDate.split('-')[1][1]-1 : inputDate.split('-')[1]-1
-    return `${months[date]} ${inputDate.split('-')[0]}`
+    const date = inputDate?.split('-')[1][0] == '0' ? inputDate?.split('-')[1][1]-1 : inputDate?.split('-')[1]-1
+    return `${months[date]} ${inputDate?.split('-')[0]}`
 
 }

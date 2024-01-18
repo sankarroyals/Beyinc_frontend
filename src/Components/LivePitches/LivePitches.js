@@ -63,7 +63,7 @@ const LivePitches = () => {
                     <div className='filterHeader'>Filter By:</div>
                     <div className='tagFilter'>
                         <div>Tags</div>
-                        {filters.tags.length > 0 && (
+                        {filters.tags?.length > 0 && (
                             <div className="listedTeam">
                                 {filters.tags.map((t, i) => (
                                     <div className="singleMember">
@@ -98,9 +98,11 @@ const LivePitches = () => {
                     </div>
                 </div>
                 <div className='pitchcontainer'>
-                    {filteredData?.map((d) => (
+                    {filteredData.length>0 ? filteredData?.map((d) => (
                         <SinglePitchetails d={d} />
-                    ))}
+                    )) : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+                            No Pitches Available
+                    </div>}
                 </div>
             </div>
         </div>

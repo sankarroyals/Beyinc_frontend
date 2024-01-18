@@ -185,3 +185,32 @@
 .IndicommentsSectionDetailsdate{
 font-size: 10px;
 }
+
+
+.reviewIntrestContainer{
+  display: flex; 
+  flex-direction: column;
+  gap: 5px;
+}
+.headingIntrested{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.intrestButton{
+  padding: 5px;
+  border: 1px solid gray;
+  display: flex;
+  justify-content: center;
+}
+.intrestButton.addIntrest{
+    border: 1px dashed green;
+    color: green;
+    cursor: pointer;
+}
+.intrestButton.removeIntrest{
+    border: 1px dashed red;
+    white-space: nowrap;
+    color: red;
+    cursor: pointer;
+}

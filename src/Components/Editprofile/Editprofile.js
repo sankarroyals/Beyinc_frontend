@@ -57,7 +57,7 @@ const Editprofile = () => {
   } = inputs;
 
   const [nameChanger, setNameChanger] = useState(false);
-  
+
   const [roles, setRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalExperienceData, setTotalExperienceData] = useState([])
@@ -107,7 +107,7 @@ const Editprofile = () => {
         state: State.getStatesOfCountry(country.split('-')[1]),
         town: City.getCitiesOfState(country.split('-')[1], state.split('-')[1])
       })
-    } 
+    }
   }, [country, state, town])
 
 
@@ -226,17 +226,17 @@ const Editprofile = () => {
           setState(res.data.state || '')
           setPlaces({
             country: Country.getAllCountries(),
-            state: State.getStatesOfCountry(res.data.country.split('-')[1]) || [],
-            town: City.getCitiesOfState(res.data.country.split('-')[1], res.data.state.split('-')[1]) || []
+            state: State.getStatesOfCountry(res.data.country?.split('-')[1]) || [],
+            town: City.getCitiesOfState(res.data.country?.split('-')[1], res.data.state?.split('-')[1]) || []
           })
-          
-         
+
+
         }
       })
       .catch((error) => {
         dispatch(
           setToast({
-            message: error.response.data.message,
+            message: error?.response?.data?.message,
             bgColor: ToastColors.failure,
             visible: "yes",
           })
@@ -649,7 +649,7 @@ const Editprofile = () => {
             </div>
           </div>
         </div>
-        {role == 'Mentor' &&
+        {/* {role == 'Mentor' && */}
           <>
             <div className="update-form-container" style={{ flexDirection: 'column' }}>
               <form className="update-form">
@@ -674,7 +674,7 @@ const Editprofile = () => {
                       <label className="update-form-label">Start Date*</label>
                     </div>
                     <div>
-                      <input type="date" value={experienceDetails.start} name="start" id="" onChange={handleChange}  />
+                      <input type="date" value={experienceDetails.start} name="start" id="" onChange={handleChange} />
                     </div>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -700,8 +700,8 @@ const Editprofile = () => {
                     <div>
                       <select name="profession" id="" value={experienceDetails.profession} onChange={handleChange}>
                         <option value="">Select</option>
-                      {itPositions.map(op => (
-                        <option value={op}>{op}</option>
+                        {itPositions.map(op => (
+                          <option value={op}>{op}</option>
                         ))}
                       </select>
                     </div>
@@ -721,7 +721,7 @@ const Editprofile = () => {
                       <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
                         <div className="company">
                           {te.company} <span>
-                            <i className="fas fa-trash" style={{fontSize: '12px'}} onClick={(e) => {
+                            <i className="fas fa-trash" style={{ fontSize: '12px' }} onClick={(e) => {
                               setTotalExperienceData(prev => [...prev.filter((f, j) => j !== i)])
                             }}></i>
                           </span>
@@ -733,14 +733,15 @@ const Editprofile = () => {
                           {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
                         </div>
                       </div>
-                      
+
                     </div>
 
                   </div>
                 ))
               }
             </div>
-          </>}
+        </>
+          {/* } */}
         <div className="update-form-container" style={{ flexDirection: 'column' }}>
           <form className="update-form">
             <h3 className="update-heading">Education Details</h3>
@@ -820,7 +821,7 @@ const Editprofile = () => {
           }
 
         </div>
-        {role == 'Mentor' && <div className="update-form-container">
+        <div className="update-form-container">
           <form className="update-form">
             <h3 className="update-heading">Personal / Fee Negotiation</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
@@ -833,11 +834,11 @@ const Editprofile = () => {
                   setCountry(e.target.value)
                   setState('')
                   settown('')
-                  setPlaces(prev=>({...prev, state:[], town: []}))
+                  setPlaces(prev => ({ ...prev, state: [], town: [] }))
                 }}>
                   <option value="">Select</option>
                   {places.country?.map(op => (
-                    <option value={`${op.name}-${op.isoCode}`} selected={country.split('-')[0]==op.name}>{op.name}</option>
+                    <option value={`${op.name}-${op.isoCode}`} selected={country?.split('-')[0] == op.name}>{op.name}</option>
                   ))}
                 </select>
               </div>
@@ -849,11 +850,11 @@ const Editprofile = () => {
                 <select name="state" id="" onChange={(e) => {
                   setState(e.target.value)
                   settown('')
-                  setPlaces(prev => ({ ...prev,  town: [] }))
+                  setPlaces(prev => ({ ...prev, town: [] }))
                 }}>
                   <option value="">Select</option>
                   {places.state?.map(op => (
-                    <option value={`${op.name}-${op.isoCode}`} selected={state.split('-')[0] == op.name}>{op.name}</option>
+                    <option value={`${op.name}-${op.isoCode}`} selected={state?.split('-')[0] == op.name}>{op.name}</option>
                   ))}
                 </select>
               </div>
@@ -865,7 +866,7 @@ const Editprofile = () => {
                 <select name="town" id="" value={town} onChange={(e) => settown(e.target.value)}>
                   <option value="">Select</option>
                   {places.town?.map(op => (
-                    <option value={op.name} selected={town.split('-')[0] == op.name}>{op.name}</option>
+                    <option value={op.name} selected={town?.split('-')[0] == op.name}>{op.name}</option>
                   ))}
                 </select>
               </div>
@@ -878,18 +879,18 @@ const Editprofile = () => {
                   <textarea name="bio" cols={45} value={bio} id="" onChange={(e) => setBio(e.target.value)} placeholder="Enter your bio" />
                 </div>
               </div>
-              <div>
+              {role == 'Mentor' && <div>
                 <div>
                   <label className="update-form-label">Fee request</label>
                 </div>
                 <div>
                   <input type="range" min={1} max={50} name="fee" value={fee} id="" onChange={(e) => setFee(e.target.value)} placeholder="Enter Fee request per minute" /> &#8377; {fee} / per min
                 </div>
-              </div>
+              </div>}
             </div>
 
           </form>
-        </div>}
+        </div>
         <div className="update-form-container">
           <form className="update-form">
             <h3 className="update-heading">Upload files</h3>

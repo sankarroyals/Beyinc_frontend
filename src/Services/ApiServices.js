@@ -315,6 +315,34 @@ export const ApiServices = {
     },
 
 
+    addIntrest: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/addIntrest`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
+    removeIntrest: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/pitch/removeFromIntrest`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
     getStarsFrom: (obj) => {
         return new Promise((resolve, reject) => {
             axiosInstance.post(`/pitch/getStar`, obj)

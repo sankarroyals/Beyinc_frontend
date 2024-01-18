@@ -7,6 +7,8 @@ import { getAllHistoricalConversations } from "../../../redux/Conversationreduce
 import { setLoading, setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
 import CloseIcon from "@mui/icons-material/Close";
+import { Country, State, City } from 'country-state-city';
+
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import {
   Box,
@@ -20,6 +22,7 @@ import {
 } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import { io } from "socket.io-client";
+import { itPositions } from "../../../Utils";
 const gridCSS = {
   activeButton: {
     background: "#4297d3",
@@ -160,6 +163,7 @@ const SearchBox = () => {
         email: email,
         receiverId: receiverMail,
         senderId: email,
+        status: 'approved'
       })
         .then((res) => {
           dispatch(getAllHistoricalConversations(email));
@@ -184,7 +188,52 @@ const SearchBox = () => {
           );
         });
     } else {
-      setOpen(true);
+      console.log(process.env.REACT_APP_ADMIN_MAIL);
+      if (verification == 'approved' && receiverMail !== process.env.REACT_APP_ADMIN_MAIL) {
+        setOpen(true);
+      } else if (receiverMail === process.env.REACT_APP_ADMIN_MAIL) {
+        // addconversation()
+        await ApiServices.directConversationCreation({
+          email: email,
+          receiverId: receiverMail,
+          senderId: email,
+          status: 'pending'
+        })
+          .then((res) => {
+            dispatch(getAllHistoricalConversations(email));
+            dispatch(
+              setToast({
+                message: res.data,
+                bgColor: ToastColors.success,
+                visible: "yes",
+              })
+            );
+            socket.current.emit("sendNotification", {
+              senderId: email,
+              receiverId: receiverMail,
+            });
+            setOpen(false);
+            setdefaultTrigger(!defaultTrigger);
+          })
+          .catch((err) => {
+            console.log(err);
+            dispatch(
+              setToast({
+                message: `Error Occured`,
+                bgColor: ToastColors.failure,
+                visible: "yes",
+              })
+            );
+          });
+      } else {
+        dispatch(
+          setToast({
+            message: `Please Verify Yourself first to create conversation`,
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      }
     }
   };
   const [isSpinning, setSpinning] = useState(false);
@@ -201,7 +250,7 @@ const SearchBox = () => {
   }, []);
   const [search, setSearch] = useState("");
   const allUsers = useSelector((state) => state.conv.allUsers);
-  const { email, role } = useSelector((state) => state.auth.loginDetails);
+  const { email, role, verification } = useSelector((state) => state.auth.loginDetails);
   const [filteredusers, setFilteredUsers] = useState([]);
   const userDetailsRef = useRef(null);
   const [open, setOpen] = React.useState(false);
@@ -209,6 +258,7 @@ const SearchBox = () => {
     title: "",
     tags: "",
     changeStatus: "change",
+    hiringPositions: []
   });
   const [file, setFile] = useState("");
   const [receiverMail, setReceivermail] = useState("");
@@ -221,7 +271,7 @@ const SearchBox = () => {
   }, [allUsers]);
 
   useEffect(() => {
-    setFilteredUsers(allUsers.filter((a) => a.userName.includes(search)));
+    setFilteredUsers(allUsers.filter((a) => a.userName.toLowerCase().includes(search.toLowerCase())));
   }, [search]);
 
   const handleChanges = (e) => {
@@ -292,7 +342,7 @@ const SearchBox = () => {
   };
 
   const addconversation = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(setLoading({ visible: "yes" }));
     e.target.disabled = true;
     const conversation = {
@@ -444,7 +494,7 @@ const SearchBox = () => {
             id="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search Users to message"
+            placeholder="Search Users to message" autoComplete="off" aria-autocomplete="off"
           />
         </div>
         <div className="searchedUsers">
@@ -673,15 +723,14 @@ const SearchBox = () => {
                 </div>
                 <div>
                   <select
-                    name="country"
-                    value={form?.country}
+                    name="memberscountry"
+                    value={form?.memberscountry}
                     onChange={handleChanges}
                   >
                     <option value="">Select</option>
-                    <option value="india">India</option>
-                    <option value="pakisthan">Pakisthan</option>
-                    <option value="canada">Canada</option>
-                    <option value="peru">Peru</option>
+                    {Country?.getAllCountries().length > 0 && Country?.getAllCountries().map(c => (
+                      <option value={c.name}>{c.name}</option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -1262,19 +1311,43 @@ const SearchBox = () => {
               <div>
                 <div>
                   <label>People needed ?</label>
+                  {form.hiringPositions.length > 0 && (
+                    <div className="listedTeam">
+                      {form.hiringPositions.map((t, i) => (
+                        <div className="singleMember">
+                          
+                          <div>{t}</div>
+                          <div
+                            onClick={(e) => {
+ 
+                              setForm((prev) => ({
+                                ...prev, hiringPositions: form.hiringPositions.filter((f, j) => i !== j),
+                                changeStatus: "change",
+                              }));
+                            }}
+                          >
+                            <CloseIcon className="deleteMember" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <select
                     name="hiringPositions"
-                    value={form?.hiringPositions}
-                    onChange={handleChanges}
+                    // value={form?.hiringPositions}
+                    onChange={(e) => {
+                      if (!form.hiringPositions.includes(e.target.value)) {
+                        setForm(prev => ({ ...form, hiringPositions: [...form.hiringPositions, e.target.value], changeStatus: 'change' }))
+                      }
+                    }}
                   >
                     <option value="">Select</option>
-                    <option value="coFounder">CoFounder</option>
-                    <option value="mentor">Mentor</option>
-                    <option value="ceo">CEO</option>
-                    <option value="employee">Employee</option>
-                    <option value="freeLancer">Freelancer</option>
+                    {itPositions.map(h => (
+                      <option value={h}>{h}</option>
+                    ))}
+                   
                   </select>
                 </div>
               </div>
