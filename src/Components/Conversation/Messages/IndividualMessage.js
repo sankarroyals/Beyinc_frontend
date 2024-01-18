@@ -10,6 +10,11 @@ import { setOnlineUsers } from "../../../redux/Conversationreducer/ConversationR
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams, useNavigate } from "react-router";
 import "./IndividualMessage.css";
+import sendSound from '../Notification/send.mp3'
+
+
+
+
 const IndividualMessage = () => {
   // const conversationId = useSelector(state => state.conv.conversationId)
   const { conversationId } = useParams();
@@ -27,6 +32,8 @@ const IndividualMessage = () => {
   const scrollRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [isSending, setIsSending] = useState(false);
 
   const socket = useRef();
   useEffect(() => {
@@ -87,6 +94,11 @@ const IndividualMessage = () => {
     }
   }, [liveMessage]);
 
+  useEffect(() => {
+    sendSoundRef.current = new Audio(sendSound);
+  }, []);
+  
+
   const handleFile = (e) => {
     const file = e.target.files[0];
     setNormalFileName(file.name);
@@ -101,6 +113,9 @@ const IndividualMessage = () => {
   };
 
   const sendText = async (e) => {
+    setIsSending(true);
+    sendSoundRef.current.play();
+    setIsSending(false);
     console.log({
       senderId: email,
       receiverId: receiverId?.email,
@@ -149,10 +164,19 @@ const IndividualMessage = () => {
   };
 
   useEffect(() => {
+    return () => {
+      sendSoundRef.current.pause();
+      sendSoundRef.current.currentTime = 0;
+    };
+  }, []);
+  
+
+  useEffect(() => {
     console.log(messages);
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const sendSoundRef = useRef();
   return (
     <div className="messageContainer">
       <div className="messageNavbar">
