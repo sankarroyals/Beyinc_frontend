@@ -12,7 +12,7 @@ const SinglePitchDetails = ({ d }) => {
         <div className='headingIntrested'>
           <b>{d.heading}</b>
           <div title='This Pitch present in your intrested list' className={`${(d?.intrest?.length > 0 && d?.intrest.filter(p => p.email === email).length > 0) && 'intrestButton addIntrest'}`}>
-            {(d?.intrest?.length > 0 && d?.intrest.filter(p => p.email === email).length > 0) && <span>Intrested</span> }
+            {(d?.intrest?.length > 0 && d?.intrest.filter(p => p.email === email).length > 0) && <span>Interested</span> }
 
           </div>
         </div>
