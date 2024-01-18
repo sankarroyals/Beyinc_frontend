@@ -197,7 +197,7 @@ const SearchBox = () => {
           email: email,
           receiverId: receiverMail,
           senderId: email,
-          status: 'pending'
+          status: 'approved'
         })
           .then((res) => {
             dispatch(getAllHistoricalConversations(email));

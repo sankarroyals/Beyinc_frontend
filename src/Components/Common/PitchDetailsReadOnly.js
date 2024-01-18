@@ -36,7 +36,7 @@ function TabPanel(props) {
         </div>
     );
 }
-const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, update, approve, reject, setStatus }) => {
+const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, update, approve, reject, setStatus, status }) => {
     const { role } = useSelector(state => state.auth.loginDetails)
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -438,15 +438,15 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
 
                                 /></div>
                             </div>
-                            {role !== 'Admin' && window.location.pathname == '/userPitches' && pitchDetails?.status == 'approved' &&
+                            
                                 <div>
                                     <div>
                                         <label>Do you want pich hide/show after pitch go live?</label>
                                     </div>
                                     <div>
                                         <select
-                                            name="pitchRequiredStatus"
-
+                                        name="pitchRequiredStatus" value={(status == '' || status==undefined) ? pitchDetails?.pitchRequiredStatus : status}
+                                            disabled={role == 'Admin' || window.location.pathname !== '/userPitches' || (pitchDetails?.status !== 'approved')}
                                             onChange={(e) => {
                                                 setStatus(e.target.value);
                                             }}
@@ -458,7 +458,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                     </div>
                                 </div>
 
-                            }
+                            
 
                         </div>
                     </TabPanel>
