@@ -121,3 +121,12 @@ label{
     width: 150px;
     border-radius: 50%;
 }
+
+
+
+.unread{
+    font-weight: 600;
+}
+.read{
+    color: rgba(128, 128, 128, 0.758);
+}

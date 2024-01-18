@@ -177,6 +177,32 @@ export const ApiServices = {
         })
     },
 
+    getAllNotification: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/notification/getNotification`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    changeNotification: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/notification/notificationStatusChange`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
     addConversation: (obj) => {
         return new Promise((resolve, reject) => {
             axiosInstance.post(`/chat/addConversation`, obj)

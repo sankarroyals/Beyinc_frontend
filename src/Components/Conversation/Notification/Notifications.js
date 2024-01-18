@@ -3,11 +3,14 @@ import "./Notification.css";
 import { ApiServices } from "../../../Services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
 import MessageRequest from "./MessageRequest";
-import { setNotification } from "../../../redux/Conversationreducer/ConversationReducer";
+import { getAllNotifications, setNotification, setNotificationData } from "../../../redux/Conversationreducer/ConversationReducer";
+import AllNotifications from "./AllNotifications";
 
 const Notifications = () => {
   const { email } = useSelector((state) => state.auth.loginDetails);
   const notificationAlert = useSelector(state => state.conv.notificationAlert);
+  const notifications = useSelector(state => state.conv.notifications);
+
   const [messageRequest, setMessageRequest] = useState([]);
   const [notificationTrigger, setNotificationtrigger] = useState(false);
   const dispatch = useDispatch()
@@ -25,6 +28,7 @@ const Notifications = () => {
     await ApiServices.getUserRequest({ email: email }).then((res) => {
       setMessageRequest(res.data);
     });
+    dispatch(getAllNotifications(email))
   }
 
   useEffect(() => {
@@ -51,10 +55,17 @@ const Notifications = () => {
           onClick={handleReloadClick}
         />
       </div>
-      {messageRequest.length > 0 ? (
-        messageRequest.map((m) => (
+      {(messageRequest.length > 0 || notifications.length > 0) ? (
+        <><div>{messageRequest?.map((m) => (
           <MessageRequest m={m} setMessageRequest={setMessageRequest} />
-        ))
+        ))}
+        </div>
+          <div>
+
+            {notifications?.map((n) => (
+              <AllNotifications n={n} />
+            ))}
+          </div></>
       ) : (
         <div className="noSelected" style={{ height: "70vh" }}>
           <img className="no-request" src="/No_Conversation.png" alt="No Conversation" />

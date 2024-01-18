@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 
 import Card from '@mui/material/Card';
@@ -10,12 +10,19 @@ import Typography from '@mui/material/Typography';
 import { ApiServices } from '../../../Services/ApiServices';
 import { useNavigate } from 'react-router';
 import PitchDetailsReadOnly from '../../Common/PitchDetailsReadOnly';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { io } from "socket.io-client";
 import { setToast } from '../../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../../Toast/ToastColors';
 import { AdminServices } from '../../../Services/AdminServices';
 
 export default function PitchCard({ d }) {
+    const socket = useRef();
+    useEffect(() => {
+        socket.current = io(process.env.REACT_APP_SOCKET_IO);
+    }, []);
+    const { email } = useSelector(state => state.auth.loginDetails)
     const navigate = useNavigate()
     const [pitchDetails, setPitchdetails] = useState(null)
     const [open, setOpen] = useState(false)
@@ -38,6 +45,10 @@ export default function PitchCard({ d }) {
                     visible: "yes",
                 })
             );
+            socket.current.emit("sendNotification", {
+                senderId: email,
+                receiverId: d.email,
+            });
             setOpen(false)
             d.status = status
             setPitchdetails(prev => ({ ...prev, status: status }))
