@@ -298,7 +298,7 @@ const LivePitches = () => {
                     {/* Intrested */}
                     <div className='intrestedFilter'>
                         <input type='checkbox' style={{width: '20px'}} checked={filters.intrested} onChange={() => { setFilters(prev => ({ ...prev, intrested: !filters.intrested })) }} />
-                        Intrested
+                        Interested
                     </div>
                 </div>
                 <div className='pitchcontainer'>
