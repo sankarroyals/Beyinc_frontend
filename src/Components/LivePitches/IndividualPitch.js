@@ -139,11 +139,11 @@ const IndividualPitch = () => {
                                 <div className=''>
                                     <ReviewStars avg={averagereview} />
                                 </div>
-                                <div className={`intrestButton ${(pitch?.intrest?.length > 0 && pitch?.intrest.filter(p => p.email === email).length > 0) ? 'removeIntrest' : 'addIntrest'}`}>
-                                    
+                                {email !== pitch?.email && <div className={`intrestButton ${(pitch?.intrest?.length > 0 && pitch?.intrest.filter(p => p.email === email).length > 0) ? 'removeIntrest' : 'addIntrest'}`}>
+
                                     {(pitch?.intrest?.length > 0 && pitch?.intrest.filter(p => p.email === email).length > 0) ? <span onClick={removeFromIntrest}>Remove From interest</span> : <span onClick={addToIntrest}>Add To interest</span>}
-                                    
-                                </div>
+
+                                </div>}
                             </div>
                         </div>
                         <div>
