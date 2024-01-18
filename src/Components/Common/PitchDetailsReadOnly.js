@@ -5,6 +5,9 @@ import '../Conversation/Notification/Notification.css'
 import { Box, Dialog, DialogContent, Tab, Tabs, Typography } from '@mui/material'
 import { gridCSS } from '../CommonStyles';
 import { useSelector } from 'react-redux'
+import { Country, State, City } from 'country-state-city';
+import { domainPitch, techPitch } from '../../Utils'
+
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
@@ -33,7 +36,7 @@ function TabPanel(props) {
         </div>
     );
 }
-const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, update, approve, reject, setStatus }) => {
+const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, update, approve, reject, setStatus, status }) => {
     const { role } = useSelector(state => state.auth.loginDetails)
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -114,13 +117,15 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             <div>
                                 <div><label>Where is management located ?</label></div>
                                 <div>
-                                    <select disabled name="country" value={pitchDetails?.country}
+                                    <select
+                                        name="memberscountry"
+                                        value={pitchDetails?.memberscountry}
+                                        disabled
                                     >
                                         <option value="">Select</option>
-                                        <option value="india">India</option>
-                                        <option value="pakisthan">Pakisthan</option>
-                                        <option value="canada">Canada</option>
-                                        <option value="peru">Peru</option>
+                                        {Country?.getAllCountries().length > 0 && Country?.getAllCountries().map(c => (
+                                            <option value={c.name}>{c.name}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
@@ -131,8 +136,21 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                     <select disabled name="industry1" value={pitchDetails?.industry1}
                                     >
                                         <option value="">Select</option>
-                                        <option value="tea">Tea</option>
-                                        <option value="charcoal">Charcoal</option>
+                                        {domainPitch.map(d => (
+                                            <option value={d}>{d}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <div><label>Industry 1</label></div>
+                                <div>
+                                    <select disabled name="industry2" value={pitchDetails?.industry2}
+                                    >
+                                        <option value="">Select</option>
+                                        {techPitch.map(d => (
+                                            <option value={d}>{d}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
@@ -382,19 +400,18 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                 <div>
                                     <label>People needed ?</label>
                                 </div>
-                                <div>
-                                    <select
-                                        name="hiringPositions"
-                                        value={pitchDetails?.hiringPositions}
-                                        disabled
-                                    >
-                                        <option value="">Select</option>
-                                        <option value="coFounder">CoFounder</option>
-                                        <option value="ceo">CEO</option>
-                                        <option value="employee">Employee</option>
-                                        <option value="freeLancer">Freelancer</option>
-                                    </select>
-                                </div>
+                                {pitchDetails?.hiringPositions?.length > 0 && (
+                                    <div className="listedTeam">
+                                        {pitchDetails?.hiringPositions?.map((t, i) => (
+                                            <div className="singleMember">
+
+                                                <div>{t}</div>
+                                               
+                                               
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                             <div className="pitchformFields">
                                 <div>
@@ -421,15 +438,15 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
 
                                 /></div>
                             </div>
-                            {role !== 'Admin' && window.location.pathname == '/userPitches' && pitchDetails?.status == 'approved' &&
+                            
                                 <div>
                                     <div>
                                         <label>Do you want pich hide/show after pitch go live?</label>
                                     </div>
                                     <div>
                                         <select
-                                            name="pitchRequiredStatus"
-
+                                        name="pitchRequiredStatus" value={(status == '' || status==undefined) ? pitchDetails?.pitchRequiredStatus : status}
+                                            disabled={role == 'Admin' || window.location.pathname !== '/userPitches' || (pitchDetails?.status !== 'approved')}
                                             onChange={(e) => {
                                                 setStatus(e.target.value);
                                             }}
@@ -441,7 +458,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                     </div>
                                 </div>
 
-                            }
+                            
 
                         </div>
                     </TabPanel>

@@ -1,5 +1,7 @@
+export const domainPitch = ['health', 'education']
+export const techPitch = ['web development', 'teaching']
 export const itPositions = [
-    'Lead',
+    'Lead', 'Freelancer',
     'CEO',
     'Co Founder',
     'Software Developer',
@@ -106,7 +108,7 @@ export const convertToDate = (inputDate) => {
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
-    const date = inputDate.split('-')[1][0] == '0' ? inputDate.split('-')[1][1]-1 : inputDate.split('-')[1]-1
-    return `${months[date]} ${inputDate.split('-')[0]}`
+    const date = inputDate?.split('-')[1][0] == '0' ? inputDate?.split('-')[1][1]-1 : inputDate?.split('-')[1]-1
+    return `${months[date]} ${inputDate?.split('-')[0]}`
 
 }

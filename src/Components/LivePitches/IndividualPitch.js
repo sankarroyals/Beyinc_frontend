@@ -13,7 +13,7 @@ import AddReviewStars from './AddReviewStars'
 
 const IndividualPitch = () => {
     const [pitch, setpitch] = useState('')
-    const { email } = useSelector(state => state.auth.loginDetails)
+    const { email, image, userName } = useSelector(state => state.auth.loginDetails)
 
     const [averagereview, setAverageReview] = useState(0)
     const [value, setValue] = useState(0)
@@ -57,6 +57,70 @@ const IndividualPitch = () => {
             navigate('/livePitches')
         })
     }
+
+
+    const addToIntrest = async () => {
+        await ApiServices.addIntrest({ pitchId: pitchId, email: email }).then((res) => {
+            setpitch(prev=>({...prev, intrest: [...pitch.intrest, {email: email, profile_pic: image, userName: userName}]}))
+            dispatch(
+                setToast({
+                    message: "Added to Interest",
+                    bgColor: ToastColors.success,
+                    visible: "yes",
+                })
+            );
+           
+        }).catch(err => {
+            dispatch(
+                setToast({
+                    message: "Error Occured",
+                    bgColor: ToastColors.failure,
+                    visible: "yes",
+                })
+            );
+        })
+        setTimeout(() => {
+            dispatch(
+                setToast({
+                    message: "",
+                    bgColor: '',
+                    visible: "no",
+                })
+            );
+        }, 4000)
+    }
+
+    const removeFromIntrest = async () => {
+        await ApiServices.removeIntrest({ pitchId: pitchId, email: email }).then((res) => {
+            setpitch(prev => ({ ...prev, intrest: [...pitch.intrest.filter(p=>p.email!==email)] }))
+            dispatch(
+                setToast({
+                    message: "Removed from Interest",
+                    bgColor: ToastColors.success,
+                    visible: "yes",
+                })
+            );
+
+        }).catch(err => {
+            dispatch(
+                setToast({
+                    message: "Error Occured",
+                    bgColor: ToastColors.failure,
+                    visible: "yes",
+                })
+            );
+        })
+        setTimeout(() => {
+            dispatch(
+                setToast({
+                    message: "",
+                    bgColor: '',
+                    visible: "no",
+                })
+            );
+        }, 4000)
+    }
+
     return (
         <div>
             <div className='individualPitchContainer'>
@@ -71,8 +135,15 @@ const IndividualPitch = () => {
                                     setOpen(true)
                                 }}></i>
                             </div>
-                            <div className=''>
-                                <ReviewStars avg={averagereview} />
+                            <div className='reviewIntrestContainer'>
+                                <div className=''>
+                                    <ReviewStars avg={averagereview} />
+                                </div>
+                                {email !== pitch?.email && <div className={`intrestButton ${(pitch?.intrest?.length > 0 && pitch?.intrest.filter(p => p.email === email).length > 0) ? 'removeIntrest' : 'addIntrest'}`}>
+
+                                    {(pitch?.intrest?.length > 0 && pitch?.intrest.filter(p => p.email === email).length > 0) ? <span onClick={removeFromIntrest}>Remove From interest</span> : <span onClick={addToIntrest}>Add To interest</span>}
+
+                                </div>}
                             </div>
                         </div>
                         <div>
@@ -83,6 +154,26 @@ const IndividualPitch = () => {
                             <textarea style={{ width: '100%', border: 'none', fontFamily: "'Google Sans Text', sans- serif" }} disabled rows={13} value={pitch?.description}></textarea>
                         </div>
                         <div className='indiPitchId'>Pitch ID: {pitch?._id}</div>
+                    
+                        {pitch?.hiringPositions?.length > 0 && <div className='indiPitchHiringPositions'>
+                            People Needed:
+                            {pitch?.hiringPositions?.map(h => (
+                                <div className='hp'>{h}</div>
+                            ))}
+                        </div>}
+                        {pitch?.industry1!==''&& <div className='indiPitchHiringPositions'>
+                            Domain:
+                           
+                                <div className='hp'>{pitch?.industry1}</div>
+                            
+                        </div>}
+                        {pitch?.industry2!==''&& <div className='indiPitchHiringPositions'>
+                            Tech:
+                           
+                                <div className='hp'>{pitch?.industry2}</div>
+                            
+                        </div>}
+                        <div></div>
                         <div>
                             <AddReviewStars pitchId={pitchId} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} />
                         </div>
@@ -112,7 +203,7 @@ const IndividualPitch = () => {
                         )}
                     </div>
                 </div>
-                {pitch?.comments?.length > 0 && <div>Comments:</div>}
+                {pitch?.comments?.length > 0 && <div>Discussions:</div>}
                 {pitch?.comments?.length > 0 && pitch.comments?.map(c => (
                     <IndividualPitchComment c={c} pitch={pitch} setpitch={setpitch} setPitchTrigger={setPitchTrigger} />
                 ))}

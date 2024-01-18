@@ -100,7 +100,7 @@ export default function LoggedInPitchCard({ d }) {
                 <Button size="small" id='view-request' onClick={() => setOpen(true)}>View Pitch Request</Button>
                 {/* <Button size="small">Learn More</Button> */}
                 {open &&
-                    <PitchDetailsReadOnly setStatus={setStatus} approve='Update' reject='Cancel' open={open} setOpen={setOpen} update={update} value={value} setValue={setValue} pitchDetails={pitchDetails} />
+                    <PitchDetailsReadOnly status={status} setStatus={setStatus} approve='Update' reject='Cancel' open={open} setOpen={setOpen} update={update} value={value} setValue={setValue} pitchDetails={pitchDetails} />
                 }
             </CardActions>
         </Card>
