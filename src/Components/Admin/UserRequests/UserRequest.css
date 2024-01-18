@@ -19,7 +19,19 @@
 }
 
 .userCardImage{
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
+    margin-top: 30px;
+    margin-left: 30px;
   
+}
+#view-request{
+    background: #3b82f6;
+    color: white;
+    padding: 10px;
+    font-weight: 600;
+    margin-top: -10px;
+}
+#view-request:hover{
+    background: #1e4bb8;
 }

@@ -17,17 +17,17 @@ export default function UserRequestCard({ d }) {
     //     })
     // }, [d])
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 280,  boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)'  }}>
             <div style={{display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px'}}>
                 <img className='userCardImage'
                     src={d.image !== undefined && d.image !== "" ? d.image : "/profile.jpeg"}
                     title={d.email}
                 />
-                <div>{d.role}
+                <div style={{fontWeight: '600', marginTop: '40px', marginLeft: '30px'}}>{d.role}
                     <div title={d.verification}>
                         <span style={{
                             fontSize: '14px', marginLeft: '5px', color: d.verification == 'approved' ? 'green' : (d.verification == 'pending' ? 'orange' : 'red'),
-                            border: `1px dotted ${d.verification == 'approved' ? 'green' : (d.verification == 'pending' ? 'orange' : 'red')}`,
+                            border: `1.5px dotted ${d.verification == 'approved' ? 'green' : (d.verification == 'pending' ? 'orange' : 'red')}`,
                             padding: '3px'
                         }}>{d.verification}</span>
                 </div>
@@ -35,7 +35,7 @@ export default function UserRequestCard({ d }) {
                 
             </div>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     {d.userName}
                 </Typography>
             </CardContent>
@@ -49,7 +49,7 @@ export default function UserRequestCard({ d }) {
                 </Typography>
             </CardContent> */}
             <CardActions>
-                <Button size="small" onClick={() => {
+                <Button id='view-request' size="small" onClick={() => {
                     navigate(`/singleProfileRequest/${d.email}`)
                 }}>View Request</Button>
                 {/* <Button size="small">Learn More</Button> */}

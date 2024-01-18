@@ -9,7 +9,7 @@ import PitchDetailsReadOnly from '../../Common/PitchDetailsReadOnly'
 
 
 const MessageRequest = ({ m, setMessageRequest }) => {
-    const { email } = useSelector(state => state.auth.loginDetails)
+    const { email,userName } = useSelector(state => state.auth.loginDetails)
     const [pitchDetails, setPitchdetails] = useState(null)
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(0)
@@ -59,9 +59,10 @@ const MessageRequest = ({ m, setMessageRequest }) => {
     return (
         <div className='individualrequest'>
             <div className='individualrequestWrapper'>
-                <div>{m.members?.filter((f) => f.email !== email)[0].email} sent you a message request</div>
+                <div><b>{m.members?.filter((f) => f.userName !== userName)[0].userName}</b> sent you a message request</div>
                 <div className='updateActions'>
-                    <div>{format(m.createdAt)}</div>
+                    <div style={{fontSize: '12px'}}><b><i className='fas fa-clock' style={{fontSize: '16px'}}></i>
+{format(m.createdAt)}</b></div>
                     <attr title='Preview Pitch Details'>
                         <div className='extraDetails'
                             onClick={() => {

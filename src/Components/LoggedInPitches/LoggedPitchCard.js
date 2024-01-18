@@ -74,13 +74,13 @@ export default function LoggedInPitchCard({ d }) {
         })
     }, [d])
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 280,  boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)'}}>
             <div style={{ display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px' }}>
                 <img className='userCardImage'
                     src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
                     title={d.email}
                 />
-                <div>{d.role}
+                <div style={{fontWeight: '600', marginTop: '40px', marginLeft: '30px'}}>{d.role}
                     <div title={d.status}>
                         <span style={{
                             fontSize: '14px', marginLeft: '5px', color: d.status == 'approved' ? 'green' : (d.status == 'pending' ? 'orange' : 'red'),
@@ -92,12 +92,12 @@ export default function LoggedInPitchCard({ d }) {
 
             </div>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     {d.userName}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={() => setOpen(true)}>View Pitch Request</Button>
+                <Button size="small" id='view-request' onClick={() => setOpen(true)}>View Pitch Request</Button>
                 {/* <Button size="small">Learn More</Button> */}
                 {open &&
                     <PitchDetailsReadOnly setStatus={setStatus} approve='Update' reject='Cancel' open={open} setOpen={setOpen} update={update} value={value} setValue={setValue} pitchDetails={pitchDetails} />

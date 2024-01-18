@@ -56,7 +56,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
 
 
                 <DialogContent style={{ height: '90vh', position: 'relative', display: 'flex', flexDirection: 'column' }}>
-                    <Box>Pitch Status: {pitchDetails?.status} <span title={pitchDetails?.pitchRequiredStatus == 'show' ? 'visible to all users' : 'not visible to all users'}>
+                    <Box><b>Pitch Status:</b> {pitchDetails?.status} <span title={pitchDetails?.pitchRequiredStatus == 'show' ? 'visible to all users' : 'not visible to all users'}>
                         {pitchDetails?.pitchRequiredStatus == 'show' ? <i class="fas fa-eye"></i> : <i class="fas fa-eye-slash"></i>}
                     </span></Box>
                     <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setOpen(false)}><CloseIcon /></Box>
@@ -322,13 +322,13 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                         <div className='pitchForm'>
                             <div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><label>Logo*</label>{pitchDetails?.logo?.secure_url !== undefined && pitchDetails?.logo?.secure_url !== '' &&
-                                    <a target='_blank' href={pitchDetails?.logo.secure_url} style={{ display: 'inline-block' }} rel="noreferrer"><i class='fas fa-eye'></i>preview</a>}</div>
+                                    <a target='_blank' href={pitchDetails?.logo.secure_url} style={{ display: 'inline-block' }} rel="noreferrer"><i class='fas fa-eye'></i>Preview</a>}</div>
 
                             </div>
 
                             <div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><label>Banner Image</label>{pitchDetails?.banner?.secure_url !== undefined && pitchDetails?.banner?.secure_url !== '' &&
-                                    <a target='_blank' href={pitchDetails?.banner.secure_url} style={{ display: 'inline-block' }} rel="noreferrer"><i class='fas fa-eye'></i>preview</a>}</div>
+                                    <a target='_blank' href={pitchDetails?.banner.secure_url} style={{ display: 'inline-block' }} rel="noreferrer"><i class='fas fa-eye'></i>Preview</a>}</div>
 
                             </div>
 
@@ -342,13 +342,13 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                         <div className='pitchForm'>
                             <div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><label>Pitch Docs/Business Plan*</label>{pitchDetails?.pitch?.secure_url !== undefined && pitchDetails?.pitch?.secure_url !== '' &&
-                                    <a target='_blank' href={pitchDetails?.pitch.secure_url} style={{ display: 'inline-block' }} rel="noreferrer"><i class='fas fa-eye'></i>preview</a>}</div>
+                                    <a target='_blank' href={pitchDetails?.pitch.secure_url} style={{ display: 'inline-block' }} rel="noreferrer"><i class='fas fa-eye'></i>Preview</a>}</div>
 
                             </div>
 
                             <div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><label>Financials*</label>{pitchDetails?.financials?.secure_url !== undefined && pitchDetails?.financials?.secure_url !== '' &&
-                                    <a target='_blank' href={pitchDetails?.financials.secure_url} style={{ display: 'inline-block' }} rel="noreferrer"><i class='fas fa-eye'></i>preview</a>}</div>
+                                    <a target='_blank' href={pitchDetails?.financials.secure_url} style={{ display: 'inline-block' }} rel="noreferrer"><i class='fas fa-eye'></i>Preview</a>}</div>
 
                             </div>
 
