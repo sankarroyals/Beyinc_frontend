@@ -8,6 +8,9 @@ const LoadingData = () => {
         if (visible == 'yes') {
             document.getElementsByTagName('body')[0].style.overflowY = 'hidden'
         }
+        else{
+            document.getElementsByTagName('body')[0].style.overflowY = 'scroll'
+        }
     }, [visible])
     return (
         <div className='loadingContainer' style={{ display: visible == 'yes' ? 'block' : 'none' }}

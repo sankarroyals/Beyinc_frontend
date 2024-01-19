@@ -14,16 +14,17 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
 import { AdminServices } from "../../../Services/AdminServices";
-import { setLoginData, setToast } from "../../../redux/AuthReducers/AuthReducer";
+import { setLoading, setLoginData, setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
 import { convertToDate } from "../../../Utils";
 
 export const SingleRequestProfile = () => {
-
+    const { visible } = useSelector(state => state.auth.LoadingDetails);
 
     const { email } = useParams();
 
     const [inputs, setInputs] = useState({
+
         email: null,
         emailOtp: null,
         mobile: null,
@@ -82,6 +83,7 @@ export const SingleRequestProfile = () => {
 
 
     useEffect(() => {
+        dispatch(setLoading({visible : "yes"}))
         AdminServices.getApprovalRequestProfile({ email: email })
             .then((res) => {
                 console.log(res.data);
@@ -112,6 +114,8 @@ export const SingleRequestProfile = () => {
                 settown(res.data.town || '')
                 setCountry(res.data.country || '')
                 setState(res.data.state || '')
+                dispatch(setLoading({visible : "no"}))
+
             })
             .catch((error) => {
                 dispatch(
@@ -121,6 +125,7 @@ export const SingleRequestProfile = () => {
                         visible: "yes",
                     })
                 );
+                dispatch(setLoading({visible : "no"}))
                 navigate('/profileRequests')
             });
     }, [email]);
@@ -181,6 +186,7 @@ export const SingleRequestProfile = () => {
 
 
     return (
+        visible === "no" && 
         <div className="update-container" style={{ minHeight: '80vh' }}>
             <div className="updateContainerWrapper">
            
@@ -251,35 +257,35 @@ export const SingleRequestProfile = () => {
                 </div>
                
                     <>
-                        <div className="update-form-container" style={{ flexDirection: 'column' }}>
+                       {totalExperienceData.length>0 &&  <div className="update-form-container" style={{ flexDirection: 'column' }}>
                            
-                        <h3 className="update-heading">Work Experience</h3>
-
-                            {totalExperienceData.length > 0 &&
-                                totalExperienceData.map((te, i) => (
-                                    <div>
-
-                                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                                            <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
-                                                <div className="company">
-                                                    {te.company}
-                                                </div>
-                                                <div className="profession">
-                                                    {te.profession}
-                                                </div>
-                                                <div className="timeline">
-                                                    {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                ))
-                            }
-                        </div>
+                           <h3 className="update-heading">Work Experience</h3>
+   
+                               {totalExperienceData.length > 0 &&
+                                   totalExperienceData.map((te, i) => (
+                                       <div>
+   
+                                           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                                               <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                                                   <div className="company">
+                                                       {te.company}
+                                                   </div>
+                                                   <div className="profession">
+                                                       {te.profession}
+                                                   </div>
+                                                   <div className="timeline">
+                                                       {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
+                                                   </div>
+                                               </div>
+   
+                                           </div>
+   
+                                       </div>
+                                   ))
+                               }
+                           </div>}
                     </>
-                <div className="update-form-container" style={{ flexDirection: 'column' }}>
+                   { totalEducationData.length>0 &&  <div className="update-form-container" style={{ flexDirection: 'column' }}>
                     <form className="update-form">
                         <h3 className="update-heading">Educational Details</h3>
                         
@@ -308,7 +314,8 @@ export const SingleRequestProfile = () => {
                         ))
                     }
 
-                </div>
+                </div>}
+               
                 {role == 'Mentor' && <div className="update-form-container">
                     <form className="update-form">
                         <h3 className="update-heading">Personal / Fee Negotiation</h3>
@@ -528,7 +535,7 @@ export const SingleRequestProfile = () => {
                         >
                         <button type="button" onClick={() => navigate(-1)}>Back</button>
 
-                            <button type="submit" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
+                            <button type="submit" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled = {inputs.status === "rejected"}>
                                 {/* {isLoading ? (
                                     <>
                                         <img
@@ -542,7 +549,7 @@ export const SingleRequestProfile = () => {
                                 <>Reject</>
                                 {/* )} */}
                             </button>
-                            <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
+                            <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled = {inputs.status === "approved"}>
                                 {isLoading ? (
                                     <>
                                         <img
@@ -561,5 +568,6 @@ export const SingleRequestProfile = () => {
                 </div>
             </div>
         </div>
+        
     );
 };
