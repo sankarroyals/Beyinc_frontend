@@ -77,11 +77,12 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
                 }
                 <div className='deleteConv'>
                     <div className='role'>{friend.role}</div>
-                    <div className='message-count' title='unread messages'>8</div>
                     {status == 'pending' && <div className=''>
                         <i className='fas fa-trash' onClick={() => setOpen(true)}></i>
                     </div>}
+                   
                 </div>
+                <div className='message-count' title='unread messages'></div>
             </div>
 
             <Dialog

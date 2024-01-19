@@ -68,7 +68,11 @@ const LoggedInPitches = () => {
                         filteredData?.map((d) => (
                             <LoggedInPitchCard d={d} />
                         ))
-                        : <>No Requests</>}
+                        : <div className="pitch-container">
+                        <img className="no-requests" src='/no-requests.png'/>
+                         <div style={{marginLeft : '30px'}}>No Requests Found !</div>
+                         </div>}
+                         
                 </div>
             </div>
         </>

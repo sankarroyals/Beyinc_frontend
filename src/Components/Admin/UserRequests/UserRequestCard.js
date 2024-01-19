@@ -17,7 +17,7 @@ export default function UserRequestCard({ d }) {
     //     })
     // }, [d])
     return (
-        <Card sx={{ maxWidth: 280,  boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)'  }}>
+        <Card sx={{ maxWidth: 340, minWidth: 250,  boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)'  }}>
             <div style={{display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px'}}>
                 <img className='userCardImage'
                     src={d.image !== undefined && d.image !== "" ? d.image : "/profile.jpeg"}
@@ -32,6 +32,7 @@ export default function UserRequestCard({ d }) {
                         }}>{d.verification}</span>
                 </div>
                 </div>
+             
                 
             </div>
             <CardContent>

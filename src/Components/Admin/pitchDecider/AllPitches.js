@@ -4,6 +4,7 @@ import '../UserRequests/UserRequest.css'
 import { ApiServices } from '../../../Services/ApiServices';
 import MultipleSelectCheckmarks from '../UserRequests/FIlterExample';
 import PitchCard from './PitchCard';
+
 export default function AllPitches() {
     const [roles, setRoles] = useState([])
     const [emails, setEmails] = useState([])
@@ -80,7 +81,10 @@ export default function AllPitches() {
                         filteredData?.map((d) => (
                             <PitchCard d={d} />
                         ))
-                        : <>No Requests</>}
+                        : <div className="pitch-container">
+                        <img className="no-requests" src='/no-requests.png'/>
+                         <div style={{marginLeft : '30px'}}>No Requests Found !</div>
+                         </div>}
                 </div>
             </div>
         </>

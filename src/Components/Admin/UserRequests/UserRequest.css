@@ -35,3 +35,19 @@
 #view-request:hover{
     background: #1e4bb8;
 }
+.pitch-container {
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-left: 35%;
+  }
+  
+  .no-requests {
+    height: 450px;
+    width: 450px;
+    margin-top: -30px;
+  }
+  

@@ -327,3 +327,18 @@ input[type="radio"] + label {
     margin-top: 0;
   }
 }
+.pitch-container {
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-left: 35%;
+}
+
+.no-requests {
+  height: 450px;
+  width: 450px;
+  margin-top: -30px;
+}

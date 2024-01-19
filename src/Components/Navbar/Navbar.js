@@ -213,7 +213,7 @@ const Navbar = () => {
               ></i>
 
             </div>
-            <div className='Conversations-count' title='unread conversations'>8</div>
+            <div className='Conversations-count' title='unread conversations'></div>
          </div>
 
           <div id="notifications" className="icon">

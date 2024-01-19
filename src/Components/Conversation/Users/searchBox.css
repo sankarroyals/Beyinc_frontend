@@ -276,16 +276,14 @@ textarea{
   .message-count {
     background: #0b57d0b9;
     color: white;
-    padding: 10px 10px;
+    padding: 2px 2px;
     border-radius: 50%;
-    width: 7px; 
-    height: 7px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 5px; 
+    height: 5px; 
     position: absolute;
-    top: 5px;
-    right: -120px; 
+    top: 16px;
+    left: 0;
+    margin-left: 200px;
     font-size: 12px; 
     font-weight: bold; 
 }
