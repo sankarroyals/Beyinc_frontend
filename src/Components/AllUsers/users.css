@@ -1,0 +1,58 @@
+.userscontainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 10px;
+}
+.userscontainer {
+  flex: 1 0 75%;
+  /* padding: 10px; */
+  background: white;
+}
+.singleUser {
+  padding: 25px;
+  border: 5px solid rgb(238, 238, 238);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  
+
+  height: 180px;
+  min-width: 200px;
+
+  max-width: 300px;
+}
+/* .singleUserWrapper:hover {
+  background: rgba(238, 238, 238, 0.596);
+} */
+
+.usersContainer {
+  background: #f0f0f0;
+  padding: 10px;
+}
+.usersWrapper {
+  max-width: 1300px;
+  margin: auto;
+  display: flex;
+  gap: 10px;
+  /* flex-wrap: wrap; */
+}
+
+.usersWrapper .filterContainer {
+  flex: 1 0 20%;
+  padding: 10px;
+}
+
+
+@media (max-width: 760px) {
+    .usersWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .usersContainer{
+        margin: auto;
+    }
+}
