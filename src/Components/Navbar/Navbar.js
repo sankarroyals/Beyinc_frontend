@@ -231,6 +231,16 @@ const Navbar = () => {
 
           </div>
 
+          <div title="Search Users"
+            id="searchusers"
+            className="icon"
+            onClick={() => {
+              navigate("/searchusers");
+            }}
+          >
+            <i className="fas fa-search"></i>
+          </div>
+
           {role === "Admin" && (
             <>
 
