@@ -13,6 +13,7 @@ import { setLiveMessage, setNotification, setOnlineUsers } from "./redux/Convers
 import LivePitches from "./Components/LivePitches/LivePitches";
 import IndividualPitch from "./Components/LivePitches/IndividualPitch";
 import LoadingData from "./Components/Toast/Loading";
+import AllUsers from "./Components/AllUsers/AllUsers";
 
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
@@ -103,13 +104,15 @@ const App = () => {
           <Route path="/userPitches" Component={AuthHoc(LoggedInPitches)} />
           <Route path="/livePitches" Component={AuthHoc(LivePitches)} />
           <Route path="/livePitches/:pitchId" Component={AuthHoc(IndividualPitch)} />
+          <Route path="/searchusers" Component={AuthHoc(AllUsers)} />
+
 
 
 
           
           <Route path="/pitches" Component={AdminDeciderHoc(AllPitches)} />
           <Route path="/profileRequests" Component={AdminDeciderHoc(UserRequests)} />
-          <Route path="/singleProfileRequest/:email" Component={AuthHoc(SingleRequestProfile)} />
+          <Route path="/singleProfileRequest/:email" Component={AdminDeciderHoc(SingleRequestProfile)} />
 
 
 
