@@ -56,3 +56,24 @@
         margin: auto;
     }
 }
+
+
+.indiUserDetailsContainer{
+  width: 900px;
+  margin: auto;
+  background: white;
+  transform: translateY(-30px);
+  border-radius: 10px;
+}
+
+.indiUserDetails {
+  border: 1px solid rgba(128, 128, 128, 0.473);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.indiUserHeading {
+  font-size: 28px;
+  font-weight: 600;
+  width: 700px;
+}

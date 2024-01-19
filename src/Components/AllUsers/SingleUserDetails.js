@@ -46,8 +46,8 @@ const SingleUserDetails = ({ d }) => {
             </CardContent> */}
             <CardActions>
                 <Button id='view-request' size="small" onClick={() => {
-                    navigate(`/singleProfileRequest/${d.email}`)
-                }}>View Request</Button>
+                    navigate(`/user/${d.email}`)
+                }}>View Profile</Button>
                 {/* <Button size="small">Learn More</Button> */}
             </CardActions>
         </Card>

@@ -14,6 +14,7 @@ import LivePitches from "./Components/LivePitches/LivePitches";
 import IndividualPitch from "./Components/LivePitches/IndividualPitch";
 import LoadingData from "./Components/Toast/Loading";
 import AllUsers from "./Components/AllUsers/AllUsers";
+import IndividualUser from "./Components/AllUsers/individualUser";
 
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
@@ -105,6 +106,7 @@ const App = () => {
           <Route path="/livePitches" Component={AuthHoc(LivePitches)} />
           <Route path="/livePitches/:pitchId" Component={AuthHoc(IndividualPitch)} />
           <Route path="/searchusers" Component={AuthHoc(AllUsers)} />
+          <Route path="/user/:email" Component={AuthHoc(IndividualUser)} />
 
 
 
