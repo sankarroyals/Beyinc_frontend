@@ -19,16 +19,21 @@ const SingleUserDetails = ({ d }) => {
                     src={d.image !== undefined && d.image.url !== "" ? d.image.url : "/profile.jpeg"}
                     title={d.email}
                 />
-                <div style={{ fontWeight: '600', marginTop: '40px', marginLeft: '10px' }}>{d.role}
-                    {d.verification == 'approved' && <img src='/verify.png' alt=""  style={{ width: "15px", height: "15px", marginLeft: "5px" }} /> }
+                <div>
+                    <div style={{ fontWeight: '600', marginTop: '40px', marginLeft: '10px' }}>{d.role}
+                        {d.verification == 'approved' && <img src='/verify.png' alt="" style={{ width: "15px", height: "15px", marginLeft: "5px" }} />}
+                    </div>
+                    <Typography gutterBottom component="div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
+                        {d.userName}
+                    </Typography>
                 </div>
 
 
             </div>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                {/* <Typography gutterBottom variant="h5" component="div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {d.userName}
-                </Typography>
+                </Typography> */}
             </CardContent>
             {/* <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
