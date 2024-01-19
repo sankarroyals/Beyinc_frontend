@@ -443,7 +443,7 @@ const SearchBox = () => {
   const handleClickOutside = (event) => {
     if (
       userDetailsRef.current &&
-      !userDetailsRef.current.contains(event.target)
+      !userDetailsRef.current.contains(event.target) && event.target.id !== 'newchat' && event.target.id !== 'Profile-img'
     ) {
       document
         .getElementsByClassName("newConversation")[0]
@@ -461,7 +461,7 @@ const SearchBox = () => {
   return (
     <div style={{ position: "relative" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <div
+        <div id='newchat'
           className="newChat"
           onClick={() => {
             document
@@ -469,10 +469,10 @@ const SearchBox = () => {
               .classList.toggle("show");
           }}
         >
-          <div>
+          <div id='newchat'>
             <MapsUgcIcon style={{ fontSize: "24px" }} />{" "}
           </div>
-          <div>New Chat</div>
+          <div id='newchat'>New Chat</div>
         </div>
 
         <div title="Reload for latest request updates">

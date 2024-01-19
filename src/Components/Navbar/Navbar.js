@@ -142,7 +142,7 @@ const Navbar = () => {
   const handleClickOutside = (event) => {
     if (
       userDetailsRef.current &&
-      !userDetailsRef.current.contains(event.target)
+      !userDetailsRef.current.contains(event.target) && event.target.id !== 'editProfile' && event.target.id !== 'Profile-img'
     ) {
       document
         .getElementsByClassName("userDetails")[0]
@@ -298,7 +298,7 @@ const Navbar = () => {
                 .classList.toggle("showUserDetails");
             }}
           >
-            <img
+            <img id='Profile-img'
               className="Profile-img"
               src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
               alt=""
