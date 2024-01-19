@@ -244,7 +244,7 @@ const Login = () => {
         {loginType === "email" ? (
           <>
             <input
-              type="text"
+              type="email"
               name="email"
               value={email}
               className={
