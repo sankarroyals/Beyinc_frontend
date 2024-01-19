@@ -28,7 +28,7 @@ const IndividualPitch = () => {
         if (pitchId) {
             ApiServices.fetchSinglePitch({ pitchId: pitchId }).then(res => {
                 console.log(res.data);
-                setpitch(res.data)
+                setpitch({ ...res.data, comments: [...res.data.comments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))]})
                 if (res.data.review !== undefined && res.data.review?.length > 0) {
                     let avgR = 0
                     res.data.review?.map((rev) => {
@@ -51,7 +51,8 @@ const IndividualPitch = () => {
 
     const sendText = async () => {
         await ApiServices.addPitchComment({ pitchId: pitchId, comment: { email: email, comment: comment } }).then(res => {
-            setPitchTrigger(!pitchTrigger)
+            // setPitchTrigger(!pitchTrigger)
+            setpitch(prev => ({ ...prev, comments: [{ email: email, profile_pic: image, userName: userName, comment: comment, createdAt: new Date() }, ...pitch.comments]}))
             setComment('')
         }).catch(err => {
             navigate('/livePitches')
