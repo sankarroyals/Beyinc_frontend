@@ -28,14 +28,13 @@
   height: 87vh;
 }
 
-input {
+/* input {
   width: 100%;
   padding: 15px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
- 
-}
+} */
 
 p {
   margin-top: 20px;
@@ -69,21 +68,19 @@ p {
     gap: 5px;
   } 
   .login-image-container {
-    width: 100%;
-    margin-right: 0px;
+    display: none;
   } 
   .login-image-container img{
-    height: 400px;
-    margin-top: -30px;
+    display: none;
   }
   .login-form-container {
-    width: 85%;
-    margin-top: 10px;
+    width: 82%;
+    margin-top: 140px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 10px;
+    margin-left: 12px;
   }
   
 }

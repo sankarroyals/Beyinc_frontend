@@ -169,6 +169,21 @@
   margin-left: 290px;
 }
 
+.company{
+  font-size: 18px;
+  font-weight: 600;
+}
+.profession{
+  font-size: 16px;
+}
+.timeline{
+    font-size: 14px;
+
+}
+.profession, .timeline{
+  margin-left: 20px;
+}
+
 @media (max-width: 768px) {
   .update-heading {
     margin-top: 0px;
@@ -180,10 +195,6 @@
     flex-direction: column;
     gap: -10px;
     width: 100%;
-  }
-  input[type="text"],
-  input[type="email"] {
-    width: 80% !important;
   }
   
   .successIcons {
@@ -206,17 +217,3 @@
 }
 
 
-.company{
-  font-size: 18px;
-  font-weight: 600;
-}
-.profession{
-  font-size: 16px;
-}
-.timeline{
-    font-size: 14px;
-
-}
-.profession, .timeline{
-  margin-left: 20px;
-}
