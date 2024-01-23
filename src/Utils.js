@@ -1,5 +1,170 @@
 export const socket_io = "https://beyinc-socket.onrender.com"
 // export const socket_io = "ws://localhost:8900"
+
+export const domain_subdomain = {
+    "Agriculture": [
+        "Agriculture",
+        "AgroTech",
+        "Fruit & Veg",
+        "Horticulture",
+        "Forestry",
+        "Aquaculture"
+    ],
+    "Business Services": [
+        "Law",
+        "Accounting",
+        "Security",
+        "Insurance",
+        "Recruitment",
+        "Translation",
+        "Consultancy"
+    ],
+    "Education & Training": [
+        "Education",
+        "Training",
+        "EdTech",
+        "School",
+        "University"
+    ],
+    "Energy & Environmental": [
+        "Energy",
+        "Mining",
+        "Renewables",
+        "GreenTech",
+        "Oil & Gas",
+        "Environmental"
+    ],
+    "Entertainment & Leisure": [
+        "Sport",
+        "Concerts",
+        "Tourism",
+        "Events",
+        "Entertainment",
+        "Gambling",
+        "Art"
+    ],
+    "Fashion & Beauty": [
+        "Cosmetics",
+        "Clothing",
+        "Salon",
+        "Jewellery",
+        "Fashion",
+        "Textiles",
+        "Beauty"
+    ],
+    "Finance": [
+        "Finance",
+        "Investment",
+        "Cryptocurrency",
+        "Trading",
+        "FinTech",
+        "Banking"
+    ],
+    "Food & Beverage": [
+        "Food",
+        "Beverage",
+        "Alcohol",
+        "Nutrition",
+        "Organic"
+    ],
+    "Hospitality, Restaurants & Bars": [
+        "Bars",
+        "Restaurants",
+        "Fast Food",
+        "Hotels",
+        "Cafes"
+    ],
+    "Manufacturing & Engineering": [
+        "Manufacturing",
+        "Engineering",
+        "Prototyping",
+        "3D Printing",
+        "Chemicals",
+        "Materials",
+        "Machinery"
+    ],
+    "Media": [
+        "Publishing",
+        "Radio",
+        "Film",
+        "TV",
+        "Music"
+    ],
+    "Medical & Services": [
+        "MedTech",
+        "Healthcare",
+        "Pharma",
+        "Biotech",
+        "Medical"
+    ],
+    "Personal Services": [
+        "Massage",
+        "Spa",
+        "Cleaning",
+        "Gardening",
+        "Laundry",
+        "Pets"
+    ],
+    "Products & Innovation": [
+        "Products",
+        "Inventions",
+        "Gadgets",
+        "Patent",
+        "Design"
+    ],
+    "Property": [
+        "Property",
+        "Construction",
+        "Land",
+        "Commercial Property",
+        "Residential Property",
+        "Property Services",
+        "Warehousing"
+    ],
+    "Retail": [
+        "Retail",
+        "FMCG",
+        "Shop",
+        "Consumer",
+        "Wholesale"
+    ],
+    "Sales & Marketing": [
+        "Marketing",
+        "Sales",
+        "PR",
+        "Advertising",
+        "Digital Marketing"
+    ],
+    "Software": [
+        "Software",
+        "Ecommerce",
+        "Apps",
+        "Data",
+        "SaaS",
+        "Gaming",
+        "Web"
+    ],
+    "Technology": [
+        "Technology",
+        "Robotics",
+        "IT Hardware",
+        "Telecom",
+        "Mobile",
+        "Electronics",
+        "Computers"
+    ],
+    "Transportation": [
+        "Transport",
+        "Aerospace",
+        "Logistics",
+        "Automotive",
+        "Marine",
+        "Aviation"
+    ]
+}
+
+
+
 export const domainPitch = ['health', 'education']
 export const techPitch = ['web development', 'teaching']
 export const itPositions = [
