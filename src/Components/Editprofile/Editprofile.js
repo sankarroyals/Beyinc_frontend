@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { setLoginData, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
 import axiosInstance from "../axiosInstance";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { ApiServices } from "../../Services/ApiServices";
 import { useNavigate } from "react-router-dom/dist";
 import "./Editprofile.css";
@@ -14,7 +16,7 @@ import { Country, State, City } from 'country-state-city';
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
-import { convertToDate, itPositions } from "../../Utils";
+import { allskills, convertToDate, itPositions } from "../../Utils";
 
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
@@ -84,6 +86,8 @@ const Editprofile = () => {
   })
   const [fee, setFee] = useState('')
   const [bio, setBio] = useState('')
+  const [skills, setSkills] = useState([])
+  const [singleSkill, setSingleSkill] = useState('')
   const [state, setState] = useState('')
   const [country, setCountry] = useState('')
   const [town, settown] = useState('')
@@ -227,6 +231,8 @@ const Editprofile = () => {
           setTotalExperienceData(res.data.experienceDetails || [])
           setFee(res.data.fee || '')
           setBio(res.data.bio || '')
+          setSkills(res.data.skills || [])
+
           settown(res.data.town || '')
           setCountry(res.data.country || '')
           setState(res.data.state || '')
@@ -409,7 +415,7 @@ const Editprofile = () => {
       email: email, state: state, town: town, country: country,
       userName: name,
       phone: mobile,
-      role: role, fee: fee, bio: bio,
+      role: role, fee: fee, bio: bio, skills: skills,
       documents: changeResume, experienceDetails: totalExperienceData, educationdetails: totalEducationData
     })
       .then((res) => {
@@ -894,6 +900,50 @@ const Editprofile = () => {
                   <textarea name="bio" cols={45} value={bio} id="" onChange={(e) => setBio(e.target.value)} placeholder="Enter your bio" />
                 </div>
               </div>
+
+              <div>
+                <div>
+                  <label className="update-form-label">Skills</label>
+                </div>
+                <div>
+                  {skills?.length > 0 && (
+                    <div className="listedTeam">
+                      {skills?.map((t, i) => (
+                        <div className="singleMember">
+                          <div>{t}</div>
+                          <div
+                            onClick={(e) => {
+                              setSkills(skills.filter((f, j) => i !== j));
+                            }}
+                          >
+                            <CloseIcon className="deleteMember" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div style={{display: 'flex', gap: '5px', alignItems: 'center'}}>
+                  <div>
+                    <select name="skill" id="" onChange={(e) => setSingleSkill(e.target.value)}>
+                      {allskills.map(d => (
+                        <option value={d}>{d}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div
+                    className="addtags"
+                    onClick={() => {
+                      if (skills !== "") {
+                        setSkills((prev) => [...prev, singleSkill]);
+                      }
+                    }}
+                  >
+                    <i className="fas fa-plus"></i>
+                  </div>
+                </div>
+              </div>
+
               {role == 'Mentor' && <div>
                 <div>
                   <label className="update-form-label">Fee request</label>

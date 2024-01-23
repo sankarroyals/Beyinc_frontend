@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { useNavigate } from "react-router-dom/dist";
 import "../../Editprofile/Editprofile.css";
@@ -17,11 +18,14 @@ import { AdminServices } from "../../../Services/AdminServices";
 import { setLoading, setLoginData, setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
 import { convertToDate, socket_io } from "../../../Utils";
+import { Box, Dialog, DialogContent } from "@mui/material";
+import { gridCSS } from "../../CommonStyles";
 
 export const SingleRequestProfile = () => {
     const { visible } = useSelector(state => state.auth.LoadingDetails);
 
     const { email } = useParams();
+    const [skills, setSkills] = useState([])
 
     const [inputs, setInputs] = useState({
 
@@ -115,6 +119,8 @@ export const SingleRequestProfile = () => {
                 setCountry(res.data.country || '')
                 setState(res.data.state || '')
                 dispatch(setLoading({ visible: "no" }))
+                setSkills(res.data.skills || [])
+
 
             })
             .catch((error) => {
@@ -135,53 +141,59 @@ export const SingleRequestProfile = () => {
 
     const dispatch = useDispatch();
 
-
+    const [reasonPop, setReasonPop] = useState(false)
+    const [reason, setReason] = useState('')
 
 
     const update = async (e, status) => {
         e.preventDefault();
         e.target.disabled = true;
         // setIsLoading(true);
-        await AdminServices.updateVerification({
-            email: email,
-            status: status
-        })
-            .then((res) => {
-                dispatch(
-                    setToast({
-                        message: `Profile Status changed to ${status}`,
-                        bgColor: ToastColors.success,
-                        visible: "yes",
-                    })
-                );
-                socket.current.emit("sendNotification", {
-                    senderId: jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email,
-                    receiverId: email,
-                });
-                // setIsLoading(false);
-                e.target.disabled = false
-                navigate('/profileRequests')
+        if (status == 'approved' || (status == 'rejected' && reason !== '')) {
+            await AdminServices.updateVerification({
+                email: email,
+                status: status, reason: reason
             })
-            .catch((err) => {
-                e.target.disabled = false;
+                .then((res) => {
+                    dispatch(
+                        setToast({
+                            message: `Profile Status changed to ${status}`,
+                            bgColor: ToastColors.success,
+                            visible: "yes",
+                        })
+                    );
+                    socket.current.emit("sendNotification", {
+                        senderId: jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email,
+                        receiverId: email,
+                    });
+                    // setIsLoading(false);
+                    e.target.disabled = false
+                    navigate('/profileRequests')
+                })
+                .catch((err) => {
+                    e.target.disabled = false;
+                    dispatch(
+                        setToast({
+                            message: "Error occured when changing status",
+                            bgColor: ToastColors.failure,
+                            visible: "yes",
+                        })
+                    );
+                    // setIsLoading(false);
+                });
+            setTimeout(() => {
                 dispatch(
                     setToast({
-                        message: "Error occured when changing status",
-                        bgColor: ToastColors.failure,
-                        visible: "yes",
+                        message: "",
+                        bgColor: "",
+                        visible: "no",
                     })
                 );
-                // setIsLoading(false);
-            });
-        setTimeout(() => {
-            dispatch(
-                setToast({
-                    message: "",
-                    bgColor: "",
-                    visible: "no",
-                })
-            );
-        }, 4000);
+            }, 4000);
+        } else {
+            e.target.disabled = false
+            setReasonPop(true)
+        }
     };
 
 
@@ -316,7 +328,7 @@ export const SingleRequestProfile = () => {
 
                 </div>}
 
-                {role == 'Mentor' && <div className="update-form-container">
+                <div className="update-form-container">
                     <form className="update-form">
                         <h3 className="update-heading">Personal / Fee Negotiation</h3>
                         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
@@ -357,16 +369,34 @@ export const SingleRequestProfile = () => {
                             </div>
                             <div>
                                 <div>
+                                    <label className="update-form-label">Skills</label>
+                                </div>
+                                <div>
+                                    {skills?.length > 0 && (
+                                        <div className="listedTeam">
+                                            {skills?.map((t, i) => (
+                                                <div className="singleMember">
+                                                    <div>{t}</div>
+                                                 
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+
+                            </div>
+                            {role == 'Mentor' && <div>
+                                <div>
                                     <label className="update-form-label">Fee request</label>
                                 </div>
                                 <div>
                                     <input type="range" min={1} max={50} name="fee" value={fee} id="" disabled placeholder="Enter Fee request per minute" /> &#8377; {fee} / per min
                                 </div>
-                            </div>
+                            </div>}
                         </div>
 
                     </form>
-                </div>}
+                </div>
                 <div className="update-form-container" >
                     <form className="update-form" >
                         <h3 className="update-heading">Requested files</h3>
@@ -566,7 +596,32 @@ export const SingleRequestProfile = () => {
                         </div>
                     </form>
                 </div>
-            </div>
+                </div>
+                <Dialog
+                    open={reasonPop}
+                    onClose={() => setReasonPop(false)}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    maxWidth='xl'
+                    sx={gridCSS.tabContainer}
+                // sx={ gridCSS.tabContainer }
+                >
+
+
+                    <DialogContent style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                        <Box><b>Enter Reason for rejection</b></Box>
+                        <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setReasonPop(false)}><CloseIcon /></Box>
+                        <Box>
+                            <input type="text" name="" value={reason} id="" onChange={(e) => setReason(e.target.value)} />
+                        </Box>
+                        <button type="submit" disabled={reason == ''} onClick={(e) => {
+                            update(e, 'rejected')
+                        }}>
+                            Ok
+                        </button>
+
+                    </DialogContent>
+                </Dialog>
         </div>
 
     );
