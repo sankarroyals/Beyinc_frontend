@@ -12,7 +12,7 @@ import { useParams, useNavigate } from "react-router";
 import "./IndividualMessage.css";
 import sendSound from '../Notification/send.mp3'
 import { socket_io } from "../../../Utils";
-
+import { Howl } from 'howler';
 
 
 
@@ -36,7 +36,11 @@ const IndividualMessage = () => {
 
   const [isSending, setIsSending] = useState(false);
 
-  const sendSoundRef = useRef();
+  // const sendSoundRef = useRef();
+  const sound = new Howl({
+    src: ['/send.mp3']
+  });
+
   const socket = useRef();
   useEffect(() => {
     socket.current = io(socket_io);
@@ -71,9 +75,9 @@ const IndividualMessage = () => {
     }
   }, [conversationId, messageTrigger]);
 
-  useEffect(() => {
-    sendSoundRef.current = new Audio(sendSound);
-  }, []);
+  // useEffect(() => {
+  //   sendSoundRef.current = new Audio(sendSound);
+  // }, []);
 
   useEffect(() => {
     if (liveMessage?.fileSent == true) {
@@ -85,7 +89,9 @@ const IndividualMessage = () => {
         setNormalFileName("");
         setFile("");
         setSendMessage("");
-        sendSoundRef?.current?.play()
+        // sendSoundRef?.current?.play()
+        sound.play()
+
       }).catch(err => {
         navigate('/conversations')
       });;
@@ -95,8 +101,9 @@ const IndividualMessage = () => {
 
   useEffect(() => {
     console.log(liveMessage);
-    if (liveMessage) {
-      sendSoundRef?.current?.play();
+    if (Object.keys(liveMessage).length>0) {
+      // sendSoundRef?.current?.play();
+      sound.play()
 
       setMessages((prev) => [
         ...prev,
@@ -171,12 +178,12 @@ const IndividualMessage = () => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      sendSoundRef.current.pause();
-      sendSoundRef.current.currentTime = 0;
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     sendSoundRef.current.pause();
+  //     sendSoundRef.current.currentTime = 0;
+  //   };
+  // }, []);
 
 
   useEffect(() => {

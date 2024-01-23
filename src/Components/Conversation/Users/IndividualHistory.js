@@ -33,7 +33,6 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
 
         if (status !== 'pending' && a._id !== conversationId) {
             dispatch(setConversationId(a._id))
-            console.log(a._id);
             // await ApiServices.getProfile({ email: a.members.filter((f) => f.email !== email)[0].email }).then((res) => {
             dispatch(setReceiverId(a.members.filter((f) => f.email !== email)[0].email))
             // })
