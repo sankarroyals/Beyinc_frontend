@@ -787,10 +787,10 @@ const Editprofile = () => {
                   {/* <input type="text" name="grade" id="" value={EducationDetails.grade} onChange={handleEducationChange} placeholder="Enter Your Profession" /> */}
                   <select name="grade" id="" value={EducationDetails.grade} onChange={handleEducationChange}>
                     <option value="">Select</option>
-                    <option value="ssc">10th</option>
-                    <option value="inter">Inter/Equivalent</option>
-                    <option value="ug">UG (Btech, degree)</option>
-                    <option value="pg">PG</option>
+                    <option value="SSC">10th</option>
+                    <option value="Inter">Inter/Equivalent</option>
+                    <option value="UG">UG (Btech, degree)</option>
+                    <option value="PG">PG</option>
                     <option value='other'>Other</option>
                   </select>
                 </div>
@@ -800,7 +800,7 @@ const Editprofile = () => {
                   <label className="update-form-label">College/University*</label>
                 </div>
                 <div>
-                  {(EducationDetails.grade == 'ssc' || EducationDetails.grade == '') ? <input type="text" name="college" value={EducationDetails.college} id="" onChange={handleEducationChange} placeholder="Enter Your College/School/University" /> : 
+                  {(EducationDetails.grade == 'SSC' || EducationDetails.grade == '') ? <input type="text" name="college" value={EducationDetails.college} id="" onChange={handleEducationChange} placeholder="Enter Your College/School/University" /> : 
                     <select value={EducationDetails.college} name="college" onChange={handleEducationChange} >
                       <option value=''>Select</option>
                       {universities.length > 0 && universities.map(u => (

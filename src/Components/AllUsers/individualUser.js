@@ -12,6 +12,7 @@ import ReviewStars from '../LivePitches/ReviewStars'
 import AddReviewStars from '../LivePitches/AddReviewStars'
 import { jwtDecode } from 'jwt-decode'
 import IndividualPitchComment from '../LivePitches/IndividualPitchComment'
+import { convertToDate } from '../../Utils'
 
 const IndividualUser = () => {
     const { image, userName } = useSelector(state => state.auth.loginDetails)
@@ -155,6 +156,104 @@ const IndividualUser = () => {
                             Town:
 
                             <div className='hp'>{user?.town}</div>
+
+                        </div>}
+                        <div>
+                            <div>
+                                <label className="indiPitchHiringPositions">Skills</label>
+                            </div>
+                            <div>
+                                {user.skills?.length > 0 && (
+                                    <div className="listedTeam">
+                                        {user.skills?.map((t, i) => (
+                                            <div className="singleMember indiPitchHiringPositions">
+                                                <div>{t}</div>
+
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <div>
+                                <label className="indiPitchHiringPositions">Languages Known</label>
+                            </div>
+                            <div>
+                                {user.languagesKnown?.length > 0 && (
+                                    <div className="listedTeam">
+                                        {user.languagesKnown?.map((t, i) => (
+                                            <div className="singleMember indiPitchHiringPositions">
+                                                <div>{t}</div>
+
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {user.educationDetails?.length > 0 && <div className="" style={{ flexDirection: 'column' }}>
+                            <form className="update-form">
+                                <h3 className="indiPitchHiringPositions">Educational Details</h3>
+
+                            </form>
+
+                            {user.educationDetails?.length > 0 &&
+                                user.educationDetails?.map((te, i) => (
+                                    <div style={{ marginLeft: '20px' }}>
+
+                                        <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '10px' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                <div className="company indiPitchHiringPositions">
+                                                    {te.college}
+                                                </div>
+                                                <div className="profession indiPitchHiringPositions">
+                                                    {te.grade}
+                                                </div>
+                                                <div className="timeline indiPitchHiringPositions">
+                                                    {convertToDate(te.Edstart)}
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                ))
+                            }
+
+                        </div>}
+
+                        {user.experienceDetails?.length > 0 && <div className="" style={{ flexDirection: 'column' }}>
+                            <form className="update-form">
+                                <h3 className="indiPitchHiringPositions">Experience Details</h3>
+
+                            </form>
+
+                            {user.experienceDetails?.length > 0 &&
+                                user.experienceDetails?.map((te, i) => (
+                                    <div style={{ marginLeft: '20px' }}>
+
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                <div className="company indiPitchHiringPositions">
+                                                    {te.company}
+                                                </div>
+                                                <div className="profession indiPitchHiringPositions">
+                                                    {te.profession}
+                                                </div>
+                                                <div className="timeline indiPitchHiringPositions">
+                                                    {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                ))
+                            }
 
                         </div>}
                         <div>

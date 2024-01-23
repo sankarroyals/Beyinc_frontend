@@ -384,32 +384,32 @@ export const SingleRequestProfile = () => {
                                             {skills?.map((t, i) => (
                                                 <div className="singleMember">
                                                     <div>{t}</div>
-                                                 
+
                                                 </div>
                                             ))}
                                         </div>
                                     )}
                                 </div>
 
-                                </div>
-                                
+                            </div>
+
+                            <div>
                                 <div>
-                                    <div>
-                                        <label className="update-form-label">Languages Known</label>
-                                    </div>
-                                    <div>
-                                        {languagesKnown?.length > 0 && (
-                                            <div className="listedTeam">
-                                                {languagesKnown?.map((t, i) => (
-                                                    <div className="singleMember">
-                                                        <div>{t}</div>
-                                                       
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
+                                    <label className="update-form-label">Languages Known</label>
                                 </div>
+                                <div>
+                                    {languagesKnown?.length > 0 && (
+                                        <div className="listedTeam">
+                                            {languagesKnown?.map((t, i) => (
+                                                <div className="singleMember">
+                                                    <div>{t}</div>
+
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
 
                             {role == 'Mentor' && <div>
                                 <div>
@@ -622,32 +622,32 @@ export const SingleRequestProfile = () => {
                         </div>
                     </form>
                 </div>
-                </div>
-                <Dialog
-                    open={reasonPop}
-                    onClose={() => setReasonPop(false)}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    maxWidth='xl'
-                    sx={gridCSS.tabContainer}
-                // sx={ gridCSS.tabContainer }
-                >
+            </div>
+            <Dialog
+                open={reasonPop}
+                onClose={() => setReasonPop(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                maxWidth='xl'
+                sx={gridCSS.tabContainer}
+            // sx={ gridCSS.tabContainer }
+            >
 
 
-                    <DialogContent style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
-                        <Box><b>Enter Reason for rejection</b></Box>
-                        <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setReasonPop(false)}><CloseIcon /></Box>
-                        <Box>
-                            <input type="text" name="" value={reason} id="" onChange={(e) => setReason(e.target.value)} />
-                        </Box>
-                        <button type="submit" disabled={reason == ''} onClick={(e) => {
-                            update(e, 'rejected')
-                        }}>
-                            Ok
-                        </button>
+                <DialogContent style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                    <Box><b>Enter Reason for rejection</b></Box>
+                    <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setReasonPop(false)}><CloseIcon /></Box>
+                    <Box>
+                        <input type="text" name="" value={reason} id="" onChange={(e) => setReason(e.target.value)} />
+                    </Box>
+                    <button type="submit" disabled={reason == ''} onClick={(e) => {
+                        update(e, 'rejected')
+                    }}>
+                        Ok
+                    </button>
 
-                    </DialogContent>
-                </Dialog>
+                </DialogContent>
+            </Dialog>
         </div>
 
     );
