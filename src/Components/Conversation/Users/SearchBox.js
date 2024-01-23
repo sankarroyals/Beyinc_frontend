@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import { io } from "socket.io-client";
-import { domainPitch, domain_subdomain, itPositions, socket_io, techPitch } from "../../../Utils";
+import { domain_subdomain, idealUserRole, itPositions, socket_io, stages } from "../../../Utils";
 const gridCSS = {
   activeButton: {
     background: "#4297d3",
@@ -156,6 +156,7 @@ const SearchBox = () => {
       position: "",
     });
   };
+  const totalRoles = useSelector(state => state.auth.totalRoles)
 
   const decidingRolesMessage = async (receiverMail) => {
     if (role === "Admin") {
@@ -783,16 +784,30 @@ const SearchBox = () => {
                     onChange={handleChanges}
                   >
                     <option value="">Select</option>
+                    {stages.map(d => (
+                      <option value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
 
-                    <option value="pre/startup">Pre/Startup</option>
-                    <option value="medium">Medium</option>
+              <div>
+                <div><label>User Type</label></div>
+                <div>
+                  <select name="userType" value={form?.userType} onChange={handleChanges}
+                  >
+                    <option value="">Select</option>
+
+                    {totalRoles.map(d => (
+                      <option value={d.role}>{d.role}</option>
+                    ))}
                   </select>
                 </div>
               </div>
 
               <div>
                 <div>
-                  <label>Ideal Investor Role</label>
+                  <label>Ideal User Role</label>
                 </div>
                 <div>
                   <select
@@ -801,20 +816,20 @@ const SearchBox = () => {
                     onChange={handleChanges}
                   >
                     <option value="">Select</option>
-
-                    <option value="investor">Investor Role</option>
-                    <option value="mentor">mentor Role</option>
+                    {idealUserRole.map(d => (
+                      <option value={d}>{d}</option>
+                    ))}
                   </select>
                 </div>
               </div>
 
               <div>
                 <div>
-                  <label> How much did you raise in previous?</label>
+                  <label>  How much in total have you raised till now?</label>
                 </div>
                 <div>
                   <input
-                    type="text"
+                    type="number"
                     name="previousRoundRaise"
                     value={form?.previousRoundRaise}
                     onChange={handleChanges}
@@ -825,20 +840,20 @@ const SearchBox = () => {
 
               <div>
                 <div>
-                  <label>How much are you raising in total?</label>
+                  <label style={{ width: '300px', whiteSpace: 'wrap'}}>How much total equity in % is diluted for raising above amount?</label>
                 </div>
                 <div>
                   <input
-                    type="text"
+                    type="number"
                     name="raising"
                     value={form?.raising}
                     onChange={handleChanges}
-                    placeholder="Enter how much are you raising in total?"
+                    placeholder="Enter How much total equity in % is diluted for raising above amount?"
                   />
                 </div>
               </div>
 
-              <div>
+              {/* <div>
                 <div>
                   <label>How much of this total you have raised?</label>
                 </div>
@@ -851,15 +866,16 @@ const SearchBox = () => {
                     placeholder="Enter how much of this total you have raised?"
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div>
                 <div>
-                  <label>What is the minimum investment per investor?</label>
+                  <label style={{ width: '650px', whiteSpace: 'wrap' }}>What and estimated amount you are offering to User (Entrepreneur/Mentor/Investor) who
+                    accept this Pitch? Like: Equity , Cash etc.</label>
                 </div>
                 <div>
                   <input
-                    type="text"
+                    type="number"
                     name="minimumInvestment"
                     value={form?.minimumInvestment}
                     onChange={handleChanges}
@@ -878,13 +894,13 @@ const SearchBox = () => {
             <div className="pitchForm">
               <div className="pitchformFields">
                 <div>
-                  <label>Short Summary</label>
+                  <label>Overview of Startup</label>
                 </div>
                 <div>
                   <textarea
                     type="text"
-                    name="shortSummary"
-                    value={form?.shortSummary}
+                    name="overViewOfStartup"
+                    value={form?.overViewOfStartup}
                     onChange={handleChanges}
                     rows={10}
                     cols={50}
@@ -893,28 +909,46 @@ const SearchBox = () => {
               </div>
               <div className="pitchformFields">
                 <div>
-                  <label>The Business</label>
+                  <label>Business Model</label>
                 </div>
                 <div>
                   <textarea
                     type="text"
-                    name="business"
-                    value={form?.business}
+                    name="businessModel"
+                    value={form?.businessModel}
                     onChange={handleChanges}
                     rows={10}
                     cols={80}
                   ></textarea>
                 </div>
               </div>
+
+
               <div className="pitchformFields">
                 <div>
-                  <label>The Market</label>
+                  <label>Revenue Model</label>
                 </div>
                 <div>
                   <textarea
                     type="text"
-                    name="market"
-                    value={form?.market}
+                    name="revenueModel"
+                    value={form?.revenueModel}
+                    onChange={handleChanges}
+                    rows={10}
+                    cols={80}
+                  ></textarea>
+                </div>
+              </div>
+
+              <div className="pitchformFields">
+                <div>
+                  <label>Target Market</label>
+                </div>
+                <div>
+                  <textarea
+                    type="text"
+                    name="targetMarket"
+                    value={form?.targetMarket}
                     onChange={handleChanges}
                     rows={10}
                     cols={50}
@@ -923,34 +957,52 @@ const SearchBox = () => {
               </div>
               <div className="pitchformFields">
                 <div>
-                  <label>Progress</label>
+                  <label>Target Users</label>
                 </div>
                 <div>
                   <textarea
                     type="text"
-                    name="progress"
-                    value={form?.progress}
+                    name="targetUsers"
+                    value={form?.targetUsers}
                     onChange={handleChanges}
                     rows={10}
-                    cols={80}
+                    cols={50}
                   ></textarea>
                 </div>
               </div>
               <div className="pitchformFields">
                 <div>
-                  <label>Objectives/Future</label>
+                  <label>usp</label>
                 </div>
                 <div>
                   <textarea
                     type="text"
-                    name="objectives"
-                    value={form?.objectives}
+                    name="usp"
+                    value={form?.usp}
                     onChange={handleChanges}
                     rows={10}
-                    cols={80}
+                    cols={50}
                   ></textarea>
                 </div>
               </div>
+
+              <div className="pitchformFields">
+                <div>
+                  <label>Competitor Analysis</label>
+                </div>
+                <div>
+                  <textarea
+                    type="text"
+                    name="competitorAnalysis"
+                    value={form?.competitorAnalysis}
+                    onChange={handleChanges}
+                    rows={10}
+                    cols={50}
+                  ></textarea>
+                </div>
+              </div>
+              
+             
             </div>
           </TabPanel>
 

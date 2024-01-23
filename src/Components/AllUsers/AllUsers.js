@@ -3,7 +3,6 @@ import { ApiServices } from '../../Services/ApiServices'
 import '../LivePitches/LivePitches.css'
 import { useSelector } from 'react-redux'
 import CloseIcon from "@mui/icons-material/Close";
-import { domainPitch, itPositions, techPitch } from '../../Utils';
 import axios from 'axios';
 import { Country, State } from 'country-state-city'
 import CachedIcon from "@mui/icons-material/Cached";

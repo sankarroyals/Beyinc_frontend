@@ -163,10 +163,8 @@ export const domain_subdomain = {
     ]
 }
 
-
-
-export const domainPitch = ['health', 'education']
-export const techPitch = ['web development', 'teaching']
+export const stages = ['Pre-Startup/R&D', 'MVP/Finished Product', 'Achieving Sales', 'Breaking Even', 'Profitable', 'Other']
+export const idealUserRole = ['Investor Role', 'Silent', 'Daily Involvement', 'Weekly Involvement', 'Monthly Involvement','Any']
 export const itPositions = [
     'Lead', 'Freelancer',
     'CEO',

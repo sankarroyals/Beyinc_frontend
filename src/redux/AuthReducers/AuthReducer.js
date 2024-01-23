@@ -18,7 +18,8 @@ export const apiCallSlice = createSlice(
       },
       LoadingDetails: {
         visible: 'no'
-      }
+      },
+      totalRoles: []
     },
     reducers: {
       setLoginData: (state, action) => {
@@ -29,6 +30,9 @@ export const apiCallSlice = createSlice(
       },
       setLoading: (state, action) => {
         state.LoadingDetails = action.payload;
+      },
+      setTotalRoles: (state, action) => {
+        state.totalRoles = action.payload;
       },
     }
   });
@@ -55,7 +59,7 @@ export const apicallloginDetails = () => async (dispatch) => {
   }
 }
 
-export const { setLoginData, setToast, setLoading } = apiCallSlice.actions;
+export const { setLoginData, setToast, setLoading, setTotalRoles } = apiCallSlice.actions;
 
 // this is for configureStore
 export default apiCallSlice.reducer;

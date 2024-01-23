@@ -4,7 +4,7 @@ import './App.css'
 import AuthHoc, { AdminDeciderHoc, LoginAuth } from "./AuthHoc";
 import Toast from "./Components/Toast/Toast";
 import { useDispatch, useSelector } from "react-redux";
-import { apicallloginDetails } from "./redux/AuthReducers/AuthReducer";
+import { apicallloginDetails, setTotalRoles } from "./redux/AuthReducers/AuthReducer";
 import { ApiServices } from "./Services/ApiServices";
 import UserRequests from "./Components/Admin/UserRequests/UserRequests";
 import { SingleRequestProfile } from "./Components/Admin/UserRequests/SingleProfile";
@@ -82,6 +82,11 @@ const App = () => {
     })
   }, [])
 
+  useEffect(() => {
+    ApiServices.getAllRoles().then((res) => {
+      dispatch(setTotalRoles(res.data))
+    })
+  }, [])
   return (
     <div >
       <Suspense fallback={<div className="Loading">
