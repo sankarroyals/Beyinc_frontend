@@ -173,6 +173,8 @@ export const SingleRequestProfile = () => {
                     // setIsLoading(false);
                     e.target.disabled = false
                     navigate('/profileRequests')
+                    setReasonPop(false)
+
                 })
                 .catch((err) => {
                     e.target.disabled = false;
