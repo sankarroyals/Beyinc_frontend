@@ -39,6 +39,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
                 setMessageRequest(prev => [...prev.filter((f) => f._id !== m._id)])
                 e.target.disabled = false
                 setReasonPop(false)
+                setReason('')
 
             }).catch(err => {
                 setToast({

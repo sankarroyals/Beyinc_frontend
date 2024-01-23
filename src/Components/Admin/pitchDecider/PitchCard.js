@@ -60,6 +60,7 @@ export default function PitchCard({ d }) {
                 setPitchdetails(prev => ({ ...prev, status: status }))
                 e.target.disabled = false
                 setReasonPop(false)
+                setReason('')
 
 
             }).catch(err => {

@@ -174,6 +174,7 @@ export const SingleRequestProfile = () => {
                     e.target.disabled = false
                     navigate('/profileRequests')
                     setReasonPop(false)
+                    setReason('')
 
                 })
                 .catch((err) => {
