@@ -82,6 +82,9 @@ export const SingleRequestProfile = () => {
         degree: "",
     });
 
+    const [languagesKnown, setlanguagesKnown] = useState([])
+    const [singlelanguagesKnown, setSinglelanguagesKnown] = useState('')
+
 
     const navigate = useNavigate()
 
@@ -120,6 +123,7 @@ export const SingleRequestProfile = () => {
                 setState(res.data.state || '')
                 dispatch(setLoading({ visible: "no" }))
                 setSkills(res.data.skills || [])
+                setlanguagesKnown(res.data.languagesKnown || [])
 
 
             })
@@ -384,7 +388,26 @@ export const SingleRequestProfile = () => {
                                     )}
                                 </div>
 
-                            </div>
+                                </div>
+                                
+                                <div>
+                                    <div>
+                                        <label className="update-form-label">Languages Known</label>
+                                    </div>
+                                    <div>
+                                        {languagesKnown?.length > 0 && (
+                                            <div className="listedTeam">
+                                                {languagesKnown?.map((t, i) => (
+                                                    <div className="singleMember">
+                                                        <div>{t}</div>
+                                                       
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
                             {role == 'Mentor' && <div>
                                 <div>
                                     <label className="update-form-label">Fee request</label>

@@ -16,7 +16,7 @@ import { Country, State, City } from 'country-state-city';
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
-import { allskills, convertToDate, itPositions } from "../../Utils";
+import { allLanguages, allskills, convertToDate, itPositions } from "../../Utils";
 
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
@@ -88,6 +88,9 @@ const Editprofile = () => {
   const [bio, setBio] = useState('')
   const [skills, setSkills] = useState([])
   const [singleSkill, setSingleSkill] = useState('')
+
+  const [languagesKnown, setlanguagesKnown] = useState([])
+  const [singlelanguagesKnown, setSinglelanguagesKnown] = useState('')
   const [state, setState] = useState('')
   const [country, setCountry] = useState('')
   const [town, settown] = useState('')
@@ -232,6 +235,8 @@ const Editprofile = () => {
           setFee(res.data.fee || '')
           setBio(res.data.bio || '')
           setSkills(res.data.skills || [])
+          setlanguagesKnown(res.data.languagesKnown || [])
+
 
           settown(res.data.town || '')
           setCountry(res.data.country || '')
@@ -415,7 +420,7 @@ const Editprofile = () => {
       email: email, state: state, town: town, country: country,
       userName: name,
       phone: mobile,
-      role: role, fee: fee, bio: bio, skills: skills,
+      role: role, fee: fee, bio: bio, skills: skills, languagesKnown: languagesKnown,
       documents: changeResume, experienceDetails: totalExperienceData, educationdetails: totalEducationData
     })
       .then((res) => {
@@ -926,6 +931,7 @@ const Editprofile = () => {
                 <div style={{display: 'flex', gap: '5px', alignItems: 'center'}}>
                   <div>
                     <select name="skill" id="" onChange={(e) => setSingleSkill(e.target.value)}>
+                      <option value="">Select</option>
                       {allskills.map(d => (
                         <option value={d}>{d}</option>
                       ))}
@@ -934,8 +940,52 @@ const Editprofile = () => {
                   <div
                     className="addtags"
                     onClick={() => {
-                      if (skills !== "") {
+                      if (singleSkill !== "" && !skills.includes(singleSkill)) {
                         setSkills((prev) => [...prev, singleSkill]);
+                      }
+                    }}
+                  >
+                    <i className="fas fa-plus"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div>
+                  <label className="update-form-label">Languages Known</label>
+                </div>
+                <div>
+                  {languagesKnown?.length > 0 && (
+                    <div className="listedTeam">
+                      {languagesKnown?.map((t, i) => (
+                        <div className="singleMember">
+                          <div>{t}</div>
+                          <div
+                            onClick={(e) => {
+                              setlanguagesKnown(languagesKnown.filter((f, j) => i !== j));
+                            }}
+                          >
+                            <CloseIcon className="deleteMember" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                  <div>
+                    <select name="languagesKnown" id="" onChange={(e) => setSinglelanguagesKnown(e.target.value)}>
+                      <option value="">Select</option>
+                      {allLanguages.map(d => (
+                        <option value={d}>{d}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div
+                    className="addtags"
+                    onClick={() => {
+                      if (singlelanguagesKnown !== "" && !languagesKnown.includes(singlelanguagesKnown)) {
+                        setlanguagesKnown((prev) => [...prev, singlelanguagesKnown]);
                       }
                     }}
                   >
