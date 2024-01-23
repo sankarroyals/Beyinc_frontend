@@ -23,6 +23,40 @@ const IndividualPitch = () => {
     const [pitchTrigger, setPitchTrigger] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+
+    const [filledStars, setFilledStars] = useState(0)
+
+    useEffect(() => {
+        ApiServices.getStarsFrom({ pitchId: pitchId, email: email }).then(res => {
+            setFilledStars(res.data.review !== undefined ? res.data.review : 0)
+        })
+    }, [pitchId])
+
+    const sendReview = async () => {
+        await ApiServices.addPitchReview({ pitchId: pitchId, review: { email: email, review: filledStars } }).then(res => {
+            dispatch(setToast({
+                message: 'Review Updated',
+                visible: 'yes',
+                bgColor: ToastColors.success
+            }))
+            setPitchTrigger(!pitchTrigger)
+        }).catch(err => {
+            dispatch(setToast({
+                message: 'Error Occured',
+                visible: 'yes',
+                bgColor: ToastColors.failure
+            }))
+        })
+        setTimeout(() => {
+            dispatch(setToast({
+                message: '',
+                visible: '',
+                bgColor: ''
+            }))
+        }, 4000)
+    }
+
     useEffect(() => {
         console.log('object');
         if (pitchId) {
@@ -176,7 +210,7 @@ const IndividualPitch = () => {
                         </div>}
                         <div></div>
                         <div>
-                            <AddReviewStars pitchId={pitchId} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} />
+                            <AddReviewStars setFilledStars={setFilledStars} sendReview={sendReview} filledStars={filledStars} />
                         </div>
                         <PitchDetailsReadOnly open={open} setOpen={setOpen} value={value} setValue={setValue} pitchDetails={pitch} />
 
