@@ -11,6 +11,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams, useNavigate } from "react-router";
 import "./IndividualMessage.css";
 import sendSound from '../Notification/send.mp3'
+import { socket_io } from "../../../Utils";
 
 
 
@@ -38,7 +39,7 @@ const IndividualMessage = () => {
   const sendSoundRef = useRef();
   const socket = useRef();
   useEffect(() => {
-    socket.current = io(process.env.REACT_APP_SOCKET_IO);
+    socket.current = io(socket_io);
   }, []);
 
   const onlineUsers = useSelector((state) => state.conv.onlineUsers);
@@ -76,7 +77,7 @@ const IndividualMessage = () => {
 
   useEffect(() => {
     if (liveMessage?.fileSent == true) {
-      
+
       ApiServices.getMessages({
         conversationId: conversationId,
       }).then((res) => {
@@ -90,7 +91,7 @@ const IndividualMessage = () => {
       });;
     }
   }, [liveMessage?.fileSent]);
-  
+
 
   useEffect(() => {
     console.log(liveMessage);
@@ -104,8 +105,8 @@ const IndividualMessage = () => {
     }
   }, [liveMessage]);
 
- 
-  
+
+
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -176,7 +177,7 @@ const IndividualMessage = () => {
       sendSoundRef.current.currentTime = 0;
     };
   }, []);
-  
+
 
   useEffect(() => {
     console.log(messages);

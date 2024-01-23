@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import { io } from "socket.io-client";
-import { domainPitch, itPositions, techPitch } from "../../../Utils";
+import { domainPitch, itPositions, socket_io, techPitch } from "../../../Utils";
 const gridCSS = {
   activeButton: {
     background: "#4297d3",
@@ -246,7 +246,7 @@ const SearchBox = () => {
 
   const socket = useRef();
   useEffect(() => {
-    socket.current = io(process.env.REACT_APP_SOCKET_IO);
+    socket.current = io(socket_io);
   }, []);
   const [search, setSearch] = useState("");
   const allUsers = useSelector((state) => state.conv.allUsers);
@@ -558,7 +558,7 @@ const SearchBox = () => {
         aria-describedby="alert-dialog-description"
         maxWidth="xl"
         sx={gridCSS.tabContainer}
-        // sx={ gridCSS.tabContainer }
+      // sx={ gridCSS.tabContainer }
       >
         <DialogContent
           style={{
@@ -1146,16 +1146,16 @@ const SearchBox = () => {
                         href={form?.logo.secure_url}
                         style={{ display: "inline-block" }}
                       >
-                       <img title='view Previous Logo'
-                              style={{
-                                height: "30px",
-                                width: "30px",
-                                marginLeft: '270px'
-                              }}
-                              src="/view.png"
-                              onMouseEnter={() => setShowPreviousFile(true)}
-                              onMouseLeave={() => setShowPreviousFile(false)}
-                            />
+                        <img title='view Previous Logo'
+                          style={{
+                            height: "30px",
+                            width: "30px",
+                            marginLeft: '270px'
+                          }}
+                          src="/view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
                       </a>
                     )}
                 </div>
@@ -1186,16 +1186,16 @@ const SearchBox = () => {
                         href={form?.banner.secure_url}
                         style={{ display: "inline-block" }}
                       >
-                      <img title='view Previous Banner Image'
-                              style={{
-                                height: "30px",
-                                width: "30px",
-                                marginLeft: '210px',
-                              }}
-                              src="/view.png"
-                              onMouseEnter={() => setShowPreviousFile(true)}
-                              onMouseLeave={() => setShowPreviousFile(false)}
-                            />
+                        <img title='view Previous Banner Image'
+                          style={{
+                            height: "30px",
+                            width: "30px",
+                            marginLeft: '210px',
+                          }}
+                          src="/view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
                       </a>
                     )}
                 </div>
@@ -1235,31 +1235,31 @@ const SearchBox = () => {
                         href={form?.pitch.secure_url}
                         style={{ display: "inline-block" }}
                       >
-                       <img title='view Previous Business Plan'
-                              style={{
-                                height: "30px",
-                                width: "30px",
-                                marginLeft: '110px'
-                              }}
-                              src="/view.png"
-                              onMouseEnter={() => setShowPreviousFile(true)}
-                              onMouseLeave={() => setShowPreviousFile(false)}
-                            />
+                        <img title='view Previous Business Plan'
+                          style={{
+                            height: "30px",
+                            width: "30px",
+                            marginLeft: '110px'
+                          }}
+                          src="/view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
                       </a>
                     )}
                 </div>
                 <div>
-                <label htmlFor="Business" className="file">
+                  <label htmlFor="Business" className="file">
                     <CloudUploadIcon />
                     <span className="fileName">{Business}</span>
                   </label>
                   <input
-                  className="file"
-                  id="Business"
+                    className="file"
+                    id="Business"
                     type="file"
                     name="name"
                     onChange={handlePitchBusiness}
-                    style={{display: 'none'}}
+                    style={{ display: 'none' }}
                   />
                 </div>
               </div>
@@ -1275,31 +1275,31 @@ const SearchBox = () => {
                         href={form?.financials.secure_url}
                         style={{ display: "inline-block" }}
                       >
-                       <img title='view Previous Financials'
-                              style={{
-                                height: "30px",
-                                width: "30px",
-                                marginLeft: '230px'
-                              }}
-                              src="/view.png"
-                              onMouseEnter={() => setShowPreviousFile(true)}
-                              onMouseLeave={() => setShowPreviousFile(false)}
-                            />
+                        <img title='view Previous Financials'
+                          style={{
+                            height: "30px",
+                            width: "30px",
+                            marginLeft: '230px'
+                          }}
+                          src="/view.png"
+                          onMouseEnter={() => setShowPreviousFile(true)}
+                          onMouseLeave={() => setShowPreviousFile(false)}
+                        />
                       </a>
                     )}
                 </div>
                 <div>
-                <label htmlFor="Financials" className="file">
+                  <label htmlFor="Financials" className="file">
                     <CloudUploadIcon />
                     <span className="fileName">{Financial}</span>
                   </label>
                   <input
-                  className="file"
-                  id='Financials'
+                    className="file"
+                    id='Financials'
                     type="file"
                     name="name"
                     onChange={handlePitchFinancials}
-                    style={{display: 'none'}}
+                    style={{ display: 'none' }}
                   />
                 </div>
               </div>
@@ -1335,11 +1335,11 @@ const SearchBox = () => {
                     <div className="listedTeam">
                       {form.hiringPositions.map((t, i) => (
                         <div className="singleMember">
-                          
+
                           <div>{t}</div>
                           <div
                             onClick={(e) => {
- 
+
                               setForm((prev) => ({
                                 ...prev, hiringPositions: form.hiringPositions.filter((f, j) => i !== j),
                                 changeStatus: "change",
@@ -1367,7 +1367,7 @@ const SearchBox = () => {
                     {itPositions.map(h => (
                       <option value={h}>{h}</option>
                     ))}
-                   
+
                   </select>
                 </div>
               </div>

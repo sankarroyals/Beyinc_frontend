@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef }from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css'
 import AuthHoc, { AdminDeciderHoc, LoginAuth } from "./AuthHoc";
@@ -15,6 +15,7 @@ import IndividualPitch from "./Components/LivePitches/IndividualPitch";
 import LoadingData from "./Components/Toast/Loading";
 import AllUsers from "./Components/AllUsers/AllUsers";
 import IndividualUser from "./Components/AllUsers/individualUser";
+import { socket_io } from "./Utils";
 
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
@@ -23,8 +24,8 @@ const ForgotPassword = React.lazy(() => wait(1000).then(() => import("./Componen
 const Navbar = React.lazy(() => import("./Components/Navbar/Navbar"));
 const Home = React.lazy(() => wait(1000).then(() => import("./Components/Home/Home")));
 const Editprofile = React.lazy(() => wait(1000).then(() => import("./Components/Editprofile/Editprofile")));
-const Conversations = React.lazy(() => wait(1000).then(()=> import("./Components/Conversation/Conversations")));
-const  Notifications= React.lazy(() => wait(1000).then(()=> import("./Components/Conversation/Notification/Notifications")));
+const Conversations = React.lazy(() => wait(1000).then(() => import("./Components/Conversation/Conversations")));
+const Notifications = React.lazy(() => wait(1000).then(() => import("./Components/Conversation/Notification/Notifications")));
 const AllPitches = React.lazy(() => wait(1000).then(() => import("./Components/Admin/pitchDecider/AllPitches")));
 
 const LoggedInPitches = React.lazy(() => wait(1000).then(() => import('./Components/LoggedInPitches/LoggedInPitches')))
@@ -46,7 +47,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    socket.current = io(process.env.REACT_APP_SOCKET_IO)
+    socket.current = io(socket_io)
   }, [])
 
   // adding online users to socket io
@@ -84,19 +85,19 @@ const App = () => {
   return (
     <div >
       <Suspense fallback={<div className="Loading">
-        <img src="/Loader.gif"/>
+        <img src="/Loader.gif" />
         {/* <div className="Loading-Text">Loading...</div> */}
       </div>}>
         <Toast />
         <LoadingData />
-        <Navbar/>
+        <Navbar />
 
         <Routes>
           <Route path="/signup" Component={LoginAuth(SignUp)} />
           <Route path="/login" Component={LoginAuth(Login)} />
           <Route path="/forgotpassword" Component={LoginAuth(ForgotPassword)} />
 
-  
+
           <Route path="/" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
           <Route path="/conversations" Component={AuthHoc(Conversations)} />
@@ -111,7 +112,7 @@ const App = () => {
 
 
 
-          
+
           <Route path="/pitches" Component={AdminDeciderHoc(AllPitches)} />
           <Route path="/profileRequests" Component={AdminDeciderHoc(UserRequests)} />
           <Route path="/singleProfileRequest/:email" Component={AdminDeciderHoc(SingleRequestProfile)} />
@@ -128,8 +129,8 @@ const App = () => {
 };
 
 function wait(time) {
-  return new Promise( resolve => {
-      setTimeout(resolve, time)
+  return new Promise(resolve => {
+    setTimeout(resolve, time)
   })
 }
 export default App;

@@ -1,3 +1,5 @@
+export const socket_io = "https://beyinc-socket.onrender.com"
+// export const socket_io = "ws://localhost:8900"
 export const domainPitch = ['health', 'education']
 export const techPitch = ['web development', 'teaching']
 export const itPositions = [

@@ -16,7 +16,7 @@ import { format } from "timeago.js";
 import { AdminServices } from "../../../Services/AdminServices";
 import { setLoading, setLoginData, setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
-import { convertToDate } from "../../../Utils";
+import { convertToDate, socket_io } from "../../../Utils";
 
 export const SingleRequestProfile = () => {
     const { visible } = useSelector(state => state.auth.LoadingDetails);
@@ -52,7 +52,7 @@ export const SingleRequestProfile = () => {
 
     const socket = useRef();
     useEffect(() => {
-        socket.current = io(process.env.REACT_APP_SOCKET_IO);
+        socket.current = io(socket_io);
     }, []);
 
 
@@ -83,7 +83,7 @@ export const SingleRequestProfile = () => {
 
 
     useEffect(() => {
-        dispatch(setLoading({visible : "yes"}))
+        dispatch(setLoading({ visible: "yes" }))
         AdminServices.getApprovalRequestProfile({ email: email })
             .then((res) => {
                 console.log(res.data);
@@ -114,7 +114,7 @@ export const SingleRequestProfile = () => {
                 settown(res.data.town || '')
                 setCountry(res.data.country || '')
                 setState(res.data.state || '')
-                dispatch(setLoading({visible : "no"}))
+                dispatch(setLoading({ visible: "no" }))
 
             })
             .catch((error) => {
@@ -125,7 +125,7 @@ export const SingleRequestProfile = () => {
                         visible: "yes",
                     })
                 );
-                dispatch(setLoading({visible : "no"}))
+                dispatch(setLoading({ visible: "no" }))
                 navigate('/profileRequests')
             });
     }, [email]);
@@ -186,10 +186,10 @@ export const SingleRequestProfile = () => {
 
 
     return (
-        visible === "no" && 
+        visible === "no" &&
         <div className="update-container" style={{ minHeight: '80vh' }}>
             <div className="updateContainerWrapper">
-           
+
                 <div className="heading">
                     <div>
                         <img
@@ -255,40 +255,40 @@ export const SingleRequestProfile = () => {
                         </div>
                     </div>
                 </div>
-               
-                    <>
-                       {totalExperienceData.length>0 &&  <div className="update-form-container" style={{ flexDirection: 'column' }}>
-                           
-                           <h3 className="update-heading">Work Experience</h3>
-   
-                               {totalExperienceData.length > 0 &&
-                                   totalExperienceData.map((te, i) => (
-                                       <div>
-   
-                                           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                                               <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
-                                                   <div className="company">
-                                                       {te.company}
-                                                   </div>
-                                                   <div className="profession">
-                                                       {te.profession}
-                                                   </div>
-                                                   <div className="timeline">
-                                                       {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
-                                                   </div>
-                                               </div>
-   
-                                           </div>
-   
-                                       </div>
-                                   ))
-                               }
-                           </div>}
-                    </>
-                   { totalEducationData.length>0 &&  <div className="update-form-container" style={{ flexDirection: 'column' }}>
+
+                <>
+                    {totalExperienceData.length > 0 && <div className="update-form-container" style={{ flexDirection: 'column' }}>
+
+                        <h3 className="update-heading">Work Experience</h3>
+
+                        {totalExperienceData.length > 0 &&
+                            totalExperienceData.map((te, i) => (
+                                <div>
+
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                                            <div className="company">
+                                                {te.company}
+                                            </div>
+                                            <div className="profession">
+                                                {te.profession}
+                                            </div>
+                                            <div className="timeline">
+                                                {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            ))
+                        }
+                    </div>}
+                </>
+                {totalEducationData.length > 0 && <div className="update-form-container" style={{ flexDirection: 'column' }}>
                     <form className="update-form">
                         <h3 className="update-heading">Educational Details</h3>
-                        
+
                     </form>
 
                     {totalEducationData.length > 0 &&
@@ -315,7 +315,7 @@ export const SingleRequestProfile = () => {
                     }
 
                 </div>}
-               
+
                 {role == 'Mentor' && <div className="update-form-container">
                     <form className="update-form">
                         <h3 className="update-heading">Personal / Fee Negotiation</h3>
@@ -325,7 +325,7 @@ export const SingleRequestProfile = () => {
                                     <label className="update-form-label">Country</label>
                                 </div>
                                 <div>
-                                    <input type="text" value={country} disabled/>
+                                    <input type="text" value={country} disabled />
                                 </div>
                             </div>
 
@@ -336,7 +336,7 @@ export const SingleRequestProfile = () => {
                                 <div>
                                     <input type="text" value={state} disabled />
                                 </div>
-                                
+
                             </div>
 
                             <div>
@@ -533,9 +533,9 @@ export const SingleRequestProfile = () => {
                                 marginTop: "15px",
                             }}
                         >
-                        <button type="button" onClick={() => navigate(-1)}>Back</button>
+                            <button type="button" onClick={() => navigate(-1)}>Back</button>
 
-                            <button type="submit" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled = {inputs.status === "rejected"}>
+                            <button type="submit" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "rejected"}>
                                 {/* {isLoading ? (
                                     <>
                                         <img
@@ -549,7 +549,7 @@ export const SingleRequestProfile = () => {
                                 <>Reject</>
                                 {/* )} */}
                             </button>
-                            <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled = {inputs.status === "approved"}>
+                            <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "approved"}>
                                 {isLoading ? (
                                     <>
                                         <img
@@ -568,6 +568,6 @@ export const SingleRequestProfile = () => {
                 </div>
             </div>
         </div>
-        
+
     );
 };

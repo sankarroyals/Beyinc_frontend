@@ -16,10 +16,11 @@ import { io } from "socket.io-client";
 import { setToast } from '../../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../../Toast/ToastColors';
 import { AdminServices } from '../../../Services/AdminServices';
+import { socket_io } from '../../../Utils';
 export default function PitchCard({ d }) {
     const socket = useRef();
     useEffect(() => {
-        socket.current = io(process.env.REACT_APP_SOCKET_IO);
+        socket.current = io(socket_io);
     }, []);
     const { email } = useSelector(state => state.auth.loginDetails)
     const navigate = useNavigate()
@@ -76,13 +77,13 @@ export default function PitchCard({ d }) {
         setPitchdetails(d)
     }, [d])
     return (
-        <Card sx={{maxWidth: 340, minWidth: 250,  boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)'  }}>
+        <Card sx={{ maxWidth: 340, minWidth: 250, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)' }}>
             <div style={{ display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px' }}>
                 <img className='userCardImage'
                     src={d.profile_pic !== undefined && d.profile_pic !== "" ? d.profile_pic : "/profile.jpeg"}
                     title={d.email}
                 />
-                <div style={{fontWeight: '600', marginTop: '40px', marginLeft: '30px'}}>{d.role}
+                <div style={{ fontWeight: '600', marginTop: '40px', marginLeft: '30px' }}>{d.role}
                     <div title={d.status}>
                         <span style={{
                             fontSize: '14px', marginLeft: '5px', color: d.status == 'approved' ? 'green' : (d.status == 'pending' ? 'orange' : 'red'),
@@ -94,7 +95,7 @@ export default function PitchCard({ d }) {
 
             </div>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Typography gutterBottom variant="h5" component="div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {d.userName}
                 </Typography>
             </CardContent>
