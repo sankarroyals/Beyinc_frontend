@@ -5,7 +5,6 @@ import { setToast } from '../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../Toast/ToastColors';
 
 const AddReviewStars = ({ filledStars, sendReview, setFilledStars }) => {
-    const { email } = useSelector(state => state.auth.loginDetails)
 
 
 

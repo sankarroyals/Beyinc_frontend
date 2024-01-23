@@ -5,23 +5,30 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setToast } from '../../redux/AuthReducers/AuthReducer'
 import { ToastColors } from '../Toast/ToastColors'
 import { format } from 'timeago.js'
+import SendIcon from "@mui/icons-material/Send";
 
 import '../LivePitches/LivePitches.css'
 import ReviewStars from '../LivePitches/ReviewStars'
 import AddReviewStars from '../LivePitches/AddReviewStars'
 import { jwtDecode } from 'jwt-decode'
+import IndividualPitchComment from '../LivePitches/IndividualPitchComment'
 
 const IndividualUser = () => {
+    const { image, userName } = useSelector(state => state.auth.loginDetails)
+
     const [user, setuser] = useState('')
     const [averagereview, setAverageReview] = useState(0)
     const [emailTrigger, setemailTrigger] = useState(false)
     const { email } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [comment, setComment] = useState('')
+
     useEffect(() => {
         if (email) {
             ApiServices.getProfile({ email: email }).then(res => {
-                setuser({ ...res.data })
+                setuser({ ...res.data, comments: [...res.data.comments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))] })
+
                 if (res.data.review !== undefined && res.data.review?.length > 0) {
                     let avgR = 0
                     res.data.review?.map((rev) => {
@@ -75,8 +82,27 @@ const IndividualUser = () => {
         }, 4000)
     }
 
+    const sendText = async () => {
+        await ApiServices.addUserComment({ userEmail: email, comment: { email: jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email, comment: comment } }).then(res => {
+            // setPitchTrigger(!pitchTrigger)
+            setuser(prev => ({ ...prev, comments: [{ email: jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email, profile_pic: image, userName: userName, comment: comment, createdAt: new Date() }, ...user.comments] }))
+            setComment('')
+        }).catch(err => {
+            navigate('/searchusers')
+        })
+    }
 
-
+    const deleteComment = async (id) => {
+        await ApiServices.removeUserComment({ email: email, commentId: id }).then(res => {
+            setuser(prev => ({ ...prev, comments: user.comments = user.comments.filter(f => f._id !== id) }))
+        }).catch(err => {
+            dispatch(setToast({
+                visible: 'yes',
+                message: 'Error Occured',
+                bgColor: 'red'
+            }))
+        })
+    }
     return (
         <div>
             <div className='individualPitchContainer'>
@@ -137,6 +163,31 @@ const IndividualUser = () => {
                         <div></div>
 
                     </div>
+                </div>
+                <div className='commentsContainer'>
+                    <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                        <div>
+                            <textarea row={4} cols={50} value={comment} onChange={(e) => setComment(e.target.value)} placeholder='Enter Comment' />
+                        </div>
+                        <div>
+                            {comment !== "" ? (
+                                <SendIcon
+                                    className="sendIcon"
+                                    onClick={sendText}
+                                    style={{ color: "#0b57d0", cursor: "pointer", fontSize: "24px" }}
+                                />
+                            ) : (
+                                <SendIcon
+                                    className="sendIcon"
+                                    style={{ color: "gray", fontSize: "24px", marginTop: "10px" }}
+                                />
+                            )}
+                        </div>
+                    </div>
+                    {user?.comments?.length > 0 && <div>Reviews:</div>}
+                    {user?.comments?.length > 0 && user.comments?.map(c => (
+                        <IndividualPitchComment c={c} deleteComment={deleteComment} />
+                    ))}
                 </div>
             </div>
 

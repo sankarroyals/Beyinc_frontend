@@ -93,6 +93,17 @@ const IndividualPitch = () => {
         })
     }
 
+    const deleteComment = async (id) => {
+        await ApiServices.removePitchComment({ pitchId: pitchId, commentId: id }).then(res => {
+            setpitch(prev => ({ ...prev, comments: pitch.comments = pitch.comments.filter(f => f._id !== id) }))
+        }).catch(err => {
+            dispatch(setToast({
+                visible: 'yes',
+                message: 'Error Occured',
+                bgColor: 'red'
+            }))
+        })
+    }
 
     const addToIntrest = async () => {
         await ApiServices.addIntrest({ pitchId: pitchId, email: email }).then((res) => {
@@ -240,7 +251,7 @@ const IndividualPitch = () => {
                 </div>
                 {pitch?.comments?.length > 0 && <div>Discussions:</div>}
                 {pitch?.comments?.length > 0 && pitch.comments?.map(c => (
-                    <IndividualPitchComment c={c} pitch={pitch} setpitch={setpitch} setPitchTrigger={setPitchTrigger} />
+                    <IndividualPitchComment c={c} deleteComment={deleteComment} />
                 ))}
             </div>
         </div>
