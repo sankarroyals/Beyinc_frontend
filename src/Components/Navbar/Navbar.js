@@ -193,7 +193,7 @@ const Navbar = () => {
         className="logo"
         style={{ cursor: "pointer" }}
         onClick={() => {
-          navigate("/");
+          navigate("/home");
         }}
       >
         BEYINC

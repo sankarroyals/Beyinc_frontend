@@ -448,7 +448,7 @@ const Editprofile = () => {
         });
         localStorage.setItem("user", JSON.stringify(res.data));
         dispatch(setLoginData(jwtDecode(res.data.accessToken)));
-        navigate("/");
+        navigate("/home");
         setIsLoading(false);
       })
       .catch((err) => {

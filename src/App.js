@@ -101,9 +101,9 @@ const App = () => {
           <Route path="/signup" Component={LoginAuth(SignUp)} />
           <Route path="/login" Component={LoginAuth(Login)} />
           <Route path="/forgotpassword" Component={LoginAuth(ForgotPassword)} />
-          <Route path="/LandingPage" Component={LoginAuth(LandingPage)} />
+          <Route path="/" element={<LandingPage/>} />
 
-          <Route path="/" Component={AuthHoc(Home)} />
+          <Route path="/home" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
           <Route path="/conversations" Component={AuthHoc(Conversations)} />
           <Route path="/conversations/:conversationId" Component={AuthHoc(Conversations)} />
@@ -113,8 +113,6 @@ const App = () => {
           <Route path="/livePitches/:pitchId" Component={AuthHoc(IndividualPitch)} />
           <Route path="/searchusers" Component={AuthHoc(AllUsers)} />
           <Route path="/user/:email" Component={AuthHoc(IndividualUser)} />
-
-
 
 
 
