@@ -304,6 +304,27 @@ button:hover {
   width: 80%;
 }
 
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+ 
+  left: -4px !important;
+  background: white !important;
+  top: -5px !important;
+}
+
+.back-button{
+  background: grey;
+}
+.back-button:hover{
+  background: rgb(169, 161, 161);
+}
+
+.reject-button{
+  background: red;
+}
+.reject-button:hover{
+  background: rgb(204, 20, 20);
+}
+
 @media (max-width: 768px) {
   input[type='email'], input[type='password'], input[type= 'text'] {
     width: 280px !important;
