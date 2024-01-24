@@ -1,0 +1,144 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+.Beyinc-logo {
+background: transparent;
+  width: 100%;
+}
+
+.Beyinc-logo img {
+  height: auto;
+  width: 200px;
+  margin-left: 60px;
+  margin-top: 10px;
+}
+
+
+.sign-button {
+    background: #ff6824;
+    border-radius: 15px;
+    width: 140px;
+    position: fixed;
+    top: 6%;
+    right: 5%;
+    transform: translate(0, -50%);
+}
+
+.sign-button:hover {
+    background: linear-gradient(35deg, #FF6824 0%, #656FFF 100%);
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: -8%;
+}
+
+.home img{
+    display: none;
+}
+.home h1 {
+    font-size: 50px;
+    font-family: 'BasierCircleBold', sans-serif;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 10px; 
+}
+
+.home h3 {
+    font-size: 35px;
+    font-family: 'BasierCircleMedium', sans-serif;
+    margin-top: 15px; 
+    background: linear-gradient(35deg, #FF6824 0%, #656FFF 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.playstore{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.playstore img{
+   
+    width: 12%;
+    height: auto;
+    margin: 10px;
+}
+
+
+.poweredby {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    color: grey;
+}
+
+.poweredby-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.poweredby-img img {
+    width: auto; 
+    height: 30px;
+    margin: 0 5px; 
+  
+}
+
+@media (max-width: 768px) {
+    .Beyinc-logo img {
+      width: 50%;
+      margin-left: 10px;
+    }
+  
+    .sign-button {
+      width: 125px !important;
+      margin-top: 5px;
+    }
+  
+    .home {
+      margin-top: -10px;
+    }
+    .home img{
+        display: block;
+        height: 250px;
+        width: 250px;
+        margin-top: 25px;
+    }
+
+    .home h1 {
+      font-size: 24px;
+      margin-top: 25px;
+    }
+  
+    .home h3 {
+      font-size: 16px;
+    }
+  
+    .playstore img {
+      width: 35%;
+    }
+  
+    .poweredby{
+        font-size: 12px;
+        color: grey;
+    }
+    .poweredby-img img {
+      height: 16px;
+    }
+
+  }
+  
+

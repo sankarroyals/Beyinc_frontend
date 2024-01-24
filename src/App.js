@@ -16,6 +16,7 @@ import LoadingData from "./Components/Toast/Loading";
 import AllUsers from "./Components/AllUsers/AllUsers";
 import IndividualUser from "./Components/AllUsers/individualUser";
 import { socket_io } from "./Utils";
+import LandingPage from "./Components/LandingPage/LandingPage";
 
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
@@ -96,12 +97,11 @@ const App = () => {
         <Toast />
         <LoadingData />
         <Navbar />
-
         <Routes>
           <Route path="/signup" Component={LoginAuth(SignUp)} />
           <Route path="/login" Component={LoginAuth(Login)} />
           <Route path="/forgotpassword" Component={LoginAuth(ForgotPassword)} />
-
+          <Route path="/LandingPage" Component={LoginAuth(LandingPage)} />
 
           <Route path="/" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
