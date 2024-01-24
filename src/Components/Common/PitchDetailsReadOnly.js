@@ -6,7 +6,7 @@ import { Box, Dialog, DialogContent, Tab, Tabs, Typography } from '@mui/material
 import { gridCSS } from '../CommonStyles';
 import { useSelector } from 'react-redux'
 import { Country, State, City } from 'country-state-city';
-import { domainPitch, techPitch } from '../../Utils'
+import { idealUserRole, stages } from '../../Utils'
 
 function a11yProps(index) {
     return {
@@ -41,6 +41,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    const totalRoles = useSelector(state => state.auth.totalRoles)
     console.log(pitchDetails);
     const handleClose = () => {
         setOpen(false);
@@ -131,27 +132,28 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
 
                             <div>
-                                <div><label>Industry 1</label></div>
+                                <div><label>Domain</label></div>
                                 <div>
-                                    <select disabled name="industry1" value={pitchDetails?.industry1}
-                                    >
-                                        <option value="">Select</option>
-                                        {domainPitch.map(d => (
-                                            <option value={d}>{d}</option>
-                                        ))}
-                                    </select>
+                                    <input disabled
+                                        type="text"
+                                        name="industry 1"
+                                        value={pitchDetails?.industry1}
+
+
+                                    />
+                                    
                                 </div>
                             </div>
                             <div>
-                                <div><label>Industry 1</label></div>
+                                <div><label>Sub domain</label></div>
                                 <div>
-                                    <select disabled name="industry2" value={pitchDetails?.industry2}
-                                    >
-                                        <option value="">Select</option>
-                                        {techPitch.map(d => (
-                                            <option value={d}>{d}</option>
-                                        ))}
-                                    </select>
+                                    <input disabled
+                                        type="text"
+                                        name="industry 2"
+                                        value={pitchDetails?.industry1}
+
+
+                                    />
                                 </div>
                             </div>
 
@@ -162,28 +164,44 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                     >
                                         <option value="">Select</option>
 
-                                        <option value="pre/startup">Pre/Startup</option>
-                                        <option value="medium">Medium</option>
+                                        {stages.map(d => (
+                                            <option value={d}>{d}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
 
                             <div>
-                                <div><label>Ideal Investor Role</label></div>
+                                <div><label>User Type</label></div>
+                                <div>
+                                    <select disabled name="userType" value={pitchDetails?.userType}
+                                    >
+                                        <option value="">Select</option>
+
+                                        {totalRoles.map(d => (
+                                            <option value={d.role}>{d.role}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div><label>Ideal User Role</label></div>
                                 <div>
                                     <select disabled name="idealInvestor" value={pitchDetails?.idealInvestor}
                                     >
                                         <option value="">Select</option>
 
-                                        <option value="investor">Investor Role</option>
-                                        <option value="mentor">mentor Role</option>
+                                        {idealUserRole.map(d => (
+                                            <option value={d}>{d}</option>
+                                        ))}
 
                                     </select>
                                 </div>
                             </div>
 
                             <div>
-                                <div><label> How much did you raise in previous?</label></div>
+                                <div><label>  How much in total have you raised till now?</label></div>
                                 <div><input disabled
                                     type="text"
                                     name="previousRoundRaise"
@@ -194,7 +212,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
 
                             <div>
-                                <div><label>How much are you raising in total?</label></div>
+                                <div><label style={{ width: '300px', whiteSpace: 'wrap' }}>How much total equity in % is diluted for raising above amount?</label></div>
                                 <div><input disabled
                                     type="text"
                                     name="raising"
@@ -204,7 +222,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                 /></div>
                             </div>
 
-                            <div>
+                            {/* <div>
                                 <div><label>How much of this total you have raised?</label></div>
                                 <div><input disabled
                                     type="text"
@@ -213,10 +231,11 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
 
 
                                 /></div>
-                            </div>
+                            </div> */}
 
                             <div>
-                                <div><label>What is the minimum investment per investor?</label></div>
+                                <div><label style={{ width: '650px', whiteSpace: 'wrap' }}>What and estimated amount you are offering to User (Entrepreneur/Mentor/Investor) who
+                                    accept this Pitch? Like: Equity , Cash etc.</label></div>
                                 <div><input disabled
                                     type="text"
                                     name="minimumInvestment"
@@ -236,55 +255,78 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
 
                         <div className='pitchForm'>
                             <div className='pitchformFields'>
-                                <div><label>Short Summary</label></div>
+                                <div><label>Overview of Startup</label></div>
                                 <div><textarea disabled
                                     type="text"
-                                    name="shortSummary"
-                                    value={pitchDetails?.shortSummary}
+                                    name="overViewOfStartup"
+                                    value={pitchDetails?.overViewOfStartup}
 
                                     rows={10} cols={50}
                                 ></textarea></div>
                             </div>
                             <div className='pitchformFields'>
-                                <div><label>The Business</label></div>
+                                <div><label>Business Model</label></div>
                                 <div><textarea disabled
                                     type="text"
-                                    name="business"
-                                    value={pitchDetails?.business}
+                                    name="businessModel"
+                                    value={pitchDetails?.businessModel}
 
                                     rows={10} cols={80}
                                 ></textarea></div>
                             </div>
+
                             <div className='pitchformFields'>
-                                <div><label>The Market</label></div>
+                                <div><label>Revenue Model</label></div>
                                 <div><textarea disabled
                                     type="text"
-                                    name="market"
-                                    value={pitchDetails?.market}
+                                    name="revenueModel"
+                                    value={pitchDetails?.revenueModel}
+
+                                    rows={10} cols={80}
+                                ></textarea></div>
+                            </div>
+
+                            <div className='pitchformFields'>
+                                <div><label>Target Market</label></div>
+                                <div><textarea disabled
+                                    type="text"
+                                    name="targetMarket"
+                                    value={pitchDetails?.targetMarket}
 
                                     rows={10} cols={50}
                                 ></textarea></div>
                             </div>
                             <div className='pitchformFields'>
-                                <div><label>Progress</label></div>
+                                <div><label>Target Users</label></div>
                                 <div><textarea disabled
                                     type="text"
-                                    name="progress"
-                                    value={pitchDetails?.progress}
+                                    name="targetUsers"
+                                    value={pitchDetails?.targetUsers}
 
-                                    rows={10} cols={80}
+                                    rows={10} cols={50}
                                 ></textarea></div>
                             </div>
                             <div className='pitchformFields'>
-                                <div><label>Objectives/Future</label></div>
+                                <div><label>USP</label></div>
                                 <div><textarea disabled
                                     type="text"
-                                    name="objectives"
-                                    value={pitchDetails?.objectives}
+                                    name="usp"
+                                    value={pitchDetails?.usp}
 
-                                    rows={10} cols={80}
+                                    rows={10} cols={50}
                                 ></textarea></div>
                             </div>
+                            <div className='pitchformFields'>
+                                <div><label>Competitor Analysis</label></div>
+                                <div><textarea disabled
+                                    type="text"
+                                    name="usp"
+                                    value={pitchDetails?.competitorAnalysis}
+
+                                    rows={10} cols={50}
+                                ></textarea></div>
+                            </div>
+                            
 
                         </div>
 

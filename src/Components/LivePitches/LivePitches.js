@@ -12,7 +12,7 @@ import SinglePitchetails from './SinglePitchDetails'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { CheckBox } from '@mui/icons-material'
-import { domainPitch, itPositions, techPitch } from '../../Utils'
+import {  domain_subdomain, itPositions } from '../../Utils'
 import { Country, State } from 'country-state-city'
 const LivePitches = () => {
     const [data, setData] = useState([])
@@ -199,8 +199,8 @@ const LivePitches = () => {
                                 }}
                             >
                                 <option value="">Select</option>
-                                {domainPitch.map(h => (
-                                    <option value={h}>{h}</option>
+                                {Object.keys(domain_subdomain).map(d => (
+                                    <option value={d}>{d}</option>
                                 ))}
 
                             </select>
@@ -241,8 +241,10 @@ const LivePitches = () => {
                                 }}
                             >
                                 <option value="">Select</option>
-                                {techPitch.map(h => (
-                                    <option value={h}>{h}</option>
+                                {filters.industry1?.map(d => (
+                                    domain_subdomain[d]?.map(d => (
+                                        <option value={d}>{d}</option>
+                                    ))
                                 ))}
 
                             </select>

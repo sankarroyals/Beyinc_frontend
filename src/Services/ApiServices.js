@@ -327,9 +327,62 @@ export const ApiServices = {
         })
     },
 
+    addUserComment: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/userDetails/addUserComment`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    removeUserComment: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/userDetails/deleteUserComment`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
     addPitchReview: (obj) => {
         return new Promise((resolve, reject) => {
             axiosInstance.post(`/pitch/addStar`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
+    addUserReview: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/userDetails/addUserReview`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    getUsersStarsFrom: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/userDetails/getUserReview`, obj)
                 .then((res) => {
                     if (res) {
                         resolve(res)

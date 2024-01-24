@@ -23,6 +23,40 @@ const IndividualPitch = () => {
     const [pitchTrigger, setPitchTrigger] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+
+    const [filledStars, setFilledStars] = useState(0)
+
+    useEffect(() => {
+        ApiServices.getStarsFrom({ pitchId: pitchId, email: email }).then(res => {
+            setFilledStars(res.data.review !== undefined ? res.data.review : 0)
+        })
+    }, [pitchId])
+
+    const sendReview = async () => {
+        await ApiServices.addPitchReview({ pitchId: pitchId, review: { email: email, review: filledStars } }).then(res => {
+            dispatch(setToast({
+                message: 'Review Updated',
+                visible: 'yes',
+                bgColor: ToastColors.success
+            }))
+            setPitchTrigger(!pitchTrigger)
+        }).catch(err => {
+            dispatch(setToast({
+                message: 'Error Occured',
+                visible: 'yes',
+                bgColor: ToastColors.failure
+            }))
+        })
+        setTimeout(() => {
+            dispatch(setToast({
+                message: '',
+                visible: '',
+                bgColor: ''
+            }))
+        }, 4000)
+    }
+
     useEffect(() => {
         console.log('object');
         if (pitchId) {
@@ -59,6 +93,17 @@ const IndividualPitch = () => {
         })
     }
 
+    const deleteComment = async (id) => {
+        await ApiServices.removePitchComment({ pitchId: pitchId, commentId: id }).then(res => {
+            setpitch(prev => ({ ...prev, comments: pitch.comments = pitch.comments.filter(f => f._id !== id) }))
+        }).catch(err => {
+            dispatch(setToast({
+                visible: 'yes',
+                message: 'Error Occured',
+                bgColor: 'red'
+            }))
+        })
+    }
 
     const addToIntrest = async () => {
         await ApiServices.addIntrest({ pitchId: pitchId, email: email }).then((res) => {
@@ -176,7 +221,7 @@ const IndividualPitch = () => {
                         </div>}
                         <div></div>
                         <div>
-                            <AddReviewStars pitchId={pitchId} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} />
+                            <AddReviewStars setFilledStars={setFilledStars} sendReview={sendReview} filledStars={filledStars} />
                         </div>
                         <PitchDetailsReadOnly open={open} setOpen={setOpen} value={value} setValue={setValue} pitchDetails={pitch} />
 
@@ -206,7 +251,7 @@ const IndividualPitch = () => {
                 </div>
                 {pitch?.comments?.length > 0 && <div>Discussions:</div>}
                 {pitch?.comments?.length > 0 && pitch.comments?.map(c => (
-                    <IndividualPitchComment c={c} pitch={pitch} setpitch={setpitch} setPitchTrigger={setPitchTrigger} />
+                    <IndividualPitchComment c={c} deleteComment={deleteComment} />
                 ))}
             </div>
         </div>

@@ -5,23 +5,26 @@ import { io } from "socket.io-client";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { useNavigate } from "react-router-dom/dist";
 import "../../Editprofile/Editprofile.css";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
 
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
 import { AdminServices } from "../../../Services/AdminServices";
 import { setLoading, setLoginData, setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
-import { convertToDate } from "../../../Utils";
+import { convertToDate, socket_io } from "../../../Utils";
+import { Box, Dialog, DialogContent } from "@mui/material";
+import { gridCSS } from "../../CommonStyles";
 
 export const SingleRequestProfile = () => {
     const { visible } = useSelector(state => state.auth.LoadingDetails);
 
     const { email } = useParams();
+    const [skills, setSkills] = useState([])
 
     const [inputs, setInputs] = useState({
 
@@ -52,7 +55,7 @@ export const SingleRequestProfile = () => {
 
     const socket = useRef();
     useEffect(() => {
-        socket.current = io(process.env.REACT_APP_SOCKET_IO);
+        socket.current = io(socket_io);
     }, []);
 
 
@@ -78,12 +81,15 @@ export const SingleRequestProfile = () => {
         degree: "",
     });
 
+    const [languagesKnown, setlanguagesKnown] = useState([])
+    const [singlelanguagesKnown, setSinglelanguagesKnown] = useState('')
+
 
     const navigate = useNavigate()
 
 
     useEffect(() => {
-        dispatch(setLoading({visible : "yes"}))
+        dispatch(setLoading({ visible: "yes" }))
         AdminServices.getApprovalRequestProfile({ email: email })
             .then((res) => {
                 console.log(res.data);
@@ -114,7 +120,10 @@ export const SingleRequestProfile = () => {
                 settown(res.data.town || '')
                 setCountry(res.data.country || '')
                 setState(res.data.state || '')
-                dispatch(setLoading({visible : "no"}))
+                dispatch(setLoading({ visible: "no" }))
+                setSkills(res.data.skills || [])
+                setlanguagesKnown(res.data.languagesKnown || [])
+
 
             })
             .catch((error) => {
@@ -125,7 +134,7 @@ export const SingleRequestProfile = () => {
                         visible: "yes",
                     })
                 );
-                dispatch(setLoading({visible : "no"}))
+                dispatch(setLoading({ visible: "no" }))
                 navigate('/profileRequests')
             });
     }, [email]);
@@ -135,61 +144,70 @@ export const SingleRequestProfile = () => {
 
     const dispatch = useDispatch();
 
-
+    const [reasonPop, setReasonPop] = useState(false)
+    const [reason, setReason] = useState('')
 
 
     const update = async (e, status) => {
         e.preventDefault();
         e.target.disabled = true;
         // setIsLoading(true);
-        await AdminServices.updateVerification({
-            email: email,
-            status: status
-        })
-            .then((res) => {
-                dispatch(
-                    setToast({
-                        message: `Profile Status changed to ${status}`,
-                        bgColor: ToastColors.success,
-                        visible: "yes",
-                    })
-                );
-                socket.current.emit("sendNotification", {
-                    senderId: jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email,
-                    receiverId: email,
-                });
-                // setIsLoading(false);
-                e.target.disabled = false
-                navigate('/profileRequests')
+        if (status == 'approved' || (status == 'rejected' && reason !== '')) {
+            await AdminServices.updateVerification({
+                email: email,
+                status: status, reason: reason
             })
-            .catch((err) => {
-                e.target.disabled = false;
+                .then((res) => {
+                    dispatch(
+                        setToast({
+                            message: `Profile Status changed to ${status}`,
+                            bgColor: ToastColors.success,
+                            visible: "yes",
+                        })
+                    );
+                    socket.current.emit("sendNotification", {
+                        senderId: jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email,
+                        receiverId: email,
+                    });
+                    // setIsLoading(false);
+                    e.target.disabled = false
+                    navigate('/profileRequests')
+                    setReasonPop(false)
+                    setReason('')
+
+                })
+                .catch((err) => {
+                    e.target.disabled = false;
+                    dispatch(
+                        setToast({
+                            message: "Error occured when changing status",
+                            bgColor: ToastColors.failure,
+                            visible: "yes",
+                        })
+                    );
+                    // setIsLoading(false);
+                });
+            setTimeout(() => {
                 dispatch(
                     setToast({
-                        message: "Error occured when changing status",
-                        bgColor: ToastColors.failure,
-                        visible: "yes",
+                        message: "",
+                        bgColor: "",
+                        visible: "no",
                     })
                 );
-                // setIsLoading(false);
-            });
-        setTimeout(() => {
-            dispatch(
-                setToast({
-                    message: "",
-                    bgColor: "",
-                    visible: "no",
-                })
-            );
-        }, 4000);
+            }, 4000);
+        } else {
+            e.target.disabled = false
+            setReasonPop(true)
+        }
     };
 
 
     return (
-        visible === "no" && 
+        visible === "no" &&
         <div className="update-container" style={{ minHeight: '80vh' }}>
             <div className="updateContainerWrapper">
-           
+
                 <div className="heading">
                     <div>
                         <img
@@ -255,40 +273,40 @@ export const SingleRequestProfile = () => {
                         </div>
                     </div>
                 </div>
-               
-                    <>
-                       {totalExperienceData.length>0 &&  <div className="update-form-container" style={{ flexDirection: 'column' }}>
-                           
-                           <h3 className="update-heading">Work Experience</h3>
-   
-                               {totalExperienceData.length > 0 &&
-                                   totalExperienceData.map((te, i) => (
-                                       <div>
-   
-                                           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                                               <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
-                                                   <div className="company">
-                                                       {te.company}
-                                                   </div>
-                                                   <div className="profession">
-                                                       {te.profession}
-                                                   </div>
-                                                   <div className="timeline">
-                                                       {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
-                                                   </div>
-                                               </div>
-   
-                                           </div>
-   
-                                       </div>
-                                   ))
-                               }
-                           </div>}
-                    </>
-                   { totalEducationData.length>0 &&  <div className="update-form-container" style={{ flexDirection: 'column' }}>
+
+                <>
+                    {totalExperienceData.length > 0 && <div className="update-form-container" style={{ flexDirection: 'column' }}>
+
+                        <h3 className="update-heading">Work Experience</h3>
+
+                        {totalExperienceData.length > 0 &&
+                            totalExperienceData.map((te, i) => (
+                                <div>
+
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                                            <div className="company">
+                                                {te.company}
+                                            </div>
+                                            <div className="profession">
+                                                {te.profession}
+                                            </div>
+                                            <div className="timeline">
+                                                {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            ))
+                        }
+                    </div>}
+                </>
+                {totalEducationData.length > 0 && <div className="update-form-container" style={{ flexDirection: 'column' }}>
                     <form className="update-form">
                         <h3 className="update-heading">Educational Details</h3>
-                        
+
                     </form>
 
                     {totalEducationData.length > 0 &&
@@ -315,8 +333,8 @@ export const SingleRequestProfile = () => {
                     }
 
                 </div>}
-               
-                {role == 'Mentor' && <div className="update-form-container">
+
+                <div className="update-form-container">
                     <form className="update-form">
                         <h3 className="update-heading">Personal / Fee Negotiation</h3>
                         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
@@ -325,7 +343,7 @@ export const SingleRequestProfile = () => {
                                     <label className="update-form-label">Country</label>
                                 </div>
                                 <div>
-                                    <input type="text" value={country} disabled/>
+                                    <input type="text" value={country} disabled />
                                 </div>
                             </div>
 
@@ -336,7 +354,7 @@ export const SingleRequestProfile = () => {
                                 <div>
                                     <input type="text" value={state} disabled />
                                 </div>
-                                
+
                             </div>
 
                             <div>
@@ -357,16 +375,53 @@ export const SingleRequestProfile = () => {
                             </div>
                             <div>
                                 <div>
+                                    <label className="update-form-label">Skills</label>
+                                </div>
+                                <div>
+                                    {skills?.length > 0 && (
+                                        <div className="listedTeam">
+                                            {skills?.map((t, i) => (
+                                                <div className="singleMember">
+                                                    <div>{t}</div>
+
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+
+                            </div>
+
+                            <div>
+                                <div>
+                                    <label className="update-form-label">Languages Known</label>
+                                </div>
+                                <div>
+                                    {languagesKnown?.length > 0 && (
+                                        <div className="listedTeam">
+                                            {languagesKnown?.map((t, i) => (
+                                                <div className="singleMember">
+                                                    <div>{t}</div>
+
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {role == 'Mentor' && <div>
+                                <div>
                                     <label className="update-form-label">Fee request</label>
                                 </div>
                                 <div>
                                     <input type="range" min={1} max={50} name="fee" value={fee} id="" disabled placeholder="Enter Fee request per minute" /> &#8377; {fee} / per min
                                 </div>
-                            </div>
+                            </div>}
                         </div>
 
                     </form>
-                </div>}
+                </div>
                 <div className="update-form-container" >
                     <form className="update-form" >
                         <h3 className="update-heading">Requested files</h3>
@@ -549,7 +604,7 @@ export const SingleRequestProfile = () => {
                                 <>Reject</>
                                 {/* )} */}
                             </button>
-                            <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled = {inputs.status === "approved"}>
+                            <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "approved"}>
                                 {isLoading ? (
                                     <>
                                         <img
@@ -567,7 +622,32 @@ export const SingleRequestProfile = () => {
                     </form>
                 </div>
             </div>
+            <Dialog
+                open={reasonPop}
+                onClose={() => setReasonPop(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                maxWidth='xl'
+                sx={gridCSS.tabContainer}
+            // sx={ gridCSS.tabContainer }
+            >
+
+
+                <DialogContent style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                    <Box><b>Enter Reason for rejection</b></Box>
+                    <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setReasonPop(false)}><CloseIcon /></Box>
+                    <Box>
+                        <input type="text" name="" value={reason} id="" onChange={(e) => setReason(e.target.value)} />
+                    </Box>
+                    <button type="submit" disabled={reason == ''} onClick={(e) => {
+                        update(e, 'rejected')
+                    }}>
+                        Ok
+                    </button>
+
+                </DialogContent>
+            </Dialog>
         </div>
-        
+
     );
 };

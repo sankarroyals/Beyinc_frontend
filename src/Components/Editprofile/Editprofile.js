@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { setLoginData, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
 import axiosInstance from "../axiosInstance";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { ApiServices } from "../../Services/ApiServices";
 import { useNavigate } from "react-router-dom/dist";
 import "./Editprofile.css";
@@ -14,7 +16,7 @@ import { Country, State, City } from 'country-state-city';
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
-import { convertToDate, itPositions } from "../../Utils";
+import { allLanguages, allskills, convertToDate, itPositions } from "../../Utils";
 
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
@@ -84,6 +86,11 @@ const Editprofile = () => {
   })
   const [fee, setFee] = useState('')
   const [bio, setBio] = useState('')
+  const [skills, setSkills] = useState([])
+  const [singleSkill, setSingleSkill] = useState('')
+
+  const [languagesKnown, setlanguagesKnown] = useState([])
+  const [singlelanguagesKnown, setSinglelanguagesKnown] = useState('')
   const [state, setState] = useState('')
   const [country, setCountry] = useState('')
   const [town, settown] = useState('')
@@ -227,6 +234,10 @@ const Editprofile = () => {
           setTotalExperienceData(res.data.experienceDetails || [])
           setFee(res.data.fee || '')
           setBio(res.data.bio || '')
+          setSkills(res.data.skills || [])
+          setlanguagesKnown(res.data.languagesKnown || [])
+
+
           settown(res.data.town || '')
           setCountry(res.data.country || '')
           setState(res.data.state || '')
@@ -409,7 +420,7 @@ const Editprofile = () => {
       email: email, state: state, town: town, country: country,
       userName: name,
       phone: mobile,
-      role: role, fee: fee, bio: bio,
+      role: role, fee: fee, bio: bio, skills: skills, languagesKnown: languagesKnown,
       documents: changeResume, experienceDetails: totalExperienceData, educationdetails: totalEducationData
     })
       .then((res) => {
@@ -776,10 +787,10 @@ const Editprofile = () => {
                   {/* <input type="text" name="grade" id="" value={EducationDetails.grade} onChange={handleEducationChange} placeholder="Enter Your Profession" /> */}
                   <select name="grade" id="" value={EducationDetails.grade} onChange={handleEducationChange}>
                     <option value="">Select</option>
-                    <option value="ssc">10th</option>
-                    <option value="inter">Inter/Equivalent</option>
-                    <option value="ug">UG (Btech, degree)</option>
-                    <option value="pg">PG</option>
+                    <option value="SSC">10th</option>
+                    <option value="Inter">Inter/Equivalent</option>
+                    <option value="UG">UG (Btech, degree)</option>
+                    <option value="PG">PG</option>
                     <option value='other'>Other</option>
                   </select>
                 </div>
@@ -789,7 +800,7 @@ const Editprofile = () => {
                   <label className="update-form-label">College/University*</label>
                 </div>
                 <div>
-                  {(EducationDetails.grade == 'ssc' || EducationDetails.grade == '') ? <input type="text" name="college" value={EducationDetails.college} id="" onChange={handleEducationChange} placeholder="Enter Your College/School/University" /> : 
+                  {(EducationDetails.grade == 'SSC' || EducationDetails.grade == '') ? <input type="text" name="college" value={EducationDetails.college} id="" onChange={handleEducationChange} placeholder="Enter Your College/School/University" /> : 
                     <select value={EducationDetails.college} name="college" onChange={handleEducationChange} >
                       <option value=''>Select</option>
                       {universities.length > 0 && universities.map(u => (
@@ -894,6 +905,95 @@ const Editprofile = () => {
                   <textarea name="bio" cols={45} value={bio} id="" onChange={(e) => setBio(e.target.value)} placeholder="Enter your bio" />
                 </div>
               </div>
+
+              <div>
+                <div>
+                  <label className="update-form-label">Skills</label>
+                </div>
+                <div>
+                  {skills?.length > 0 && (
+                    <div className="listedTeam">
+                      {skills?.map((t, i) => (
+                        <div className="singleMember">
+                          <div>{t}</div>
+                          <div
+                            onClick={(e) => {
+                              setSkills(skills.filter((f, j) => i !== j));
+                            }}
+                          >
+                            <CloseIcon className="deleteMember" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div style={{display: 'flex', gap: '5px', alignItems: 'center'}}>
+                  <div>
+                    <select name="skill" id="" onChange={(e) => setSingleSkill(e.target.value)}>
+                      <option value="">Select</option>
+                      {allskills.map(d => (
+                        <option value={d}>{d}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div
+                    className="addtags"
+                    onClick={() => {
+                      if (singleSkill !== "" && !skills.includes(singleSkill)) {
+                        setSkills((prev) => [...prev, singleSkill]);
+                      }
+                    }}
+                  >
+                    <i className="fas fa-plus"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div>
+                  <label className="update-form-label">Languages Known</label>
+                </div>
+                <div>
+                  {languagesKnown?.length > 0 && (
+                    <div className="listedTeam">
+                      {languagesKnown?.map((t, i) => (
+                        <div className="singleMember">
+                          <div>{t}</div>
+                          <div
+                            onClick={(e) => {
+                              setlanguagesKnown(languagesKnown.filter((f, j) => i !== j));
+                            }}
+                          >
+                            <CloseIcon className="deleteMember" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                  <div>
+                    <select name="languagesKnown" id="" onChange={(e) => setSinglelanguagesKnown(e.target.value)}>
+                      <option value="">Select</option>
+                      {allLanguages.map(d => (
+                        <option value={d}>{d}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div
+                    className="addtags"
+                    onClick={() => {
+                      if (singlelanguagesKnown !== "" && !languagesKnown.includes(singlelanguagesKnown)) {
+                        setlanguagesKnown((prev) => [...prev, singlelanguagesKnown]);
+                      }
+                    }}
+                  >
+                    <i className="fas fa-plus"></i>
+                  </div>
+                </div>
+              </div>
+
               {role == 'Mentor' && <div>
                 <div>
                   <label className="update-form-label">Fee request</label>

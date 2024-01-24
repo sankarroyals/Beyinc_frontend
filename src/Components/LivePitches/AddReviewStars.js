@@ -4,42 +4,11 @@ import { ApiServices } from '../../Services/ApiServices';
 import { setToast } from '../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../Toast/ToastColors';
 
-const AddReviewStars = ({ pitchId, setPitchTrigger, pitchTrigger }) => {
-    const { email } = useSelector(state => state.auth.loginDetails)
-
-    const [filledStars, setFilledStars] = useState(0)
-
-    useEffect(() => {
-        ApiServices.getStarsFrom({ pitchId: pitchId, email: email }).then(res => {
-            setFilledStars(res.data.review !== undefined ? res.data.review : 0)
-        })
-    }, [pitchId])
+const AddReviewStars = ({ filledStars, sendReview, setFilledStars }) => {
 
 
-    const dispatch = useDispatch()
-    const sendReview = async () => {
-        await ApiServices.addPitchReview({ pitchId: pitchId, review: { email: email, review: filledStars } }).then(res => {
-            dispatch(setToast({
-                message: 'Review Updated',
-                visible: 'yes',
-                bgColor: ToastColors.success
-            }))
-            setPitchTrigger(!pitchTrigger)
-        }).catch(err => {
-            dispatch(setToast({
-                message: 'Error Occured',
-                visible: 'yes',
-                bgColor: ToastColors.failure
-            }))
-        })
-        setTimeout(() => {
-            dispatch(setToast({
-                message: '',
-                visible: '',
-                bgColor: ''
-            }))
-        }, 4000)
-    }
+
+  
     const renderStars = () => {
         const totalStars = 5;
         const stars = [];

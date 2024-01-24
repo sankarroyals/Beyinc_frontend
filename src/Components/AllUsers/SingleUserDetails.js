@@ -13,7 +13,7 @@ const SingleUserDetails = ({ d }) => {
 
     const navigate = useNavigate()
     return (
-        <Card sx={{ maxWidth: 340, minWidth: 250, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)' }}>
+        <Card sx={{ maxWidth: 340, minWidth: 250, maxHeight: 250, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)' }}>
             <div style={{ display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px' }}>
                 <img className='userCardImage'
                     src={d.image !== undefined && d.image.url !== "" ? d.image.url : "/profile.jpeg"}
@@ -46,8 +46,8 @@ const SingleUserDetails = ({ d }) => {
             </CardContent> */}
             <CardActions>
                 <Button id='view-request' size="small" onClick={() => {
-                    navigate(`/singleProfileRequest/${d.email}`)
-                }}>View Request</Button>
+                    navigate(`/user/${d.email}`)
+                }}>View Profile</Button>
                 {/* <Button size="small">Learn More</Button> */}
             </CardActions>
         </Card>

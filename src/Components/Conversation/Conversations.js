@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ApiServices } from '../../Services/ApiServices'
 import { setAllUsers, setLiveMessage, setOnlineUsers, setReceiverId } from '../../redux/Conversationreducer/ConversationReducer'
 import SearchBox from './Users/SearchBox'
-import {io} from 'socket.io-client'
+import { io } from 'socket.io-client'
 import { useParams } from 'react-router'
 const Conversations = () => {
   const { email } = useSelector(
     (store) => store.auth.loginDetails
   );
 
-  const {conversationId} = useParams()
+  const { conversationId } = useParams()
   const dispatch = useDispatch()
   // // intialize socket io
   // const socket = useRef()
@@ -22,7 +22,7 @@ const Conversations = () => {
   // );
 
   // useEffect(() => {
-  //   socket.current = io(process.env.REACT_APP_SOCKET_IO)
+  //   socket.current = io(socket_io)
   // }, [])
 
   // // adding online users to socket io
@@ -65,7 +65,7 @@ const Conversations = () => {
     }
   }, [conversationId])
 
- 
+
 
   return (
     <div className='conversationContainer'>

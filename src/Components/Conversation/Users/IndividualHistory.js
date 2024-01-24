@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { gridCSS } from '../../CommonStyles';
 import { io } from 'socket.io-client';
+import { socket_io } from '../../../Utils';
 const IndividualHistory = ({ a, onlineEmails, status }) => {
     const { conversationId } = useParams()
     const [open, setOpen] = useState(false)
@@ -29,8 +30,8 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
 
     const storingDetails = async (e) => {
         e.preventDefault();
-        
-        if (status !== 'pending') {
+
+        if (status !== 'pending' && a._id !== conversationId) {
             dispatch(setConversationId(a._id))
             // await ApiServices.getProfile({ email: a.members.filter((f) => f.email !== email)[0].email }).then((res) => {
             dispatch(setReceiverId(a.members.filter((f) => f.email !== email)[0].email))
@@ -42,7 +43,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
 
     const socket = useRef()
     useEffect(() => {
-        socket.current = io(process.env.REACT_APP_SOCKET_IO)
+        socket.current = io(socket_io)
     }, [])
     const deletePendingRequest = async () => {
         await ApiServices.deleteConversation({ conversationId: a._id }).then((res) => {
@@ -60,13 +61,13 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
             <div><img src={friend.profile_pic === undefined ? '/profile.jpeg' : friend.profile_pic} alt="" srcset="" /></div>
             <div className='onlineHolder'>
                 <abbr title={friend.email} style={{ textDecoration: 'none' }}><div className='userName'>{friend.userName}</div></abbr>
-               
+
                 {status === 'pending' ? <><abbr title='pending'>
-                
+
                     <div className='pendingStatusIcon'>
                         <AccessTimeIcon style={{ fontSize: '14px' }} />
                     </div>
-                  
+
                 </abbr></>
                     :
                     <abbr title={onlineEmails.includes(friend.email) ? 'online' : 'away'}>
@@ -80,7 +81,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
                     {status == 'pending' && <div className=''>
                         <i className='fas fa-trash' onClick={() => setOpen(true)}></i>
                     </div>}
-                   
+
                 </div>
                 <div className='message-count' title='unread messages'></div>
             </div>
