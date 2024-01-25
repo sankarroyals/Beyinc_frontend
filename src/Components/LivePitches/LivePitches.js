@@ -14,9 +14,12 @@ import axios from 'axios'
 import { CheckBox } from '@mui/icons-material'
 import {  domain_subdomain, itPositions } from '../../Utils'
 import { Country, State } from 'country-state-city'
+import AddReviewStars from './AddReviewStars'
 const LivePitches = () => {
     const [data, setData] = useState([])
     const [filteredData, setFilteredData] = useState([])
+    const [filledStars, setFilledStars] = useState(0)
+
     const [filters, setFilters] = useState({
         state: [],
         country: [],
@@ -25,8 +28,12 @@ const LivePitches = () => {
         tags: [],
         intrested: false,
         industry1: [],
-        industry2: []
+        industry2: [],
+        review: 0
     })
+    useEffect(() => {
+        setFilters(prev => ({ ...prev, review: filledStars }))
+    }, [filledStars])
     const { email } = useSelector(state => state.auth.loginDetails)
     const [universities, setUniversities] = useState([])
     useEffect(() => {
@@ -64,8 +71,8 @@ const LivePitches = () => {
         console.log(filters);
         if (Object.keys(filters).length > 0) {
             Object.keys(filters).map((ob) => {
-                if (filters[ob].length > 0 || ob == 'intrested') {
-                    if (ob !== 'tags' && ob !== 'intrested' && ob !== 'hiringPositions' && ob !== 'industry1' && ob !== 'industry2' && ob !== 'userColleges' && ob !== 'country' && ob !== 'state' ) {
+                if (filters[ob].length > 0 || ob == 'intrested' || ob == 'review') {
+                    if (ob !== 'tags' && ob !== 'intrested' && ob !== 'hiringPositions' && ob !== 'industry1' && ob !== 'industry2' && ob !== 'userColleges' && ob !== 'country' && ob !== 'state' && ob !== 'review' ) {
                         filteredData = filteredData.filter(f => filters[ob].includes(f[ob]))
                     } else if (ob === 'tags' || ob == 'hiringPositions' || ob == 'userColleges') {
                         filteredData = filteredData.filter(item => {
@@ -83,6 +90,19 @@ const LivePitches = () => {
                         filteredData = filteredData.filter(f => {
                             return filters[ob].some(fs=> fs === f[ob])
                         })
+                    } else if (ob == 'review') {
+                        if (filters[ob] !== 0) {
+                            filteredData = filteredData.filter(f => {
+                                let avg = 0
+                                f.review?.length > 0 && f.review.map(fc => {
+                                    avg += +fc.review
+                                })
+                                if (f.review?.length > 0) {
+                                    avg = avg / f.review?.length;
+                                }
+                                return avg == filters[ob]
+                            })
+                        }
                     }
                 }
             })
@@ -102,8 +122,11 @@ const LivePitches = () => {
             tags: [],
             intrested: false,
             industry1: [],
-            industry2: []
+            industry2: [],
+            review: 0
         })
+        setFilledStars(0)
+
 
        
     };
@@ -415,6 +438,15 @@ const LivePitches = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* Rating */}
+                    <div className='tagFilter'>
+                        <div>Rating:</div>
+                        <div className='inputTag'>
+                            <AddReviewStars filledStars={filledStars} setFilledStars={setFilledStars} />
+                        </div>
+                    </div>
+
 
                     {/* Intrested */}
                     <div className='intrestedFilter'>

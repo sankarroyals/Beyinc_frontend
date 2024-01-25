@@ -12,7 +12,7 @@ import ReviewStars from '../LivePitches/ReviewStars'
 import AddReviewStars from '../LivePitches/AddReviewStars'
 import { jwtDecode } from 'jwt-decode'
 import IndividualPitchComment from '../LivePitches/IndividualPitchComment'
-import { convertToDate } from '../../Utils'
+import { convertToDate, formatedDate } from '../../Utils'
 
 const IndividualUser = () => {
     const { image, userName } = useSelector(state => state.auth.loginDetails)
@@ -131,7 +131,7 @@ const IndividualUser = () => {
                             </div>
                         </div>
                         <div>
-                            <div className='indiPitchDate'>Last profile updated at {format(user?.updatedAt)} by admin</div>
+                            <div className='indiPitchDate'>Profile created at {formatedDate(user?.createdAt)}</div>
 
                         </div>
                         <div className='indiPitchDesc'>

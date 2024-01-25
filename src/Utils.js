@@ -466,3 +466,15 @@ export const convertToDate = (inputDate) => {
     return `${months[date]} ${inputDate?.split('-')[0]}`
 
 }
+
+
+
+export const formatedDate = (inputDate) => {
+    const months = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    const date = inputDate?.split('-')[1][0] == '0' ? inputDate?.split('-')[1][1] - 1 : inputDate?.split('-')[1] - 1
+    return `${inputDate?.split('-')[0]}-${months[date]}-${inputDate?.split('-')[2].slice(0, 2)}`
+
+}

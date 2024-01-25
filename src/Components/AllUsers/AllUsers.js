@@ -54,7 +54,7 @@ const AllUsers = () => {
     const filterUsers = () => {
 
         let filteredData = [...data]
-        console.log(filters);
+        // console.log(filters);
         if (Object.keys(filters).length > 0) {
             Object.keys(filters).map((ob) => {
                 if (filters[ob].length > 0 || ob == 'verification' || ob == 'review') {
@@ -83,14 +83,18 @@ const AllUsers = () => {
                             return filters[ob].some(fs => fs === f[ob])
                         })
                     } else if (ob == 'review') {
-                        filteredData.filter(f => {
-                            let avg = 0
-                            f.review.length > 0 && f.review.map(fc => {
-                                avg +=fc.review
+                        if (filters[ob] !== 0) {
+                            filteredData = filteredData.filter(f => {
+                                let avg = 0
+                                f.review?.length > 0 && f.review.map(fc => {
+                                    avg += +fc.review
+                                })
+                                if (f.review?.length > 0) {
+                                    avg = avg / f.review?.length;
+                                }
+                                return avg == filters[ob]
                             })
-                            console.log(avg);
-                            // return filters[ob].some(fs => fs === f[ob])
-                        })
+                       }
                     }
                 }
             })
@@ -110,9 +114,9 @@ const AllUsers = () => {
             userColleges: [],
             verification: false,
             userName: [],
+            review: 0
         })
-
-
+        setFilledStars(0)
     };
     return (
         <div className='usersContainer'>
