@@ -160,8 +160,8 @@ const SignUp = () => {
   const verifyMobileOtp = async (e) => {
     e.preventDefault();
     await ApiServices.verifyOtp({
-      email: email,
-      otp: emailOtp,
+      email: `+91${mobile}`,
+      otp: mobileOtp,
     })
       .then((res) => {
         dispatch(
@@ -237,13 +237,43 @@ const SignUp = () => {
     }, 4000);
   };
 
-  const sendMobileOtp = (e) => {
+  const sendMobileOtpF = async (e) => {
     e.preventDefault();
     e.target.disabled = true;
+    await ApiServices.sendMobileOtp({
+      phone: `+91${mobile}`
+    })
+      .then((res) => {
+        dispatch(
+          setToast({
+            message: "OTP sent successfully !",
+            bgColor: ToastColors.success,
+            visible: "yes",
+          })
+        );
+        // setIsEmailOtpSent(true);
+        setInputs((prev) => ({ ...prev, isMobileOtpSent: true }));
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "OTP sent failed !",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+        e.target.disabled = true;
+      });
     setTimeout(() => {
-      // setIsMobileOtpSent(true);
-      setInputs((prev) => ({ ...prev, isMobileOtpSent: true }));
-    }, 1000);
+      dispatch(
+        setToast({
+          message: "",
+          bgColor: "",
+          visible: "no",
+        })
+      );
+    }, 4000);
+  
   };
 
   const isFormValid =
@@ -439,7 +469,7 @@ const SignUp = () => {
 
           <div className="input-container">
             <input
-              type="text"
+              type="number"
               className={
                 mobile !== null && (mobile.length === 10 ? "valid" : "invalid")
               }
@@ -462,7 +492,7 @@ const SignUp = () => {
               <button
                 type="button"
                 className="otp_button"
-                onClick={sendMobileOtp}
+                onClick={sendMobileOtpF}
               >
                 Get OTP
               </button>

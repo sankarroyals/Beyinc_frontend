@@ -65,6 +65,19 @@ export const ApiServices = {
     
         }) 
     }, 
+    sendMobileOtp: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/auth/sendMobileOtp`, obj)
+                .then((res) => {
+                    if (res) {
+
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    }, 
     verifyOtp : (obj) => {
         return new Promise((resolve, reject) => {
             axiosInstance.post(`/auth/verifyOtp`, obj)

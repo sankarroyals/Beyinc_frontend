@@ -93,8 +93,44 @@ const Login = () => {
     setOtpVisible(false);
   };
 
-  const handleGetOtp = () => {
-    setOtpVisible(true);
+  const sendMobileOtpF = async (e) => {
+    e.preventDefault();
+    e.target.disabled = true;
+    await ApiServices.sendMobileOtp({
+      phone: `+91${mobile}`
+    })
+      .then((res) => {
+        dispatch(
+          setToast({
+            message: "OTP sent successfully !",
+            bgColor: ToastColors.success,
+            visible: "yes",
+          })
+        );
+        setOtpVisible(true)
+        // setIsEmailOtpSent(true);
+        setInputs((prev) => ({ ...prev, isMobileOtpSent: true }));
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "OTP sent failed !",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+        e.target.disabled = true;
+      });
+    setTimeout(() => {
+      dispatch(
+        setToast({
+          message: "",
+          bgColor: "",
+          visible: "no",
+        })
+      );
+    }, 4000);
+
   };
 
   // const handleMobileChange = (value) => {
@@ -104,34 +140,41 @@ const Login = () => {
 
   const verifyMobileOtp = async (e) => {
     e.preventDefault();
-    e.target.disabled = true;
-    // setmobileVerified(true)
-    setInputs((prev) => ({ ...prev, mobileVerified: true }));
-    document.getElementById("mobileVerify").style.display = "none";
-
-    // await ApiServices.verifyOtp({
-    //   "email": email,
-    //   "otp": otp
-    // }).then((res)=>{
-    //   dispatch(setToast({
-    //     message: 'Email verified successfully !',
-    //     bgColor: ToastColors.success,
-    //     visible: 'yes'
-    //   }))
-    // }).catch(err=>{
-    //   dispatch(setToast({
-    //     message: 'OTP Entered Wrong',
-    //     bgColor: ToastColors.failure,
-    //     visible: 'yes'
-    //   }))
-    // })
-    // setTimeout(()=>{
-    //   dispatch(setToast({
-    //     message: '',
-    //     bgColor: '',
-    //     visible: 'no'
-    //   }))
-    // }, 4000)
+    await ApiServices.verifyOtp({
+      email: `+91${mobile}`,
+      otp: mobileOtp,
+    })
+      .then((res) => {
+        dispatch(
+          setToast({
+            message: "Mobile verified successfully !",
+            bgColor: ToastColors.success,
+            visible: "yes",
+          })
+        );
+        // document.getElementById("mobileVerify").style.display = "none";
+        // document.getElementById("mobileOtpInput").disabled = true;
+        // setmobileVerified(true);
+        setInputs((prev) => ({ ...prev, mobileVerified: true }));
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "Incorrect OTP",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      });
+    setTimeout(() => {
+      dispatch(
+        setToast({
+          message: "",
+          bgColor: "",
+          visible: "no",
+        })
+      );
+    }, 4000);
   };
 
   const login = async (e) => {
@@ -269,7 +312,7 @@ const Login = () => {
           <>
             <div className="input-container">
               <input
-                type="text"
+                type="number"
                 value={mobile}
                 className={
                   isMobileValid !== null &&
@@ -296,7 +339,7 @@ const Login = () => {
               <button
                 type="button"
                 className="otp_button"
-                onClick={handleGetOtp}
+                onClick={sendMobileOtpF}
               >
                 Get OTP
               </button>
