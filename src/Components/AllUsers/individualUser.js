@@ -12,7 +12,7 @@ import ReviewStars from '../LivePitches/ReviewStars'
 import AddReviewStars from '../LivePitches/AddReviewStars'
 import { jwtDecode } from 'jwt-decode'
 import IndividualPitchComment from '../LivePitches/IndividualPitchComment'
-import { convertToDate } from '../../Utils'
+import { convertToDate, formatedDate } from '../../Utils'
 
 const IndividualUser = () => {
     const { image, userName } = useSelector(state => state.auth.loginDetails)
@@ -115,7 +115,7 @@ const IndividualUser = () => {
                         <div style={{ display: 'flex', gap: '0px' }}>
                             <div>
                                 <div>
-                                    <img src={user?.image?.url} alt="" srcset="" style={{height: '120px', width: '120px'}} />
+                                    <img src={user?.image?.url !== undefined ? user?.image?.url : '/profile.jpeg'} alt="" srcset="" style={{height: '120px', width: '120px'}} />
                                 </div>
                                 <div className='indiUserHeading'>{user?.userName}
 
@@ -131,7 +131,7 @@ const IndividualUser = () => {
                             </div>
                         </div>
                         <div>
-                            <div className='indiPitchDate'>Last profile updated at {format(user?.updatedAt)} by admin</div>
+                            <div className='indiPitchDate'>Profile created at {formatedDate(user?.createdAt)}</div>
 
                         </div>
                         <div className='indiPitchDesc'>
@@ -256,9 +256,11 @@ const IndividualUser = () => {
                             }
 
                         </div>}
-                        <div>
-                            <AddReviewStars filledStars={filledStars} setFilledStars={setFilledStars} sendReview={sendReview} />
-                        </div>
+                        {email !== jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email && <div>
+                            <AddReviewStars filledStars={filledStars} setFilledStars={setFilledStars} /> <div>
+                                <span style={{ cursor: 'pointer', fontSize: '15px' }} onClick={sendReview}>Send Review</span>
+                            </div>
+                        </div>}
                         <div></div>
 
                     </div>

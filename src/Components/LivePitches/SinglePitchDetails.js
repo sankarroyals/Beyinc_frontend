@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import {  useSelector } from 'react-redux'
 
 const SinglePitchDetails = ({ d }) => {
   const { email } = useSelector(state => state.auth.loginDetails)
 
-  const navigate= useNavigate()
+  const navigate = useNavigate()
+  const [averagereview, setAverageReview] = useState(0)
+  useEffect(() => {
+    setAverageReview(0)
+    if (d.review !== undefined && d.review.length > 0) {
+      let avgR = 0
+      d.review?.map((rev) => {
+        avgR += rev.review
+      })
+      setAverageReview(avgR / d.review.length)
+    }
+  }, [d])
   return (
     <div className='singlePitchWrapper'>
       <div className='singlePitch' onClick={() => { navigate(`${d._id}`) }}>
@@ -34,6 +45,14 @@ const SinglePitchDetails = ({ d }) => {
           Tech:
           {d.industry2}
         </div>}
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <div style={{ fontSize: '12px', marginLeft: '5px' }} title='total comments'>
+            <i class="far fa-comment"></i><span style={{ marginLeft: '3px' }}>{d.comments?.length}</span>
+          </div>
+          <div style={{ fontSize: '12px', marginLeft: '5px' }} title='total stars'>
+            <i class="far fa-star"></i><span style={{ marginLeft: '3px' }}>{averagereview}</span>
+          </div>
+        </div>
         
       </div>
     </div>

@@ -8,15 +8,20 @@ import { Country, State } from 'country-state-city'
 import CachedIcon from "@mui/icons-material/Cached";
 import SingleUserDetails from './SingleUserDetails';
 import './users.css'
-import { allLanguages, allskills } from '../../Utils';
+import { allLanguages, allskills, fetchRating, idealUserRole } from '../../Utils';
+import AddReviewStars from '../LivePitches/AddReviewStars';
 
 
 const AllUsers = () => {
+    const totalRoles = useSelector(state => state.auth.totalRoles)
+
     const [data, setData] = useState([])
     const [tag, settag] = useState('')
     const [filteredData, setFilteredData] = useState([])
     const { email } = useSelector(state => state.auth.loginDetails)
+    const [filledStars, setFilledStars] = useState(0)
     const [filters, setFilters] = useState({
+        role: [],
         languagesKnown: [],
         skills: [],
         email: [],
@@ -25,7 +30,11 @@ const AllUsers = () => {
         userColleges: [],
         verification: false,
         userName: [],
+        review: 0
     })
+    useEffect(() => {
+        setFilters(prev=>({...prev, review: filledStars}))
+    }, [filledStars])
     const [universities, setUniversities] = useState([])
     useEffect(() => {
         axios.get('http://universities.hipolabs.com/search').then(res => {
@@ -45,14 +54,17 @@ const AllUsers = () => {
         }
     }, [data, filters])
 
+
+
+
     const filterUsers = () => {
 
         let filteredData = [...data]
-        console.log(filters);
+        // console.log(filters);
         if (Object.keys(filters).length > 0) {
             Object.keys(filters).map((ob) => {
-                if (filters[ob].length > 0 || ob == 'verification') {
-                    if (ob !== 'tags' && ob !== 'verification' && ob !== 'email' && ob !== 'userName' && ob !== 'industry2' && ob !== 'userColleges' && ob !== 'country' && ob !== 'state' && ob !== 'skills' && ob !== 'languagesKnown') {
+                if (filters[ob].length > 0 || ob == 'verification' || ob == 'review') {
+                    if (ob !== 'tags' && ob !== 'verification' && ob !== 'email' && ob !== 'userName' && ob !== 'industry2' && ob !== 'userColleges' && ob !== 'country' && ob !== 'state' && ob !== 'skills' && ob !== 'languagesKnown' && ob !== 'review' && ob!=='role') {
                         filteredData = filteredData.filter(f => filters[ob].includes(f[ob]))
                     } else if (ob === 'tags' || ob == 'skills' || ob =='languagesKnown' ) {
                         filteredData = filteredData.filter(item => {
@@ -72,15 +84,24 @@ const AllUsers = () => {
                                 return item.verification == 'approved'
                             });
                         }
-                    } else if (ob == 'userName' || ob == 'industry2' || ob == 'country' || ob == 'state' || ob == 'email') {
+                    } else if (ob == 'userName' || ob == 'industry2' || ob == 'country' || ob == 'state' || ob == 'email' || ob=='role') {
                         filteredData = filteredData.filter(f => {
                             return filters[ob].some(fs => fs === f[ob])
                         })
+                    } else if (ob == 'review') {
+                        if (filters[ob] !== 0) {
+                            filteredData = filteredData.filter(f => {
+                                
+                                return fetchRating(f) <= filters[ob]
+                            })
+                       }
                     }
                 }
             })
         }
-        console.log(filteredData);
+        filteredData.sort((a, b) => {
+            return fetchRating(b) - fetchRating(a)
+        });
         setFilteredData(filteredData);
     }
 
@@ -89,15 +110,16 @@ const AllUsers = () => {
     const handleReloadClick = () => {
         setSpinning(true);
         setFilters({
+            role: [],
             email: [],
             state: [],
             country: [],
             userColleges: [],
             verification: false,
             userName: [],
+            review: 0
         })
-
-
+        setFilledStars(0)
     };
     return (
         <div className='usersContainer'>
@@ -115,7 +137,50 @@ const AllUsers = () => {
                             />
                         </div>
                     </div>
-                    {/* Position */}
+
+                    {/* Role */}
+                    <div className='tagFilter'>
+                        <div>Role:</div>
+                        {filters.role?.length > 0 && (
+                            <div className="listedTeam">
+                                {filters.role.map((t, i) => (
+                                    <div className="singleMember">
+
+                                        <div>{t}</div>
+                                        <div
+                                            onClick={(e) => {
+                                                setFilters(
+                                                    prev => ({ ...prev, role: [...filters.role.filter((f, j) => i !== j)] })
+                                                );
+                                            }}
+                                        >
+                                            <CloseIcon className="deleteMember" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        <div className='inputTag'>
+                            <select
+                                name="role"
+                                // value={form?.email}
+                                onChange={(e) => {
+                                    if (!filters.role.includes(e.target.value)) {
+                                        setFilters(prev => ({ ...filters, role: [...filters.role, e.target.value] }))
+                                    }
+                                }}
+                            >
+                                <option value="">Select</option>
+                                {totalRoles.map(h => (
+                                    <option value={h.role}>{h.role}</option>
+                                ))}
+
+                            </select>
+
+                        </div>
+                    </div>
+
+                    {/* mail */}
                     <div className='tagFilter'>
                         <div>Email:</div>
                         {filters.email?.length > 0 && (
@@ -412,7 +477,13 @@ const AllUsers = () => {
                         </div>
                     </div>
 
-                    
+                    {/* Rating */}
+                    <div className='tagFilter'>
+                        <div>Rating:</div>
+                        <div className='inputTag'>
+                            <AddReviewStars filledStars={filledStars} setFilledStars={setFilledStars}  />
+                        </div>
+                    </div>
 
                     {/* verification */}
                     <div className='verificationFilter'>
