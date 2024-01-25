@@ -178,7 +178,6 @@ const Editprofile = () => {
 
   const handleEducationChange = (e) => {
     setEducationDetails(prev => ({ ...prev, [e.target.name]: e.target.value }))
-
   }
 
 
@@ -761,7 +760,7 @@ const Editprofile = () => {
           {/* } */}
         <div className="update-form-container" style={{ flexDirection: 'column' }}>
           <form className="update-form">
-            <h3 className="update-heading">Education Details</h3>
+            <h3 className="update-heading">Education Details (Add latest degree at top)</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div>
