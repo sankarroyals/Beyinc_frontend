@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom/dist";
 import "../../Editprofile/Editprofile.css";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
 import { AdminServices } from "../../../Services/AdminServices";
@@ -589,9 +588,9 @@ export const SingleRequestProfile = () => {
                                 marginTop: "15px",
                             }}
                         >
-                            <button type="button" onClick={() => navigate(-1)}>Back</button>
+                        <button type="button" className="back-button" onClick={() => navigate(-1)}>Back</button>
 
-                            <button type="submit" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "rejected"}>
+                            <button type="submit" className="reject-button" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled = {inputs.status === "rejected"}>
                                 {/* {isLoading ? (
                                     <>
                                         <img

@@ -16,6 +16,7 @@ import LoadingData from "./Components/Toast/Loading";
 import AllUsers from "./Components/AllUsers/AllUsers";
 import IndividualUser from "./Components/AllUsers/individualUser";
 import { socket_io } from "./Utils";
+import LandingPage from "./Components/LandingPage/LandingPage";
 
 
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
@@ -96,14 +97,13 @@ const App = () => {
         <Toast />
         <LoadingData />
         <Navbar />
-
         <Routes>
           <Route path="/signup" Component={LoginAuth(SignUp)} />
           <Route path="/login" Component={LoginAuth(Login)} />
           <Route path="/forgotpassword" Component={LoginAuth(ForgotPassword)} />
+          <Route path="/" element={<LandingPage/>} />
 
-
-          <Route path="/" Component={AuthHoc(Home)} />
+          <Route path="/home" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
           <Route path="/conversations" Component={AuthHoc(Conversations)} />
           <Route path="/conversations/:conversationId" Component={AuthHoc(Conversations)} />
@@ -113,8 +113,6 @@ const App = () => {
           <Route path="/livePitches/:pitchId" Component={AuthHoc(IndividualPitch)} />
           <Route path="/searchusers" Component={AuthHoc(AllUsers)} />
           <Route path="/user/:email" Component={AuthHoc(IndividualUser)} />
-
-
 
 
 

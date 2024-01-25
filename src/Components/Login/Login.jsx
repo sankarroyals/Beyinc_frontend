@@ -152,7 +152,7 @@ const Login = () => {
         );
         localStorage.setItem("user", JSON.stringify(res.data));
         // navigate("/");
-        window.location.href = "/";
+        window.location.href = "/home";
       })
       .catch((err) => {
         e.target.disabled = false;
@@ -197,7 +197,7 @@ const Login = () => {
         );
         localStorage.setItem("user", JSON.stringify(res.data));
         await axiosInstance.customFnAddTokenInHeader(res.data.accessToken);
-        navigate("/");
+        window.location.href = "/home";
       })
       .catch((err) => {
         e.target.disabled = false;

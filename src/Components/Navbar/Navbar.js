@@ -23,8 +23,9 @@ const Navbar = () => {
     (store) => store.auth.loginDetails
   );
 
-  const notificationAlert = useSelector(state => state.conv.notificationAlert);
-
+  const notificationAlert = useSelector(
+    (state) => state.conv.notificationAlert
+  );
 
   const [open, setOpen] = React.useState(false);
   const userDetailsRef = useRef(null);
@@ -142,7 +143,9 @@ const Navbar = () => {
   const handleClickOutside = (event) => {
     if (
       userDetailsRef.current &&
-      !userDetailsRef.current.contains(event.target) && event.target.id !== 'editProfile' && event.target.id !== 'Profile-img'
+      !userDetailsRef.current.contains(event.target) &&
+      event.target.id !== "editProfile" &&
+      event.target.id !== "Profile-img"
     ) {
       document
         .getElementsByClassName("userDetails")[0]
@@ -182,8 +185,6 @@ const Navbar = () => {
     }
   }, [window.location.pathname]);
 
-
-
   return (
     <div
       className="navbar"
@@ -196,25 +197,35 @@ const Navbar = () => {
           navigate("/");
         }}
       >
-        BEYINC
+         <img src="/logo.png" alt="logo" />
       </div>
 
       <div className="navRight">
+        <div id="home" className="icon">
+          <i
+            className="fas fa-home"
+            title="home"
+            onClick={() => {
+              navigate("/home");
+            }}
+          ></i>
+        </div>
         <div className="navIcons">
-          <div style={{position: 'relative'}}>
+          <div style={{ position: "relative" }}>
             <div id="conversations" className="icon">
               <i
-
                 className="far fa-comment-alt"
                 title="conversations"
                 onClick={() => {
                   navigate("/conversations");
                 }}
               ></i>
-
             </div>
-            <div className='Conversations-count' title='unread conversations'></div>
-         </div>
+            <div
+              className="Conversations-count"
+              title="unread conversations"
+            ></div>
+          </div>
 
           <div id="notifications" className="icon">
             <i
@@ -224,14 +235,11 @@ const Navbar = () => {
                 navigate("/notifications");
               }}
             ></i>
-            {notificationAlert &&
-              <div className="blinkBall"> </div>
-            }
-
-
+            {notificationAlert && <div className="blinkBall"> </div>}
           </div>
 
-          <div title="Search Users"
+          <div
+            title="Search Users"
             id="searchusers"
             className="icon"
             onClick={() => {
@@ -243,8 +251,8 @@ const Navbar = () => {
 
           {role === "Admin" && (
             <>
-
-              <div title="Profile Requests"
+              <div
+                title="Profile Requests"
                 id="profileRequests"
                 className="icon"
                 onClick={() => {
@@ -254,29 +262,28 @@ const Navbar = () => {
                 <i className="fas fa-users"></i>
               </div>
 
-              <div
-                id="pitches"
-                title="Pitch Request"
-                className="icon"
-              >
-              <i className="far fa-file"  onClick={() => {
-                  navigate("/pitches");
-                }}></i><i className="fas fa-plus" id='plus'></i>
+              <div id="pitches" title="Pitch Request" className="icon">
+                <i
+                  className="far fa-file"
+                  onClick={() => {
+                    navigate("/pitches");
+                  }}
+                ></i>
+                <i className="fas fa-plus" id="plus"></i>
               </div>
             </>
           )}
 
-          {role !== 'Admin' && <div
-            id="userPitches"
-            title="User Pitch"
-            className="icon"
-          >
-              <i className="far fa-file"  onClick={() => {
-              navigate("/userPitches");
-            }}></i>
-
-
-          </div>}
+          {role !== "Admin" && (
+            <div id="userPitches" title="User Pitch" className="icon">
+              <i
+                className="far fa-file"
+                onClick={() => {
+                  navigate("/userPitches");
+                }}
+              ></i>
+            </div>
+          )}
           <div
             id="livePitches"
             title="Live Pitches"
@@ -285,9 +292,7 @@ const Navbar = () => {
               navigate("/livePitches");
             }}
           >
-       <i className="far fa-comments"></i>
-
-
+            <i className="far fa-comments"></i>
           </div>
           <div
             id="editProfile"
@@ -298,9 +303,12 @@ const Navbar = () => {
                 .classList.toggle("showUserDetails");
             }}
           >
-            <img id='Profile-img'
+            <img
+              id="Profile-img"
               className="Profile-img"
-              src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+              src={
+                image !== undefined && image !== "" ? image : "/profile.jpeg"
+              }
               alt=""
             />
             {verification === "approved" && (
@@ -440,7 +448,7 @@ const Navbar = () => {
                 style={{ display: "none" }}
               />
             </div>
-            
+
             <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
               <button
                 onClick={submit}
