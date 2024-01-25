@@ -256,9 +256,9 @@ const IndividualUser = () => {
                             }
 
                         </div>}
-                        <div>
+                        {email !== user?.email && <div>
                             <AddReviewStars filledStars={filledStars} setFilledStars={setFilledStars} sendReview={sendReview} />
-                        </div>
+                        </div>}
                         <div></div>
 
                     </div>
