@@ -288,12 +288,11 @@ const Editprofile = () => {
   const navigate = useNavigate();
 
 
-  const sendMobileOtp = async (e) => {
+  const sendMobileOtpF = async (e) => {
     e.preventDefault();
     e.target.disabled = true;
-    await ApiServices.sendOtp({
-      to: email,
-      subject: "Mobile Verification",
+    await ApiServices.sendMobileOtp({
+      phone: `+91${mobile}`
     })
       .then((res) => {
         dispatch(
@@ -314,6 +313,7 @@ const Editprofile = () => {
             visible: "yes",
           })
         );
+        e.target.disabled = true;
       });
     setTimeout(() => {
       dispatch(
@@ -324,6 +324,7 @@ const Editprofile = () => {
         })
       );
     }, 4000);
+
   };
 
   // const verifyOtp = async (e) => {
@@ -368,7 +369,7 @@ const Editprofile = () => {
   const verifyMobileOtp = async (e) => {
     e.preventDefault();
     await ApiServices.verifyOtp({
-      email: email,
+      email: `+91${mobile}`,
       otp: mobileOtp,
     })
       .then((res) => {
@@ -381,15 +382,8 @@ const Editprofile = () => {
         );
         document.getElementById("mobileVerify").style.display = "none";
         document.getElementById("mobileOtpInput").disabled = true;
-        document
-          .getElementsByClassName("mobile-verification")[0]
-          .classList.remove("showMobileVerification");
         // setmobileVerified(true);
         setInputs((prev) => ({ ...prev, mobileVerified: true }));
-        document.getElementById("mobile").disabled = true;
-        if (name != "") {
-          setInputs((prev) => ({ ...prev, isNameValid: true }));
-        }
       })
       .catch((err) => {
         dispatch(
@@ -410,7 +404,6 @@ const Editprofile = () => {
       );
     }, 4000);
   };
-
   const update = async (e) => {
     e.preventDefault();
     e.target.disabled = true;
@@ -624,7 +617,7 @@ const Editprofile = () => {
                       <button
                         type="button"
                         className="otp_Button"
-                        onClick={sendMobileOtp}
+                        onClick={sendMobileOtpF}
                       >
                         Get OTP
                       </button>
