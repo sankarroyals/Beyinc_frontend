@@ -23,7 +23,7 @@ const SingleUserDetails = ({ d }) => {
         }
     }, [d])
     return (
-        <Card sx={{ maxWidth: 340, minWidth: 250, maxHeight: 250, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)' }}>
+        <Card sx={{ maxWidth: 340, minWidth: 250, height: '300px', boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)' }}>
             <div style={{ display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px' }}>
                 <img className='userCardImage'
                     src={d.image !== undefined && d.image.url !== "" ? d.image.url : "/profile.jpeg"}
@@ -49,6 +49,42 @@ const SingleUserDetails = ({ d }) => {
 
             </div>
             <CardContent>
+                <div style={{ display: 'flex', gap: '5px' }}>
+                    <div>
+                        <label className="indiPitchHiringPositions">Degree:</label>
+                    </div>
+                    <div className='indiPitchHiringPositions'>
+                        {d.educationDetails[0]?.grade}
+                    </div>
+
+                </div>
+                <div style={{ display: 'flex', gap: '5px' }}>
+                    <div>
+                        <label className="indiPitchHiringPositions">College:</label>
+                    </div>
+                    <div className='indiPitchHiringPositions'>
+                        {d.educationDetails[0]?.college} 
+                    </div>
+
+                </div>
+                <div style={{ display: 'flex', gap: '5px'}}>
+                    <div>
+                        <label className="indiPitchHiringPositions">Skills:</label>
+                    </div>
+                    <div style={{ maxHeight: '45px', overflowY: 'scroll'}} >
+                        {d.skills?.length > 0 && (
+                            <div className="" style={{ display: 'flex', flexWrap: 'wrap' }}>
+                                {d.skills?.map((t, i) => (
+                                    <div className="indiPitchHiringPositions">
+                                        <div>{t}</div>
+
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                </div>
                 {/* <Typography gutterBottom variant="h5" component="div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {d.userName}
                 </Typography> */}
