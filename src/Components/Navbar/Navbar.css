@@ -43,7 +43,7 @@
 }
 #plus {
   font-size: 10px;
-  margin-top: -150px;
+  position: absolute;
 }
 
 #notifications {
