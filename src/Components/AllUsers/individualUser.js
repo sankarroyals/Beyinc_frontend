@@ -115,7 +115,7 @@ const IndividualUser = () => {
                         <div style={{ display: 'flex', gap: '0px' }}>
                             <div>
                                 <div>
-                                    <img src={user?.image?.url} alt="" srcset="" style={{height: '120px', width: '120px'}} />
+                                    <img src={user?.image?.url !== undefined ? user?.image?.url : '/profile.jpeg'} alt="" srcset="" style={{height: '120px', width: '120px'}} />
                                 </div>
                                 <div className='indiUserHeading'>{user?.userName}
 

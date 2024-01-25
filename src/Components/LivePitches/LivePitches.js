@@ -100,7 +100,7 @@ const LivePitches = () => {
                                 if (f.review?.length > 0) {
                                     avg = avg / f.review?.length;
                                 }
-                                return avg == filters[ob]
+                                return avg <= filters[ob]
                             })
                         }
                     }
