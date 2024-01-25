@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ApiServices } from '../../../Services/ApiServices'
 import { useDispatch, useSelector } from 'react-redux'
 import { setToast } from '../../../redux/AuthReducers/AuthReducer'
@@ -10,6 +10,8 @@ import CloseIcon from '@mui/icons-material/Close'
 import PitchDetailsReadOnly from '../../Common/PitchDetailsReadOnly'
 import { Box, Dialog, DialogContent } from '@mui/material'
 import { gridCSS } from '../../CommonStyles'
+import { io } from 'socket.io-client'
+import { socket_io } from '../../../Utils'
 
 
 const MessageRequest = ({ m, setMessageRequest }) => {
@@ -19,14 +21,18 @@ const MessageRequest = ({ m, setMessageRequest }) => {
     const [value, setValue] = useState(0)
     const [reasonPop, setReasonPop] = useState(false)
     const [reason, setReason] = useState('')
+    const [popStatus, setpopStatus] = useState('')
 
-
+    const socket = useRef();
+    useEffect(() => {
+        socket.current = io(socket_io);
+    }, []);
 
     const dispatch = useDispatch()
 
     const update = async (e, status) => {
         e.target.disabled = true
-        if (status == 'approved' || (status == 'rejected' && reason !== '')) {
+        if ((status == 'approved' && reason !== '') || (status == 'rejected' && reason !== '')) {
             await ApiServices.updateUserMessageRequest({ conversationId: m._id, status: status, rejectReason: reason }).then((res) => {
 
                 dispatch(
@@ -39,7 +45,12 @@ const MessageRequest = ({ m, setMessageRequest }) => {
                 setMessageRequest(prev => [...prev.filter((f) => f._id !== m._id)])
                 e.target.disabled = false
                 setReasonPop(false)
+                setpopStatus('')
                 setReason('')
+                socket.current.emit("sendNotification", {
+                    senderId: email,
+                    receiverId: pitchDetails?.email,
+                });
 
             }).catch(err => {
                 setToast({
@@ -62,6 +73,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
         } else {
             e.target.disabled = false
             setReasonPop(true)
+            setpopStatus(status)
        }
     }
 
@@ -102,13 +114,13 @@ const MessageRequest = ({ m, setMessageRequest }) => {
 
 
                     <DialogContent style={{  position: 'relative', display: 'flex', flexDirection: 'column' }}>
-                        <Box><b>Enter Reason for rejection</b></Box>
+                        <Box><b>Enter Reason for {popStatus}</b></Box>
                         <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setReasonPop(false)}><CloseIcon /></Box>
                         <Box>
                             <input type="text" name="" value={reason} id="" onChange={(e)=> setReason(e.target.value)} />
                         </Box>
                         <button type="submit" disabled={reason==''} onClick={(e) => {
-                               update(e, 'rejected')
+                            update(e, popStatus)
                             }}>
                                 Ok
                             </button>
