@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { ApiServices } from '../../Services/ApiServices'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,6 +10,8 @@ import PitchDetailsReadOnly from '../Common/PitchDetailsReadOnly'
 import IndividualPitchComment from './IndividualPitchComment'
 import SendIcon from "@mui/icons-material/Send";
 import AddReviewStars from './AddReviewStars'
+import { io } from 'socket.io-client'
+import { socket_io } from '../../Utils'
 
 const IndividualPitch = () => {
     const [pitch, setpitch] = useState('')
@@ -23,6 +25,11 @@ const IndividualPitch = () => {
     const [pitchTrigger, setPitchTrigger] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const socket = useRef();
+    useEffect(() => {
+        socket.current = io(socket_io);
+    }, []);
 
 
     const [filledStars, setFilledStars] = useState(0)
@@ -41,6 +48,10 @@ const IndividualPitch = () => {
                 bgColor: ToastColors.success
             }))
             setPitchTrigger(!pitchTrigger)
+            socket.current.emit("sendNotification", {
+                senderId: email,
+                receiverId: pitch?.email,
+            });
         }).catch(err => {
             dispatch(setToast({
                 message: 'Error Occured',
@@ -115,6 +126,10 @@ const IndividualPitch = () => {
                     visible: "yes",
                 })
             );
+            socket.current.emit("sendNotification", {
+                senderId: email,
+                receiverId: pitch?.email,
+            });
            
         }).catch(err => {
             dispatch(
@@ -222,6 +237,8 @@ const IndividualPitch = () => {
                         <div></div>
                         <div>
                             <AddReviewStars setFilledStars={setFilledStars} sendReview={sendReview} filledStars={filledStars} />
+                            <span style={{ cursor: 'pointer', fontSize: '15px' }} onClick={sendReview}>Send Review</span>
+
                         </div>
                         <PitchDetailsReadOnly open={open} setOpen={setOpen} value={value} setValue={setValue} pitchDetails={pitch} />
 

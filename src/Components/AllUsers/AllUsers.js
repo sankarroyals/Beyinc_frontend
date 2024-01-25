@@ -9,6 +9,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import SingleUserDetails from './SingleUserDetails';
 import './users.css'
 import { allLanguages, allskills } from '../../Utils';
+import AddReviewStars from '../LivePitches/AddReviewStars';
 
 
 const AllUsers = () => {
@@ -16,6 +17,7 @@ const AllUsers = () => {
     const [tag, settag] = useState('')
     const [filteredData, setFilteredData] = useState([])
     const { email } = useSelector(state => state.auth.loginDetails)
+    const [filledStars, setFilledStars] = useState(0)
     const [filters, setFilters] = useState({
         languagesKnown: [],
         skills: [],
@@ -25,7 +27,11 @@ const AllUsers = () => {
         userColleges: [],
         verification: false,
         userName: [],
+        review: 0
     })
+    useEffect(() => {
+        setFilters(prev=>({...prev, review: filledStars}))
+    }, [filledStars])
     const [universities, setUniversities] = useState([])
     useEffect(() => {
         axios.get('http://universities.hipolabs.com/search').then(res => {
@@ -51,8 +57,8 @@ const AllUsers = () => {
         console.log(filters);
         if (Object.keys(filters).length > 0) {
             Object.keys(filters).map((ob) => {
-                if (filters[ob].length > 0 || ob == 'verification') {
-                    if (ob !== 'tags' && ob !== 'verification' && ob !== 'email' && ob !== 'userName' && ob !== 'industry2' && ob !== 'userColleges' && ob !== 'country' && ob !== 'state' && ob !== 'skills' && ob !== 'languagesKnown') {
+                if (filters[ob].length > 0 || ob == 'verification' || ob == 'review') {
+                    if (ob !== 'tags' && ob !== 'verification' && ob !== 'email' && ob !== 'userName' && ob !== 'industry2' && ob !== 'userColleges' && ob !== 'country' && ob !== 'state' && ob !== 'skills' && ob !== 'languagesKnown' && ob !== 'review') {
                         filteredData = filteredData.filter(f => filters[ob].includes(f[ob]))
                     } else if (ob === 'tags' || ob == 'skills' || ob =='languagesKnown' ) {
                         filteredData = filteredData.filter(item => {
@@ -75,6 +81,15 @@ const AllUsers = () => {
                     } else if (ob == 'userName' || ob == 'industry2' || ob == 'country' || ob == 'state' || ob == 'email') {
                         filteredData = filteredData.filter(f => {
                             return filters[ob].some(fs => fs === f[ob])
+                        })
+                    } else if (ob == 'review') {
+                        filteredData.filter(f => {
+                            let avg = 0
+                            f.review.length > 0 && f.review.map(fc => {
+                                avg +=fc.review
+                            })
+                            console.log(avg);
+                            // return filters[ob].some(fs => fs === f[ob])
                         })
                     }
                 }
@@ -412,7 +427,13 @@ const AllUsers = () => {
                         </div>
                     </div>
 
-                    
+                    {/* Rating */}
+                    <div className='tagFilter'>
+                        <div>Rating:</div>
+                        <div className='inputTag'>
+                            <AddReviewStars filledStars={filledStars} setFilledStars={setFilledStars}  />
+                        </div>
+                    </div>
 
                     {/* verification */}
                     <div className='verificationFilter'>

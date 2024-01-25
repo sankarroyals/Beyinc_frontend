@@ -256,8 +256,10 @@ const IndividualUser = () => {
                             }
 
                         </div>}
-                        {email !== user?.email && <div>
-                            <AddReviewStars filledStars={filledStars} setFilledStars={setFilledStars} sendReview={sendReview} />
+                        {email !== jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken).email && <div>
+                            <AddReviewStars filledStars={filledStars} setFilledStars={setFilledStars} /> <div>
+                                <span style={{ cursor: 'pointer', fontSize: '15px' }} onClick={sendReview}>Send Review</span>
+                            </div>
                         </div>}
                         <div></div>
 

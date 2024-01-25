@@ -4,7 +4,7 @@ import { ApiServices } from '../../Services/ApiServices';
 import { setToast } from '../../redux/AuthReducers/AuthReducer';
 import { ToastColors } from '../Toast/ToastColors';
 
-const AddReviewStars = ({ filledStars, sendReview, setFilledStars }) => {
+const AddReviewStars = ({ filledStars, setFilledStars }) => {
 
 
 
@@ -34,9 +34,7 @@ const AddReviewStars = ({ filledStars, sendReview, setFilledStars }) => {
             <div>
                 {renderStars()}
             </div>
-            <div>
-                <span style={{cursor: 'pointer', fontSize: '15px'}} onClick={sendReview}>Send Review</span>
-            </div>
+           
         </div>
     );
 };
