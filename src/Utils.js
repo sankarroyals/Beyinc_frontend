@@ -468,7 +468,7 @@ export const convertToDate = (inputDate) => {
 }
 
 
-
+// gives in format 2024-jan-08
 export const formatedDate = (inputDate) => {
     const months = [
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -478,3 +478,16 @@ export const formatedDate = (inputDate) => {
     return `${inputDate?.split('-')[0]}-${months[date]}-${inputDate?.split('-')[2].slice(0, 2)}`
 
 }
+
+// fetch avg rating of user or pitch
+export const fetchRating = (db) => {
+    let avg = 0
+    db.review?.length > 0 && db.review.map(fc => {
+        avg += +fc.review
+    })
+    if (db.review?.length > 0) {
+        avg = avg / db.review?.length;
+    }
+    return avg
+} 
+

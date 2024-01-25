@@ -12,7 +12,7 @@ import SinglePitchetails from './SinglePitchDetails'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { CheckBox } from '@mui/icons-material'
-import {  domain_subdomain, itPositions } from '../../Utils'
+import {  domain_subdomain, fetchRating, itPositions } from '../../Utils'
 import { Country, State } from 'country-state-city'
 import AddReviewStars from './AddReviewStars'
 const LivePitches = () => {
@@ -93,21 +93,17 @@ const LivePitches = () => {
                     } else if (ob == 'review') {
                         if (filters[ob] !== 0) {
                             filteredData = filteredData.filter(f => {
-                                let avg = 0
-                                f.review?.length > 0 && f.review.map(fc => {
-                                    avg += +fc.review
-                                })
-                                if (f.review?.length > 0) {
-                                    avg = avg / f.review?.length;
-                                }
-                                return avg <= filters[ob]
+                               
+                                return fetchRating(f) <= filters[ob]
                             })
                         }
                     }
                 }
             })
         }
-        console.log(filteredData);
+        filteredData.sort((a, b) => {
+            return fetchRating(b) - fetchRating(a)
+        });
         setFilteredData(filteredData);
     }
 

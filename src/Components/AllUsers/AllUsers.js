@@ -8,7 +8,7 @@ import { Country, State } from 'country-state-city'
 import CachedIcon from "@mui/icons-material/Cached";
 import SingleUserDetails from './SingleUserDetails';
 import './users.css'
-import { allLanguages, allskills, idealUserRole } from '../../Utils';
+import { allLanguages, allskills, fetchRating, idealUserRole } from '../../Utils';
 import AddReviewStars from '../LivePitches/AddReviewStars';
 
 
@@ -54,6 +54,9 @@ const AllUsers = () => {
         }
     }, [data, filters])
 
+
+
+
     const filterUsers = () => {
 
         let filteredData = [...data]
@@ -88,21 +91,17 @@ const AllUsers = () => {
                     } else if (ob == 'review') {
                         if (filters[ob] !== 0) {
                             filteredData = filteredData.filter(f => {
-                                let avg = 0
-                                f.review?.length > 0 && f.review.map(fc => {
-                                    avg += +fc.review
-                                })
-                                if (f.review?.length > 0) {
-                                    avg = avg / f.review?.length;
-                                }
-                                return avg <= filters[ob]
+                                
+                                return fetchRating(f) <= filters[ob]
                             })
                        }
                     }
                 }
             })
         }
-        console.log(filteredData);
+        filteredData.sort((a, b) => {
+            return fetchRating(b) - fetchRating(a)
+        });
         setFilteredData(filteredData);
     }
 
