@@ -25,7 +25,7 @@ const LandingPage = () => {
         <img src="/business.png" />
         <div>
           <h1>
-            Welcome to India's Social <br /> Entrepreneurship Platform
+            Welcome to  Social <br /> Entrepreneurship Platform
           </h1>
         </div>
         <h3>Turning Dreams Into Reality</h3>
@@ -67,14 +67,14 @@ const LandingPage = () => {
         </div>
 
         <div className="box-container">
-          <div class="box">
-            <h2>content</h2>
-            <p>image</p>
+          <div className="box">
+            <h2>Lorem ipsum</h2>
+            <img src="/timer.webp" />
           </div>
 
           <div className="box">
-            <h2>content</h2>
-            <p>image</p>
+            <h2>Lorem ipsum</h2>
+            <img src="/flag.webp" />
           </div>
         </div>
 
@@ -114,21 +114,46 @@ const LandingPage = () => {
           <span> it works</span>
           <br />
         </div>
-        <div className="working-box"></div>
-        <div className="working-box"></div>
-        <div className="working-box"></div>
-        <div className="working-box"></div>
+        <div className="working-box">
+          <img src="/create-wallet-white.webp" />
+          <h3>Loreum Ipsum</h3>
+        </div>
+        <div className="working-box">
+          <img src="/invite-white.webp" />
+          <h3>Loreum Ipsum</h3>
+        </div>
+        <div className="working-box">
+          <img src="/cards-white.webp" />
+          <h3>Loreum Ipsum</h3>
+        </div>
+        <div className="working-box">
+          <img src="/pool-white.webp" />
+          <h3>Loreum Ipsum</h3>
+        </div>
       </div>
 
       <div className="black-container">
-        <h1>Animation Here</h1>
+        <h1>Loreum Ipsum</h1>
+        <img src="card-gif.gif" />
       </div>
 
       <div className="random-containers">
-        <div className="random-box1"></div>
-        <div className="random-box2"></div>
-        <div className="random-box3"></div>
-        <div className="random-box4"></div>
+        <div className="random-box1">
+        <h3>Loreum ipsum</h3>
+          <img src="/track-mange.webp" />
+        </div>
+        <div className="random-box2">
+        <h3>Loreum ipsum</h3>
+          <img src="/together.webp" />
+        </div>
+        <div className="random-box3">
+        <h3>Loreum ipsum</h3>
+          <img src="/bank.webp" />
+        </div>
+        <div className="random-box4">
+        <h3>Loreum ipsum</h3>
+          <img src="/limit.webp" />
+        </div>
       </div>
 
       <footer className="footer">
@@ -139,7 +164,7 @@ const LandingPage = () => {
             <img src="/appstore-light.svg" />
           </div> */}
         </div>
-        
+
         <div className="footer-content">
           <nav>
             <h2>Quick Links</h2>
