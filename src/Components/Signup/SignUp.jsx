@@ -316,6 +316,9 @@ const SignUp = () => {
       <div className="registration-form-container">
         <form>
           <center>
+          <img src="/logo.png" className="login-logo" onClick={() => {
+          navigate("/");
+        }}/>
             <h1 className="signup-heading">Signup</h1>
           </center>
           <div className="input-container">

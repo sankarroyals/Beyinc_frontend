@@ -5,6 +5,12 @@ i {
   cursor: pointer;
 }
 
+
+.login-logo {
+  cursor: pointer;
+  height: 100px;
+  width: 180px;
+}
 .form-container {
   max-width: 450px;
   margin: auto;

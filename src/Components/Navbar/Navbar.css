@@ -123,6 +123,18 @@
   align-items: center;
 }
 
+.fas.fa-bars{
+  color: black;
+  font-size: 24px;
+  
+}
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  width: 8px !important;
+  color: #1976d2;
+}
+
+
 .cross {
   margin-left: 345px;
   margin-top: 2px;

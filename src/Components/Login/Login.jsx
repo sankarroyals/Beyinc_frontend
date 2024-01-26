@@ -267,6 +267,9 @@ const Login = () => {
       {/* Login Form */}
       <form className="login-form-container">
         <center>
+        <img src="/logo.png" className="login-logo" onClick={() => {
+          navigate("/");
+        }}/>
           <h2>Login</h2>
           <p>Log in now to get full access.</p>
         </center>

@@ -18,13 +18,137 @@ import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { io } from "socket.io-client";
 
+import Box from "@mui/material/Box";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+
 const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
   );
 
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
+  
+
   const notificationAlert = useSelector(
     (state) => state.conv.notificationAlert
+  );
+
+  const [drawerState, setDrawerState] = useState({
+    right: false,
+    // Add other anchors if needed (left, top, bottom)
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setDrawerState({ ...drawerState, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+    sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+    role="presentation"
+    onClick={toggleDrawer(anchor, false)}
+    onKeyDown={toggleDrawer(anchor, false)}
+  >
+   <List>
+      <ListItem button key="searchUsers" onClick={() => navigate("/searchusers")}>
+        <ListItemIcon>
+          <i className="fas fa-search"></i>
+        </ListItemIcon>
+        <ListItemText primary="Search Users" />
+      </ListItem>
+
+      {role === "Admin" && (
+        <>
+          <ListItem button key="profileRequests" onClick={() => navigate("/profileRequests")}>
+            <ListItemIcon>
+              <i className="fas fa-users"></i>
+            </ListItemIcon>
+            <ListItemText primary="Profile Requests" />
+          </ListItem>
+
+          <ListItem button key="pitches" onClick={() => navigate("/pitches")}>
+            <ListItemIcon>
+              <i className="far fa-file"></i>
+            </ListItemIcon>
+            <ListItemText primary="Pitch Request" />
+            {role === "Admin" && <i className="fas fa-plus" id="plus"></i>}
+          </ListItem>
+        </>
+      )}
+
+      {role !== "Admin" && (
+        <ListItem button key="userPitches" onClick={() => navigate("/userPitches")}>
+          <ListItemIcon>
+            <i className="far fa-file"></i>
+          </ListItemIcon>
+          <ListItemText primary="User Pitch" />
+        </ListItem>
+      )}
+
+      <ListItem button key="livePitches" onClick={() => navigate("/livePitches")}>
+        <ListItemIcon>
+          <i className="far fa-comments"></i>
+        </ListItemIcon>
+        <ListItemText primary="Live Pitches" />
+      </ListItem>
+    </List>
+    <Divider />
+
+
+    {isMobile && (<List>
+      <ListItem button key="home" onClick={() => navigate("/home")}>
+        <ListItemIcon>
+          <i className="fas fa-home"></i>
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItem>
+
+      <ListItem button key="conversations" onClick={() => navigate("/conversations")}>
+        <ListItemIcon>
+          <i className="far fa-comment-alt"></i>
+        </ListItemIcon>
+        <ListItemText primary="Conversations" />
+      </ListItem>
+
+      <ListItem button key="notifications" onClick={() => navigate("/notifications")}>
+        <ListItemIcon>
+          <i className="far fa-bell"></i>
+        </ListItemIcon>
+        <ListItemText primary="Notifications" />
+        {notificationAlert && <div className="blinkBall"></div>}
+      </ListItem>
+    </List>)}
+  </Box>
   );
 
   const [open, setOpen] = React.useState(false);
@@ -186,6 +310,7 @@ const Navbar = () => {
   }, [window.location.pathname]);
 
   return (
+    
     <div
       className="navbar"
       style={{ display: email == undefined ? "none" : "flex" }}
@@ -197,21 +322,14 @@ const Navbar = () => {
           navigate("/");
         }}
       >
-         <img src="/logo.png" alt="logo" />
+        <img src="/logo.png" alt="logo" />
       </div>
 
-      <div className="navRight">
-        <div id="home" className="icon">
-          <i
-            className="fas fa-home"
-            title="home"
-            onClick={() => {
-              navigate("/home");
-            }}
-          ></i>
-        </div>
+      {isMobile || ( <div className="navRight">
         <div className="navIcons">
           <div style={{ position: "relative" }}>
+
+          
             <div id="conversations" className="icon">
               <i
                 className="far fa-comment-alt"
@@ -237,8 +355,18 @@ const Navbar = () => {
             ></i>
             {notificationAlert && <div className="blinkBall"> </div>}
           </div>
+          <div id="home" className="icon">
+          <i
+            className="fas fa-home"
+            title="home"
+            onClick={() => {
+              navigate("/home");
+            }}
+          ></i>
+        </div>
 
-          <div
+
+          {/* <div
             title="Search Users"
             id="searchusers"
             className="icon"
@@ -293,7 +421,10 @@ const Navbar = () => {
             }}
           >
             <i className="far fa-comments"></i>
-          </div>
+          </div> */}
+
+
+
           <div
             id="editProfile"
             style={{ position: "relative" }}
@@ -329,7 +460,8 @@ const Navbar = () => {
             )}
           </div>
         </div>
-      </div>
+      </div>)}
+     
 
       <div className="userDetails" ref={userDetailsRef}>
         <span className="line-loader"></span>
@@ -489,6 +621,19 @@ const Navbar = () => {
           </DialogContentText>
         </DialogContent>
       </Dialog>
+
+      {/* Button to open the right drawer */}
+      <Button onClick={toggleDrawer("right", true)}><i className="fas fa-bars"></i></Button>
+
+      {/* Swipeable Drawer for right anchor */}
+      <SwipeableDrawer
+        anchor="right"
+        open={drawerState["right"]}
+        onClose={toggleDrawer("right", false)}
+        onOpen={toggleDrawer("right", true)}
+      >
+        {list("right")}
+      </SwipeableDrawer>
     </div>
   );
 };

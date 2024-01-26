@@ -325,6 +325,7 @@ body {
   height: 1000px;
   /* padding-top: 300px; */
   margin-bottom: 100px;
+  margin-top: -300px;
   text-align: center;
 }
 
