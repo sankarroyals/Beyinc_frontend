@@ -14,8 +14,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import MessageIcon from "@mui/icons-material/Message";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { io } from "socket.io-client";
 
 import Box from "@mui/material/Box";
@@ -80,12 +82,12 @@ const Navbar = () => {
     onKeyDown={toggleDrawer(anchor, false)}
   >
    <List>
-      <ListItem button key="searchUsers" onClick={() => navigate("/searchusers")}>
-        <ListItemIcon>
-          <i className="fas fa-search"></i>
-        </ListItemIcon>
-        <ListItemText primary="Search Users" />
-      </ListItem>
+   <ListItem button key="searchUsers" onClick={() => navigate("/searchusers")}>
+  <ListItemIcon>
+    <SearchOutlinedIcon />
+  </ListItemIcon>
+  <ListItemText primary="Search Users" />
+</ListItem>
 
       {role === "Admin" && (
         <>
@@ -330,40 +332,26 @@ const Navbar = () => {
           <div style={{ position: "relative" }}>
 
           
-            <div id="conversations" className="icon">
-              <i
-                className="far fa-comment-alt"
-                title="conversations"
-                onClick={() => {
+            <ChatBubbleOutlineOutlinedIcon id="conversations" className="icon" onClick={() => {
                   navigate("/conversations");
-                }}
-              ></i>
-            </div>
+                }}>
+            </ChatBubbleOutlineOutlinedIcon>
             <div
               className="Conversations-count"
               title="unread conversations"
             ></div>
           </div>
 
-          <div id="notifications" className="icon">
-            <i
-              className="far fa-bell"
-              title="notifications"
+          <NotificationsNoneIcon id="notifications" className="icon"  title="notifications"
               onClick={() => {
                 navigate("/notifications");
-              }}
-            ></i>
+              }}>
             {notificationAlert && <div className="blinkBall"> </div>}
-          </div>
-          <div id="home" className="icon">
-          <i
-            className="fas fa-home"
-            title="home"
-            onClick={() => {
+          </NotificationsNoneIcon>
+          <HomeOutlinedIcon id="home" className="icon"  onClick={() => {
               navigate("/home");
-            }}
-          ></i>
-        </div>
+            }}>
+        </HomeOutlinedIcon>
 
 
           {/* <div

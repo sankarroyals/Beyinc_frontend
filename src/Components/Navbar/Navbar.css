@@ -32,14 +32,14 @@
 }
 
 .icon {
-  cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
-  font-size: 20px;
-  font-weight: 600;
+  cursor: pointer !important;
+  transition: color 0.3s ease, transform 0.3s ease !important;
+  font-size: 24px !important;
+  font-weight: 600 !;
 }
 
 .icon:hover {
-  transform: scale(1.2);
+  transform: scale(1.2) !important;
 }
 #plus {
   font-size: 10px;
