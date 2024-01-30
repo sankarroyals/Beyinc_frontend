@@ -81,10 +81,10 @@ const Navbar = () => {
     setValue(newValue);
   };
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.outerWidth <= 768);
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.outerWidth <= 768);
     };
 
     window.addEventListener("resize", handleResize);
@@ -269,7 +269,7 @@ const Navbar = () => {
           <>
             <div className={`individualrequest`} onClick={() => {
               navigate(`/user/${n.senderEmail}`)
-            }} style={{ width: '450px', marginLeft: '20px', textAlign: 'start' }}>
+            }} style={{ width: '400px', marginLeft: '20px', textAlign: 'start' }}>
               <div className='individualrequestWrapper' style={{ gap: '5px', alignItems: 'center', width: '100%' }}>
                 <div>
                   <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderProfile == undefined ? '/profile.jpeg' : n.senderProfile} alt="" srcset="" />
