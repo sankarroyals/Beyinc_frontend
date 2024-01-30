@@ -30,13 +30,49 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import { getAllNotifications } from "../../redux/Conversationreducer/ConversationReducer";
+import { Tab, Tabs, Typography } from "@mui/material";
+import MessageRequest from "../Conversation/Notification/MessageRequest";
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+function TabPanel(props) {
+  const { className, children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+      className={className}
+    >
+      {value === index && (
+        <Box sx={{ p: 0 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 
 const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
   );
+  const [messageRequest, setMessageRequest] = useState([]);
 
   const notifications = useSelector((state) => state.conv.notifications);
+  const [value, setValue] = useState(0)
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   useEffect(() => {
@@ -50,19 +86,29 @@ const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const notificationAlert = useSelector(state => state.conv.notificationAlert);
+  const [notificationDrawerState, setNotificationDrawerState] = useState({
+    right: false,
+  });
+  const getNotifys = async () => {
+    await ApiServices.getUserRequest({ email: email }).then((res) => {
+      setMessageRequest(res.data);
+    });
+    dispatch(getAllNotifications(email))
+  }
 
-  const notificationAlert = useSelector(
-    (state) => state.conv.notificationAlert
-  );
+  useEffect(() => {
+    if (notificationDrawerState.right == true) {
+      getNotifys()
+    }
+  }, [notificationDrawerState]);
 
   const [drawerState, setDrawerState] = useState({
     right: false,
     // Add other anchors if needed (left, top, bottom)
   });
 
-  const [notificationDrawerState, setNotificationDrawerState] = useState({
-    right: false,
-  });
+ 
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -191,20 +237,42 @@ const Navbar = () => {
   );
   const NotificationList = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250, overFlowX: 'hidden' }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+      
+      <Tabs value={value} className='pitchTabs' style={{width: '450px'}}
+        textColor="primary"
+        indicatorColor="secondary"
+        onChange={handleChange} aria-label="basic tabs example"
+      >
+        <Tab className='tabs' sx={{ width: '200px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label={`Notifications (${notifications?.length})`} {...a11yProps(1)} />
+        <Tab className='tabs' sx={{ width: '200px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label={`Message Requests (${messageRequest?.length})`} {...a11yProps(0)} />
+      </Tabs>
+      <TabPanel style={{ padding: 0 }} className="" value={value} index={0}>
+        {notifications.map((n) => (
+          <div>
 
-      <h1 className="Notification-Heading">Notifications</h1>
-      {notifications.map((n) => (
-       <div>
-       
-         <div className="Individual-Notifications">{n.message}</div>
-        <div className="divider"></div>
-       </div>
-      ))}
+            <div className="Individual-Notifications">{n.message}</div>
+            <div className="divider"></div>
+          </div>
+        ))}
+
+      </TabPanel>
+      <TabPanel style={{ padding: 0 }} className="" value={value} index={1}>
+        {(messageRequest.length > 0 || notifications.length > 0) && (
+          <><div>{messageRequest?.map((m) => (
+            <MessageRequest m={m} setMessageRequest={setMessageRequest} />
+          ))}
+          </div>
+            </>
+        ) }
+
+      </TabPanel>
+     
+     
 
     </Box>
   );
@@ -407,17 +475,13 @@ const Navbar = () => {
               <NotificationsNoneIcon
                 id="notifications"
                 className="icon"
-                onClick={() => {
-                  navigate("/notifications");
-                }}
+                onClick={toggleNotificationDrawer("right", true)}
               >
                 {notificationAlert && <div className="blinkBall"> </div>}
               </NotificationsNoneIcon>
             </attr>
 
-            <NotificationsNoneIcon
-              onClick={toggleNotificationDrawer("right", true)}
-            ></NotificationsNoneIcon>
+           
 
             {/* Swipeable Drawer for right anchor */}
             <SwipeableDrawer
