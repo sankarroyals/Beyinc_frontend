@@ -11,12 +11,17 @@ import CloseIcon from "@mui/icons-material/Close";
 import { ApiServices } from "../../Services/ApiServices";
 import { useNavigate } from "react-router-dom/dist";
 import "./Editprofile.css";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Country, State, City } from 'country-state-city';
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Country, State, City } from "country-state-city";
 import { AdminServices } from "../../Services/AdminServices";
 import { jwtDecode } from "jwt-decode";
 import { format } from "timeago.js";
-import { allLanguages, allskills, convertToDate, itPositions } from "../../Utils";
+import {
+  allLanguages,
+  allskills,
+  convertToDate,
+  itPositions,
+} from "../../Utils";
 
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
@@ -24,12 +29,12 @@ const Editprofile = () => {
   );
 
   const [showPreviousFile, setShowPreviousFile] = useState(false);
-  const [universities, setUniversities] = useState([])
+  const [universities, setUniversities] = useState([]);
   useEffect(() => {
-    axios.get('http://universities.hipolabs.com/search').then(res => {
-      setUniversities(res.data)
-    })
-  }, [])
+    axios.get("http://universities.hipolabs.com/search").then((res) => {
+      setUniversities(res.data);
+    });
+  }, []);
 
   const [inputs, setInputs] = useState({
     email: null,
@@ -68,86 +73,82 @@ const Editprofile = () => {
 
   const [roles, setRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [totalExperienceData, setTotalExperienceData] = useState([])
-  const [totalEducationData, setTotalEducationData] = useState([])
+  const [totalExperienceData, setTotalExperienceData] = useState([]);
+  const [totalEducationData, setTotalEducationData] = useState([]);
   const [experienceDetails, setExperience] = useState({
-    year: '',
-    company: '',
-    profession: '',
-    start: '',
-    end: ''
-  })
+    year: "",
+    company: "",
+    profession: "",
+    start: "",
+    end: "",
+  });
   const [EducationDetails, setEducationDetails] = useState({
-    year: '',
-    grade: '',
-    college: '',
-    Edstart: '',
-    Edend: ''
-  })
-  const [fee, setFee] = useState('')
-  const [bio, setBio] = useState('')
-  const [skills, setSkills] = useState([])
-  const [singleSkill, setSingleSkill] = useState('')
+    year: "",
+    grade: "",
+    college: "",
+    Edstart: "",
+    Edend: "",
+  });
+  const [fee, setFee] = useState("");
+  const [bio, setBio] = useState("");
+  const [skills, setSkills] = useState([]);
+  const [singleSkill, setSingleSkill] = useState("");
 
-  const [languagesKnown, setlanguagesKnown] = useState([])
-  const [singlelanguagesKnown, setSinglelanguagesKnown] = useState('')
-  const [state, setState] = useState('')
-  const [country, setCountry] = useState('')
-  const [town, settown] = useState('')
+  const [languagesKnown, setlanguagesKnown] = useState([]);
+  const [singlelanguagesKnown, setSinglelanguagesKnown] = useState("");
+  const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
+  const [town, settown] = useState("");
   const [places, setPlaces] = useState({
     country: [],
     state: [],
-    town: []
-  })
-
+    town: [],
+  });
 
   useEffect(() => {
-    if (country == '' && state == '' && town == '') {
+    if (country == "" && state == "" && town == "") {
       setPlaces({
         country: Country.getAllCountries(),
         state: [],
-        town: []
-      })
-    } else if (country !== '' && state == '' && town == '') {
+        town: [],
+      });
+    } else if (country !== "" && state == "" && town == "") {
       setPlaces({
         country: Country.getAllCountries(),
-        state: State.getStatesOfCountry(country.split('-')[1]),
-        town: []
-      })
-    } else if (country !== '' && state !== '' && town == '') {
+        state: State.getStatesOfCountry(country.split("-")[1]),
+        town: [],
+      });
+    } else if (country !== "" && state !== "" && town == "") {
       setPlaces({
         country: Country.getAllCountries(),
-        state: State.getStatesOfCountry(country.split('-')[1]),
-        town: City.getCitiesOfState(country.split('-')[1], state.split('-')[1])
-      })
+        state: State.getStatesOfCountry(country.split("-")[1]),
+        town: City.getCitiesOfState(country.split("-")[1], state.split("-")[1]),
+      });
     }
-  }, [country, state, town])
-
+  }, [country, state, town]);
 
   const addExperience = (e) => {
-    e.preventDefault()
-    setTotalExperienceData(prev => [...prev, experienceDetails])
+    e.preventDefault();
+    setTotalExperienceData((prev) => [...prev, experienceDetails]);
     setExperience({
-      profession: '',
-      start: '',
-      end: '',
-      company: '',
-      year: ''
-    })
-
-  }
+      profession: "",
+      start: "",
+      end: "",
+      company: "",
+      year: "",
+    });
+  };
   const addEducation = (e) => {
-    e.preventDefault()
-    setTotalEducationData(prev => [...prev, EducationDetails])
+    e.preventDefault();
+    setTotalEducationData((prev) => [...prev, EducationDetails]);
     setEducationDetails({
-      year: '',
-      grade: '',
-      college: '',
-      Edstart: '',
-      Edend: ''
-    })
-
-  }
+      year: "",
+      grade: "",
+      college: "",
+      Edstart: "",
+      Edend: "",
+    });
+  };
 
   const [changeResume, setchangeDocuments] = useState({
     resume: "",
@@ -170,22 +171,22 @@ const Editprofile = () => {
     acheivements: "",
     working: "",
     degree: "",
-  })
+  });
 
   const handleChange = (e) => {
-    setExperience(prev => ({ ...prev, [e.target.name]: e.target.value }))
-  }
+    setExperience((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleEducationChange = (e) => {
-    setEducationDetails(prev => ({ ...prev, [e.target.name]: e.target.value }))
-  }
-
-
-
+    setEducationDetails((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const handleResume = (e) => {
     const file = e.target.files[0];
-    setRecentUploadedDocs((prev) => ({ ...prev, [e.target.name]: file?.name }))
+    setRecentUploadedDocs((prev) => ({ ...prev, [e.target.name]: file?.name }));
     setFileBase(e, file);
   };
   const setFileBase = (e, file) => {
@@ -198,6 +199,12 @@ const Editprofile = () => {
       }));
     };
   };
+  useEffect(() => {
+    const hasEducation = totalEducationData.length > 0;
+    const hasWorkExperience = totalExperienceData.length > 0;
+
+    setIsFormValid(hasEducation && hasWorkExperience);
+  }, [totalEducationData, totalExperienceData]);
 
   useEffect(() => {
     ApiServices.getProfile({ email: email })
@@ -210,7 +217,6 @@ const Editprofile = () => {
           role: res.data.role,
           mobileVerified: true,
         }));
-
 
         if (res.data.documents !== undefined) {
           setOldDocs((prev) => ({
@@ -229,24 +235,26 @@ const Editprofile = () => {
             working: res.data.documents?.working || "",
             degree: res.data.documents?.degree || "",
           }));
-          setTotalEducationData(res.data.educationDetails || [])
-          setTotalExperienceData(res.data.experienceDetails || [])
-          setFee(res.data.fee || '')
-          setBio(res.data.bio || '')
-          setSkills(res.data.skills || [])
-          setlanguagesKnown(res.data.languagesKnown || [])
+          setTotalEducationData(res.data.educationDetails || []);
+          setTotalExperienceData(res.data.experienceDetails || []);
+          setFee(res.data.fee || "");
+          setBio(res.data.bio || "");
+          setSkills(res.data.skills || []);
+          setlanguagesKnown(res.data.languagesKnown || []);
 
-
-          settown(res.data.town || '')
-          setCountry(res.data.country || '')
-          setState(res.data.state || '')
+          settown(res.data.town || "");
+          setCountry(res.data.country || "");
+          setState(res.data.state || "");
           setPlaces({
             country: Country.getAllCountries(),
-            state: State.getStatesOfCountry(res.data.country?.split('-')[1]) || [],
-            town: City.getCitiesOfState(res.data.country?.split('-')[1], res.data.state?.split('-')[1]) || []
-          })
-
-
+            state:
+              State.getStatesOfCountry(res.data.country?.split("-")[1]) || [],
+            town:
+              City.getCitiesOfState(
+                res.data.country?.split("-")[1],
+                res.data.state?.split("-")[1]
+              ) || [],
+          });
         }
       })
       .catch((error) => {
@@ -287,12 +295,11 @@ const Editprofile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const sendMobileOtpF = async (e) => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
-      phone: `+91${mobile}`
+      phone: `+91${mobile}`,
     })
       .then((res) => {
         dispatch(
@@ -324,7 +331,6 @@ const Editprofile = () => {
         })
       );
     }, 4000);
-
   };
 
   // const verifyOtp = async (e) => {
@@ -409,11 +415,20 @@ const Editprofile = () => {
     e.target.disabled = true;
     setIsLoading(true);
     await ApiServices.sendForApproval({
-      email: email, state: state, town: town, country: country,
+      email: email,
+      state: state,
+      town: town,
+      country: country,
       userName: name,
       phone: mobile,
-      role: role, fee: fee, bio: bio, skills: skills, languagesKnown: languagesKnown,
-      documents: changeResume, experienceDetails: totalExperienceData, educationdetails: totalEducationData
+      role: role,
+      fee: fee,
+      bio: bio,
+      skills: skills,
+      languagesKnown: languagesKnown,
+      documents: changeResume,
+      experienceDetails: totalExperienceData,
+      educationdetails: totalEducationData,
     })
       .then((res) => {
         dispatch(
@@ -474,19 +489,22 @@ const Editprofile = () => {
   //   }, 1000);
   // };
 
-  const isFormValid =
+  const [isFormValid, setIsFormValid] = useState(
     mobileVerified &&
-    (isNameValid ||
-      oldDocs.resume !== "" ||
-      oldDocs.expertise !== "" ||
-      oldDocs.acheivements !== "" ||
-      oldDocs.working !== "" ||
-      oldDocs.degree !== "" ||
-      changeResume.resume !== "" ||
-      changeResume.expertise !== "" ||
-      changeResume.acheivements !== "" ||
-      changeResume.working !== "" ||
-      changeResume.degree !== "");
+      (isNameValid ||
+        oldDocs.resume !== "" ||
+        oldDocs.expertise !== "" ||
+        oldDocs.acheivements !== "" ||
+        oldDocs.working !== "" ||
+        oldDocs.degree !== "" ||
+        changeResume.resume !== "" ||
+        changeResume.expertise !== "" ||
+        changeResume.acheivements !== "" ||
+        changeResume.working !== "" ||
+        changeResume.degree !== "") &&
+      totalEducationData.length > 0 &&
+      totalExperienceData.length > 0
+  );
 
   const handleChangeRadio = (e) => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
@@ -503,7 +521,9 @@ const Editprofile = () => {
         <div className="heading">
           <div>
             <img
-              src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+              src={
+                image !== undefined && image !== "" ? image : "/profile.jpeg"
+              }
               style={{
                 width: "150px",
                 height: "150px",
@@ -536,11 +556,15 @@ const Editprofile = () => {
               </attr>
             </div>
             <div
-              style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
+              style={{
+                fontSize: "12px",
+                color: "#717B9E",
+                marginBottom: "40px",
+              }}
             >
               Profile last updated -{" "}
               <span style={{ color: "black" }}>
-                <i class="fas fa-clock" style={{ marginRight: '5px' }}></i>
+                <i class="fas fa-clock" style={{ marginRight: "5px" }}></i>
                 {format(updatedAt)}
               </span>
             </div>
@@ -557,7 +581,11 @@ const Editprofile = () => {
               style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
             >
               <div
-                style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
+                style={{
+                  fontSize: "16px",
+                  color: "#474D6A",
+                  lineHeight: "1.5",
+                }}
               >
                 <i class="fas fa-user"></i> {role}
                 <br />
@@ -574,6 +602,7 @@ const Editprofile = () => {
                     style={{ width: "15px", height: "15px", marginLeft: "5px" }}
                   />
                 )}
+
                 <attr title="Edit Mobile Number">
                   <i
                     className="fas fa-pencil-alt"
@@ -584,7 +613,10 @@ const Editprofile = () => {
                     }}
                   ></i>
                 </attr>
+              
+               
                 <div className="mobile-verification">
+                
                   <div
                     className="closeIcon"
                     onClick={() => {
@@ -659,12 +691,22 @@ const Editprofile = () => {
           </div>
         </div>
         {/* {role == 'Mentor' && */}
-          <>
-            <div className="update-form-container" style={{ flexDirection: 'column' }}>
-              <form className="update-form">
-                <h3 className="update-heading">Work Experience</h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                  {/* <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <>
+          <div
+            className="update-form-container"
+            style={{ flexDirection: "column" }}
+          >
+            <form className="update-form">
+              <h3 className="update-heading">Work Experience</h3>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                {/* <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div>
                       <label className="update-form-label">Years of experience*</label>
                     </div>
@@ -678,97 +720,168 @@ const Editprofile = () => {
                       </select>
                     </div>
                   </div> */}
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div>
-                      <label className="update-form-label">Start Date*</label>
-                    </div>
-                    <div>
-                      <input type="date" value={experienceDetails.start} name="start" id="" onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div>
-                      <label className="update-form-label">End Date*</label>
-                    </div>
-                    <div>
-                      <input type="date" value={experienceDetails.end} name="end" id="" onChange={handleChange} />
-                    </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div>
+                    <label className="update-form-label">Start Date*</label>
                   </div>
                   <div>
-                    <div>
-                      <label className="update-form-label">Company*</label>
-                    </div>
-                    <div>
-                      <input type="text" name="company" value={experienceDetails.company} id="" onChange={handleChange} placeholder="Enter Your Company name" />
-                    </div>
+                    <input
+                      type="date"
+                      value={experienceDetails.start}
+                      name="start"
+                      id=""
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div>
+                    <label className="update-form-label">End Date*</label>
                   </div>
                   <div>
-                    <div>
-                      <label className="update-form-label">Profession*</label>
-                    </div>
-                    <div>
-                      <select name="profession" id="" value={experienceDetails.profession} onChange={handleChange}>
-                        <option value="">Select</option>
-                        {itPositions.map(op => (
-                          <option value={op}>{op}</option>
-                        ))}
-                      </select>
-                    </div>
+                    <input
+                      type="date"
+                      value={experienceDetails.end}
+                      name="end"
+                      id=""
+                      onChange={handleChange}
+                    />
                   </div>
-
-                  <div style={{ marginTop: '21px' }}>
-                    <button onClick={addExperience} disabled={experienceDetails.start == '' || experienceDetails.company == '' || experienceDetails.profession == ''}>Add</button>
+                </div>
+                <div>
+                  <div>
+                    <label className="update-form-label">Company*</label>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="company"
+                      value={experienceDetails.company}
+                      id=""
+                      onChange={handleChange}
+                      placeholder="Enter Your Company name"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <label className="update-form-label">Profession*</label>
+                  </div>
+                  <div>
+                    <select
+                      name="profession"
+                      id=""
+                      value={experienceDetails.profession}
+                      onChange={handleChange}
+                    >
+                      <option value="">Select</option>
+                      {itPositions.map((op) => (
+                        <option value={op}>{op}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
-              </form>
-              {totalExperienceData.length > 0 &&
-                totalExperienceData.map((te, i) => (
-                  <div>
-
-                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
-                        <div className="company">
-                          {te.company} <span>
-                            <i className="fas fa-trash" style={{ fontSize: '12px' }} onClick={(e) => {
-                              setTotalExperienceData(prev => [...prev.filter((f, j) => j !== i)])
-                            }}></i>
-                          </span>
-                        </div>
-                        <div className="profession">
-                          {te.profession}
-                        </div>
-                        <div className="timeline">
-                          {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
-                        </div>
+                <div style={{ marginTop: "21px" }}>
+                  <button
+                    onClick={addExperience}
+                    disabled={
+                      experienceDetails.start == "" ||
+                      experienceDetails.company == "" ||
+                      experienceDetails.profession == ""
+                    }
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </form>
+            {totalExperienceData.length > 0 &&
+              totalExperienceData.map((te, i) => (
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        padding: "20px",
+                      }}
+                    >
+                      <div className="company">
+                        {te.company}{" "}
+                        <span>
+                          <i
+                            className="fas fa-trash"
+                            style={{ fontSize: "12px" }}
+                            onClick={(e) => {
+                              setTotalExperienceData((prev) => [
+                                ...prev.filter((f, j) => j !== i),
+                              ]);
+                            }}
+                          ></i>
+                        </span>
                       </div>
-
+                      <div className="profession">{te.profession}</div>
+                      <div className="timeline">
+                        {convertToDate(te.start)}-
+                        {te.end == "" ? "Present" : convertToDate(te.end)}
+                      </div>
                     </div>
-
                   </div>
-                ))
-              }
-            </div>
+                </div>
+              ))}
+          </div>
         </>
-          {/* } */}
-        <div className="update-form-container" style={{ flexDirection: 'column' }}>
+        {/* } */}
+        <div
+          className="update-form-container"
+          style={{ flexDirection: "column" }}
+        >
           <form className="update-form">
-            <h3 className="update-heading">Education Details (Add latest degree at top)</h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <h3 className="update-heading">
+              Education Details (Add latest degree at top)
+            </h3>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
                 <div>
                   <label className="update-form-label">Start Date*</label>
                 </div>
                 <div>
-                  <input type="date" value={EducationDetails.Edstart} name="Edstart" id="" onChange={handleEducationChange} />
+                  <input
+                    type="date"
+                    value={EducationDetails.Edstart}
+                    name="Edstart"
+                    id=""
+                    onChange={handleEducationChange}
+                  />
                 </div>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: "flex", flexDirection: "column" }}>
                 <div>
                   <label className="update-form-label">End Date*</label>
                 </div>
                 <div>
-                  <input type="date" value={EducationDetails.Edend} name="Edend" id="" onChange={handleEducationChange} />
+                  <input
+                    type="date"
+                    value={EducationDetails.Edend}
+                    name="Edend"
+                    id=""
+                    onChange={handleEducationChange}
+                  />
                 </div>
               </div>
               <div>
@@ -777,86 +890,143 @@ const Editprofile = () => {
                 </div>
                 <div>
                   {/* <input type="text" name="grade" id="" value={EducationDetails.grade} onChange={handleEducationChange} placeholder="Enter Your Profession" /> */}
-                  <select name="grade" id="" value={EducationDetails.grade} onChange={handleEducationChange}>
+                  <select
+                    name="grade"
+                    id=""
+                    value={EducationDetails.grade}
+                    onChange={handleEducationChange}
+                  >
                     <option value="">Select</option>
                     <option value="SSC">10th</option>
                     <option value="Inter">Inter/Equivalent</option>
                     <option value="UG">UG (Btech, degree)</option>
                     <option value="PG">PG</option>
-                    <option value='other'>Other</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
               </div>
               <div>
                 <div>
-                  <label className="update-form-label">College/University*</label>
+                  <label className="update-form-label">
+                    College/University*
+                  </label>
                 </div>
                 <div>
-                  {(EducationDetails.grade == 'SSC' || EducationDetails.grade == '') ? <input type="text" name="college" value={EducationDetails.college} id="" onChange={handleEducationChange} placeholder="Enter Your College/School/University" /> : 
-                    <select value={EducationDetails.college} name="college" onChange={handleEducationChange} >
-                      <option value=''>Select</option>
-                      {universities.length > 0 && universities.map(u => (
-                        <option value={u.name}>{u.name}</option>
-                      ))}
-                  </select>
-                  }
-
-
+                  {EducationDetails.grade == "SSC" ||
+                  EducationDetails.grade == "" ? (
+                    <input
+                      type="text"
+                      name="college"
+                      value={EducationDetails.college}
+                      id=""
+                      onChange={handleEducationChange}
+                      placeholder="Enter Your College/School/University"
+                    />
+                  ) : (
+                    <select
+                      value={EducationDetails.college}
+                      name="college"
+                      onChange={handleEducationChange}
+                    >
+                      <option value="">Select</option>
+                      {universities.length > 0 &&
+                        universities.map((u) => (
+                          <option value={u.name}>{u.name}</option>
+                        ))}
+                    </select>
+                  )}
                 </div>
               </div>
 
-
-              <div style={{ marginTop: '21px' }}>
-                <button onClick={addEducation} disabled={EducationDetails.Edstart == '' || EducationDetails.grade == '' || EducationDetails.college == ''}>Add</button>
+              <div style={{ marginTop: "21px" }}>
+                <button
+                  onClick={addEducation}
+                  disabled={
+                    EducationDetails.Edstart == "" ||
+                    EducationDetails.grade == "" ||
+                    EducationDetails.college == ""
+                  }
+                >
+                  Add
+                </button>
               </div>
             </div>
-
           </form>
           {totalEducationData.length > 0 &&
             totalEducationData.map((te, i) => (
               <div>
-
-                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      padding: "20px",
+                    }}
+                  >
                     <div className="company">
-                      {te.college} <span>
-                        <i className="fas fa-trash" style={{ fontSize: '12px' }} onClick={(e) => {
-                          setTotalEducationData(prev => [...prev.filter((f, j) => j !== i)])
-                        }}></i></span>
+                      {te.college}{" "}
+                      <span>
+                        <i
+                          className="fas fa-trash"
+                          style={{ fontSize: "12px" }}
+                          onClick={(e) => {
+                            setTotalEducationData((prev) => [
+                              ...prev.filter((f, j) => j !== i),
+                            ]);
+                          }}
+                        ></i>
+                      </span>
                     </div>
-                    <div className="profession">
-                      {te.grade}
-                    </div>
+                    <div className="profession">{te.grade}</div>
                     <div className="timeline">
-                      {convertToDate(te.Edstart)}-{te.Edend == '' ? 'Present' : convertToDate(te.Edend)}
+                      {convertToDate(te.Edstart)}-
+                      {te.Edend == "" ? "Present" : convertToDate(te.Edend)}
                     </div>
                   </div>
-
                 </div>
-
               </div>
-            ))
-          }
-
+            ))}
         </div>
         <div className="update-form-container">
           <form className="update-form">
             <h3 className="update-heading">Personal / Fee Negotiation</h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
               <div>
                 <div>
                   <label className="update-form-label">Country</label>
                 </div>
-                <select name="country" id="" onChange={(e) => {
-                  setCountry(e.target.value)
-                  setState('')
-                  settown('')
-                  setPlaces(prev => ({ ...prev, state: [], town: [] }))
-                }}>
+                <select
+                  name="country"
+                  id=""
+                  onChange={(e) => {
+                    setCountry(e.target.value);
+                    setState("");
+                    settown("");
+                    setPlaces((prev) => ({ ...prev, state: [], town: [] }));
+                  }}
+                >
                   <option value="">Select</option>
-                  {places.country?.map(op => (
-                    <option value={`${op.name}-${op.isoCode}`} selected={country?.split('-')[0] == op.name}>{op.name}</option>
+                  {places.country?.map((op) => (
+                    <option
+                      value={`${op.name}-${op.isoCode}`}
+                      selected={country?.split("-")[0] == op.name}
+                    >
+                      {op.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -865,14 +1035,23 @@ const Editprofile = () => {
                 <div>
                   <label className="update-form-label">State</label>
                 </div>
-                <select name="state" id="" onChange={(e) => {
-                  setState(e.target.value)
-                  settown('')
-                  setPlaces(prev => ({ ...prev, town: [] }))
-                }}>
+                <select
+                  name="state"
+                  id=""
+                  onChange={(e) => {
+                    setState(e.target.value);
+                    settown("");
+                    setPlaces((prev) => ({ ...prev, town: [] }));
+                  }}
+                >
                   <option value="">Select</option>
-                  {places.state?.map(op => (
-                    <option value={`${op.name}-${op.isoCode}`} selected={state?.split('-')[0] == op.name}>{op.name}</option>
+                  {places.state?.map((op) => (
+                    <option
+                      value={`${op.name}-${op.isoCode}`}
+                      selected={state?.split("-")[0] == op.name}
+                    >
+                      {op.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -881,10 +1060,20 @@ const Editprofile = () => {
                 <div>
                   <label className="update-form-label">Town/city</label>
                 </div>
-                <select name="town" id="" value={town} onChange={(e) => settown(e.target.value)}>
+                <select
+                  name="town"
+                  id=""
+                  value={town}
+                  onChange={(e) => settown(e.target.value)}
+                >
                   <option value="">Select</option>
-                  {places.town?.map(op => (
-                    <option value={op.name} selected={town?.split('-')[0] == op.name}>{op.name}</option>
+                  {places.town?.map((op) => (
+                    <option
+                      value={op.name}
+                      selected={town?.split("-")[0] == op.name}
+                    >
+                      {op.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -894,7 +1083,14 @@ const Editprofile = () => {
                   <label className="update-form-label">Bio</label>
                 </div>
                 <div>
-                  <textarea name="bio" cols={45} value={bio} id="" onChange={(e) => setBio(e.target.value)} placeholder="Enter your bio" />
+                  <textarea
+                    name="bio"
+                    cols={45}
+                    value={bio}
+                    id=""
+                    onChange={(e) => setBio(e.target.value)}
+                    placeholder="Enter your bio"
+                  />
                 </div>
               </div>
 
@@ -920,11 +1116,17 @@ const Editprofile = () => {
                     </div>
                   )}
                 </div>
-                <div style={{display: 'flex', gap: '5px', alignItems: 'center'}}>
+                <div
+                  style={{ display: "flex", gap: "5px", alignItems: "center" }}
+                >
                   <div>
-                    <select name="skill" id="" onChange={(e) => setSingleSkill(e.target.value)}>
+                    <select
+                      name="skill"
+                      id=""
+                      onChange={(e) => setSingleSkill(e.target.value)}
+                    >
                       <option value="">Select</option>
-                      {allskills.map(d => (
+                      {allskills.map((d) => (
                         <option value={d}>{d}</option>
                       ))}
                     </select>
@@ -954,7 +1156,9 @@ const Editprofile = () => {
                           <div>{t}</div>
                           <div
                             onClick={(e) => {
-                              setlanguagesKnown(languagesKnown.filter((f, j) => i !== j));
+                              setlanguagesKnown(
+                                languagesKnown.filter((f, j) => i !== j)
+                              );
                             }}
                           >
                             <CloseIcon className="deleteMember" />
@@ -964,11 +1168,17 @@ const Editprofile = () => {
                     </div>
                   )}
                 </div>
-                <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                <div
+                  style={{ display: "flex", gap: "5px", alignItems: "center" }}
+                >
                   <div>
-                    <select name="languagesKnown" id="" onChange={(e) => setSinglelanguagesKnown(e.target.value)}>
+                    <select
+                      name="languagesKnown"
+                      id=""
+                      onChange={(e) => setSinglelanguagesKnown(e.target.value)}
+                    >
                       <option value="">Select</option>
-                      {allLanguages.map(d => (
+                      {allLanguages.map((d) => (
                         <option value={d}>{d}</option>
                       ))}
                     </select>
@@ -976,8 +1186,14 @@ const Editprofile = () => {
                   <div
                     className="addtags"
                     onClick={() => {
-                      if (singlelanguagesKnown !== "" && !languagesKnown.includes(singlelanguagesKnown)) {
-                        setlanguagesKnown((prev) => [...prev, singlelanguagesKnown]);
+                      if (
+                        singlelanguagesKnown !== "" &&
+                        !languagesKnown.includes(singlelanguagesKnown)
+                      ) {
+                        setlanguagesKnown((prev) => [
+                          ...prev,
+                          singlelanguagesKnown,
+                        ]);
                       }
                     }}
                   >
@@ -986,30 +1202,49 @@ const Editprofile = () => {
                 </div>
               </div>
 
-              {role == 'Mentor' && <div>
+              {role == "Mentor" && (
                 <div>
-                  <label className="update-form-label">Fee request</label>
+                  <div>
+                    <label className="update-form-label">Fee request</label>
+                  </div>
+                  <div>
+                    <input
+                      type="range"
+                      min={1}
+                      max={50}
+                      name="fee"
+                      value={fee}
+                      id=""
+                      onChange={(e) => setFee(e.target.value)}
+                      placeholder="Enter Fee request per minute"
+                    />{" "}
+                    &#8377; {fee} / per min
+                  </div>
                 </div>
-                <div>
-                  <input type="range" min={1} max={50} name="fee" value={fee} id="" onChange={(e) => setFee(e.target.value)} placeholder="Enter Fee request per minute" /> &#8377; {fee} / per min
-                </div>
-              </div>}
+              )}
             </div>
-
           </form>
         </div>
         <div className="update-form-container">
           <form className="update-form">
             <h3 className="update-heading">Upload files</h3>
 
-
-
             <div
-              style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: '30px' }}
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "30px",
+              }}
             >
               <div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "2px",
+                    justifyContent: "space-between",
+                  }}
                 >
                   <label className="update-form-label">Resume</label>
                   {oldDocs.resume !== "" &&
@@ -1034,20 +1269,31 @@ const Editprofile = () => {
                       </attr>
                     )}
                 </div>
-                <label htmlFor='resume' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.resume || 'Upload'}</span></label>
+                <label htmlFor="resume" className="resume">
+                  <CloudUploadIcon />
+                  <span className="fileName">
+                    {recentUploadedDocs?.resume || "Upload"}
+                  </span>
+                </label>
                 <input
                   className="resume"
                   type="file"
                   name="resume"
                   id="resume"
-                  onChange={handleResume} style={{ display: 'none' }}
+                  onChange={handleResume}
+                  style={{ display: "none" }}
                 />
               </div>
 
               <div>
                 <div>
                   <div
-                    style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "2px",
+                      justifyContent: "space-between",
+                    }}
                   >
                     <label className="update-form-label">Acheivements</label>
                     {oldDocs.acheivements !== "" &&
@@ -1072,20 +1318,31 @@ const Editprofile = () => {
                         </attr>
                       )}
                   </div>
-                  <label htmlFor='acheivements' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.acheivements || 'Upload'}</span></label>
+                  <label htmlFor="acheivements" className="resume">
+                    <CloudUploadIcon />
+                    <span className="fileName">
+                      {recentUploadedDocs?.acheivements || "Upload"}
+                    </span>
+                  </label>
                   <input
                     type="file"
                     id="acheivements"
                     className="resume"
                     name="acheivements"
-                    onChange={handleResume} style={{ display: 'none' }}
+                    onChange={handleResume}
+                    style={{ display: "none" }}
                   />
                 </div>
               </div>
 
               <div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "2px",
+                    justifyContent: "space-between",
+                  }}
                 >
                   <label className="update-form-label">Degree</label>
                   {oldDocs.degree !== "" &&
@@ -1110,20 +1367,31 @@ const Editprofile = () => {
                       </attr>
                     )}
                 </div>
-                <label htmlFor='degree' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.degree || 'Upload'}</span></label>
+                <label htmlFor="degree" className="resume">
+                  <CloudUploadIcon />
+                  <span className="fileName">
+                    {recentUploadedDocs?.degree || "Upload"}
+                  </span>
+                </label>
 
                 <input
                   type="file"
                   id="degree"
                   className="resume"
                   name="degree"
-                  onChange={handleResume} style={{ display: 'none' }}
+                  onChange={handleResume}
+                  style={{ display: "none" }}
                 />
               </div>
 
               <div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "2px",
+                    justifyContent: "space-between",
+                  }}
                 >
                   <label className="update-form-label">Expertise</label>
                   {oldDocs.expertise !== "" &&
@@ -1148,20 +1416,31 @@ const Editprofile = () => {
                       </attr>
                     )}
                 </div>
-                <label htmlFor='expertise' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.expertise || 'Upload'}</span></label>
+                <label htmlFor="expertise" className="resume">
+                  <CloudUploadIcon />
+                  <span className="fileName">
+                    {recentUploadedDocs?.expertise || "Upload"}
+                  </span>
+                </label>
 
                 <input
                   type="file"
                   id="expertise"
                   className="resume"
-                  name="expertise" style={{ display: 'none' }}
+                  name="expertise"
+                  style={{ display: "none" }}
                   onChange={handleResume}
                 />
               </div>
 
               <div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "2px",
+                    justifyContent: "space-between",
+                  }}
                 >
                   <label className="update-form-label">Working</label>
                   {oldDocs.working !== "" &&
@@ -1186,12 +1465,18 @@ const Editprofile = () => {
                       </attr>
                     )}
                 </div>
-                <label htmlFor='working' className="resume"><CloudUploadIcon /><span className="fileName">{recentUploadedDocs?.working || 'Upload'}</span></label>
+                <label htmlFor="working" className="resume">
+                  <CloudUploadIcon />
+                  <span className="fileName">
+                    {recentUploadedDocs?.working || "Upload"}
+                  </span>
+                </label>
 
                 <input
                   type="file"
                   id="working"
-                  className="resume" style={{ display: 'none' }}
+                  className="resume"
+                  style={{ display: "none" }}
                   name="working"
                   onChange={handleResume}
                 />
@@ -1213,20 +1498,44 @@ const Editprofile = () => {
                   navigate(`/`);
                 }}
               >
-                <i className="fas fa-arrow-left" style={{ marginRight: '5px' }}></i>  Back
+                <i
+                  className="fas fa-arrow-left"
+                  style={{ marginRight: "5px" }}
+                ></i>{" "}
+                Back
               </button>
-              <button type="submit" disabled={!isFormValid} onClick={update} style={{ whiteSpace: 'nowrap', position: 'relative' }}>
+              <button
+                type="submit"
+                disabled={!isFormValid}
+                onClick={update}
+                style={{ whiteSpace: "nowrap", position: "relative" }}
+              >
                 {isLoading ? (
                   <>
                     <img
                       src="/loading-button.gif"
-                      style={{ height: "20px", width: "20px", position: 'absolute', left: '-10px', top: '12px' }}
+                      style={{
+                        height: "20px",
+                        width: "20px",
+                        position: "absolute",
+                        left: "-10px",
+                        top: "12px",
+                      }}
                       alt="Loading..."
                     />
-                    <span style={{ marginLeft: "12px" }}>Sending Approval...</span>
+                    <span style={{ marginLeft: "12px" }}>
+                      Sending Approval...
+                    </span>
                   </>
                 ) : (
-                  <> <i className="fas fa-address-card" style={{ marginRight: '5px' }}></i>Send for Approval</>
+                  <>
+                    {" "}
+                    <i
+                      className="fas fa-address-card"
+                      style={{ marginRight: "5px" }}
+                    ></i>
+                    Send for Approval
+                  </>
                 )}
               </button>
             </div>

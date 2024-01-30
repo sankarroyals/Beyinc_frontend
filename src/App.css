@@ -8,9 +8,10 @@ i {
 
 .login-logo {
   cursor: pointer;
-  height: 100px;
-  width: 180px;
+  height: 80px;
+  width: 150px;
 }
+
 .form-container {
   max-width: 450px;
   margin: auto;
@@ -189,12 +190,6 @@ button:hover {
   margin-top: -7%;
 }
 
-.Loading-Text {
-  margin-left: 745px;
-  margin-top: -80px;
-}
-
-
 .loadingSubmit {
   background: rgba(248, 245, 245, 0.47);
   position: absolute;
@@ -331,14 +326,6 @@ button:hover {
   background: rgb(204, 20, 20);
 }
 
-@media (max-width: 768px) {
-  input[type='email'], input[type='password'], input[type= 'text'] {
-    width: 280px !important;
-  }
-  button {
-    width: 310px !important;
-  }
-}
 
 input[type="radio"] {
   width: 30px !important;
@@ -374,3 +361,31 @@ input[type="radio"] + label {
       transform: rotate(360deg);
     }
   }
+
+@media (max-width: 768px) {
+  input[type='email'], input[type='password'], input[type= 'text'] {
+    width: 280px !important;
+  }
+  button {
+    width: 310px !important;
+  }
+
+  .Loading {
+    align-items: center;
+    justify-content: center;
+    margin-top: 25%;
+    font-size: 16px;
+    margin-right: 30px;
+  }
+  
+  .Loading img {
+    width: 40%;
+    height: 15%;
+    margin-top: 50%;
+    margin-left: 38%;
+    
+    
+  }
+}
+
+

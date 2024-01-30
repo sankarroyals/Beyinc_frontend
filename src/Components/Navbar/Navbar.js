@@ -517,9 +517,6 @@ const Navbar = () => {
                 ></i>{" "}
                 Logout
               </div>
-              <div className="Privacy">Privacy Policy</div>
-              <div className="dot">•</div>
-              <div className="Terms">Terms of Service</div>
             </div>
           </div>
         </div>

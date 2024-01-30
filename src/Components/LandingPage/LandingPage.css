@@ -11,7 +11,7 @@ body {
 
 .Beyinc-logo img {
   height: auto;
-  width: 200px;
+  width: 150px;
   margin-left: 60px;
   margin-top: 10px;
 }
@@ -426,115 +426,6 @@ body {
   margin-top: 20px;
 }
 
-.footer {
-  background: #000000;
-  height: 400px;
-  position: relative;
-  margin-top: 17%;
-}
-/* .footer-playstore{
-  display: flex;
-  justify-content:right;
-  align-items: right;
-  margin-top: -70px;
-  margin-right: 70px;
-}
-
-.footer-playstore img {
-  width: 10%;
-  height: auto;
-  margin: 10px;
-  border-radius: 0px;
-  cursor: pointer;
-} */
-
-.footer-content {
-  color: #a1a1a1;
-  font-size: 16px;
-  margin-left: 70px;
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-nav {
-  color: #fff;
-  padding: 10px;
-  text-align: left;
-}
-
-nav h2 {
-  margin-bottom: 10px;
-  background: linear-gradient(35deg, #ff6824 0%, #656fff 100%);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-nav li {
-  margin-bottom: 10px;
-  color: #a1a1a1;
-}
-nav li:hover {
-  color: #fff;
-}
-
-nav a {
-  text-decoration: none;
-  font-weight: bold;
-  color: #a1a1a1;
-}
-
-.icons {
-  display: flex;
-  justify-content: space-between;
-  width: 100px;
-  margin: 0 auto;
-
-  margin-left: -8px;
-}
-
-.icons i {
-  font-size: 28px !important;
-  margin: 8px;
-  color: #333;
-  transition: background 0.3s ease;
-}
-
-.icons i:hover {
-  background: linear-gradient(35deg, #ff6824 0%, #656fff 100%);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.copyright {
-  color: #a1a1a1;
-  margin-top: 20px;
-}
-
-.footer-content nav a i,
-.footer-content nav i {
-  font-size: 18px;
-  margin-right: 8px;
-  color: #333;
-  transition: color 0.3s ease;
-}
-
-.footer-content nav a:hover i,
-.footer-content nav li:hover i {
-  background: linear-gradient(35deg, #ff6824 0%, #656fff 100%);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.footer-content nav a:hover {
-  text-decoration: underline;
-}
 
 @media (max-width: 768px) {
   .Beyinc-logo img {
@@ -796,27 +687,4 @@ nav a {
     height: 60px;
     margin-top: 20px;
   }
-  
-
-  .footer {
-    background: #000000;
-    height: 620px;
-    position: relative;
-    margin-top: -180px;
-  }
-  
-  .footer-content {
-    color: #a1a1a1;
-    font-size: 14px;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-
-    
-}
-.footer .copyright {
-  margin-bottom: 30px !important;
-  font-size: 12px;
-  margin-top: 0px;
-}
 }

@@ -18,6 +18,24 @@
   }
 }
 
+
+.noSelected {
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.noSelected  p{
+  margin-top: -40px !important;
+}
+.no-request {
+  height: 600px;
+  width: 600px;
+  margin-top: -30px;
+}
+
 .individualrequest {
   display: flex;
   align-items: center;
@@ -52,11 +70,7 @@
   gap: 10px;
 }
 
-.no-request {
-  height: 600px;
-  width: 600px;
-  margin-top: -30px;
-}
+
 
 .approveRequest,
 .rejectRequest {
@@ -124,4 +138,24 @@ label {
 }
 .read {
   color: rgba(128, 128, 128, 0.758);
+}
+
+
+
+
+@media only screen and (max-width: 760px) {
+  .noSelected {
+    font-size: 16px;
+    margin-top: 40px;
+    margin-top: -70px;
+  }
+  .noSelected  p {
+    margin-top: 10px !important;
+  }
+  
+  .no-request {
+  
+    height: 250px;
+    width: 250px;
+  }
 }
