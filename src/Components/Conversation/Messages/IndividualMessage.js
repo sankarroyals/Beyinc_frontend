@@ -6,7 +6,7 @@ import { setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
 import { format } from "timeago.js";
 import { io } from "socket.io-client";
-import { setOnlineUsers } from "../../../redux/Conversationreducer/ConversationReducer";
+import { setConversationId, setOnlineUsers } from "../../../redux/Conversationreducer/ConversationReducer";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams, useNavigate } from "react-router";
 import "./IndividualMessage.css";
@@ -196,6 +196,8 @@ const IndividualMessage = () => {
       <div className="messageNavbar">
         <div
           onClick={() => {
+            dispatch(setConversationId(''))
+
             navigate(-1);
           }}
         >

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApiServices } from '../../../Services/ApiServices'
-import { getAllHistoricalConversations, setConversationId, setReceiverId } from '../../../redux/Conversationreducer/ConversationReducer'
+import { getAllHistoricalConversations, setReceiverId } from '../../../redux/Conversationreducer/ConversationReducer'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useNavigate, useParams } from 'react-router';
 import { Box, Dialog, DialogContent } from '@mui/material';
@@ -32,7 +32,6 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
         e.preventDefault();
 
         if (status !== 'pending' && a._id !== conversationId) {
-            dispatch(setConversationId(a._id))
             // await ApiServices.getProfile({ email: a.members.filter((f) => f.email !== email)[0].email }).then((res) => {
             dispatch(setReceiverId(a.members.filter((f) => f.email !== email)[0].email))
             // })
