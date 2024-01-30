@@ -55,21 +55,34 @@ const Notifications = () => {
           onClick={handleReloadClick}
         />
       </div> */}
-      
-      {(messageRequest.length > 0 || notifications.length > 0) ? (
-        
-          messageRequest.length > 0 && <><div className="NotyHeader">Message Requests</div><><div>{messageRequest?.map((m) => (
-            <MessageRequest m={m} setMessageRequest={setMessageRequest} />
-          ))}
-          </div>
-            {notifications.length > 0 && <><div className="NotyHeader">Notifications</div><div>
 
+      {(messageRequest.length > 0 || notifications.length > 0) ? (
+        <div>
+          <div>
+            {messageRequest.length > 0 && <>
+              <div className="NotyHeader">Message Requests</div>
+              <div>{messageRequest?.map((m) => (
+                <MessageRequest m={m} setMessageRequest={setMessageRequest} />
+              ))}
+              </div>
+            </>}
+          </div>
+
+          <div>
+            {notifications.length > 0 && <>
+              <div className="NotyHeader">Notifications</div>
               {notifications?.map((n) => (
                 <AllNotifications n={n} />
               ))}
-            </div></>}
+            </>
 
-          </></>
+            }
+          </div>
+
+        </div>
+
+
+
       ) : (
         <div className="noSelected" style={{ height: "70vh" }}>
           <img className="no-request" src="/No_Conversation.png" alt="No Conversation" />

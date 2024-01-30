@@ -266,12 +266,21 @@ const Navbar = () => {
       </Tabs>
       <TabPanel style={{ padding: 0 }} className="" value={value} index={0}>
         {notifications.map((n) => (
-          <div>
+          <>
+            <div className={`individualrequest`} onClick={() => {
+              navigate(`/user/${n.senderEmail}`)
+            }} style={{ width: '450px', marginLeft: '20px', textAlign: 'start' }}>
+              <div className='individualrequestWrapper' style={{ gap: '5px', alignItems: 'center', width: '100%' }}>
+                <div>
+                  <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderProfile == undefined ? '/profile.jpeg' : n.senderProfile} alt="" srcset="" />
+                </div>
+                <div>{n.message} </div>
 
-            <div className="Individual-Notifications">{n.message}</div>
-            {/* <div>{format(n.createdAt)}</div> */}
+              </div>
+
+            </div>
             <div className="divider"></div>
-          </div>
+          </>
         ))}
 
       </TabPanel>
