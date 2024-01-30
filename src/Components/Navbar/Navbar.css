@@ -115,7 +115,7 @@
   font-weight: 600;
   /* width: 1300px;
     margin: auto; */
-    z-index: 999;
+  z-index: 999;
   position: sticky;
   top: 0;
   display: flex;
@@ -123,17 +123,15 @@
   align-items: center;
 }
 
-.fas.fa-bars{
+.fas.fa-bars {
   color: black;
   font-size: 24px;
-  
 }
 
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
   width: 8px !important;
   color: #1976d2;
 }
-
 
 .cross {
   margin-left: 345px;
@@ -332,10 +330,6 @@ h1 {
   margin-bottom: 10px;
 }
 
-
-
-
-
 #alert-dialog-description {
   display: flex;
   flex-direction: column;
@@ -360,24 +354,24 @@ h1 {
 .highletNavImg {
   background: #eaf1fb;
 }
-.conversations{
-  position: relative ;
+.conversations {
+  position: relative;
 }
-.Conversations-count{
+.Conversations-count {
   background: #0b57d0;
   color: white;
   padding: 2px 2px;
   border-radius: 50%;
-  width: 1px; 
-  height: 1px; 
+  width: 1px;
+  height: 1px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   top: -5px;
   right: -7px;
-  font-size: 10px; 
-  font-weight: bold; 
+  font-size: 10px;
+  font-weight: bold;
   cursor: pointer;
 }
 .Conversations-count::before {
@@ -409,4 +403,60 @@ h1 {
   }
 }
 
+.css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
+    0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+  overflow-y: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  width: 34% !important;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  z-index: 1200;
+  -webkit-overflow-scrolling: touch;
+  position: fixed;
+  top: 0;
+  outline: 0;
+  right: 0;
+}
 
+.Notification-Heading {
+  margin-top: 15px;
+  margin-left: 30px;
+  margin-bottom: 15px;
+}
+.Individual-Notifications {
+  margin-left: 30px;
+  /* border: 1px solid black; */
+
+  width: 450px;
+  margin-bottom: 10px;
+}
+.divider {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 0.1px solid rgb(177, 171, 171);
+  position: relative;
+  width: 178%;
+  margin-left: 12%;
+  margin-bottom: 5px;
+  /* margin-top: -5px; */
+}
+
+@media (max-width: 768px) {
+  .Individual-Notifications {
+    width: 100%;
+  }
+}

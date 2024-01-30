@@ -14,10 +14,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { io } from "socket.io-client";
 
 import Box from "@mui/material/Box";
@@ -36,25 +36,20 @@ const Navbar = () => {
     (store) => store.auth.loginDetails
   );
 
+  const notifications = useSelector((state) => state.conv.notifications);
 
-
-  
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-
-  
 
   const notificationAlert = useSelector(
     (state) => state.conv.notificationAlert
@@ -63,6 +58,10 @@ const Navbar = () => {
   const [drawerState, setDrawerState] = useState({
     right: false,
     // Add other anchors if needed (left, top, bottom)
+  });
+
+  const [notificationDrawerState, setNotificationDrawerState] = useState({
+    right: false,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -76,83 +75,138 @@ const Navbar = () => {
     setDrawerState({ ...drawerState, [anchor]: open });
   };
 
+  const toggleNotificationDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setNotificationDrawerState({ ...drawerState, [anchor]: open });
+  };
+
   const list = (anchor) => (
     <Box
-    sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-    role="presentation"
-    onClick={toggleDrawer(anchor, false)}
-    onKeyDown={toggleDrawer(anchor, false)}
-  >
-   <List>
-   <ListItem button key="searchUsers" onClick={() => navigate("/searchusers")}>
-  <ListItemIcon>
-    <SearchOutlinedIcon />
-  </ListItemIcon>
-  <ListItemText primary="Search Users" />
-</ListItem>
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        <ListItem
+          button
+          key="searchUsers"
+          onClick={() => navigate("/searchusers")}
+        >
+          <ListItemIcon>
+            <SearchOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText primary="Search Users" />
+        </ListItem>
 
-      {role === "Admin" && (
-        <>
-          <ListItem button key="profileRequests" onClick={() => navigate("/profileRequests")}>
-            <ListItemIcon>
-              <i className="fas fa-users"></i>
-            </ListItemIcon>
-            <ListItemText primary="Profile Requests" />
-          </ListItem>
+        {role === "Admin" && (
+          <>
+            <ListItem
+              button
+              key="profileRequests"
+              onClick={() => navigate("/profileRequests")}
+            >
+              <ListItemIcon>
+                <i className="fas fa-users"></i>
+              </ListItemIcon>
+              <ListItemText primary="Profile Requests" />
+            </ListItem>
 
-          <ListItem button key="pitches" onClick={() => navigate("/pitches")}>
+            <ListItem button key="pitches" onClick={() => navigate("/pitches")}>
+              <ListItemIcon>
+                <i className="far fa-file"></i>
+              </ListItemIcon>
+              <ListItemText primary="Pitch Request" />
+              {role === "Admin" && <i className="fas fa-plus" id="plus"></i>}
+            </ListItem>
+          </>
+        )}
+
+        {role !== "Admin" && (
+          <ListItem
+            button
+            key="userPitches"
+            onClick={() => navigate("/userPitches")}
+          >
             <ListItemIcon>
               <i className="far fa-file"></i>
             </ListItemIcon>
-            <ListItemText primary="Pitch Request" />
-            {role === "Admin" && <i className="fas fa-plus" id="plus"></i>}
+            <ListItemText primary="User Pitch" />
           </ListItem>
-        </>
-      )}
+        )}
 
-      {role !== "Admin" && (
-        <ListItem button key="userPitches" onClick={() => navigate("/userPitches")}>
+        <ListItem
+          button
+          key="livePitches"
+          onClick={() => navigate("/livePitches")}
+        >
           <ListItemIcon>
-            <i className="far fa-file"></i>
+            <i className="far fa-comments"></i>
           </ListItemIcon>
-          <ListItemText primary="User Pitch" />
+          <ListItemText primary="Live Pitches" />
         </ListItem>
+      </List>
+      <Divider />
+
+      {isMobile && (
+        <List>
+          <ListItem button key="home" onClick={() => navigate("/home")}>
+            <ListItemIcon>
+              <i className="fas fa-home"></i>
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+
+          <ListItem
+            button
+            key="conversations"
+            onClick={() => navigate("/conversations")}
+          >
+            <ListItemIcon>
+              <i className="far fa-comment-alt"></i>
+            </ListItemIcon>
+            <ListItemText primary="Conversations" />
+          </ListItem>
+
+          <ListItem
+            button
+            key="notifications"
+            onClick={() => navigate("/notifications")}
+          >
+            <ListItemIcon>
+              <i className="far fa-bell"></i>
+            </ListItemIcon>
+            <ListItemText primary="Notifications" />
+            {notificationAlert && <div className="blinkBall"></div>}
+          </ListItem>
+        </List>
       )}
+    </Box>
+  );
+  const NotificationList = (anchor) => (
+    <Box
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
 
-      <ListItem button key="livePitches" onClick={() => navigate("/livePitches")}>
-        <ListItemIcon>
-          <i className="far fa-comments"></i>
-        </ListItemIcon>
-        <ListItemText primary="Live Pitches" />
-      </ListItem>
-    </List>
-    <Divider />
+      <h1 className="Notification-Heading">Notifications</h1>
+      {notifications.map((n) => (
+       <div>
+       
+         <div className="Individual-Notifications">{n.message}</div>
+        <div className="divider"></div>
+       </div>
+      ))}
 
-
-    {isMobile && (<List>
-      <ListItem button key="home" onClick={() => navigate("/home")}>
-        <ListItemIcon>
-          <i className="fas fa-home"></i>
-        </ListItemIcon>
-        <ListItemText primary="Home" />
-      </ListItem>
-
-      <ListItem button key="conversations" onClick={() => navigate("/conversations")}>
-        <ListItemIcon>
-          <i className="far fa-comment-alt"></i>
-        </ListItemIcon>
-        <ListItemText primary="Conversations" />
-      </ListItem>
-
-      <ListItem button key="notifications" onClick={() => navigate("/notifications")}>
-        <ListItemIcon>
-          <i className="far fa-bell"></i>
-        </ListItemIcon>
-        <ListItemText primary="Notifications" />
-        {notificationAlert && <div className="blinkBall"></div>}
-      </ListItem>
-    </List>)}
-  </Box>
+    </Box>
   );
 
   const [open, setOpen] = React.useState(false);
@@ -314,13 +368,11 @@ const Navbar = () => {
   }, [window.location.pathname]);
 
   return (
-    
     <div
       className="navbar"
       style={{ display: email == undefined ? "none" : "flex" }}
     >
-      <div 
-      
+      <div
         className="logo"
         style={{ cursor: "pointer" }}
         onClick={() => {
@@ -330,40 +382,64 @@ const Navbar = () => {
         <img src="/logo.png" alt="logo" />
       </div>
 
-      {isMobile || ( <div className="navRight">
-        <div className="navIcons">
-          <div style={{ position: "relative" }}>
+      {isMobile || (
+        <div className="navRight">
+          <div className="navIcons">
+            <div style={{ position: "relative" }}>
+              <attr title="Conversations">
+                {" "}
+                <ChatBubbleOutlineOutlinedIcon
+                  id="conversations"
+                  className="icon"
+                  onClick={() => {
+                    navigate("/conversations");
+                  }}
+                ></ChatBubbleOutlineOutlinedIcon>
+              </attr>
 
-          
-           <attr title= 'Conversations'> <ChatBubbleOutlineOutlinedIcon id="conversations" className="icon" onClick={() => {
-                  navigate("/conversations");
-                }}>
-            </ChatBubbleOutlineOutlinedIcon></attr>
+              <div
+                className="Conversations-count"
+                title="unread conversations"
+              ></div>
+            </div>
 
-            <div
-              className="Conversations-count"
-              title="unread conversations"
-            ></div>
-          </div>
+            <attr title="Notifications">
+              <NotificationsNoneIcon
+                id="notifications"
+                className="icon"
+                onClick={() => {
+                  navigate("/notifications");
+                }}
+              >
+                {notificationAlert && <div className="blinkBall"> </div>}
+              </NotificationsNoneIcon>
+            </attr>
 
-         <attr title="Notifications">
-         <NotificationsNoneIcon id="notifications" className="icon"  
-              onClick={() => {
-                navigate("/notifications");
-              }}>
-            {notificationAlert && <div className="blinkBall"> </div>}
-          </NotificationsNoneIcon>
-         </attr>
+            <NotificationsNoneIcon
+              onClick={toggleNotificationDrawer("right", true)}
+            ></NotificationsNoneIcon>
 
-         <attr title= 'Home'>
-         <HomeOutlinedIcon id="home" className="icon"  onClick={() => {
-              navigate("/home");
-            }}>
-        </HomeOutlinedIcon>
-         </attr>
+            {/* Swipeable Drawer for right anchor */}
+            <SwipeableDrawer
+              anchor="right"
+              open={notificationDrawerState["right"]}
+              onClose={toggleNotificationDrawer("right", false)}
+              onOpen={toggleNotificationDrawer("right", true)}
+            >
+              {NotificationList("right")}
+            </SwipeableDrawer>
 
+            <attr title="Home">
+              <HomeOutlinedIcon
+                id="home"
+                className="icon"
+                onClick={() => {
+                  navigate("/home");
+                }}
+              ></HomeOutlinedIcon>
+            </attr>
 
-          {/* <div
+            {/* <div
             title="Search Users"
             id="searchusers"
             className="icon"
@@ -420,46 +496,44 @@ const Navbar = () => {
             <i className="far fa-comments"></i>
           </div> */}
 
-
-
-          <div
-            id="editProfile"
-            style={{ position: "relative" }}
-            onClick={(e) => {
-              document
-                .getElementsByClassName("userDetails")[0]
-                .classList.toggle("showUserDetails");
-            }}
-          >
-            <img
-              title={`${userName} \n ${email}`}
-              id="Profile-img"
-              className="Profile-img"
-              src={
-                image !== undefined && image !== "" ? image : "/profile.jpeg"
-              }
-              alt=""
-            />
-            {verification === "approved" && (
-              <abbr title="verified user">
-                <img
-                  src="/verify.png"
-                  height={20}
-                  style={{
-                    right: "2px",
-                    top: "3px",
-                    height: "13px",
-                    width: "13px",
-                  }}
-                  alt="Your Alt Text"
-                  className="successIcons"
-                />
-              </abbr>
-            )}
+            <div
+              id="editProfile"
+              style={{ position: "relative" }}
+              onClick={(e) => {
+                document
+                  .getElementsByClassName("userDetails")[0]
+                  .classList.toggle("showUserDetails");
+              }}
+            >
+              <img
+                title={`${userName} \n ${email}`}
+                id="Profile-img"
+                className="Profile-img"
+                src={
+                  image !== undefined && image !== "" ? image : "/profile.jpeg"
+                }
+                alt=""
+              />
+              {verification === "approved" && (
+                <abbr title="verified user">
+                  <img
+                    src="/verify.png"
+                    height={20}
+                    style={{
+                      right: "2px",
+                      top: "3px",
+                      height: "13px",
+                      width: "13px",
+                    }}
+                    alt="Your Alt Text"
+                    className="successIcons"
+                  />
+                </abbr>
+              )}
+            </div>
           </div>
         </div>
-      </div>)}
-     
+      )}
 
       <div className="userDetails" ref={userDetailsRef}>
         <span className="line-loader"></span>
@@ -618,7 +692,9 @@ const Navbar = () => {
       </Dialog>
 
       {/* Button to open the right drawer */}
-      <Button onClick={toggleDrawer("right", true)}><i className="fas fa-bars" title="Menu"></i></Button>
+      <Button onClick={toggleDrawer("right", true)}>
+        <i className="fas fa-bars" title="Menu"></i>
+      </Button>
 
       {/* Swipeable Drawer for right anchor */}
       <SwipeableDrawer
