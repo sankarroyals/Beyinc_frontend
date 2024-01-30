@@ -37,6 +37,8 @@ const Navbar = () => {
   );
 
 
+
+  
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -317,7 +319,8 @@ const Navbar = () => {
       className="navbar"
       style={{ display: email == undefined ? "none" : "flex" }}
     >
-      <div
+      <div 
+      
         className="logo"
         style={{ cursor: "pointer" }}
         onClick={() => {
@@ -332,26 +335,32 @@ const Navbar = () => {
           <div style={{ position: "relative" }}>
 
           
-            <ChatBubbleOutlineOutlinedIcon id="conversations" className="icon" onClick={() => {
+           <attr title= 'Conversations'> <ChatBubbleOutlineOutlinedIcon id="conversations" className="icon" onClick={() => {
                   navigate("/conversations");
                 }}>
-            </ChatBubbleOutlineOutlinedIcon>
+            </ChatBubbleOutlineOutlinedIcon></attr>
+
             <div
               className="Conversations-count"
               title="unread conversations"
             ></div>
           </div>
 
-          <NotificationsNoneIcon id="notifications" className="icon"  title="notifications"
+         <attr title="Notifications">
+         <NotificationsNoneIcon id="notifications" className="icon"  
               onClick={() => {
                 navigate("/notifications");
               }}>
             {notificationAlert && <div className="blinkBall"> </div>}
           </NotificationsNoneIcon>
-          <HomeOutlinedIcon id="home" className="icon"  onClick={() => {
+         </attr>
+
+         <attr title= 'Home'>
+         <HomeOutlinedIcon id="home" className="icon"  onClick={() => {
               navigate("/home");
             }}>
         </HomeOutlinedIcon>
+         </attr>
 
 
           {/* <div
@@ -423,6 +432,7 @@ const Navbar = () => {
             }}
           >
             <img
+              title={`${userName} \n ${email}`}
               id="Profile-img"
               className="Profile-img"
               src={
@@ -608,7 +618,7 @@ const Navbar = () => {
       </Dialog>
 
       {/* Button to open the right drawer */}
-      <Button onClick={toggleDrawer("right", true)}><i className="fas fa-bars"></i></Button>
+      <Button onClick={toggleDrawer("right", true)}><i className="fas fa-bars" title="Menu"></i></Button>
 
       {/* Swipeable Drawer for right anchor */}
       <SwipeableDrawer

@@ -36,11 +36,11 @@ const LivePitches = () => {
     }, [filledStars])
     const { email } = useSelector(state => state.auth.loginDetails)
     const [universities, setUniversities] = useState([])
-    useEffect(() => {
-        axios.get('http://universities.hipolabs.com/search').then(res => {
-            setUniversities(res.data)
-        })
-    }, [])
+    // useEffect(() => {
+    //     axios.get('http://universities.hipolabs.com/search').then(res => {
+    //         setUniversities(res.data)
+    //     })
+    // }, [])
 
     const [tag, settag] = useState('')
     const dispatch = useDispatch()
@@ -272,7 +272,7 @@ const LivePitches = () => {
                     </div>
                     
                     {/* userColleges */}
-                    <div className='tagFilter'>
+                    {/* <div className='tagFilter'>
                         <div>Colleges:</div>
                         {filters.userColleges?.length > 0 && (
                             <div className="listedTeam">
@@ -311,7 +311,7 @@ const LivePitches = () => {
                             </select>
 
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* country */}
                     <div className='tagFilter'>
@@ -357,7 +357,7 @@ const LivePitches = () => {
 
 
                     {/* state */}
-                    <div className='tagFilter'>
+                    {/* <div className='tagFilter'>
                         <div>State:</div>
                         {filters.state?.length > 0 && (
                             <div className="listedTeam">
@@ -396,7 +396,7 @@ const LivePitches = () => {
                             </select>
 
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Tags */}
                     <div className='tagFilter'>

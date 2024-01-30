@@ -697,7 +697,7 @@ const Editprofile = () => {
             style={{ flexDirection: "column" }}
           >
             <form className="update-form">
-              <h3 className="update-heading">Work Experience</h3>
+              <h3 className="update-heading">Work Experience*</h3>
               <div
                 style={{
                   display: "flex",
@@ -736,7 +736,7 @@ const Editprofile = () => {
                 </div>
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <div>
-                    <label className="update-form-label">End Date*</label>
+                    <label className="update-form-label">End Date</label>
                   </div>
                   <div>
                     <input
@@ -846,7 +846,7 @@ const Editprofile = () => {
         >
           <form className="update-form">
             <h3 className="update-heading">
-              Education Details (Add latest degree at top)
+              Education Details (Add latest degree at top)*
             </h3>
             <div
               style={{
@@ -872,7 +872,7 @@ const Editprofile = () => {
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <div>
-                  <label className="update-form-label">End Date*</label>
+                  <label className="update-form-label">End Date</label>
                 </div>
                 <div>
                   <input
@@ -996,7 +996,7 @@ const Editprofile = () => {
         </div>
         <div className="update-form-container">
           <form className="update-form">
-            <h3 className="update-heading">Personal / Fee Negotiation</h3>
+            <h3 className="update-heading">Personal / Fee Negotiation*</h3>
             <div
               style={{
                 display: "flex",
@@ -1007,7 +1007,7 @@ const Editprofile = () => {
             >
               <div>
                 <div>
-                  <label className="update-form-label">Country</label>
+                  <label className="update-form-label">Country*</label>
                 </div>
                 <select
                   name="country"
@@ -1033,7 +1033,7 @@ const Editprofile = () => {
 
               <div>
                 <div>
-                  <label className="update-form-label">State</label>
+                  <label className="update-form-label">State*</label>
                 </div>
                 <select
                   name="state"
@@ -1058,7 +1058,7 @@ const Editprofile = () => {
 
               <div>
                 <div>
-                  <label className="update-form-label">Town/city</label>
+                  <label className="update-form-label">Town/city*</label>
                 </div>
                 <select
                   name="town"
