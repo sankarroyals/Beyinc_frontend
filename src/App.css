@@ -367,7 +367,9 @@ input[type="radio"] + label {
     width: 280px !important;
   }
   button {
-    width: 310px !important;
+    width: 100px !important;
+    border-radius: 5px;
+    white-space: noWrap;
   }
 
   .Loading {
