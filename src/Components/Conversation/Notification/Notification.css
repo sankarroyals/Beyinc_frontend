@@ -51,6 +51,7 @@ align-items: center;
 .userNotiD .message {
   width: 250px;
   white-space: wrap;
+  text-align: start;
 }
 .individualrequest {
   display: flex;
