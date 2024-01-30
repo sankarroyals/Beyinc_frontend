@@ -461,13 +461,17 @@ h1 {
   padding: 10px;
   margin-bottom: 10px;
 }
+.css-1v3zj0x {
+    width: 550px !important;
+}
+
 .divider {
   display: flex;
   gap: 10px;
   align-items: center;
   border-bottom: 0.1px solid rgb(177, 171, 171);
   position: relative;
-  width: 490px;
+  width: 550px;
   /* margin-left: 12%; */
   /* margin-bottom: 5px; */
   /* margin-top: -5px; */
