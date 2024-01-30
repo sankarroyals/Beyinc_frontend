@@ -434,7 +434,7 @@ h1 {
   -ms-flex-direction: column;
   flex-direction: column;
   height: 100%;
-  width: 34% !important;
+  width: 33% !important;
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
