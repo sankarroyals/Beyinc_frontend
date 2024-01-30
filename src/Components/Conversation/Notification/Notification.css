@@ -6,11 +6,10 @@
 }
 
 .NotyHeader {
-  padding: 5px 12px;
+  padding: 5px 15px;
   font-size: 20px;
   align-self: flex-start;
   font-weight: 400;
-
 }
 
 .spin {
@@ -26,7 +25,6 @@
   }
 }
 
-
 .noSelected {
   font-size: 30px;
   display: flex;
@@ -35,7 +33,7 @@
   align-items: center;
   height: 100%;
 }
-.noSelected  p{
+.noSelected p {
   margin-top: -40px !important;
 }
 .no-request {
@@ -43,10 +41,10 @@
   width: 600px;
   margin-top: -30px;
 }
-.userNotiD{
-display: flex;
-gap: 5px;
-align-items: center;
+.userNotiD {
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 .userNotiD .message {
   width: 250px;
@@ -86,8 +84,6 @@ align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
-
-
 
 .approveRequest,
 .rejectRequest {
@@ -157,35 +153,29 @@ label {
   color: rgba(128, 128, 128, 0.758);
 }
 
-
-
-
 @media only screen and (max-width: 760px) {
   .noSelected {
     font-size: 16px;
     margin-top: 40px;
     margin-top: -70px;
   }
-  .noSelected  p {
+  .noSelected p {
     margin-top: 10px !important;
   }
-  
+
   .no-request {
-  
     height: 250px;
     width: 250px;
   }
-  .userNotiD{
+  .userNotiD {
     gap: 10px !important;
   }
   .userNotiD .message {
-    
-    width: 160px !important;
+    width: 150px !important;
   }
-  .extraDetails button{
-width: auto !important;
-padding: 10px;
-white-space: noWrap;
-
+  .extraDetails button {
+    width: auto !important;
+    padding: 10px;
+    white-space: noWrap;
   }
 }
