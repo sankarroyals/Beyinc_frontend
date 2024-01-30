@@ -15,7 +15,7 @@ import { socket_io } from '../../../Utils'
 
 
 const MessageRequest = ({ m, setMessageRequest }) => {
-    const { email,userName } = useSelector(state => state.auth.loginDetails)
+    const { email, userName } = useSelector(state => state.auth.loginDetails)
     const [pitchDetails, setPitchdetails] = useState(null)
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(0)
@@ -74,7 +74,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
             e.target.disabled = false
             setReasonPop(true)
             setpopStatus(status)
-       }
+        }
     }
 
     useEffect(() => {
@@ -86,16 +86,24 @@ const MessageRequest = ({ m, setMessageRequest }) => {
     return (
         <div className='individualrequest'>
             <div className='individualrequestWrapper'>
-                <div><b>{m.members?.filter((f) => f.userName !== userName)[0].userName}</b> sent you a message request</div>
+                <div className='userNotiD'>
+                    <div>
+                        <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={m.members?.filter((f) => f.userName !== userName)[0].profile_pic == undefined ? '/profile.jpeg' : m.members?.filter((f) => f.userName !== userName)[0].profile_pic} alt="" srcset="" />
+                    </div>
+                    <div className='message'><b>{m.members?.filter((f) => f.userName !== userName)[0].userName}</b> sent you a message request</div>
+
+                </div>
                 <div className='updateActions'>
-                    <div style={{fontSize: '12px'}}><b><i className='fas fa-clock' style={{fontSize: '16px'}}></i>
-{format(m.createdAt)}</b></div>
+                    {/* <div style={{ fontSize: '12px' }}><b><i className='fas fa-clock' style={{ fontSize: '16px' }}></i>
+                        {format(m.createdAt)}</b></div> */}
                     <attr title='Preview Pitch Details'>
                         <div className='extraDetails'
                             onClick={() => {
                                 setOpen(true)
                             }}
-                        ><i class="fas fa-eye"></i></div>
+                        >
+                            <button style={{ width: '100px', borderRadius: '5px' }}>View Pitch</button>
+                        </div>
                     </attr>
                 </div>
                 {open &&
@@ -104,7 +112,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
 
                 <Dialog
                     open={reasonPop}
-                    onClose={()=> setReasonPop(false)}
+                    onClose={() => setReasonPop(false)}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                     maxWidth='xl'
@@ -113,18 +121,18 @@ const MessageRequest = ({ m, setMessageRequest }) => {
                 >
 
 
-                    <DialogContent style={{  position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                    <DialogContent style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
                         <Box><b>Enter Reason for {popStatus}</b></Box>
                         <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setReasonPop(false)}><CloseIcon /></Box>
                         <Box>
-                            <input type="text" name="" value={reason} id="" onChange={(e)=> setReason(e.target.value)} />
+                            <input type="text" name="" value={reason} id="" onChange={(e) => setReason(e.target.value)} />
                         </Box>
-                        <button type="submit" disabled={reason==''} onClick={(e) => {
+                        <button type="submit" disabled={reason == ''} onClick={(e) => {
                             update(e, popStatus)
-                            }}>
-                                Ok
-                            </button>
-                        
+                        }}>
+                            Ok
+                        </button>
+
                     </DialogContent>
                 </Dialog>
             </div>

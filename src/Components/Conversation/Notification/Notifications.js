@@ -46,7 +46,7 @@ const Notifications = () => {
 
   return (
     <div className="messageRequests">
-      <div className="reloadNotification" title="Reload for latest notification updates">
+      {/* <div className="reloadNotification" title="Reload for latest notification updates">
         <img
           src="/refresh.png"
           alt="Reload"
@@ -54,18 +54,22 @@ const Notifications = () => {
           style={{ cursor: "pointer", marginTop: '5px' }}
           onClick={handleReloadClick}
         />
-      </div>
+      </div> */}
+      
       {(messageRequest.length > 0 || notifications.length > 0) ? (
-        <><div>{messageRequest?.map((m) => (
-          <MessageRequest m={m} setMessageRequest={setMessageRequest} />
-        ))}
-        </div>
-          <div>
+        
+          messageRequest.length > 0 && <><div className="NotyHeader">Message Requests</div><><div>{messageRequest?.map((m) => (
+            <MessageRequest m={m} setMessageRequest={setMessageRequest} />
+          ))}
+          </div>
+            {notifications.length > 0 && <><div className="NotyHeader">Notifications</div><div>
 
-            {notifications?.map((n) => (
-              <AllNotifications n={n} />
-            ))}
-          </div></>
+              {notifications?.map((n) => (
+                <AllNotifications n={n} />
+              ))}
+            </div></>}
+
+          </></>
       ) : (
         <div className="noSelected" style={{ height: "70vh" }}>
           <img className="no-request" src="/No_Conversation.png" alt="No Conversation" />

@@ -6,6 +6,7 @@ import { ApiServices } from "../../Services/ApiServices";
 import axiosInstance from "../axiosInstance";
 import { setLoginData, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
+import { Howl } from 'howler';
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { jwtDecode } from "jwt-decode";
 import Button from "@mui/material/Button";
@@ -30,9 +31,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { getAllNotifications } from "../../redux/Conversationreducer/ConversationReducer";
-import { Tab, Tabs, Typography } from "@mui/material";
+import { getAllNotifications, setNotification } from "../../redux/Conversationreducer/ConversationReducer";
+import { Drawer, Tab, Tabs, Typography } from "@mui/material";
 import MessageRequest from "../Conversation/Notification/MessageRequest";
+import { format } from "timeago.js";
 
 function a11yProps(index) {
   return {
@@ -66,6 +68,11 @@ const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
   );
+
+  const sound = new Howl({
+    src: ['/send.mp3']
+  });
+
   const [messageRequest, setMessageRequest] = useState([]);
 
   const notifications = useSelector((state) => state.conv.notifications);
@@ -87,6 +94,11 @@ const Navbar = () => {
     };
   }, []);
   const notificationAlert = useSelector(state => state.conv.notificationAlert);
+  useEffect(() => {
+    if (notificationAlert) {
+      sound.play()
+    }
+  }, [notificationAlert])
   const [notificationDrawerState, setNotificationDrawerState] = useState({
     right: false,
   });
@@ -108,7 +120,7 @@ const Navbar = () => {
     // Add other anchors if needed (left, top, bottom)
   });
 
- 
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -122,6 +134,7 @@ const Navbar = () => {
   };
 
   const toggleNotificationDrawer = (anchor, open) => (event) => {
+    dispatch(setNotification(false))
     if (
       event &&
       event.type === "keydown" &&
@@ -139,7 +152,40 @@ const Navbar = () => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+
       <List>
+        {isMobile && (
+          <>
+            <ListItem button key="home" onClick={() => navigate("/home")}>
+              <ListItemIcon>
+                <i className="fas fa-home"></i>
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem><ListItem
+              button
+              key="conversations"
+              onClick={() => navigate("/conversations")}
+            >
+              <ListItemIcon>
+                <i className="far fa-comment-alt"></i>
+              </ListItemIcon>
+              <ListItemText primary="Conversations" />
+            </ListItem>
+            {/* <ListItem
+            button
+            key="notifications"
+            onClick={() => {
+              navigate('/notifications')
+            }}
+          >
+            <ListItemIcon>
+              <i className="far fa-bell"></i>
+            </ListItemIcon>
+            <ListItemText primary="Notifications" />
+            {notificationAlert && <div className="blinkBall"></div>}
+          </ListItem> */}
+          </>
+        )}
         <ListItem
           button
           key="searchUsers"
@@ -198,41 +244,8 @@ const Navbar = () => {
           <ListItemText primary="Live Pitches" />
         </ListItem>
       </List>
-      <Divider />
 
-      {isMobile && (
-        <List>
-          <ListItem button key="home" onClick={() => navigate("/home")}>
-            <ListItemIcon>
-              <i className="fas fa-home"></i>
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
 
-          <ListItem
-            button
-            key="conversations"
-            onClick={() => navigate("/conversations")}
-          >
-            <ListItemIcon>
-              <i className="far fa-comment-alt"></i>
-            </ListItemIcon>
-            <ListItemText primary="Conversations" />
-          </ListItem>
-
-          <ListItem
-            button
-            key="notifications"
-            onClick={() => navigate("/notifications")}
-          >
-            <ListItemIcon>
-              <i className="far fa-bell"></i>
-            </ListItemIcon>
-            <ListItemText primary="Notifications" />
-            {notificationAlert && <div className="blinkBall"></div>}
-          </ListItem>
-        </List>
-      )}
     </Box>
   );
   const NotificationList = (anchor) => (
@@ -242,8 +255,8 @@ const Navbar = () => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      
-      <Tabs value={value} className='pitchTabs' style={{width: '450px'}}
+
+      <Tabs value={value} className='pitchTabs' style={{ width: '450px' }}
         textColor="primary"
         indicatorColor="secondary"
         onChange={handleChange} aria-label="basic tabs example"
@@ -256,6 +269,7 @@ const Navbar = () => {
           <div>
 
             <div className="Individual-Notifications">{n.message}</div>
+            {/* <div>{format(n.createdAt)}</div> */}
             <div className="divider"></div>
           </div>
         ))}
@@ -264,15 +278,17 @@ const Navbar = () => {
       <TabPanel style={{ padding: 0 }} className="" value={value} index={1}>
         {(messageRequest.length > 0 || notifications.length > 0) && (
           <><div>{messageRequest?.map((m) => (
-            <MessageRequest m={m} setMessageRequest={setMessageRequest} />
+            <><MessageRequest m={m} setMessageRequest={setMessageRequest} />
+              <div className="divider"></div></>
+
           ))}
           </div>
-            </>
-        ) }
+          </>
+        )}
 
       </TabPanel>
-     
-     
+
+
 
     </Box>
   );
@@ -450,10 +466,21 @@ const Navbar = () => {
         <img src="/logo.png" alt="logo" />
       </div>
 
-      {isMobile || (
-        <div className="navRight">
-          <div className="navIcons">
-            <div style={{ position: "relative" }}>
+      <div className="menuIcons">
+        {isMobile || (
+          <>
+            <div>
+              <attr title="Home">
+                <HomeOutlinedIcon
+                  id="home"
+                  className="icon"
+                  onClick={() => {
+                    navigate("/home");
+                  }}
+                ></HomeOutlinedIcon>
+              </attr>
+            </div>
+            <div style={{ position: "relative" }} >
               <attr title="Conversations">
                 {" "}
                 <ChatBubbleOutlineOutlinedIcon
@@ -470,305 +497,239 @@ const Navbar = () => {
                 title="unread conversations"
               ></div>
             </div>
-
-            <attr title="Notifications">
-              <NotificationsNoneIcon
-                id="notifications"
-                className="icon"
+            <div id="notifications" className="icon">
+              <i
+                className="far fa-bell"
+                title="notifications"
                 onClick={toggleNotificationDrawer("right", true)}
-              >
-                {notificationAlert && <div className="blinkBall"> </div>}
-              </NotificationsNoneIcon>
-            </attr>
-
-           
-
-            {/* Swipeable Drawer for right anchor */}
-            <SwipeableDrawer
+              ></i>
+              {notificationAlert && <div className="blinkBall"> </div>}
+            </div>
+            <Drawer
               anchor="right"
               open={notificationDrawerState["right"]}
               onClose={toggleNotificationDrawer("right", false)}
               onOpen={toggleNotificationDrawer("right", true)}
             >
               {NotificationList("right")}
-            </SwipeableDrawer>
+            </Drawer>
+          </>
+        )}
+        {isMobile && <div id="notifications" className="icon">
+          <i
+            className="far fa-bell"
+            title="notifications"
+            onClick={() => { navigate('/notifications') }}
+          ></i>
+          {notificationAlert && <div className="blinkBall"> </div>}
+        </div>}
 
-            <attr title="Home">
-              <HomeOutlinedIcon
-                id="home"
-                className="icon"
-                onClick={() => {
-                  navigate("/home");
-                }}
-              ></HomeOutlinedIcon>
-            </attr>
-
-            {/* <div
-            title="Search Users"
-            id="searchusers"
-            className="icon"
-            onClick={() => {
-              navigate("/searchusers");
-            }}
-          >
-            <i className="fas fa-search"></i>
-          </div>
-
-          {role === "Admin" && (
-            <>
-              <div
-                title="Profile Requests"
-                id="profileRequests"
-                className="icon"
-                onClick={() => {
-                  navigate("/profileRequests");
-                }}
-              >
-                <i className="fas fa-users"></i>
-              </div>
-
-              <div id="pitches" title="Pitch Request" className="icon">
-                <i
-                  className="far fa-file"
-                  onClick={() => {
-                    navigate("/pitches");
-                  }}
-                ></i>
-                <i className="fas fa-plus" id="plus"></i>
-              </div>
-            </>
-          )}
-
-          {role !== "Admin" && (
-            <div id="userPitches" title="User Pitch" className="icon">
-              <i
-                className="far fa-file"
-                onClick={() => {
-                  navigate("/userPitches");
-                }}
-              ></i>
-            </div>
-          )}
-          <div
-            id="livePitches"
-            title="Live Pitches"
-            className="icon"
-            onClick={() => {
-              navigate("/livePitches");
-            }}
-          >
-            <i className="far fa-comments"></i>
-          </div> */}
-
-            <div
-              id="editProfile"
-              style={{ position: "relative" }}
-              onClick={(e) => {
-                document
-                  .getElementsByClassName("userDetails")[0]
-                  .classList.toggle("showUserDetails");
-              }}
-            >
-              <img
-                title={`${userName} \n ${email}`}
-                id="Profile-img"
-                className="Profile-img"
-                src={
-                  image !== undefined && image !== "" ? image : "/profile.jpeg"
-                }
-                alt=""
-              />
-              {verification === "approved" && (
-                <abbr title="verified user">
-                  <img
-                    src="/verify.png"
-                    height={20}
-                    style={{
-                      right: "2px",
-                      top: "3px",
-                      height: "13px",
-                      width: "13px",
-                    }}
-                    alt="Your Alt Text"
-                    className="successIcons"
-                  />
-                </abbr>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="userDetails" ref={userDetailsRef}>
-        <span className="line-loader"></span>
         <div
-          className="closeIcon"
-          onClick={() => {
+          id="editProfile"
+          style={{ position: "relative" }}
+          onClick={(e) => {
             document
               .getElementsByClassName("userDetails")[0]
-              .classList.remove("showUserDetails");
+              .classList.toggle("showUserDetails");
           }}
         >
-          <i className="fas fa-times cross"></i>
+          <img
+            title={`${userName} \n ${email}`}
+            id="Profile-img"
+            className="Profile-img"
+            src={
+              image !== undefined && image !== "" ? image : "/profile.jpeg"
+            }
+            alt=""
+          />
+          {verification === "approved" && (
+            <abbr title="verified user">
+              <img
+                src="/verify.png"
+                height={20}
+                style={{
+                  right: "2px",
+                  top: "3px",
+                  height: "13px",
+                  width: "13px",
+                }}
+                alt="Your Alt Text"
+                className="successIcons"
+              />
+            </abbr>
+          )}
         </div>
-        <div>
-          <div className="email">{email}</div>
-          <div style={{ position: "relative", display: "inline-block" }}>
-            <img
-              style={{
-                borderRadius: "50%",
-                cursor: "pointer",
-                maxWidth: "100%",
-              }}
-              src={
-                image !== undefined && image !== "" ? image : "/profile.jpeg"
-              }
-              alt="Profile"
-            />
-            <i
-              className="fas fa-pencil-alt edit-icon"
-              onClick={handleClickOpen}
-            ></i>
+        <div className="userDetails" ref={userDetailsRef}>
+          <span className="line-loader"></span>
+          <div
+            className="closeIcon"
+            onClick={() => {
+              document
+                .getElementsByClassName("userDetails")[0]
+                .classList.remove("showUserDetails");
+            }}
+          >
+            <i className="fas fa-times cross"></i>
           </div>
-        </div>
-
-        <div className="username">Hi, {userName}!</div>
-        <div className="manage">{role}</div>
-        <div>
           <div>
-            <div>
-              <div
-                className="Account"
-                onClick={() => {
-                  document
-                    .getElementsByClassName("userDetails")[0]
-                    .classList.remove("showUserDetails");
-                  navigate(`/editProfile`);
-                }}
-              >
-                <i
-                  className="fas fa-user-edit"
-                  style={{ marginRight: "5px" }}
-                ></i>{" "}
-                Edit Profile
-              </div>
-              <div
-                className="logout"
-                onClick={() => {
-                  localStorage.removeItem("user");
-                  window.location.href = "/login";
-                }}
-              >
-                <i
-                  className="fas fa-sign-out-alt"
-                  style={{ marginRight: "5px" }}
-                ></i>{" "}
-                Logout
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        style={{}}
-      >
-        <DialogTitle
-          id="alert-dialog-title"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          {"Profile Picture"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <div>
+            <div className="email">{email}</div>
+            <div style={{ position: "relative", display: "inline-block" }}>
               <img
                 style={{
                   borderRadius: "50%",
                   cursor: "pointer",
-                  height: "150px",
-                  width: "150px",
+                  maxWidth: "100%",
                 }}
                 src={
                   image !== undefined && image !== "" ? image : "/profile.jpeg"
                 }
                 alt="Profile"
               />
+              <i
+                className="fas fa-pencil-alt edit-icon"
+                onClick={handleClickOpen}
+              ></i>
             </div>
+          </div>
 
+          <div className="username">Hi, {userName}!</div>
+          <div className="manage">{role}</div>
+          <div>
             <div>
-              <label htmlFor="profilePic" className="profileImage">
-                <CloudUploadIcon />
-                <span className="fileName">{originalImage || "Upload"}</span>
-              </label>
-              <input
-                type="file"
-                name=""
-                id="profilePic"
-                onChange={handleImage}
-                style={{ display: "none" }}
-              />
+              <div>
+                <div
+                  className="Account"
+                  onClick={() => {
+                    document
+                      .getElementsByClassName("userDetails")[0]
+                      .classList.remove("showUserDetails");
+                    navigate(`/editProfile`);
+                  }}
+                >
+                  <i
+                    className="fas fa-user-edit"
+                    style={{ marginRight: "5px" }}
+                  ></i>{" "}
+                  Edit Profile
+                </div>
+                <div
+                  className="logout"
+                  onClick={() => {
+                    localStorage.removeItem("user");
+                    window.location.href = "/login";
+                  }}
+                >
+                  <i
+                    className="fas fa-sign-out-alt"
+                    style={{ marginRight: "5px" }}
+                  ></i>{" "}
+                  Logout
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
 
-            <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
-              <button
-                onClick={submit}
-                style={{ whiteSpace: "nowrap", position: "relative" }}
-                disabled={changeImage === "" && isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <img
-                      src="/loading-button.gif"
-                      style={{
-                        height: "20px",
-                        width: "20px",
-                        position: "absolute",
-                        left: "55px",
-                        marginTop: "-4px",
-                      }}
-                      alt="Loading..."
-                    />
-                    <span style={{ marginLeft: "10px" }}>Updating...</span>
-                  </>
-                ) : (
-                  <>
-                    <i
-                      className="fas fa-upload"
-                      style={{ marginRight: "5px", top: "-5px" }}
-                    ></i>{" "}
-                    Update
-                  </>
-                )}
-              </button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          style={{}}
+        >
+          <DialogTitle
+            id="alert-dialog-title"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            {"Profile Picture"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              <div>
+                <img
+                  style={{
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                    height: "150px",
+                    width: "150px",
+                  }}
+                  src={
+                    image !== undefined && image !== "" ? image : "/profile.jpeg"
+                  }
+                  alt="Profile"
+                />
+              </div>
 
-              <button onClick={deleteImg}>
-                <i class="fas fa-trash-alt" style={{ marginRight: "5px" }}></i>{" "}
-                Delete
-              </button>
-            </div>
-          </DialogContentText>
-        </DialogContent>
-      </Dialog>
+              <div>
+                <label htmlFor="profilePic" className="profileImage">
+                  <CloudUploadIcon />
+                  <span className="fileName">{originalImage || "Upload"}</span>
+                </label>
+                <input
+                  type="file"
+                  name=""
+                  id="profilePic"
+                  onChange={handleImage}
+                  style={{ display: "none" }}
+                />
+              </div>
 
-      {/* Button to open the right drawer */}
-      <Button onClick={toggleDrawer("right", true)}>
-        <i className="fas fa-bars" title="Menu"></i>
-      </Button>
+              <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
+                <button
+                  onClick={submit}
+                  style={{ whiteSpace: "nowrap", position: "relative" }}
+                  disabled={changeImage === "" && isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <img
+                        src="/loading-button.gif"
+                        style={{
+                          height: "20px",
+                          width: "20px",
+                          position: "absolute",
+                          left: "55px",
+                          marginTop: "-4px",
+                        }}
+                        alt="Loading..."
+                      />
+                      <span style={{ marginLeft: "10px" }}>Updating...</span>
+                    </>
+                  ) : (
+                    <>
+                      <i
+                        className="fas fa-upload"
+                        style={{ marginRight: "5px", top: "-5px" }}
+                      ></i>{" "}
+                      Update
+                    </>
+                  )}
+                </button>
 
-      {/* Swipeable Drawer for right anchor */}
-      <SwipeableDrawer
-        anchor="right"
-        open={drawerState["right"]}
-        onClose={toggleDrawer("right", false)}
-        onOpen={toggleDrawer("right", true)}
-      >
-        {list("right")}
-      </SwipeableDrawer>
+                <button onClick={deleteImg}>
+                  <i class="fas fa-trash-alt" style={{ marginRight: "5px" }}></i>{" "}
+                  Delete
+                </button>
+              </div>
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+
+        {/* Button to open the right drawer */}
+        <div onClick={toggleDrawer("right", true)} >
+          <i className="fas fa-bars" title="Menu" ></i>
+        </div>
+
+        {/* Swipeable Drawer for right anchor */}
+        <Drawer
+          anchor="right"
+          open={drawerState["right"]}
+          onClose={toggleDrawer("right", false)}
+          onOpen={toggleDrawer("right", true)}
+        >
+          {list("right")}
+        </Drawer>
+      </div>
     </div>
   );
 };

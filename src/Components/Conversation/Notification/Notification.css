@@ -1,8 +1,16 @@
 .messageRequests {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  /* gap: 20px; */
   align-items: center;
+}
+
+.NotyHeader {
+  padding: 5px 12px;
+  font-size: 20px;
+  align-self: flex-start;
+  font-weight: 400;
+
 }
 
 .spin {
@@ -35,18 +43,26 @@
   width: 600px;
   margin-top: -30px;
 }
-
+.userNotiD{
+display: flex;
+gap: 5px;
+align-items: center;
+}
+.userNotiD .message {
+  width: 250px;
+  white-space: wrap;
+}
 .individualrequest {
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-  width: 1300px;
-  margin: auto;
+  /* width: 1300px; */
+  /* margin: auto; */
   padding: 10px;
   margin-bottom: 5px;
   border-radius: 50px;
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   transition: all ease 0.3s;
 }
 .individualrequestWrapper,
@@ -54,8 +70,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1300px;
-  margin: auto 5px;
+  width: 100%;
+  /* margin: auto 5px; */
 
   padding: 10px;
   transition: all ease 0.3s;
@@ -157,5 +173,18 @@ label {
   
     height: 250px;
     width: 250px;
+  }
+  .userNotiD{
+    gap: 10px !important;
+  }
+  .userNotiD .message {
+    
+    width: 160px !important;
+  }
+  .extraDetails button{
+width: auto !important;
+padding: 10px;
+white-space: noWrap;
+
   }
 }

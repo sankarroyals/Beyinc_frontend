@@ -11,7 +11,7 @@
 .logo img {
   height: auto;
   width: 150px;
-  margin-left: 60px;
+  margin-left: -10px;
   margin-top: 10px;
 }
 
@@ -19,6 +19,9 @@
   border-radius: 50%;
   cursor: pointer;
   padding: 4px;
+  margin-left: -8px;
+
+
 }
 .Profile-img:hover {
   background: #eaf1fb;
@@ -106,6 +109,12 @@
   color: #0b57d0;
 }
 
+.unread {
+  font-weight: 600;
+}
+.read {
+  color: rgba(128, 128, 128, 0.758);
+}
 .navbar {
   background-color: #fff;
   /* background-color: #17171E; */
@@ -121,6 +130,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.navbar .menuIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .fas.fa-bars {
@@ -437,10 +452,13 @@ h1 {
   margin-bottom: 15px;
 }
 .Individual-Notifications {
-  margin-left: 30px;
+  /* margin-left: 30px; */
   /* border: 1px solid black; */
-
+ display: flex;
+ align-items: center;
   width: 450px;
+  text-align: start;
+  padding: 10px;
   margin-bottom: 10px;
 }
 .divider {
@@ -449,14 +467,17 @@ h1 {
   align-items: center;
   border-bottom: 0.1px solid rgb(177, 171, 171);
   position: relative;
-  width: 178%;
-  margin-left: 12%;
-  margin-bottom: 5px;
+  width: 500px;
+  /* margin-left: 12%; */
+  /* margin-bottom: 5px; */
   /* margin-top: -5px; */
 }
 
 @media (max-width: 768px) {
   .Individual-Notifications {
     width: 100%;
+  }
+  .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
+    width: 70% !important;
   }
 }
