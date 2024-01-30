@@ -169,6 +169,9 @@
 }
 
 @media (max-width: 768px) {
+  .messageContainer{
+    border-radius: 0px !important;
+  }
   .messageBox {
       height: 65vh;
 
