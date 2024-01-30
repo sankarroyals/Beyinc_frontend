@@ -118,17 +118,7 @@
   height: 5vh;
   padding: 5px 15px;
   justify-content: space-between;
-  /* width: 75%; */
-  /* display: flex;
-    height: 10px;
-    padding: 20px;
-    margin: auto;
-    align-items: center;
-    gap: 5px;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 50px; */
-  /* padding: 5px; */
+
 }
 .sendBox input[type="text"],
 .sendBox textarea {
@@ -179,3 +169,26 @@
   margin-left: 8%;
   margin-top: -5px;
 }
+
+
+@media (max-width: 768px) {
+  .messageBox{
+padding: 0 !important;
+justify-content: center;
+  }
+  .sendBoxContainer{
+padding: 0 !important;
+justify-content: center;
+  }
+
+  .sendBox input[type="text"], .sendBox textarea {
+  margin-bottom: -2px;
+  height: auto;
+  border: 0;
+  outline: 0;
+  white-space: wrap;
+  padding: 0px !important;
+  width: 245px !important;
+}
+}
+

@@ -29,5 +29,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  
+  .chatContainer {
+  width: 200px !important;
+}
 }
