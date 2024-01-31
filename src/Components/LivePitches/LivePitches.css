@@ -74,7 +74,7 @@ input[type='checkbox']{
 }
 
 .bgPitch {
-  width: 100vw;
+  width: 99vw;
   height: 150px;
 }
 .bgPitch img {
@@ -109,6 +109,7 @@ input[type='checkbox']{
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .indiPitchHeading {
@@ -171,16 +172,18 @@ input[type='checkbox']{
   gap: 20px;
 }
 
+
 .IndicommentsSectionDetails{
   flex: 1 0 auto;
 }
 .IndicommentsSectionImage img{
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
 }
 
 .IndicommentsSectionDetailsUserName{
-  font-size: 25px;
+  font-size: 16px;
+  font-weight: 600;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -193,7 +196,7 @@ font-size: 10px;
 }
 
 
-.reviewIntrestContainer{
+.reviewInterestContainer{
   display: flex; 
   flex-direction: column;
   gap: 5px;
