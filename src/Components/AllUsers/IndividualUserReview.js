@@ -4,6 +4,7 @@ import { format } from 'timeago.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { setToast } from '../../redux/AuthReducers/AuthReducer'
+import moment from 'moment';
 
 const IndividualUserReview = ({ c, deleteComment }) => {
     const { email } = useSelector(state => state.auth.loginDetails)
@@ -24,7 +25,7 @@ const IndividualUserReview = ({ c, deleteComment }) => {
                     {c?.comment}
                 </div>
                 <div title={c?.email} className='IndicommentsSectionDetailsdate'>
-                    {format(c?.createdAt)}
+                    {moment(c.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                 </div>
 
             </div>

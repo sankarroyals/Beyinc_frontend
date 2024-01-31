@@ -13,7 +13,7 @@ import "./IndividualMessage.css";
 import sendSound from '../Notification/send.mp3'
 import { socket_io } from "../../../Utils";
 import { Howl } from 'howler';
-
+import moment from 'moment';
 
 
 const IndividualMessage = () => {
@@ -273,11 +273,11 @@ const IndividualMessage = () => {
               <div className="personalDetails">
                 <div className="email">
                   {m.senderId === email ? (
-                    <div className="time">{format(m.createdAt)}</div>
+                    <div className="time">{moment(m.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
                   ) : (
                     <div className="friendDetails">
                       <div className="userName">{receiverId?.userName}</div>
-                      <div className="time">{format(m.createdAt)}</div>
+                        <div className="time">{moment(m.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
                     </div>
                   )}
                 </div>
