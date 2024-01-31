@@ -80,6 +80,7 @@ const App = () => {
       console.log(data);
       dispatch(setNotification(true))
       // setMessages(prev => [...prev, data])
+      
     })
   }, [])
 
