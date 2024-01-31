@@ -13,3 +13,11 @@
     
     /* margin: auto; */
 }
+
+@media (max-width: 768px) {
+    .toastStyles{
+        padding: 8px 10px !important;
+        width: 280px !important;
+        margin-top: 2px !important;
+     }
+ }

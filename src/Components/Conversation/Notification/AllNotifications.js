@@ -14,7 +14,7 @@ const AllNotifications = ({ n }) => {
     <div className={`individualrequest`} onClick={() => {
       navigate(`/user/${n.senderEmail}`)
       changeStatus()
-    }} style={{marginLeft: '-10px'}}>
+    }} >
       <div className='individualrequestWrapper' style={{gap: '5px', alignItems: 'center'}}>
         <div>
           <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderProfile == undefined ? '/profile.jpeg' : n.senderProfile} alt="" srcset="" />
