@@ -18,7 +18,7 @@ const IndividualUser = () => {
   const { image, userName } = useSelector((state) => state.auth.loginDetails);
 
   const [isWritingReview, setIsWritingReview] = useState(false);
-  const { visible } = useSelector(state => state.auth.LoadingDetails);
+  const { visible } = useSelector((state) => state.auth.LoadingDetails);
 
   const [user, setuser] = useState("");
   const [averagereview, setAverageReview] = useState(0);
@@ -30,7 +30,7 @@ const IndividualUser = () => {
 
   useEffect(() => {
     if (email) {
-      dispatch(setLoading({visible: 'yes'}))
+      dispatch(setLoading({ visible: "yes" }));
       ApiServices.getProfile({ email: email })
         .then((res) => {
           setuser({
@@ -49,8 +49,7 @@ const IndividualUser = () => {
             });
             setAverageReview(avgR / res.data.review.length);
           }
-          dispatch(setLoading({ visible: 'no' }))
-
+          dispatch(setLoading({ visible: "no" }));
         })
         .catch((err) => {
           dispatch(
@@ -60,8 +59,7 @@ const IndividualUser = () => {
               visible: "yes",
             })
           );
-          navigate('/searchusers')
-
+          navigate("/searchusers");
         });
     }
   }, [email, emailTrigger]);
@@ -165,8 +163,9 @@ const IndividualUser = () => {
       });
   };
 
-  return (
-    visible == 'yes' ? '' :
+  return visible == "yes" ? (
+    ""
+  ) : (
     <div>
       <div className="individualPitchContainer">
         <div className="bgPitch">
@@ -177,6 +176,9 @@ const IndividualUser = () => {
         </div>
         <div className="indiUserDetailsContainer">
           <div className="indiUserDetails">
+            <i className="fas fa-arrow-left"onClick={() => {
+            navigate(-1);
+          }}></i>
             <div style={{ display: "flex", gap: "0px" }}>
               <div>
                 <div style={{ display: "flex" }}>
@@ -230,7 +232,8 @@ const IndividualUser = () => {
               </div>
             </div>
 
-            
+
+
             <div className="indiPitchId">
               <b>Mail:</b> <a href={`mailto:${user.email}`}>{user?.email}</a>
             </div>
@@ -365,6 +368,7 @@ const IndividualUser = () => {
             )}
           </div>
         </div>
+
         <div className="commentsContainer">
           {email !==
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
@@ -385,7 +389,7 @@ const IndividualUser = () => {
               <div style={{ marginLeft: "60px" }}>
                 <h4>Rate this user</h4>
                 <h6>Tell others what you think</h6>
-                <div style={{ display: "flex", marginBottom: '10px' }}>
+                <div style={{ display: "flex", marginBottom: "10px" }}>
                   <AddReviewStars
                     filledStars={filledStars}
                     setFilledStars={setFilledStars}
@@ -404,42 +408,48 @@ const IndividualUser = () => {
                   </button>
                 </div>
                 <div>
-          {!isWritingReview && (
-            <div
-              style={{ color: "blue", cursor: "pointer" }}
-              onClick={() => setIsWritingReview(true)}
-            >
-              <b>Write a Review</b>
-            </div>
-          )}
-          {isWritingReview && (
-            <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-              <div>
-                <textarea
-                  rows={4}
-                  cols={50}
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  placeholder="Describe Your Experience"
-                />
-              </div>
-              <div>
-                <button
-                  onClick={sendText}
-                  className="sendIcon"
-                  style={{
-                    cursor: "pointer",
-                    fontSize: "13px",
-                    width: "90%",
-                    padding: "5px",
-                  }}
-                >
-                  Post Review
-                </button>
-              </div>
-            </div>
-          )}
-          </div>
+                  {!isWritingReview && (
+                    <div
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => setIsWritingReview(true)}
+                    >
+                      <b>Write a Review</b>
+                    </div>
+                  )}
+                  {isWritingReview && (
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "20px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <textarea
+                          rows={4}
+                          cols={50}
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          placeholder="Describe Your Experience"
+                        />
+                      </div>
+                      <div>
+                        <button
+                          onClick={sendText}
+                          className="sendIcon"
+                          style={{
+                            cursor: "pointer",
+                            fontSize: "13px",
+                            width: "90%",
+                            padding: "5px",
+                          }}
+                        >
+                          Post Review
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}
