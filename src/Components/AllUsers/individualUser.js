@@ -317,12 +317,15 @@ const IndividualUser = () => {
                           <div className="company indiPitchHiringPositions">
                             {te.college}
                           </div>
-                          <div className="profession indiPitchHiringPositions">
-                            {te.grade}
+                          <div style={{ marginLeft: '10px' }}>
+                            <div className="profession indiPitchHiringPositions">
+                              {te.grade}
+                            </div>
+                            <div className="timeline indiPitchHiringPositions">
+                              {convertToDate(te.Edstart)}
+                            </div>
                           </div>
-                          <div className="timeline indiPitchHiringPositions">
-                            {convertToDate(te.Edstart)}
-                          </div>
+                         
                         </div>
                       </div>
                     </div>
@@ -354,12 +357,14 @@ const IndividualUser = () => {
                           <div className="company indiPitchHiringPositions">
                             {te.company}
                           </div>
-                          <div className="profession indiPitchHiringPositions">
-                            {te.profession}
-                          </div>
-                          <div className="timeline indiPitchHiringPositions">
-                            {convertToDate(te.start)}-
-                            {te.end == "" ? "Present" : convertToDate(te.end)}
+                          <div style={{ marginLeft: '10px'}}>
+                            <div className="profession indiPitchHiringPositions">
+                              {te.profession}
+                            </div>
+                            <div className="timeline indiPitchHiringPositions">
+                              {convertToDate(te.start)}-
+                              {te.end == "" ? "Present" : convertToDate(te.end)}
+                            </div>
                           </div>
                         </div>
                       </div>
