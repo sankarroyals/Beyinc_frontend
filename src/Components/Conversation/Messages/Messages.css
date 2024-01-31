@@ -181,6 +181,9 @@
   .sendBoxContainer {
     padding: 0 !important;
     justify-content: center;
+    gap: 2px !important;
+    align-items: center !important;
+    margin: auto !important;
   }
 
   .sendBox input[type="text"],
