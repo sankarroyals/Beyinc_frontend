@@ -15,7 +15,7 @@ const AllNotifications = ({ n }) => {
       navigate(`/user/${n.senderEmail}`)
       changeStatus()
     }} >
-      <div className='individualrequestWrapper' style={{gap: '0px', alignItems: 'center'}}>
+      <div className='individualrequestWrapper' style={{gap: '3px', alignItems: 'center'}}>
         <div>
           <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderProfile == undefined ? '/profile.jpeg' : n.senderProfile} alt="" srcset="" />
         </div>
