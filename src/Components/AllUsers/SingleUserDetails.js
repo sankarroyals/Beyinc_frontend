@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
+
+
 import Typography from "@mui/material/Typography";
+import AddPitch from "../Common/AddPitch";
+
+
 const SingleUserDetails = ({ d }) => {
-  const { email } = useSelector((state) => state.auth.loginDetails);
+  const dispatch = useDispatch();
+
   const [averagereview, setAverageReview] = useState(0);
   const navigate = useNavigate();
   useEffect(() => {
@@ -21,6 +27,12 @@ const SingleUserDetails = ({ d }) => {
       setAverageReview(avgR / d.review.length);
     }
   }, [d]);
+
+
+
+  const [pitchSendTo, setPitchSendTo] =  useState('')
+  
+
   return (
     <Card
       sx={{
@@ -149,8 +161,18 @@ const SingleUserDetails = ({ d }) => {
         >
           View Profile
         </Button>
+        <Button
+          id="view-request"
+          size="small"
+          onClick={() => {
+            setPitchSendTo(d.email)
+          }}
+        >
+          Connect
+        </Button>
         {/* <Button size="small">Learn More</Button> */}
       </CardActions>
+      <AddPitch receiverMail={pitchSendTo} setReceivermail={setPitchSendTo} />
     </Card>
   );
 };
