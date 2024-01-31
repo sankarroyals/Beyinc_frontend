@@ -13,6 +13,7 @@ import AddReviewStars from "../LivePitches/AddReviewStars";
 import { jwtDecode } from "jwt-decode";
 import IndividualPitchComment from "../LivePitches/IndividualPitchComment";
 import { convertToDate, formatedDate } from "../../Utils";
+import IndividualUserReview from "./IndividualUserReview";
 
 const IndividualUser = () => {
   const { image, userName } = useSelector((state) => state.auth.loginDetails);
@@ -438,11 +439,11 @@ const IndividualUser = () => {
                           onClick={sendText}
                           className="sendIcon"
                           style={{
-                            cursor: "pointer",
+                            cursor: comment == ''?'not-allowed':"pointer",
                             fontSize: "13px",
                             width: "90%",
                             padding: "5px",
-                          }}
+                            }}
                         >
                           Post Review
                         </button>
@@ -461,7 +462,7 @@ const IndividualUser = () => {
           )}
           {user?.comments?.length > 0 &&
             user.comments?.map((c, index) => (
-              <IndividualPitchComment
+              <IndividualUserReview
                 key={index}
                 c={c}
                 deleteComment={deleteComment}

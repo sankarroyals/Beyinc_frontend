@@ -415,7 +415,7 @@ const IndividualPitch = () => {
                           onClick={sendText}
                           className="sendIcon"
                           style={{
-                            cursor: "pointer",
+                            cursor: comment == '' ? 'not-allowed' : "pointer",
                             fontSize: "13px",
                             width: "90%",
                             padding: "5px",
