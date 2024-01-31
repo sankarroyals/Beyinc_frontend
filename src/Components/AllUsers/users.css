@@ -44,6 +44,9 @@
   padding: 10px;
 }
 
+.fas.fa-star{
+  color: goldenrod;
+}
 
 @media (max-width: 760px) {
     .usersWrapper {
@@ -64,12 +67,14 @@
   background: white;
   transform: translateY(-30px);
   border-radius: 10px;
+
 }
 
 .indiUserDetails {
   border: 1px solid rgba(128, 128, 128, 0.473);
   padding: 15px;
   border-radius: 10px;
+  
 }
 
 .indiUserHeading {

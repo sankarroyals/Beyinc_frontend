@@ -198,6 +198,7 @@ font-size: 10px;
   flex-direction: column;
   gap: 5px;
 }
+
 .headingIntrested{
   display: flex;
   align-items: center;
