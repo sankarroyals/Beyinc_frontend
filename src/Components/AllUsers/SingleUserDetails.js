@@ -26,7 +26,7 @@ const SingleUserDetails = ({ d }) => {
       sx={{
         maxWidth: 340,
         minWidth: 250,
-        height: "270px",
+        height: "300px",
         boxShadow:
           "2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)",
       }}
@@ -110,7 +110,7 @@ const SingleUserDetails = ({ d }) => {
           </div>
         </div>
 
-        {/* <div style={{ display: "flex", gap: "5px" }}>
+        <div style={{ display: "flex", gap: "5px" }}>
           <div>
             <label className="indiPitchHiringPositions">Skills:</label>
           </div>
@@ -125,7 +125,7 @@ const SingleUserDetails = ({ d }) => {
               </div>
             )}
           </div>
-        </div> */}
+        </div>
         {/* <Typography gutterBottom variant="h5" component="div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {d.userName}
                 </Typography> */}
