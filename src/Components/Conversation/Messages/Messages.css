@@ -115,7 +115,7 @@
   margin-bottom: 5px;
   display: flex;
   align-items: center;
-  height: 5vh;
+  min-height: 5vh;
   padding: 5px 15px;
   justify-content: space-between;
 }
@@ -195,5 +195,9 @@
     white-space: wrap;
     padding: 0px !important;
     width: 240px !important;
+  }
+  .sendingFiles {
+    width: 150px !important;
+    height: 150px !important;
   }
 }

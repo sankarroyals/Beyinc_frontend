@@ -101,7 +101,7 @@ const IndividualMessage = () => {
 
   useEffect(() => {
     console.log(liveMessage);
-    if (Object.keys(liveMessage).length>0) {
+    if (Object.keys(liveMessage).length > 0) {
       // sendSoundRef?.current?.play();
       sound.play()
 
@@ -295,33 +295,47 @@ const IndividualMessage = () => {
 
       <div className="sendBoxContainer">
         <div className="sendBox">
-          <div>
-            <input
-              type="text"
-              name="message"
-              id="message"
-              value={sendMessage}
-              onChange={(e) => setSendMessage(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  sendText();
-                }
-              }}
-              placeholder="Type a message"
-              autoFocus
-            />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+            <div style={{ marginLeft: '10px' }}>
+              <input
+                type="text"
+                name="message"
+                id="message"
+                value={sendMessage}
+                onChange={(e) => setSendMessage(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    sendText();
+                  }
+                }}
+                placeholder="Type a message"
+                autoFocus
+              />
+            </div>
+            {file !== '' && (file.split(';')[0] === 'data:image/png'?<div>
+              <img src={file} style={{height: '250px', width: '250px'}} className="sendingFiles"></img>
+
+            </div> : <iframe src={file} width="250px" height="250px" frameborder="0" className="sendingFiles"></iframe>)}
           </div>
-          <div>
+
+          <div style={{ position: 'absolute', right: '50px' }}>
             <label htmlFor="chatFile" className="uploadingFileIcon">
+
               <CloudUploadIcon />
-              <span className="fileName">{normalFileName}</span>
+
             </label>
             <input
               type="file"
               id="chatFile"
-              onChange={handleFile}
+              onChange={handleFile} accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
               style={{ display: "none" }}
             />
+          </div>
+          <div >
+            <label className="uploadingFileIcon">
+              <i class="fas fa-link"></i>
+            </label>
           </div>
         </div>
         <div>
