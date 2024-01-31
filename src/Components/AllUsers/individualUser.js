@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { ApiServices } from "../../Services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
-import { setToast } from "../../redux/AuthReducers/AuthReducer";
+import { setLoading, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
 import { format } from "timeago.js";
 import SendIcon from "@mui/icons-material/Send";
@@ -18,6 +18,7 @@ const IndividualUser = () => {
   const { image, userName } = useSelector((state) => state.auth.loginDetails);
 
   const [isWritingReview, setIsWritingReview] = useState(false);
+  const { visible } = useSelector(state => state.auth.LoadingDetails);
 
   const [user, setuser] = useState("");
   const [averagereview, setAverageReview] = useState(0);
@@ -29,6 +30,7 @@ const IndividualUser = () => {
 
   useEffect(() => {
     if (email) {
+      dispatch(setLoading({visible: 'yes'}))
       ApiServices.getProfile({ email: email })
         .then((res) => {
           setuser({
@@ -47,6 +49,8 @@ const IndividualUser = () => {
             });
             setAverageReview(avgR / res.data.review.length);
           }
+          dispatch(setLoading({ visible: 'no' }))
+
         })
         .catch((err) => {
           dispatch(
@@ -56,6 +60,8 @@ const IndividualUser = () => {
               visible: "yes",
             })
           );
+          navigate('/searchusers')
+
         });
     }
   }, [email, emailTrigger]);
@@ -160,6 +166,7 @@ const IndividualUser = () => {
   };
 
   return (
+    visible == 'yes' ? '' :
     <div>
       <div className="individualPitchContainer">
         <div className="bgPitch">

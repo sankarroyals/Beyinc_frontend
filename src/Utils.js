@@ -475,7 +475,7 @@ export const formatedDate = (inputDate) => {
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
     const date = inputDate?.split('-')[1][0] == '0' ? inputDate?.split('-')[1][1] - 1 : inputDate?.split('-')[1] - 1
-    return `${inputDate?.split('-')[0]}-${months[date]}-${inputDate?.split('-')[2].slice(0, 2)}`
+    return `${inputDate?.split('-')[2].slice(0, 2)} ${months[date]} ${inputDate?.split('-')[0]}`
 
 }
 
