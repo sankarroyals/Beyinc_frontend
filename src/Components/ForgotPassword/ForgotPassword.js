@@ -15,19 +15,18 @@ const ResetPassword = () => {
     newPassword: null,
     confirmPassword: null,
     isEmailValid: null,
+    mobileOtp: null,
     isMobileValid: null,
-
     isPasswordValid: null,
   });
 
   const {
     email,
-    mobile,
     newPassword,
     confirmPassword,
     isMobileValid,
+    mobileOtp,
     otp,
-    mobileVerified,
     isEmailValid,
     isPasswordValid,
   } = inputs;
@@ -52,17 +51,20 @@ const ResetPassword = () => {
 
   const handleLoginTypeChange = (type) => {
     setLoginType(type);
+    setemailVerified(false)
+    setIsMobileValid(null)
+    setmobileVerified(false)
+    setMobile('')
     setInputs({
       email: null,
       emailOtp: null,
-      mobile: null,
       mobileOtp: null,
       name: null,
       password: null,
       isMobileOtpSent: null,
       isEmailOtpSent: null,
       emailVerified: null,
-      mobileVerified: null,
+      mobileVerified: false,
       isEmailValid: null,
       isMobileValid: null,
       isNameValid: null,
@@ -73,6 +75,11 @@ const ResetPassword = () => {
   const [loginType, setLoginType] = useState("email");
   const [otpVisible, setOtpVisible] = useState(false);
   const [emailVerified, setemailVerified] = useState(false);
+  const [mobileVerified, setmobileVerified] = useState(false);
+
+  const [mobile, setMobile] = useState('')
+  const [mobileValid, setIsMobileValid] = useState(null);
+
 
   const navigate = useNavigate();
 
@@ -94,6 +101,8 @@ const ResetPassword = () => {
     e.target.disabled = true;
     const obj = {
       email: email,
+      phone: mobile,
+      type: loginType,
       password: newPassword,
     };
     await ApiServices.resetPassword(obj)
@@ -129,6 +138,45 @@ const ResetPassword = () => {
     }, 4000);
   };
 
+
+  const sendMobileOtpF = async (e) => {
+    e.preventDefault();
+    e.target.disabled = true;
+    await ApiServices.sendMobileOtp({
+      phone: `+91${mobile}`,
+    })
+      .then((res) => {
+        dispatch(
+          setToast({
+            message: "OTP sent successfully !",
+            bgColor: ToastColors.success,
+            visible: "yes",
+          })
+        );
+        // setIsEmailOtpSent(true);
+        setInputs((prev) => ({ ...prev, isMobileOtpSent: true }));
+        setOtpVisible(true)
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "OTP sent failed !",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+        e.target.disabled = true;
+      });
+    setTimeout(() => {
+      dispatch(
+        setToast({
+          message: "",
+          bgColor: "",
+          visible: "no",
+        })
+      );
+    }, 4000);
+  };
   const handleGetOtp = async (e) => {
     e.target.disabled = true;
     if (loginType === "email") {
@@ -165,14 +213,15 @@ const ResetPassword = () => {
         );
       }, 4000);
     } else {
+      sendMobileOtpF(e)
     }
   };
 
   const verifyOtp = async (e) => {
     e.preventDefault();
     await ApiServices.verifyOtp({
-      email: email,
-      otp: otp,
+      email: loginType == 'email' ? email : `+91${mobile}`,
+      otp: loginType == 'email' ? otp: mobileOtp,
     })
       .then((res) => {
         dispatch(
@@ -182,10 +231,16 @@ const ResetPassword = () => {
             visible: "yes",
           })
         );
-        document.getElementById("emailVerify").style.display = "none";
-        setemailVerified(true);
+        
+        if (loginType == 'email') {
+          document.getElementById("emailVerify").style.display = "none";
+          setemailVerified(true);
+        } else {
+          setmobileVerified(true)
+        }
       })
       .catch((err) => {
+        console.log(err)
         dispatch(
           setToast({
             message: "OTP Entered Wrong",
@@ -206,8 +261,8 @@ const ResetPassword = () => {
   };
 
   const handleMobileChange = (value) => {
-    // setMobile(value);
-    // setIsMobileValid(/^[0-9]{10}$/.test(value));
+    setMobile(value);
+    setIsMobileValid(/^[0-9]{10}$/.test(value));
   };
 
   return (
@@ -233,134 +288,134 @@ const ResetPassword = () => {
     //     </div> */}
     //     {loginType === "email" ? (
     //       <>
-    //         <input
-    //           type="text"
-    //           name="email"
-    //           className={
-    //             isEmailValid !== null && (isEmailValid ? "valid" : "invalid")
-    //           }
-    //           value={email}
-    //           placeholder="Email Address"
-    //           disabled={emailVerified}
-    //           onChange={handleChanges}
-    //         />
-    //         {emailVerified === true && (
-    //           <img
-    //             src="checked.png"
-    //             height={20}
-    //             alt="Your Alt Text"
-    //             className="successIcons"
-    //           />
-    //         )}
+    //   <input
+    //     type="text"
+    //     name="email"
+    //     className={
+    //       isEmailValid !== null && (isEmailValid ? "valid" : "invalid")
+    //     }
+    //     value={email}
+    //     placeholder="Email Address"
+    //     disabled={emailVerified}
+    //     onChange={handleChanges}
+    //   />
+    //   {emailVerified === true && (
+    //     <img
+    //       src="checked.png"
+    //       height={20}
+    //       alt="Your Alt Text"
+    //       className="successIcons"
+    //     />
+    //   )}
 
-    //         {isEmailValid && !otpVisible && (
-    //           <button
-    //             type="button"
-    //             className="otp_button"
-    //             onClick={handleGetOtp}
-    //           >
-    //             Get OTP
-    //           </button>
-    //         )}
-    //         {otpVisible && emailVerified !== true && (
-    //           <>
-    //             <input
-    //               type="text"
-    //               name="otp"
-    //               value={otp}
-    //               placeholder="Enter OTP"
-    //               onChange={handleChanges}
-    //             />
-    //             {otp !== null && otp.length === 6 && (
-    //               <button
-    //                 type="button"
-    //                 className="otp_button"
-    //                 onClick={verifyOtp}
-    //                 id="emailVerify"
-    //               >
-    //                 Verify otp
-    //               </button>
-    //             )}
-    //           </>
-    //         )}
-    //       </>
+    //   {isEmailValid && !otpVisible && (
+    //     <button
+    //       type="button"
+    //       className="otp_button"
+    //       onClick={handleGetOtp}
+    //     >
+    //       Get OTP
+    //     </button>
+    //   )}
+    //   {otpVisible && emailVerified !== true && (
+    //     <>
+    //       <input
+    //         type="text"
+    //         name="otp"
+    //         value={otp}
+    //         placeholder="Enter OTP"
+    //         onChange={handleChanges}
+    //       />
+    //       {otp !== null && otp.length === 6 && (
+    //         <button
+    //           type="button"
+    //           className="otp_button"
+    //           onClick={verifyOtp}
+    //           id="emailVerify"
+    //         >
+    //           Verify otp
+    //         </button>
+    //       )}
+    //     </>
+    //   )}
+    // </>
     //     ) : (
-    //       <>
-    //         <input
-    //           type="text"
-    //           disabled={mobileVerified}
-    //           value={mobile}
-    //           placeholder="Mobile Number"
-    //           onChange={(e) => handleMobileChange(e.target.value)}
-    //         />
-    //         {mobileVerified === true && (
-    //           <img
-    //             src="checked.png"
-    //             height={20}
-    //             alt="Your Alt Text"
-    //             className="successIcons"
-    //           />
-    //         )}
+    //   <>
+    //     <input
+    //       type="text"
+    //       disabled={mobileVerified}
+    //       value={mobile}
+    //       placeholder="Mobile Number"
+    //       onChange={(e) => handleMobileChange(e.target.value)}
+    //     />
+    //     {mobileVerified === true && (
+    //       <img
+    //         src="checked.png"
+    //         height={20}
+    //         alt="Your Alt Text"
+    //         className="successIcons"
+    //       />
+    //     )}
 
-    //         {isMobileValid && !otpVisible && (
-    //           <button
-    //             type="button"
-    //             className="otp_button"
-    //             onClick={handleGetOtp}
-    //           >
-    //             Get OTP
-    //           </button>
-    //         )}
-    //         {otpVisible && (
-    //           <>
-    //             <input type="text" value={otp} placeholder="Enter OTP" />
-    //             <button
-    //               type="button"
-    //               className="otp_button"
-    //               onClick={handleGetOtp}
-    //               style={{ whiteSpace: "noWrap" }}
-    //             >
-    //               Resend OTP
-    //             </button>
-    //           </>
-    //         )}
-    //       </>
+    //     {isMobileValid && !otpVisible && (
+    //       <button
+    //         type="button"
+    //         className="otp_button"
+    //         onClick={handleGetOtp}
+    //       >
+    //         Get OTP
+    //       </button>
     //     )}
-    //     {(emailVerified || mobileVerified) && (
+    //     {otpVisible && (
     //       <>
-    //         <input
-    //           name="newPassword"
-    //           type="password"
-    //           className={
-    //             isPasswordValid !== null &&
-    //             (isPasswordValid ? "valid" : "invalid")
-    //           }
-    //           value={newPassword}
-    //           placeholder="New Password"
-    //           onChange={handleChanges}
-    //         />
-    //         {isPasswordValid && (
-    //           <input
-    //             name="confirmPassword"
-    //             type="password"
-    //             className={
-    //               confirmPassword !== null &&
-    //               (confirmPassword === newPassword ? "valid" : "invalid")
-    //             }
-    //             value={confirmPassword}
-    //             placeholder="Confirm Password"
-    //             onChange={handleChanges}
-    //           />
-    //         )}
+    //         <input type="text" value={otp} placeholder="Enter OTP" />
+    //         <button
+    //           type="button"
+    //           className="otp_button"
+    //           onClick={handleGetOtp}
+    //           style={{ whiteSpace: "noWrap" }}
+    //         >
+    //           Resend OTP
+    //         </button>
     //       </>
     //     )}
+    //   </>
+    // )}
+    // {(emailVerified || mobileVerified) && (
+    //   <>
+    //     <input
+    //       name="newPassword"
+    //       type="password"
+    //       className={
+    //         isPasswordValid !== null &&
+    //         (isPasswordValid ? "valid" : "invalid")
+    //       }
+    //       value={newPassword}
+    //       placeholder="New Password"
+    //       onChange={handleChanges}
+    //     />
+    //     {isPasswordValid && (
+    //       <input
+    //         name="confirmPassword"
+    //         type="password"
+    //         className={
+    //           confirmPassword !== null &&
+    //           (confirmPassword === newPassword ? "valid" : "invalid")
+    //         }
+    //         value={confirmPassword}
+    //         placeholder="Confirm Password"
+    //         onChange={handleChanges}
+    //       />
+    //     )}
+    //   </>
+    // )}
     //     <button
     //       type="button"
     //       onClick={handleResetPassword}
     //       disabled={
-    //         !emailVerified ||
-    //         newPassword === "" ||
-    //         newPassword !== confirmPassword
+    // !emailVerified ||
+    // newPassword === "" ||
+    // newPassword !== confirmPassword
     //       }
     //     >
     //       Reset Password
@@ -426,99 +481,147 @@ const ResetPassword = () => {
                 />
                 <label for="tab2">Mobile</label>
               </div>
-              {/* <form action="">
+              <form action="">
                 {loginType === "email" ? (
                   <>
                     <input
-                      type="email"
+                      type="text"
                       name="email"
+                      className={
+                        isEmailValid !== null && (isEmailValid ? "valid" : "invalid")
+                      }
                       value={email}
-                      className={
-                        isEmailValid !== null &&
-                        (isEmailValid ? "valid" : "invalid")
-                      }
                       placeholder="Email Address"
+                      disabled={emailVerified}
                       onChange={handleChanges}
                     />
-                    <input
-                      type="password"
-                      className={
-                        isPasswordValid !== null &&
-                        (isPasswordValid ? "valid" : "invalid")
-                      }
-                      name="password"
-                      value={password}
-                      placeholder="Password"
-                      onChange={handleChanges}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <div className="input-button-row">
-                      <input
-                        type="number"
-                        value={mobile}
-                        className={
-                          isMobileValid !== null &&
-                          (isMobileValid ? "valid" : "invalid")
-                        }
-                        disabled={mobileVerified}
-                        placeholder="Mobile Number"
-                        autoComplete="off"
-                        name="mobile"
-                        onChange={handleChanges}
+                    {/* {emailVerified === true && (
+                      <img
+                        src="checked.png"
+                        height={20}
+                        alt="Your Alt Text"
+                        className="successIcons"
                       />
-                      {mobileVerified === true && (
-                        <img
-                          src="checked.png"
-                          height={20}
-                          style={{ right: "20px" }}
-                          alt="Your Alt Text"
-                          className="successIcons"
-                        />
-                      )}
-                      {isMobileValid && !otpVisible && (
-                        <button type="button" onClick={sendMobileOtpF}>
-                          Get OTP
-                        </button>
-                      )}
-                    </div>
-                    {otpVisible && mobileVerified !== true && (
+                    )} */}
+                    {isEmailValid && !otpVisible && (
+                      <button
+                        type="button"
+                        className="full-width-button"
+                        onClick={handleGetOtp}
+                      >
+                        Get OTP
+                      </button>
+                    )}
+                    {otpVisible && emailVerified !== true && (
                       <>
                         <input
                           type="text"
-                          value={mobileOtp}
-                          className={
-                            mobileOtp !== null &&
-                            (mobileOtp.length === 6 ? "valid" : "invalid")
-                          }
+                          name="otp"
+                          value={otp}
                           placeholder="Enter OTP"
-                          name="mobileOtp"
                           onChange={handleChanges}
                         />
-                        {mobileOtp !== null && mobileOtp.length === 6 && (
+                        {otp !== null && otp?.length === 6 && (
                           <button
                             type="button"
-                            id="mobileVerify"
-                            onClick={verifyMobileOtp}
-                            style={{ whiteSpace: "noWrap" }}
+                            className="full-width-button"
+                            onClick={verifyOtp}
+                            id="emailVerify"
                           >
-                            Verify OTP
+                            Verify otp
                           </button>
                         )}
                       </>
                     )}
                   </>
+                ) : (
+                  <>
+                    <input
+                      type="text"
+                      disabled={mobileVerified}
+                      value={mobile}
+                      className={
+                        mobileValid !== null && (mobileValid ? "valid" : "invalid")
+                      }
+                      placeholder="Mobile Number"
+                      onChange={(e) => handleMobileChange(e.target.value)}
+                    />
+
+                    {mobileValid && !otpVisible && (
+                      <button
+                        type="button"
+                        className="full-width-button"
+                        onClick={handleGetOtp}
+                      >
+                        Get OTP
+                      </button>
+                    )}
+                     {otpVisible && mobileVerified !== true && (
+                        <>
+                          <input
+                            type="text"
+                            value={mobileOtp}
+                            className={
+                              mobileOtp !== null &&
+                              (mobileOtp.length === 6 ? "valid" : "invalid")
+                            }
+                            placeholder="Enter OTP"
+                            name="mobileOtp"
+                            onChange={handleChanges}
+                          />
+                          {mobileOtp !== null && mobileOtp.length === 6 && (
+                            <button
+                              type="button"
+                              id="mobileVerify"
+                              onClick={verifyOtp}
+                              style={{ whiteSpace: "noWrap" }}
+                            >
+                              Verify OTP
+                            </button>
+                          )}
+                        </>
+                      )}
+                  </>
+                )}
+                {(emailVerified || mobileVerified) && (
+                  <>
+                    <input
+                      name="newPassword"
+                      type="password"
+                      className={
+                        isPasswordValid !== null &&
+                        (isPasswordValid ? "valid" : "invalid")
+                      }
+                      value={newPassword}
+                      placeholder="New Password"
+                      onChange={handleChanges}
+                    />
+                    {/* {isPasswordValid && ( */}
+                    <input
+                      name="confirmPassword"
+                      type="password"
+                      className={
+                        confirmPassword !== null &&
+                        (confirmPassword === newPassword ? "valid" : "invalid")
+                      }
+                      value={confirmPassword}
+                      placeholder="Confirm Password"
+                      onChange={handleChanges}
+                    />
+                    {/* )} */}
+                  </>
                 )}
                 <button
                   className="full-width-button"
                   type="submit"
-                  disabled={!isFormValid}
-                  onClick={loginType === "email" ? login : mobileLogin}
+                  disabled={
+                    newPassword === "" ||
+                    newPassword !== confirmPassword}
+                  onClick={handleResetPassword}
                 >
-                  Login
+                  Change Password
                 </button>
-              </form> */}
+              </form>
             </div>
             <div class="login-header">
               <div>
