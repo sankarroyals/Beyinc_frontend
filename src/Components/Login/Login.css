@@ -310,7 +310,10 @@ input {
 }
 
 .login-option-text {
-  margin: 0;
+  margin: 10px 0;
+} 
+.login-option-text a {
+  text-decoration: none;
 }
 .login-image {
   width: 600px;

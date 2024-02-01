@@ -323,7 +323,7 @@ button:hover {
 }
 
 input[type="radio"] {
-  width: 30px !important;
+  width: 23px !important;
 }
 input[type="radio"] + label {
   font-weight: 400;
