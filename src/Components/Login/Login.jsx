@@ -410,6 +410,9 @@ const Login = () => {
               <p className="login-option-text">
                 New here? <a href="/signup">Sign up</a>
               </p>
+              <p className="login-option-text">
+                <a href="/forgotpassword">Forgot Password?</a>
+              </p>
             </div>
           </div>
         </div>
