@@ -2,6 +2,7 @@ import React from "react";
 import "./LandingPage.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Footer from "../Home/Footer/Footer";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const LandingPage = () => {
         <img src="/business.png" />
         <div>
           <h1>
-            Welcome to India's Social <br /> Entrepreneurship Platform
+            Welcome to  Social <br /> Entrepreneurship Platform
           </h1>
         </div>
         <h3>Turning Dreams Into Reality</h3>
@@ -67,14 +68,14 @@ const LandingPage = () => {
         </div>
 
         <div className="box-container">
-          <div class="box">
-            <h2>content</h2>
-            <p>image</p>
+          <div className="box">
+            <h2>Lorem ipsum</h2>
+            <img src="/timer.webp" />
           </div>
 
           <div className="box">
-            <h2>content</h2>
-            <p>image</p>
+            <h2>Lorem ipsum</h2>
+            <img src="/flag.webp" />
           </div>
         </div>
 
@@ -114,98 +115,49 @@ const LandingPage = () => {
           <span> it works</span>
           <br />
         </div>
-        <div className="working-box"></div>
-        <div className="working-box"></div>
-        <div className="working-box"></div>
-        <div className="working-box"></div>
+        <div className="working-box">
+          <img src="/create-wallet-white.webp" />
+          <h3>Loreum Ipsum</h3>
+        </div>
+        <div className="working-box">
+          <img src="/invite-white.webp" />
+          <h3>Loreum Ipsum</h3>
+        </div>
+        <div className="working-box">
+          <img src="/cards-white.webp" />
+          <h3>Loreum Ipsum</h3>
+        </div>
+        <div className="working-box">
+          <img src="/pool-white.webp" />
+          <h3>Loreum Ipsum</h3>
+        </div>
       </div>
 
       <div className="black-container">
-        <h1>Animation Here</h1>
+        <h1>Loreum Ipsum</h1>
+        <img src="card-gif.gif" />
       </div>
 
       <div className="random-containers">
-        <div className="random-box1"></div>
-        <div className="random-box2"></div>
-        <div className="random-box3"></div>
-        <div className="random-box4"></div>
+        <div className="random-box1">
+        <h3>Loreum ipsum</h3>
+          <img src="/track-mange.webp" />
+        </div>
+        <div className="random-box2">
+        <h3>Loreum ipsum</h3>
+          <img src="/together.webp" />
+        </div>
+        <div className="random-box3">
+        <h3>Loreum ipsum</h3>
+          <img src="/bank.webp" />
+        </div>
+        <div className="random-box4">
+        <h3>Loreum ipsum</h3>
+          <img src="/limit.webp" />
+        </div>
       </div>
 
-      <footer className="footer">
-        <div className="Beyinc-logo">
-          <img src="/logo.png" alt="logo" />
-          {/* <div className="footer-playstore">
-            <img src="/playstore-light.svg" />
-            <img src="/appstore-light.svg" />
-          </div> */}
-        </div>
-        
-        <div className="footer-content">
-          <nav>
-            <h2>Quick Links</h2>
-            <ul>
-              <li>
-                <a href="#about">
-                  <i class="fas fa-info-circle"></i> About
-                </a>
-              </li>
-              <li>
-                <a href="#contact">
-                  <i class="fas fa-envelope"></i> Contact
-                </a>
-              </li>
-              <li>
-                <a href="#services">
-                  <i class="fas fa-cogs"></i> Services
-                </a>
-              </li>
-              <li>
-                <a href="#collaborators">
-                  <i class="fas fa-users"></i> Our Collaborators
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-          <nav>
-            <h2>Say Hello</h2>
-            <ul>
-              <li>
-                <i className="fas fa-map-marker-alt"></i> Chennai
-              </li>
-              <li>
-                <i className="fas fa-envelope"></i> info@beyinc.net
-              </li>
-
-              <div className="icons">
-                <i className="fab fa-linkedin"></i>
-                <i className="fab fa-facebook"></i>
-                <i className="fab fa-twitter"></i>
-                <i className="fab fa-instagram"></i>
-              </div>
-            </ul>
-          </nav>
-
-          <nav>
-            <h2>Legal Information</h2>
-            <ul>
-              <li>
-                <i class="fas fa-shield-alt"></i> Privacy Policy
-              </li>
-              <li>
-                <i class="fas fa-file-contract"></i> Terms of Service
-              </li>
-              <li>
-                <i class="fas fa-cookie-bite"></i> Cookie Policy
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <p className="copyright">
-          Copyright &copy; 2024 BeyInc. All Rights Reserved.
-        </p>
-      </footer>
+      <Footer/>
     </div>
   );
 };

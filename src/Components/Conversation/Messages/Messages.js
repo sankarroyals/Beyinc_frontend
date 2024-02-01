@@ -14,7 +14,7 @@ const Messages = () => {
           <img className="No_Conversation" src="/no-request.png" alt="No Conversation" />
           <div style={{ marginTop: '-50px' }}>
             No Conversations Selected !
-            <p style={{ fontSize: '16px' }}>Start a conversation</p>
+            <h6 style={{ fontSize: '16px', marginLeft: '120px' }}>Start a conversation</h6>
           </div>
         </div>
       ) : (

@@ -6,7 +6,23 @@
   height: 100vh;
 }
 
-.login-hero {
+.login-form-container {
+  width: 25%;
+  margin-top: 150px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: 200px;
+}
+
+.login-image-container {
+  width: 45%;
+  margin-top: 50px;
+  margin-right: 100px;
+}
+
+.login-image-container img {
   width: 100%;
   display: flex;
   flex-direction: row;

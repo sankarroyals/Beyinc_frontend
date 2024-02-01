@@ -118,17 +118,6 @@
   height: 5vh;
   padding: 5px 15px;
   justify-content: space-between;
-  /* width: 75%; */
-  /* display: flex;
-    height: 10px;
-    padding: 20px;
-    margin: auto;
-    align-items: center;
-    gap: 5px;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 50px; */
-  /* padding: 5px; */
 }
 .sendBox input[type="text"],
 .sendBox textarea {
@@ -148,7 +137,7 @@
   color: grey;
   padding: 6px 6px;
   border-radius: 50% !important;
-  transition: background-color 0.3s, color 0.3s; 
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .uploadingFileIcon:hover {
@@ -156,7 +145,6 @@
   background-color: rgba(198, 203, 208, 0.5);
   border-radius: 50% !important;
 }
-
 
 .uploadingFileIcon .fileName {
   white-space: wrap;
@@ -178,4 +166,34 @@
   width: 85%;
   margin-left: 8%;
   margin-top: -5px;
+}
+
+@media (max-width: 768px) {
+  .messageContainer{
+    border-radius: 0px !important;
+  }
+  .messageBox {
+      height: 62vh;
+
+    padding: 0 !important;
+    justify-content: center;
+  }
+  .sendBoxContainer {
+    padding: 0 !important;
+    justify-content: center;
+    gap: 2px !important;
+    align-items: center !important;
+    margin: auto !important;
+  }
+
+  .sendBox input[type="text"],
+  .sendBox textarea {
+    margin-bottom: -2px;
+    height: auto;
+    border: 0;
+    outline: 0;
+    white-space: wrap;
+    padding: 0px !important;
+    width: 240px !important;
+  }
 }

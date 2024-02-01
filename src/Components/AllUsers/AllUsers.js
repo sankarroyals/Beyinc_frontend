@@ -35,12 +35,12 @@ const AllUsers = () => {
     useEffect(() => {
         setFilters(prev=>({...prev, review: filledStars}))
     }, [filledStars])
-    const [universities, setUniversities] = useState([])
-    useEffect(() => {
-        axios.get('http://universities.hipolabs.com/search').then(res => {
-            setUniversities(res.data)
-        })
-    }, [])
+    // const [universities, setUniversities] = useState([])
+    // useEffect(() => {
+    //     axios.get('http://universities.hipolabs.com/search').then(res => {
+    //         setUniversities(res.data)
+    //     })
+    // }, [])
     useEffect(() => {
         ApiServices.getAllUsers({ type: '' }).then(res => {
             console.log(res.data);
@@ -266,7 +266,7 @@ const AllUsers = () => {
 
 
                     {/* userColleges */}
-                    <div className='tagFilter'>
+                    {/* <div className='tagFilter'>
                         <div>Colleges:</div>
                         {filters.userColleges?.length > 0 && (
                             <div className="listedTeam">
@@ -305,7 +305,7 @@ const AllUsers = () => {
                             </select>
 
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* country */}
                     <div className='tagFilter'>
@@ -351,7 +351,7 @@ const AllUsers = () => {
 
 
                     {/* state */}
-                    <div className='tagFilter'>
+                    {/* <div className='tagFilter'>
                         <div>State:</div>
                         {filters.state?.length > 0 && (
                             <div className="listedTeam">
@@ -390,7 +390,7 @@ const AllUsers = () => {
                             </select>
 
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* skills */}
                     <div className='tagFilter'>

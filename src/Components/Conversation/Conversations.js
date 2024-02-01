@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './conversations.css'
 import Messages from './Messages/Messages'
 import HistoryChats from './Users/HistoryChats'
@@ -12,9 +12,22 @@ const Conversations = () => {
   const { email } = useSelector(
     (store) => store.auth.loginDetails
   );
-
   const { conversationId } = useParams()
   const dispatch = useDispatch()
+  const [isMobile, setIsMobile] = useState(window.outerWidth <= 768);
+  useEffect(() => {
+    console.log(window.outerWidth);
+    const handleResize = () => {
+      setIsMobile(window.outerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   // // intialize socket io
   // const socket = useRef()
   // const { email } = useSelector(
@@ -56,6 +69,7 @@ const Conversations = () => {
 
   // get friend based on params
   useEffect(() => {
+    console.log(isMobile , conversationId );
     if (conversationId !== undefined) {
       ApiServices.getFriendByConvID({ conversationId: conversationId, email: email }).then((res) => {
         dispatch(setReceiverId(res.data))
@@ -66,14 +80,13 @@ const Conversations = () => {
   }, [conversationId])
 
 
-
   return (
     <div className='conversationContainer'>
-      <div className='users'>
+      <div className='users' style={{ display: (isMobile && conversationId !== undefined) && 'none'  }}>
         <SearchBox />
         <HistoryChats />
       </div>
-      <div className='chatContainer'>
+      <div className='chatContainer' style={{ display: (isMobile && conversationId == undefined) && 'none'}}>
         <Messages />
       </div>
     </div>

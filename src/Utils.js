@@ -1,5 +1,5 @@
-export const socket_io = "https://beyinc-socket.onrender.com"
-// export const socket_io = "ws://localhost:8900"
+// export const socket_io = "https://beyinc-socket.onrender.com"
+export const socket_io = process.env.REACT_APP_SOCKET_IO
 
 export const domain_subdomain = {
     "Agriculture": [

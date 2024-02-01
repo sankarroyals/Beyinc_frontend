@@ -1,29 +1,35 @@
-body{
-    background: #f6f8fc;
-    /* overflow-y: hidden; */
+body {
+  background: #f6f8fc;
+  /* overflow-y: hidden; */
 }
 .conversationContainer {
-    max-width: 1300px;
-    height: 80vh;
-    /* border: 1px solid green; */
-    margin: auto;
-    display: flex;
-    padding: 5px;
-    /* gap: 20px; */
-    background:#f6f8fc;
-    border-radius: 20px;
+  max-width: 1300px;
+  height: 80vh;
+  /* border: 1px solid green; */
+  margin: auto;
+  display: flex;
+  /* flex-wrap: wrap; */
+  padding: 5px;
+  /* gap: 20px; */
+  background: #f6f8fc;
+  border-radius: 20px;
 }
 
-.users{
-      flex: 1 0 20%;
-      background:#f6f8fc;
-      margin-left: -80px;
-      margin-top: -15px;
-      padding: 20px 0 40px 20px;
-      height: 600px;
-    
+.users {
+  flex: 1 0 25%;
+  background: #f6f8fc;
+  /* margin-left: -80px; */
+  margin-top: -15px;
+  padding: 20px 0 40px 20px;
+  height: 600px;
 }
-.chatContainer{
- flex: 1 0 75%;
- padding: 12px 0px;
+.chatContainer {
+  flex: 1 0 75%;
+  padding: 12px 0px;
+}
+
+@media (max-width: 768px) {
+  .chatContainer {
+  width: 200px !important;
+}
 }
