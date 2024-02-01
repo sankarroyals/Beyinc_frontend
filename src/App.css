@@ -359,14 +359,10 @@ input[type="radio"] + label {
 @media (max-width: 768px) {
   input[type="email"],
   input[type="password"],
-  input[type="text"] {
-    width: 280px !important;
+  input[type="text"], input[type="number"]  {
+    /* width: 280px !important; */
   }
-  button {
-    width: 100px !important;
-    border-radius: 5px;
-    white-space: noWrap;
-  }
+  
 
   .Loading {
     align-items: center;
