@@ -167,93 +167,78 @@ const IndividualUser = () => {
   return visible == "yes" ? (
     ""
   ) : (
-    <div>
+    <div className="profile-Container">
       <div className="individualPitchContainer">
-        <div className="bgPitch">
-          <img
-            src="https://www.f-cdn.com/assets/main/en/assets/project-view/logged-out/header.jpg?image-optimizer=force&format=webply&width=1920"
-            alt=""
-          />
+        <div className="Top-Notch">
+          <i
+            className="fas fa-arrow-left"
+            onClick={() => {
+              navigate(-1);
+            }}
+          ></i>
+          <span>{user?.userName}'s Profile</span>
         </div>
+
         <div className="indiUserDetailsContainer">
           <div className="indiUserDetails">
-            <i className="fas fa-arrow-left"onClick={() => {
-            navigate(-1);
-          }}></i>
-           
-              <div className="User-Top-Details">
+            <div className="User-Top-Details">
+              <img
+                className="profile"
+                src={
+                  user?.image?.url !== undefined
+                    ? user?.image?.url
+                    : "/profile.jpeg"
+                }
+                alt=""
+                srcset=""
+              />
+              <div className="indiUserHeading">
+                {user?.userName}{" "}
+                {user.verification == "approved" && (
                   <img
-                  className="profile"
-                    src={
-                      user?.image?.url !== undefined
-                        ? user?.image?.url
-                        : "/profile.jpeg"
-                    }
+                    title="verified"
+                    src="/verify.png"
                     alt=""
-                    srcset=""
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      marginLeft: "5px",
+                    }}
                   />
-                  <div className="indiUserHeading">
-                    {user?.userName}{" "}
-                    {user.verification == "approved" && (
-                      <img
-                        title="verified"
-                        src="/verify.png"
-                        alt=""
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          marginLeft: "-5px",
-                          marginBottom: "15px",
-                        }}
-                      />
-                    )}
-                    <div className="reviewInterestContainer">
-                        <ReviewStars avg={averagereview} />
-                    </div>
-                    <div className="indiPitchDate">
-                      Profile Created on <b>{formatedDate(user?.createdAt)}</b>
-                    </div>
-                    <div className="indiPitchDesc">
-                      <textarea
-                        style={{
-                          width: "100%",
-                          border: "none",
-                          fontFamily: "'Google Sans Text', sans- serif",
-                        }}
-                        disabled
-                        rows={13}
-                        value={user?.bio}
-                      ></textarea>
-                    </div>
-                  </div>
-                
+                )}
+                <div className="location-info">
+                  {user?.country !== "" && <div>{user?.country},</div>}
+                  {user?.state !== "" && <div>{user?.state},</div>}
+                  {user?.town !== "" && <div>{user?.town}</div>}
+                </div>
+                <div className="reviewInterestContainer">
+                  <ReviewStars avg={averagereview} />
+                </div>
+                <div className="indiPitchDate">
+                  Profile Created on <b>{formatedDate(user?.createdAt)}</b>
+                </div>
+
+                <div className="indiPitchId">
+                <i className="fas fa-envelope"></i>
+                  <a href={`mailto:${user.email}`}>{user?.email}</a>
+                </div>
+
+                <div className="indiPitchDesc">
+                  <h3>About Me</h3>
+                  <textarea
+                    className="about"
+                    style={{
+                      border: "none",
+                      fontFamily: "'Google Sans Text', sans- serif",
+                    }}
+                    disabled
+                    rows={13}
+                    value={user?.bio}
+                  ></textarea>
+                </div>
               </div>
-           
-
-
-
-            <div className="indiPitchId">
-              <b>Mail:</b> <a href={`mailto:${user.email}`}>{user?.email}</a>
             </div>
 
-            {user?.country !== "" && (
-              <div className="indiPitchHiringPositions">
-                <b> Country:</b>
-                <div className="hp">{user?.country}</div>
-              </div>
-            )}
-            {user?.state !== "" && (
-              <div className="indiPitchHiringPositions">
-                <b>State:</b>
-                <div className="hp">{user?.state}</div>
-              </div>
-            )}
-            {user?.town !== "" && (
-              <div className="indiPitchHiringPositions">
-                <b>Town:</b>
-                <div className="hp">{user?.town}</div>
-              </div>
-            )}
             <div>
               <div>
                 <label className="indiPitchHiringPositions">Skills</label>
@@ -314,7 +299,7 @@ const IndividualUser = () => {
                           <div className="company indiPitchHiringPositions">
                             {te.college}
                           </div>
-                          <div style={{ marginLeft: '10px' }}>
+                          <div style={{ marginLeft: "10px" }}>
                             <div className="profession indiPitchHiringPositions">
                               {te.grade}
                             </div>
@@ -322,7 +307,6 @@ const IndividualUser = () => {
                               {convertToDate(te.Edstart)}
                             </div>
                           </div>
-                         
                         </div>
                       </div>
                     </div>
@@ -354,7 +338,7 @@ const IndividualUser = () => {
                           <div className="company indiPitchHiringPositions">
                             {te.company}
                           </div>
-                          <div style={{ marginLeft: '10px'}}>
+                          <div style={{ marginLeft: "10px" }}>
                             <div className="profession indiPitchHiringPositions">
                               {te.profession}
                             </div>
@@ -377,7 +361,7 @@ const IndividualUser = () => {
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
               .email && (
             <div>
-              <div  style={{ display: "flex", gap: "10px" }}>
+              <div style={{ display: "flex", gap: "10px" }}>
                 <img src={image} />
                 <div>
                   <span>
@@ -392,13 +376,15 @@ const IndividualUser = () => {
               <div className="Rating-Content" style={{ marginLeft: "60px" }}>
                 <h4>Rate this user</h4>
                 <h6>Tell others what you think</h6>
-                <div className="stars" style={{ display: "flex", marginBottom: "10px" }}>
+                <div
+                  className="stars"
+                  style={{ display: "flex", marginBottom: "10px" }}
+                >
                   <AddReviewStars
                     filledStars={filledStars}
                     setFilledStars={setFilledStars}
                   />{" "}
                   <button
-                  
                     style={{
                       cursor: "pointer",
                       fontSize: "13px",
@@ -430,7 +416,7 @@ const IndividualUser = () => {
                     >
                       <div>
                         <textarea
-                        className="textarea"
+                          className="textarea"
                           rows={4}
                           cols={50}
                           value={comment}
@@ -443,11 +429,11 @@ const IndividualUser = () => {
                           onClick={sendText}
                           className="sendIcon"
                           style={{
-                            cursor: comment == ''?'not-allowed':"pointer",
+                            cursor: comment == "" ? "not-allowed" : "pointer",
                             fontSize: "13px",
                             width: "90%",
                             padding: "5px",
-                            }}
+                          }}
                         >
                           Post Review
                         </button>

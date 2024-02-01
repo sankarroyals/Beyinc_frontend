@@ -122,7 +122,6 @@ input[type="checkbox"] {
 }
 
 .indiPitchDate,
-.indiPitchDesc,
 .indiPitchId {
   padding: 10px 0px;
   font-size: 14px;
@@ -130,9 +129,13 @@ input[type="checkbox"] {
 .indiPitchDate {
   font-weight: 400;
 }
-.indiPitchId {
+/* .indiPitchId {
   font-size: 12px;
 }
+.indiPitchId a{
+  color: #545454;
+  text-decoration: none;
+} */
 
 .star-rating {
   display: flex;
@@ -233,9 +236,7 @@ input[type="checkbox"] {
   font-size: 12px;
   margin: 5px 0px;
 }
-.hp {
-  padding: 3px;
-}
+
 
 .indiPitchHeading {
   font-size: 20px;
