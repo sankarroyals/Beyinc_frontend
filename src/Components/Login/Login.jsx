@@ -97,7 +97,7 @@ const Login = () => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
-      phone: `+91${mobile}`
+      phone: `+91${mobile}`,
     })
       .then((res) => {
         dispatch(
@@ -107,7 +107,7 @@ const Login = () => {
             visible: "yes",
           })
         );
-        setOtpVisible(true)
+        setOtpVisible(true);
         // setIsEmailOtpSent(true);
         setInputs((prev) => ({ ...prev, isMobileOtpSent: true }));
       })
@@ -130,7 +130,6 @@ const Login = () => {
         })
       );
     }, 4000);
-
   };
 
   // const handleMobileChange = (value) => {
@@ -263,173 +262,197 @@ const Login = () => {
     }, 4000);
   };
   return (
-    <div className="login-container">
-      {/* Login Form */}
-      <form className="login-form-container">
-        <center>
-          <h2>Login</h2>
-          <p>Log in now to get full access.</p>
-        </center>
-        <div className="login-type-toggle">
-          <span
-            className={loginType === "email" ? "active" : ""}
-            onClick={() => handleLoginTypeChange("email")}
-          >
-            Email
-          </span>
-          <span
-            className={loginType === "mobile" ? "active" : ""}
-            onClick={() => handleLoginTypeChange("mobile")}
-          >
-            Mobile
-          </span>
-        </div>
-        {loginType === "email" ? (
-          <>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              className={
-                isEmailValid !== null && (isEmailValid ? "valid" : "invalid")
-              }
-              placeholder="Email Address"
-              onChange={handleChanges}
-            />
-            <input
-              type="password"
-              className={
-                isPasswordValid !== null &&
-                (isPasswordValid ? "valid" : "invalid")
-              }
-              name="password"
-              value={password}
-              placeholder="Password"
-              onChange={handleChanges}
-            />
-          </>
-        ) : (
-          <>
-            <div className="input-container">
-              <input
-                type="number"
-                value={mobile}
-                className={
-                  isMobileValid !== null &&
-                  (isMobileValid ? "valid" : "invalid")
-                }
-                disabled={mobileVerified}
-                placeholder="Mobile Number"
-                autoComplete="off"
-                name="mobile"
-                onChange={handleChanges}
-              />
-              {mobileVerified === true && (
+    <>
+      <main className="login-main-container">
+        <div className="login-hero">
+          {/* <img
+          className="login-image"
+          src="investment.png"
+          alt="investment doodle"
+        /> */}
+          <div className="login-form-section">
+            <div class="login-page">
+              <div class="login-header">
                 <img
-                  src="checked.png"
-                  height={20}
-                  style={{ right: "20px" }}
+                  class="login-logo"
+                  src="logo.png"
                   alt="Your Alt Text"
-                  className="successIcons"
+                  onClick={() => {
+                    navigate("/");
+                  }}
                 />
-              )}
-            </div>
-
-            {isMobileValid && !otpVisible && (
-              <button
-                type="button"
-                className="otp_button"
-                onClick={sendMobileOtpF}
-              >
-                Get OTP
-              </button>
-            )}
-            {otpVisible && mobileVerified !== true && (
-              <>
-                <input
-                  type="text"
-                  value={mobileOtp}
-                  className={
-                    mobileOtp !== null &&
-                    (mobileOtp.length === 6 ? "valid" : "invalid")
-                  }
-                  placeholder="Enter OTP"
-                  name="mobileOtp"
-                  onChange={handleChanges}
-                />
-                {mobileOtp !== null && mobileOtp.length === 6 && (
+                <p>Login in to turn your dreams into reality!</p>
+                {/* <button>
+              <i class="fab fa-google"></i> Log in with Google
+            </button> */}
+              </div>
+              <div class="login-container">
+                <div class="tab-wrap">
+                  <input
+                    type="radio"
+                    id="tab1"
+                    name="tabGroup1"
+                    class="tab"
+                    checked={loginType === "email"}
+                    onClick={() => handleLoginTypeChange("email")}
+                  />
+                  <label for="tab1">Email</label>
+                  <input
+                    onClick={() => handleLoginTypeChange("mobile")}
+                    type="radio"
+                    id="tab2"
+                    name="tabGroup1"
+                    class="tab"
+                  />
+                  <label for="tab2">Mobile</label>
+                </div>
+                <form action="">
+                  {loginType === "email" ? (
+                    <>
+                      <input
+                        type="email"
+                        name="email"
+                        value={email}
+                        className={
+                          isEmailValid !== null &&
+                          (isEmailValid ? "valid" : "invalid")
+                        }
+                        placeholder="Email Address"
+                        onChange={handleChanges}
+                      />
+                      <input
+                        type="password"
+                        className={
+                          isPasswordValid !== null &&
+                          (isPasswordValid ? "valid" : "invalid")
+                        }
+                        name="password"
+                        value={password}
+                        placeholder="Password"
+                        onChange={handleChanges}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div className="input-button-row">
+                        <input
+                          type="number"
+                          value={mobile}
+                          className={
+                            isMobileValid !== null &&
+                            (isMobileValid ? "valid" : "invalid")
+                          }
+                          disabled={mobileVerified}
+                          placeholder="Mobile Number"
+                          autoComplete="off"
+                          name="mobile"
+                          onChange={handleChanges}
+                        />
+                        {mobileVerified === true && (
+                          <img
+                            src="checked.png"
+                            height={20}
+                            style={{ right: "20px" }}
+                            alt="Your Alt Text"
+                            className="successIcons"
+                          />
+                        )}
+                        {isMobileValid && !otpVisible && (
+                          <button type="button" onClick={sendMobileOtpF}>
+                            Get OTP
+                          </button>
+                        )}
+                      </div>
+                      {otpVisible && mobileVerified !== true && (
+                        <>
+                          <input
+                            type="text"
+                            value={mobileOtp}
+                            className={
+                              mobileOtp !== null &&
+                              (mobileOtp.length === 6 ? "valid" : "invalid")
+                            }
+                            placeholder="Enter OTP"
+                            name="mobileOtp"
+                            onChange={handleChanges}
+                          />
+                          {mobileOtp !== null && mobileOtp.length === 6 && (
+                            <button
+                              type="button"
+                              id="mobileVerify"
+                              onClick={verifyMobileOtp}
+                              style={{ whiteSpace: "noWrap" }}
+                            >
+                              Verify OTP
+                            </button>
+                          )}
+                        </>
+                      )}
+                    </>
+                  )}
                   <button
-                    type="button"
-                    className="otp_button"
-                    id="mobileVerify"
-                    onClick={verifyMobileOtp}
-                    style={{ whiteSpace: "noWrap" }}
+                    className="full-width-button"
+                    type="submit"
+                    disabled={!isFormValid}
+                    onClick={loginType === "email" ? login : mobileLogin}
                   >
-                    Verify OTP
+                    Login
                   </button>
-                )}
-              </>
-            )}
-            {/* {mobileVerified && (
-              <input
-                type="password"
-                value={password}
-                className={
-                  isPasswordValid !== null &&
-                  (isPasswordValid ? "valid" : "invalid")
-                }
-                name="password"
-                placeholder="Password"
-                onChange={handleChanges}
-              />
-            )} */}
-          </>
-        )}
-        <button
-          type="submit"
-          disabled={!isFormValid}
-          className="submitBtn"
-          onClick={loginType === "email" ? login : mobileLogin}
-        >
-          Login
+                </form>
+              </div>
+              <div class="login-header">
+                <div>
+                  <hr />
+                  <p>OR</p>
+                  <hr />
+                </div>
+              </div>
+              <p className="login-option-text">
+                New here? <a href="/signup">Sign up</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* <div class="login-otherapps">
+        <p>Get the app.</p>
+        <button type="button">
+          <i class="fab fa-apple"></i> App Store
         </button>
-        <p>
-          Don't have an account?{" "}
-          <RouterLink
-            to="/signup"
-            style={{
-              textDecoration: "none",
-              fontWeight: "600",
-              color: "#1e4bb8",
-            }}
-            onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
-            onMouseOut={(e) => (e.target.style.textDecoration = "none")}
-          >
-            Sign Up
-          </RouterLink>
-        </p>
-        <p>
-          <RouterLink
-            to="/forgotpassword"
-            style={{
-              textDecoration: "none",
-              fontWeight: "600",
-              color: "#1e4bb8",
-            }}
-            onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
-            onMouseOut={(e) => (e.target.style.textDecoration = "none")}
-          >
-            Forgot Password?
-          </RouterLink>
-        </p>
-      </form>
-
-      {/* Image Container */}
-      <div className="login-image-container">
-        {/* Add your image source here */}
-        <img src="login.png" alt="Your Alt Text" />
-      </div>
-    </div>
+        <button type="button">
+          <i class="fab fa-google-play"></i> Google Play
+        </button>
+      </div> */}
+        <div class="login-footer">
+          <ul class="login-footer-flex">
+            <li>
+              <a href="">ABOUT</a>
+            </li>
+            <li>
+              <a href="">HELP</a>
+            </li>
+            <li>
+              <a href="">API</a>
+            </li>
+            <li>
+              <a href="">JOBS</a>
+            </li>
+            <li>
+              <a href="">PRIVACY</a>
+            </li>
+            <li>
+              <a href="">TERMS</a>
+            </li>
+            <li>
+              <a href="">LOCATIONS</a>
+            </li>
+            <li>
+              <a href="">LANGUAGE</a>
+            </li>
+          </ul>
+          <p>© 2024 BeyInc</p>
+        </div>
+      </main>
+    </>
   );
 };
 

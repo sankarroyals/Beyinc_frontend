@@ -28,7 +28,7 @@ const SignUp = () => {
     isPasswordValid: null,
   });
 
-  const [roles, setRoles] = useState([])
+  const [roles, setRoles] = useState([]);
 
   const {
     email,
@@ -172,11 +172,12 @@ const SignUp = () => {
           })
         );
         document.getElementById("mobileVerify").style.display = "none";
-        document.getElementById("mobileOtpInput").disabled = true;
+        document.getElementById("mobileOTPinput").disabled = true;
         // setmobileVerified(true);
         setInputs((prev) => ({ ...prev, mobileVerified: true }));
       })
       .catch((err) => {
+        console.log(err);
         dispatch(
           setToast({
             message: "Incorrect OTP",
@@ -241,7 +242,7 @@ const SignUp = () => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
-      phone: `+91${mobile}`
+      phone: `+91${mobile}`,
     })
       .then((res) => {
         dispatch(
@@ -273,7 +274,6 @@ const SignUp = () => {
         })
       );
     }, 4000);
-  
   };
 
   const isFormValid =
@@ -288,282 +288,269 @@ const SignUp = () => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
   };
 
-
-
   useEffect(() => {
     ApiServices.getAllRoles().then((res) => {
-      setRoles(res.data)
-    })
-  }, [])
+      setRoles(res.data);
+    });
+  }, []);
 
   return (
-    <div className="registration-container">
-      {/* Image Container */}
-      <div className="registration-image-container">
-        <center>
-          <h2 style={{ marginTop: "40px", fontWeight: "600" }}>
-            Get Started Now
-          </h2>
-          <p style={{ fontSize: "14px" }}>
-            It's free to join and gain full access to thousands of exciting
-            investment opportunities.
-          </p>
-          <img src="investment.png" alt="Your Alt Text" />
-        </center>
-      </div>
-
-      {/* Form Container */}
-      <div className="registration-form-container">
-        <form>
-          <center>
-            <h1 className="signup-heading">Signup</h1>
-          </center>
-          <div className="input-container">
-            <input
-              type="text"
-              className={
-                isNameValid !== null && (isNameValid ? "valid" : "invalid")
-              }
-              value={name}
-              name="name"
-              onChange={handleChanges}
-              placeholder="Full Name*"
-            />
-          </div>
-          <div
-            className="input-container"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {roles?.map((r) => (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <input
-                  type="radio"
-                  name="role"
-                  value={r.role}
-                  id={r.role}
-                  onClick={handleChangeRadio}
+    <>
+      <main className="signup-main-container">
+        <div className="signup-hero">
+          {/* <img
+            className="signup-image"
+            src="investment.png"
+            alt="investment doodle"
+          /> */}
+          <div className="signup-form-section">
+            <div class="signup-page">
+              <div class="signup-header">
+                <img
+                  class="signup-logo"
+                  src="logo.png"
+                  alt="Your Alt Text"
+                  onClick={() => {
+                    navigate("/");
+                  }}
                 />
-                <label for={r.role}>{r.role}</label>
+                <p>Sign up to turn your dreams into reality!</p>
+                {/* <button>
+                <i class="fab fa-google"></i> Log in with Google
+              </button> */}
               </div>
-            ))}
-            {/* <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="radio"
-                name="role"
-                value="Entrepreneur"
-                id="Entrepreneur"
-                onClick={handleChangeRadio}
-              />
-              <label for="Entrepreneur">Entrepreneur</label>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="radio"
-                name="role"
-                value="Mentor"
-                id="Mentor"
-                onClick={handleChangeRadio}
-              />
-              <label for="Mentor">Mentor</label>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="radio"
-                name="role"
-                value="Investor"
-                id="Investor"
-                onClick={handleChangeRadio}
-              />
-              <label for="Investor">Investor</label>
-            </div> */}
-          </div>
-
-          <div className="input-container">
-            <input
-              type="email"
-              className={
-                isEmailValid !== null && (isEmailValid ? "valid" : "invalid")
-              }
-              value={email}
-              name="email"
-              onChange={handleChanges}
-              disabled={emailVerified}
-              placeholder="Email Address*"
-            />
-            {emailVerified === true && (
-              <img
-                src="checked.png"
-                height={20}
-                alt="Your Alt Text"
-                className="successIcons"
-              />
-            )}
-            {!isEmailOtpSent && isEmailValid && (
-              <button
-                type="button"
-                className="otp_button"
-                onClick={sendEmailOtp}
-              >
-                Get OTP
-              </button>
-            )}
-          </div>
-
-          {isEmailOtpSent && emailVerified !== true && (
-            <>
-              <div className="input-container">
-                <input
-                  type="text"
-                  className={
-                    emailOtp !== null &&
-                    (emailOtp.length === 6 ? "valid" : "invalid")
-                  }
-                  value={emailOtp}
-                  name="emailOtp"
-                  onChange={handleChanges}
-                  placeholder="Enter Email OTP"
-                  id="emailOtpInput"
-                />
-                {emailOtp !== null && emailOtp.length === 6 && (
+              <div class="signup-container">
+                <form action="">
+                  <input
+                    type="text"
+                    className={
+                      isNameValid !== null &&
+                      (isNameValid ? "valid" : "invalid")
+                    }
+                    value={name}
+                    name="name"
+                    onChange={handleChanges}
+                    placeholder="Full Name*"
+                  />
+                  <div className="role-container">
+                    {roles?.map((r) => (
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <input
+                          type="radio"
+                          name="role"
+                          value={r.role}
+                          id={r.role}
+                          onClick={handleChangeRadio}
+                        />
+                        <label for={r.role}>{r.role}</label>
+                      </div>
+                    ))}
+                  </div>
+                  <input
+                    type="email"
+                    className={
+                      isEmailValid !== null &&
+                      (isEmailValid ? "valid" : "invalid")
+                    }
+                    value={email}
+                    name="email"
+                    onChange={handleChanges}
+                    disabled={emailVerified}
+                    placeholder="Email Address*"
+                  />
+                  {emailVerified === true && (
+                    <img
+                      src="checked.png"
+                      height={20}
+                      alt="Your Alt Text"
+                      className="successIcons"
+                    />
+                  )}
+                  {!isEmailOtpSent && isEmailValid && (
+                    <button
+                      type="button"
+                      className="otp_button"
+                      onClick={sendEmailOtp}
+                    >
+                      Get OTP
+                    </button>
+                  )}
+                  {isEmailOtpSent && emailVerified !== true && (
+                    <>
+                      <input
+                        type="text"
+                        className={
+                          emailOtp !== null &&
+                          (emailOtp.length === 6 ? "valid" : "invalid")
+                        }
+                        value={emailOtp}
+                        name="emailOtp"
+                        onChange={handleChanges}
+                        placeholder="Enter Email OTP"
+                        id="emailOtpInput"
+                      />
+                      {emailOtp !== null && emailOtp.length === 6 && (
+                        <button
+                          type="button"
+                          className="otp_button"
+                          id="emailVerify"
+                          onClick={verifyOtp}
+                          style={{ whiteSpace: "noWrap" }}
+                        >
+                          Verify OTP
+                        </button>
+                      )}
+                    </>
+                  )}
+                  <input
+                    type="number"
+                    className={
+                      mobile !== null &&
+                      (mobile.length === 10 ? "valid" : "invalid")
+                    }
+                    name="mobile"
+                    value={mobile}
+                    disabled={mobileVerified}
+                    onChange={handleChanges}
+                    placeholder="Mobile Number*"
+                  />
+                  {mobileVerified === true && (
+                    <img
+                      src="checked.png"
+                      height={20}
+                      alt="Your Alt Text"
+                      className="successIcons"
+                    />
+                  )}
+                  {!isMobileOtpSent && isMobileValid && (
+                    <button
+                      type="button"
+                      className="otp_button"
+                      onClick={sendMobileOtpF}
+                    >
+                      Get OTP
+                    </button>
+                  )}
+                  {isMobileOtpSent && mobileVerified !== true && (
+                    <>
+                      <input
+                        type="text"
+                        className={
+                          mobileOtp !== null &&
+                          (mobileOtp.length === 6 ? "valid" : "invalid")
+                        }
+                        name="mobileOtp"
+                        value={mobileOtp}
+                        onChange={handleChanges}
+                        placeholder="Enter Mobile OTP"
+                        id="mobileOTPinput"
+                      />
+                      {mobileOtp !== null && mobileOtp.length === 6 && (
+                        <button
+                          type="button"
+                          className="otp_button"
+                          id="mobileVerify"
+                          onClick={verifyMobileOtp}
+                          style={{ whiteSpace: "noWrap" }}
+                        >
+                          Verify OTP
+                        </button>
+                      )}
+                    </>
+                  )}
+                  <input
+                    type="password"
+                    className={
+                      isPasswordValid !== null &&
+                      (isPasswordValid ? "valid" : "invalid")
+                    }
+                    name="password"
+                    value={password}
+                    onChange={handleChanges}
+                    placeholder="Create Password*"
+                  />
                   <button
-                    type="button"
-                    className="otp_button"
-                    id="emailVerify"
-                    onClick={verifyOtp}
-                    style={{ whiteSpace: "noWrap" }}
+                    type="submit"
+                    disabled={!isFormValid}
+                    onClick={signup}
                   >
-                    Verify OTP
+                    Sign up
                   </button>
-                )}
+                </form>
+
+                <ul>
+                  <li>By signing up, you agree to our</li>
+                  <li>
+                    <a href=""> Terms </a>
+                  </li>
+                  <li>
+                    <a href=""> Data Policy </a>
+                  </li>
+                  <li>and</li>
+                  <li>
+                    <a href=""> Cookies Policy </a> .
+                  </li>
+                </ul>
               </div>
-            </>
-          )}
-
-          <div className="input-container">
-            <input
-              type="number"
-              className={
-                mobile !== null && (mobile.length === 10 ? "valid" : "invalid")
-              }
-              name="mobile"
-              value={mobile}
-              disabled={mobileVerified}
-              onChange={handleChanges}
-              placeholder="Mobile Number*"
-            />
-            {mobileVerified === true && (
-              <img
-                src="checked.png"
-                height={20}
-                alt="Your Alt Text"
-                className="successIcons"
-              />
-            )}
-
-            {!isMobileOtpSent && isMobileValid && (
-              <button
-                type="button"
-                className="otp_button"
-                onClick={sendMobileOtpF}
-              >
-                Get OTP
-              </button>
-            )}
-          </div>
-
-          {isMobileOtpSent && mobileVerified !== true && (
-            <>
-              <div className="input-container">
-                <input
-                  type="text"
-                  className={
-                    mobileOtp !== null &&
-                    (mobileOtp.length === 6 ? "valid" : "invalid")
-                  }
-                  name="mobileOtp"
-                  value={mobileOtp}
-                  onChange={handleChanges}
-                  placeholder="Enter Mobile OTP"
-                  id="mobileOtpInput"
-                />
-                {mobileOtp !== null && mobileOtp.length === 6 && (
-                  <button
-                    type="button"
-                    className="otp_button"
-                    id="mobileVerify"
-                    onClick={verifyMobileOtp}
-                    style={{ whiteSpace: "noWrap" }}
-                  >
-                    Verify OTP
-                  </button>
-                )}
+              <div class="signup-header">
+                <div>
+                  <hr />
+                  <p>OR</p>
+                  <hr />
+                </div>
               </div>
-            </>
-          )}
-
-          <div className="input-container">
-            <input
-              type="password"
-              className={
-                isPasswordValid !== null &&
-                (isPasswordValid ? "valid" : "invalid")
-              }
-              name="password"
-              value={password}
-              onChange={handleChanges}
-              placeholder="Create Password*"
-            />
+              <p className="signup-option-text">
+                Already have an account? <a href="/login">Log in</a>
+              </p>
+            </div>
           </div>
-
-          <button type="submit" disabled={!isFormValid} onClick={signup}>
-            Signup
+        </div>
+        {/* <div class="signup-otherapps">
+          <p>Get the app.</p>
+          <button type="button">
+            <i class="fab fa-apple"></i> App Store
           </button>
-          <p>
-            Already have an account?{" "}
-            <RouterLink
-              to="/login"
-              style={{
-                textDecoration: "none",
-                fontWeight: "600",
-                color: "#1e4bb8",
-              }}
-              onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
-              onMouseOut={(e) => (e.target.style.textDecoration = "none")}
-            >
-              Login
-            </RouterLink>
-          </p>
-        </form>
-      </div>
-    </div>
+          <button type="button">
+            <i class="fab fa-google-play"></i> Google Play
+          </button>
+        </div> */}
+        <div class="signup-footer">
+          <ul class="signup-footer-flex">
+            <li>
+              <a href="">ABOUT</a>
+            </li>
+            <li>
+              <a href="">HELP</a>
+            </li>
+            <li>
+              <a href="">API</a>
+            </li>
+            <li>
+              <a href="">JOBS</a>
+            </li>
+            <li>
+              <a href="">PRIVACY</a>
+            </li>
+            <li>
+              <a href="">TERMS</a>
+            </li>
+            <li>
+              <a href="">LOCATIONS</a>
+            </li>
+            <li>
+              <a href="">LANGUAGE</a>
+            </li>
+          </ul>
+          <p>© 2024 BeyInc</p>
+        </div>
+      </main>
+    </>
   );
 };
 export default SignUp;
