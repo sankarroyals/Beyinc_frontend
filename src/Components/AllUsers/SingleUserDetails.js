@@ -14,6 +14,7 @@ import AddPitch from "../Common/AddPitch";
 
 const SingleUserDetails = ({ d }) => {
   const dispatch = useDispatch();
+  const [receiverRole, setreceiverRole] = useState("");
 
   const [averagereview, setAverageReview] = useState(0);
   const navigate = useNavigate();
@@ -166,13 +167,14 @@ const SingleUserDetails = ({ d }) => {
           size="small"
           onClick={() => {
             setPitchSendTo(d.email)
+            setreceiverRole(d.role)
           }}
         >
           Connect
         </Button>
         {/* <Button size="small">Learn More</Button> */}
       </CardActions>
-      <AddPitch receiverMail={pitchSendTo} setReceivermail={setPitchSendTo} />
+      <AddPitch receiverMail={pitchSendTo} setReceivermail={setPitchSendTo} receiverRole={receiverRole}/>
     </Card>
   );
 };
