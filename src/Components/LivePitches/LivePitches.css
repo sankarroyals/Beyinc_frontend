@@ -41,11 +41,12 @@ body {
   flex-direction: column;
   gap: 3px;
 }
-.tagFilter .inputTag input[type="text"], .inputTag select {
+.tagFilter .inputTag input[type="text"],
+.inputTag select {
   width: 200px !important;
   padding: 10px !important;
 }
-input[type='checkbox']{
+input[type="checkbox"] {
   width: 20px !important;
 }
 .inputTag {
@@ -53,7 +54,7 @@ input[type='checkbox']{
   flex-direction: row;
   align-items: center;
 }
-.inputTag select{
+.inputTag select {
   min-width: 220px !important;
 }
 .inputTag i {
@@ -87,7 +88,7 @@ input[type='checkbox']{
   object-fit: fill;
 }
 
-.indiPitchDetailsContainer{
+.indiPitchDetailsContainer {
   width: 900px;
   margin: auto;
   background: white;
@@ -95,19 +96,17 @@ input[type='checkbox']{
   border-radius: 10px;
 }
 
-
 .indiPitchDetails {
   border: 1px solid rgba(128, 128, 128, 0.473);
   padding: 15px;
   border-radius: 10px;
 }
 
-
-.commentsContainer{
+.commentsContainer {
   width: 865px;
   margin: auto;
   background: white;
-   border: 1px solid rgba(128, 128, 128, 0.473);
+  border: 1px solid rgba(128, 128, 128, 0.473);
   padding: 15px;
   border-radius: 10px;
   display: flex;
@@ -128,8 +127,8 @@ input[type='checkbox']{
   padding: 10px 0px;
   font-size: 14px;
 }
-.indiPitchDate{
-    font-weight: 400;
+.indiPitchDate {
+  font-weight: 400;
 }
 .indiPitchId {
   font-size: 12px;
@@ -170,68 +169,63 @@ input[type='checkbox']{
   font-weight: bold;
 }
 
-
-.IndicommentsSection{
+.IndicommentsSection {
   display: flex;
   gap: 20px;
 }
 
-
-.IndicommentsSectionDetails{
+.IndicommentsSectionDetails {
   flex: 1 0 auto;
 }
-.IndicommentsSectionImage img{
+.IndicommentsSectionImage img {
   height: 40px;
   width: 40px;
 }
 
-.IndicommentsSectionDetailsUserName{
+.IndicommentsSectionDetailsUserName {
   font-size: 16px;
   font-weight: 600;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.IndicommentsSectionDetailsUserName i{
+.IndicommentsSectionDetailsUserName i {
   font-size: 14px;
 }
-.IndicommentsSectionDetailsdate{
-font-size: 10px;
+.IndicommentsSectionDetailsdate {
+  font-size: 10px;
 }
 
-
-.reviewInterestContainer{
-  display: flex; 
+.reviewInterestContainer {
+  display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.headingIntrested{
+.headingIntrested {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.intrestButton{
+.intrestButton {
   padding: 5px;
   border: 1px solid gray;
   display: flex;
   justify-content: center;
 }
-.intrestButton.addIntrest{
-    border: 1px dashed green;
-    color: green;
-    cursor: pointer;
+.intrestButton.addIntrest {
+  border: 1px dashed green;
+  color: green;
+  cursor: pointer;
 }
-.intrestButton.removeIntrest{
-    border: 1px dashed red;
-    white-space: nowrap;
-    color: red;
-    cursor: pointer;
+.intrestButton.removeIntrest {
+  border: 1px dashed red;
+  white-space: nowrap;
+  color: red;
+  cursor: pointer;
 }
 
-
-
-.indiPitchHiringPositions{
+.indiPitchHiringPositions {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
@@ -239,43 +233,62 @@ font-size: 10px;
   font-size: 12px;
   margin: 5px 0px;
 }
-.hp{
+.hp {
   padding: 3px;
-  border: 1px dashed green;
 }
 
+.indiPitchHeading {
+  font-size: 20px;
+  font-weight: 600;
+  white-space: normal;
+  /* width: 100px; */
+}
 
 @media (max-width: 768px) {
-  .indiPitchDetailsContainer{
+  .indiPitchDetailsContainer {
     width: 94% !important;
     background: white;
     margin-top: -100px;
     margin-left: 10px;
   }
-  .indiPitchDate{
+  .indiPitchDate {
     font-size: 10px;
   }
-  .commentsContainer{
+  .commentsContainer {
     width: 320px;
     margin-left: 10px;
   }
 
-  .commentsContainer img{
+  .commentsContainer img {
     margin-left: 0px;
   }
 
-  .commentsContainer .Rating-Content h4,h6,.stars,.textarea{
+  .commentsContainer .Rating-Content h4,
+  h6,
+  .stars,
+  .textarea {
     margin-left: -60px;
   }
 
-  .commentsContainer .textarea{
+  .commentsContainer .textarea {
     width: 290px;
     margin-top: -40px;
   }
-  .sendIcon{
+  .sendIcon {
     margin-top: 80px;
     margin-left: -220px;
   }
-
+  .reviewIntrestContainer {
+    margin-top: 200px;
+  }
+  .indiPitchHeading {
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    width: 100px;
+    
+  }
+  .fas.fa-eye {
+    width: 100%;
+  }
 }
-

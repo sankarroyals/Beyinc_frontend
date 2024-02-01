@@ -264,8 +264,7 @@ const IndividualPitch = () => {
                     setOpen(true);
                   }}
                 ></i>
-              </div>
-              <div className="reviewIntrestContainer">
+                <div className="reviewIntrestContainer">
                 <div className="">
                   <ReviewStars avg={averagereview} />
                 </div>
@@ -290,6 +289,8 @@ const IndividualPitch = () => {
                   </div>
                 )}
               </div>
+              </div>
+              
             </div>
             <div>
               <div className="indiPitchDate">
