@@ -264,7 +264,7 @@ input {
 
 @media only screen and (min-width: 401px) {
   body {
-    font-family: Neue Helvetica;
+    /* font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";; */
   }
   .login-page {
     border: 1px solid #dbdbdb;
