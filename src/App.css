@@ -5,7 +5,6 @@ i {
   cursor: pointer;
 }
 
-
 .login-logo {
   cursor: pointer;
   height: 80px;
@@ -78,7 +77,7 @@ label {
 
 input,
 select {
-  width: 330px ;
+  width: 330px;
   outline: 0;
   padding: 15px;
   margin-bottom: 5px;
@@ -131,7 +130,6 @@ input.invalid {
   cursor: pointer;
   margin: 0 10px;
 }
-
 
 button:disabled {
   background-color: #3b82f6 !important;
@@ -300,32 +298,29 @@ button:hover {
   margin-top: -30px;
 }
 
-
 .form-container {
   width: 80%;
 }
 
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
- 
   left: -4px !important;
   background: white !important;
   top: -5px !important;
 }
 
-.back-button{
+.back-button {
   background: grey;
 }
-.back-button:hover{
+.back-button:hover {
   background: rgb(169, 161, 161);
 }
 
-.reject-button{
+.reject-button {
   background: red;
 }
-.reject-button:hover{
+.reject-button:hover {
   background: rgb(204, 20, 20);
 }
-
 
 input[type="radio"] {
   width: 30px !important;
@@ -350,27 +345,24 @@ input[type="radio"] + label {
 }
 
 .spin {
-    animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+  animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 768px) {
+  input[type="email"],
+  input[type="password"],
+  input[type="text"], input[type="number"]  {
+    /* width: 280px !important; */
   }
   
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-@media (max-width: 768px) {
-  input[type='email'], input[type='password'], input[type= 'text'] {
-    width: 280px !important;
-  }
-  button {
-    width: 100px !important;
-    border-radius: 5px;
-    white-space: noWrap;
-  }
 
   .Loading {
     align-items: center;
@@ -379,15 +371,11 @@ input[type="radio"] + label {
     font-size: 16px;
     margin-right: 30px;
   }
-  
+
   .Loading img {
     width: 40%;
     height: 15%;
     margin-top: 50%;
     margin-left: 38%;
-    
-    
   }
 }
-
-
