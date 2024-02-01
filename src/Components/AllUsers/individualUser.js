@@ -180,10 +180,10 @@ const IndividualUser = () => {
             <i className="fas fa-arrow-left"onClick={() => {
             navigate(-1);
           }}></i>
-            <div style={{ display: "flex", gap: "0px" }}>
-              <div>
-                <div style={{ display: "flex" }}>
+           
+              <div className="User-Top-Details">
                   <img
+                  className="profile"
                     src={
                       user?.image?.url !== undefined
                         ? user?.image?.url
@@ -191,7 +191,6 @@ const IndividualUser = () => {
                     }
                     alt=""
                     srcset=""
-                    style={{ height: "120px", width: "120px" }}
                   />
                   <div className="indiUserHeading">
                     {user?.userName}{" "}
@@ -209,9 +208,7 @@ const IndividualUser = () => {
                       />
                     )}
                     <div className="reviewInterestContainer">
-                      <div className="">
                         <ReviewStars avg={averagereview} />
-                      </div>
                     </div>
                     <div className="indiPitchDate">
                       Profile Created on <b>{formatedDate(user?.createdAt)}</b>
@@ -229,9 +226,9 @@ const IndividualUser = () => {
                       ></textarea>
                     </div>
                   </div>
-                </div>
+                
               </div>
-            </div>
+           
 
 
 
@@ -380,7 +377,7 @@ const IndividualUser = () => {
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
               .email && (
             <div>
-              <div style={{ display: "flex", gap: "10px" }}>
+              <div  style={{ display: "flex", gap: "10px" }}>
                 <img src={image} />
                 <div>
                   <span>
@@ -392,15 +389,16 @@ const IndividualUser = () => {
                 </div>
               </div>
 
-              <div style={{ marginLeft: "60px" }}>
+              <div className="Rating-Content" style={{ marginLeft: "60px" }}>
                 <h4>Rate this user</h4>
                 <h6>Tell others what you think</h6>
-                <div style={{ display: "flex", marginBottom: "10px" }}>
+                <div className="stars" style={{ display: "flex", marginBottom: "10px" }}>
                   <AddReviewStars
                     filledStars={filledStars}
                     setFilledStars={setFilledStars}
                   />{" "}
                   <button
+                  
                     style={{
                       cursor: "pointer",
                       fontSize: "13px",
@@ -432,6 +430,7 @@ const IndividualUser = () => {
                     >
                       <div>
                         <textarea
+                        className="textarea"
                           rows={4}
                           cols={50}
                           value={comment}

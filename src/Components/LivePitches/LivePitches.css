@@ -1,3 +1,7 @@
+body {
+  background: #f6f8fc;
+  /* overflow-y: hidden; */
+}
 .livePitchesContainer {
   background: #f0f0f0;
   padding: 10px;
@@ -239,3 +243,39 @@ font-size: 10px;
   padding: 3px;
   border: 1px dashed green;
 }
+
+
+@media (max-width: 768px) {
+  .indiPitchDetailsContainer{
+    width: 94% !important;
+    background: white;
+    margin-top: -100px;
+    margin-left: 10px;
+  }
+  .indiPitchDate{
+    font-size: 10px;
+  }
+  .commentsContainer{
+    width: 320px;
+    margin-left: 10px;
+  }
+
+  .commentsContainer img{
+    margin-left: 0px;
+  }
+
+  .commentsContainer .Rating-Content h4,h6,.stars,.textarea{
+    margin-left: -60px;
+  }
+
+  .commentsContainer .textarea{
+    width: 290px;
+    margin-top: -40px;
+  }
+  .sendIcon{
+    margin-top: 80px;
+    margin-left: -220px;
+  }
+
+}
+

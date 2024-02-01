@@ -595,7 +595,7 @@ body {
   }
   
   .black-container img {
-    width: auto;
+    width: 300px;
     height: 220px;
     margin-top: 50px;
     position: relative;
