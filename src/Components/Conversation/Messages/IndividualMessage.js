@@ -284,7 +284,9 @@ const IndividualMessage = () => {
                 {m.message !== "" && <div className="text">{m.message}</div>}
                 {m.file !== "" && m.file !== undefined && (
                   <a href={m.file.secure_url} target="_blank" rel="noreferrer">
-                    sent an attachment
+                    {(m.file.secure_url?.includes('.png') || m.file.secure_url?.includes('.jpg') || m.file.secure_url?.includes('.webp') || m.file.secure_url?.includes('.gif') || m.file.secure_url?.includes('.svg') || m.file.secure_url?.includes('.jpeg')) ?
+                      <img src={m.file.secure_url} alt="" srcset="" style={{ borderRadius: 'none', height: '150px', width: '150px' }} />
+                      : 'File'}
                   </a>
                 )}
               </div>
