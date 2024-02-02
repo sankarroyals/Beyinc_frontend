@@ -454,6 +454,11 @@ h1 {
   .Individual-Notifications {
     width: 100%;
   }
+  .profileImage {
+    margin-left: 0 !important;
+      width: auto !important;
+
+  }
   /* .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
     width: 70% !important;
   } */
