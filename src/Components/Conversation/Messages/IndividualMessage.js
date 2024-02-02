@@ -277,7 +277,7 @@ const IndividualMessage = () => {
                   ) : (
                     <div className="friendDetails">
                       <div className="userName">{receiverId?.userName}</div>
-                        <div className="time">{moment(m.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
+                      <div className="time">{moment(m.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
                     </div>
                   )}
                 </div>
@@ -313,10 +313,23 @@ const IndividualMessage = () => {
                 autoFocus
               />
             </div>
-            {file !== '' && (file.split(';')[0] === 'data:image/png'?<div>
-              <img src={file} style={{height: '250px', width: '250px'}} className="sendingFiles"></img>
+            {file !== '' && (file.split(';')[0]?.includes('data:image') ?
+              <div style={{ position: 'relative' }} className="senMessageView">
+                <img src={file} style={{ height: '250px', width: '250px', objectFit: 'cover' }} className="sendingFiles"></img>
+                <div style={{ position: 'absolute', top: '10px', right: '5px' }}>
+                  <i className="fas fa-times cross" onClick={() => setFile('')}></i>
+                </div>
 
-            </div> : <iframe src={file} width="250px" height="250px" frameborder="0" className="sendingFiles"></iframe>)}
+              </div> :
+              <div style={{ position: 'relative' }} className="senMessageView">
+                <iframe src={file} width="250px" height="250px" frameborder="0" className="sendingFiles"></iframe>              <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
+                  <div style={{ position: 'absolute', top: '10px', right: '5px' }}>
+                    <i className="fas fa-times cross" onClick={() => setFile('')}></i>
+                  </div>
+                </div>
+
+              </div>
+              )}
           </div>
 
           <div style={{ position: 'absolute', right: '50px' }}>

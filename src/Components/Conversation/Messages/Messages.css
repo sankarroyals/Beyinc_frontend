@@ -76,6 +76,13 @@
   display: flex;
   gap: 5px;
 }
+
+.senMessageView {
+  padding:10px 5px;
+  background: rgba(236, 233, 233, 0.626);
+  width: 300px;
+  border-radius: 30px;
+}
 .text {
   padding: 10px;
   border-radius: 20px;
@@ -196,8 +203,12 @@
     padding: 0px !important;
     width: 200px !important;
   }
+  .senMessageView {
+    width: 150px;
+    padding-right: 0px !important;
+  }
   .sendingFiles {
-    width: 150px !important;
-    height: 150px !important;
+    width: 100px !important;
+    height: 100px !important;
   }
 }
