@@ -1,7 +1,12 @@
 body {
   background: #f6f8fc;
-  /* overflow-y: hidden; */
 }
+.Notch{
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
 .livePitchesContainer {
   background: #f0f0f0;
   padding: 10px;
@@ -20,7 +25,6 @@ body {
 }
 .pitchcontainer {
   flex: 1 0 75%;
-  /* padding: 10px; */
 }
 
 .filterContainer,
@@ -78,18 +82,8 @@ input[type="checkbox"] {
   color: #007fed;
 }
 
-.bgPitch {
-  width: 99vw;
-  height: 150px;
-}
-.bgPitch img {
-  width: 98%;
-  height: 100%;
-  object-fit: fill;
-}
-
-.indiPitchDetailsContainer {
-  width: 900px;
+.indiPitchDetailsContainer{
+  width: 1100px !important;
   margin: auto;
   background: white;
   transform: translateY(-30px);
@@ -100,10 +94,11 @@ input[type="checkbox"] {
   border: 1px solid rgba(128, 128, 128, 0.473);
   padding: 15px;
   border-radius: 10px;
+  margin-top: 50px;
 }
 
-.commentsContainer {
-  width: 865px;
+.commentsContainer{
+  width: 1070px !important;
   margin: auto;
   background: white;
   border: 1px solid rgba(128, 128, 128, 0.473);
@@ -112,7 +107,9 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom: 20px;
+  margin-top: 0px;
+  margin-bottom: 30px !important;
+
 }
 
 .indiPitchHeading {
@@ -129,13 +126,13 @@ input[type="checkbox"] {
 .indiPitchDate {
   font-weight: 400;
 }
-/* .indiPitchId {
+.indiPitchId {
   font-size: 12px;
 }
 .indiPitchId a{
   color: #545454;
   text-decoration: none;
-} */
+}
 
 .star-rating {
   display: flex;
@@ -145,17 +142,17 @@ input[type="checkbox"] {
 
 .star {
   font-size: 24px;
-  color: #ffd700; /* Yellow color for filled stars */
+  color: #ffd700; 
   margin-right: 5px;
 }
 
 .star.empty {
-  color: #ccc; /* Gray color for empty stars */
+  color: #ccc;
 }
 
 .star.half-filled {
   position: relative;
-  color: #ffd700; /* Yellow color for filled stars */
+  color: #ffd700;
 }
 
 .star.half-filled::before {
@@ -164,7 +161,7 @@ input[type="checkbox"] {
   left: 0;
   top: -2.5px;
   mask: linear-gradient(to left, #ffd700 50%, transparent 50%);
-  color: #ccc; /* Gray color for empty part of the star */
+  color: #ccc; 
 }
 
 .average-rating {
@@ -211,6 +208,7 @@ input[type="checkbox"] {
   justify-content: space-between;
 }
 .intrestButton {
+  width: 220px;
   padding: 5px;
   border: 1px solid gray;
   display: flex;
@@ -242,22 +240,20 @@ input[type="checkbox"] {
   font-size: 20px;
   font-weight: 600;
   white-space: normal;
-  /* width: 100px; */
 }
 
 @media (max-width: 768px) {
   .indiPitchDetailsContainer {
-    width: 94% !important;
+    width: 380px ;
+    margin-top: 0px ;
     background: white;
-    margin-top: -100px;
-    margin-left: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   .indiPitchDate {
     font-size: 10px;
   }
   .commentsContainer {
-    width: 320px;
-    margin-left: 10px;
+    width: 350px !important;
   }
 
   .commentsContainer img {
@@ -273,19 +269,24 @@ input[type="checkbox"] {
 
   .commentsContainer .textarea {
     width: 290px;
-    margin-top: -40px;
+    margin-top: 0px;
+    margin-bottom: -20px;
   }
+
   .sendIcon {
     margin-top: 80px;
-    margin-left: -220px;
+    white-space: noWrap;
+    padding: 0px 3px;
+    width: auto;
   }
+
   .reviewIntrestContainer {
     margin-top: 200px;
   }
   .indiPitchHeading {
     font-size: 16px;
     font-weight: 600;
-    white-space: nowrap;
+    white-space: wrap;
     width: 100px;
     
   }

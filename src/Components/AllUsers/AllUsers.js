@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { ApiServices } from '../../Services/ApiServices'
-import '../LivePitches/LivePitches.css'
 import { useSelector } from 'react-redux'
 import CloseIcon from "@mui/icons-material/Close";
 import axios from 'axios';

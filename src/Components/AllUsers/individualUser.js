@@ -4,9 +4,6 @@ import { ApiServices } from "../../Services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
-import { format } from "timeago.js";
-import SendIcon from "@mui/icons-material/Send";
-
 import "../LivePitches/LivePitches.css";
 import ReviewStars from "../LivePitches/ReviewStars";
 import AddReviewStars from "../LivePitches/AddReviewStars";
@@ -17,10 +14,8 @@ import IndividualUserReview from "./IndividualUserReview";
 
 const IndividualUser = () => {
   const { image, userName } = useSelector((state) => state.auth.loginDetails);
-
   const [isWritingReview, setIsWritingReview] = useState(false);
   const { visible } = useSelector((state) => state.auth.LoadingDetails);
-
   const [user, setuser] = useState("");
   const [averagereview, setAverageReview] = useState(0);
   const [emailTrigger, setemailTrigger] = useState(false);
@@ -168,10 +163,10 @@ const IndividualUser = () => {
     ""
   ) : (
     <div className="profile-Container">
-      <div className="individualPitchContainer">
+      <div className="individualUserContainer">
         <div className="Top-Notch">
           <i
-            className="fas fa-arrow-left"
+            className="fas fa-users"
             onClick={() => {
               navigate(-1);
             }}
@@ -193,9 +188,10 @@ const IndividualUser = () => {
                 srcset=""
               />
               <div className="indiUserHeading">
+                <div style={{marginTop: '50px'}}>
                 {user?.userName}{" "}
                 {user.verification == "approved" && (
-                  <img
+                  <img 
                     title="verified"
                     src="/verify.png"
                     alt=""
@@ -211,20 +207,21 @@ const IndividualUser = () => {
                   {user?.state !== "" && <div>{user?.state},</div>}
                   {user?.town !== "" && <div>{user?.town}</div>}
                 </div>
+                <div className="indiPitchId">
+                  <a href={`mailto:${user.email}`}>{user?.email}</a>
+                </div>
                 <div className="reviewInterestContainer">
                   <ReviewStars avg={averagereview} />
                 </div>
                 <div className="indiPitchDate">
                   Profile Created on <b>{formatedDate(user?.createdAt)}</b>
                 </div>
-
-                <div className="indiPitchId">
-                <i className="fas fa-envelope"></i>
-                  <a href={`mailto:${user.email}`}>{user?.email}</a>
                 </div>
-
-                <div className="indiPitchDesc">
-                  <h3>About Me</h3>
+              </div>
+             
+            </div>
+            <div className="indiPitchDesc">
+                  <h2>About Me</h2>
                   <textarea
                     className="about"
                     style={{
@@ -236,14 +233,11 @@ const IndividualUser = () => {
                     value={user?.bio}
                   ></textarea>
                 </div>
-              </div>
-            </div>
-
             <div>
               <div>
                 <label className="indiPitchHiringPositions">Skills</label>
               </div>
-              <div>
+              <div className="texts">
                 {user.skills?.length > 0 && (
                   <div className="listedTeam">
                     {user.skills?.map((t, i) => (
@@ -357,6 +351,7 @@ const IndividualUser = () => {
         </div>
 
         <div className="commentsContainer">
+        <h2>Ratings & Reviews</h2>
           {email !==
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
               .email && (
@@ -385,12 +380,12 @@ const IndividualUser = () => {
                     setFilledStars={setFilledStars}
                   />{" "}
                   <button
+                  className="sendIcon"
                     style={{
                       cursor: "pointer",
                       fontSize: "13px",
-                      width: "5%",
-                      padding: "0",
-                      marginLeft: "15px",
+                      width: "auto",
+                      padding: "3px 4px",
                     }}
                     onClick={sendReview}
                   >
@@ -408,6 +403,7 @@ const IndividualUser = () => {
                   )}
                   {isWritingReview && (
                     <div
+                    className="writing-review"
                       style={{
                         display: "flex",
                         gap: "20px",
@@ -431,8 +427,7 @@ const IndividualUser = () => {
                           style={{
                             cursor: comment == "" ? "not-allowed" : "pointer",
                             fontSize: "13px",
-                            width: "90%",
-                            padding: "5px",
+                            padding: "10px",
                           }}
                         >
                           Post Review

@@ -1,10 +1,24 @@
 body {
   background: #f6f8fc !important;
 }
+
 .profile-Container {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.individualUserContainer {
+  width: 1100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Top-Notch {
+  align-self: flex-start;
 }
 
 .Top-Notch span {
@@ -14,60 +28,77 @@ body {
   border-radius: 5px;
   margin-top: 5px;
 }
-.fas.fa-arrow-left {
+
+.fas.fa-users {
   background: #cccccc;
   padding: 10px;
   border-radius: 5px;
   margin-top: 5px;
 }
 
-.Top-Notch span,.fas.fa-arrow-left:hover{
+.fas.fa-users:hover {
   cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.indiPitchDetailsContainer {
+  width: 900px;
+  margin: auto;
+  background: white;
+  transform: translateY(-30px);
+  border-radius: 10px;
 }
 
 .indiUserDetailsContainer {
-  width: 1100px;
+  width: 100%;
   background: white;
   margin-top: 5px;
   border-radius: 10px;
-  /* padding: 15px; */
   margin-bottom: 10px;
   position: relative;
 }
 
-.location-info div{
+.location-info div {
   display: inline-block;
   margin-right: 5px;
   font-size: 14px;
   font-weight: 100 !important;
 }
 
-.indiPitchDesc h3{
-  margin-top: 150px;
-  margin-left: 100px;
+.indiPitchDesc h2 {
+  margin-top: 10px;
+  text-align: center;
 }
 
-.indiPitchDesc .about{
+.indiPitchDesc .about {
   border: none;
-
-  padding: 0px 0px;
+  padding: 0px 20px;
   font-size: 14px;
-  width: 150% !important;
-  margin-left: -280px;
+  width: 92% !important;
   text-align: justify;
+  margin: auto;
+}
+
+.commentsContainer {
+  width: 97%;
+  background: white;
+  margin-top: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
 }
 
 .User-Top-Details {
   display: flex;
   gap: 0px;
 }
+
 .profile {
   width: 250px !important;
   height: 250px !important;
   border-radius: 50%;
   margin-top: 10px;
 }
-
 
 .userscontainer {
   display: flex;
@@ -131,7 +162,48 @@ body {
   margin-left: 30px;
 }
 
+.sendIcon{
+  cursor: pointer;
+  font-size: 13px;
+  width: auto !important;
+  padding: 3px 3px !important;
+}
+
 @media (max-width: 760px) {
+  .indiUserDetailsContainer {
+    width: 350px;
+    margin-left: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .Top-Notch {
+    margin-left: 13px;
+  }
+
+  .User-Top-Details .profile {
+    width: 250px !important;
+    height: 250px !important;
+    align-self: center;
+  }
+
+  .Top-Notch span {
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    /* margin-right: 60px; */
+  }
+
+  .fas.fa-users {
+    padding: 6px;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+
+  .User-Top-Details {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+  }
+
   .usersWrapper {
     display: flex;
     flex-direction: column;
@@ -142,28 +214,19 @@ body {
     margin: auto;
   }
 
-  .bgPitch img {
-    display: none;
-    /* width: 100%;
-      height: 100%;
-      object-fit: fill; */
+  .commentsContainer {
+    width: 318px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
   .indiUserHeading {
     font-size: 16px;
     font-weight: 600;
     width: 400px;
-    margin-top: 0px;
+    margin-top: -40px;
     margin-left: 10px;
   }
-  .User-Top-Details .profile {
-    width: 40px !important;
-    height: 40px !important;
-    margin-left: -10px;
-  }
-  .fas.fa-arrow-left {
-    display: none;
-  }
+
   .indiUserHeading img {
     width: 10px !important;
     height: 10px !important;
@@ -173,5 +236,13 @@ body {
     margin-bottom: -10px;
     margin-top: -10px;
     font-size: 12px;
+  }
+
+  .writing-review {
+    flex-direction: column;
+  }
+  .sendIcon{
+    margin-top: 0px;
+    margin-right: 50px;
   }
 }

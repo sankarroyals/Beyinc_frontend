@@ -240,19 +240,19 @@ const IndividualPitch = () => {
   };
 
   return (
-    <div>
+    <div className="profile-Container">
       <div className="individualPitchContainer">
-        <div className="bgPitch">
-          <img
-            src="https://www.f-cdn.com/assets/main/en/assets/project-view/logged-out/header.jpg?image-optimizer=force&format=webply&width=1920"
-            alt=""
-          />
+        <div className="Top-Notch">
+          <i
+            className="fas fa-users"
+            onClick={() => {
+              navigate(-1);
+            }}
+          ></i>
+          <span>{pitch.userName}'s Pitch</span>
         </div>
         <div className="indiPitchDetailsContainer">
           <div className="indiPitchDetails">
-          <i className="fas fa-arrow-left"onClick={() => {
-            navigate(-1);
-          }}></i>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div className="indiPitchHeading">
                 {pitch?.heading}
@@ -265,32 +265,32 @@ const IndividualPitch = () => {
                   }}
                 ></i>
                 <div className="reviewIntrestContainer">
-                <div className="">
-                  <ReviewStars avg={averagereview} />
-                </div>
-                {email !== pitch?.email && (
-                  <div
-                    className={`intrestButton ${
-                      pitch?.intrest?.length > 0 &&
-                      pitch?.intrest.filter((p) => p.email === email).length > 0
-                        ? "removeIntrest"
-                        : "addIntrest"
-                    }`}
-                  >
-                    {pitch?.intrest?.length > 0 &&
-                    pitch?.intrest.filter((p) => p.email === email).length >
-                      0 ? (
-                      <span onClick={removeFromIntrest}>
-                        Remove From interest
-                      </span>
-                    ) : (
-                      <span onClick={addToIntrest}>Add To interest</span>
-                    )}
+                  <div className="">
+                    <ReviewStars avg={averagereview} />
                   </div>
-                )}
+                  {email !== pitch?.email && (
+                    <div
+                      className={`intrestButton ${
+                        pitch?.intrest?.length > 0 &&
+                        pitch?.intrest.filter((p) => p.email === email).length >
+                          0
+                          ? "removeIntrest"
+                          : "addIntrest"
+                      }`}
+                    >
+                      {pitch?.intrest?.length > 0 &&
+                      pitch?.intrest.filter((p) => p.email === email).length >
+                        0 ? (
+                        <span onClick={removeFromIntrest}>
+                          Remove From interest
+                        </span>
+                      ) : (
+                        <span onClick={addToIntrest}>Add To interest</span>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
-              </div>
-              
             </div>
             <div>
               <div className="indiPitchDate">
@@ -350,89 +350,91 @@ const IndividualPitch = () => {
       </div>
 
       <div className="commentsContainer">
-
-      <div>
-              <div style={{ display: "flex", gap: "10px" }}>
-                <img src={image} />
-                <div>
-                  <span>
-                    <b>{userName}</b>
-                  </span>
-                  <div style={{ fontSize: "12px", marginBottom: "20px" }}>
-                    Reviews are public and include your account details
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ marginLeft: "60px" }}>
-                <h4>Rate this user</h4>
-                <h6>Tell others what you think</h6>
-                <div style={{ display: "flex", marginBottom: "10px" }}>
-                  <AddReviewStars
-                    filledStars={filledStars}
-                    setFilledStars={setFilledStars}
-                  />{" "}
-                  <button
-                    style={{
-                      cursor: "pointer",
-                      fontSize: "13px",
-                      width: "5%",
-                      padding: "0",
-                      marginLeft: "15px",
-                    }}
-                    onClick={sendReview}
-                  >
-                    Post
-                  </button>
-                </div>
-                <div>
-                  {!isWritingReview && (
-                    <div
-                      style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => setIsWritingReview(true)}
-                    >
-                      <b>Write a Review</b>
-                    </div>
-                  )}
-                  {isWritingReview && (
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "20px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div>
-                        <textarea
-                          rows={4}
-                          cols={50}
-                          value={comment}
-                          onChange={(e) => setComment(e.target.value)}
-                          placeholder="Describe Your Experience"
-                        />
-                      </div>
-                      <div>
-                        <button
-                          onClick={sendText}
-                          className="sendIcon"
-                          style={{
-                            cursor: comment == '' ? 'not-allowed' : "pointer",
-                            fontSize: "13px",
-                            width: "90%",
-                            padding: "5px",
-                          }}
-                        >
-                          Post Review
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
+        <div>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <img src={image} />
+            <div>
+              <span>
+                <b>{userName}</b>
+              </span>
+              <div style={{ fontSize: "12px", marginBottom: "20px" }}>
+                Reviews are public and include your account details
               </div>
             </div>
-              
-        
-        {pitch?.comments?.length > 0 && <div><b>Discussions:</b></div>}
+          </div>
+
+          <div style={{ marginLeft: "60px" }}>
+            <h4>Rate this user</h4>
+            <h6>Tell others what you think</h6>
+            <div style={{ display: "flex", marginBottom: "10px" }}>
+              <AddReviewStars
+                filledStars={filledStars}
+                setFilledStars={setFilledStars}
+              />{" "}
+              <button
+                style={{
+                  cursor: "pointer",
+                  fontSize: "13px",
+                  width: "5%",
+                  padding: "0",
+                  marginLeft: "15px",
+                }}
+                onClick={sendReview}
+              >
+                Post
+              </button>
+            </div>
+            <div>
+              {!isWritingReview && (
+                <div
+                  style={{ color: "blue", cursor: "pointer" }}
+                  onClick={() => setIsWritingReview(true)}
+                >
+                  <b>Write a Review</b>
+                </div>
+              )}
+              {isWritingReview && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "20px",
+                    alignItems: "center",
+                  }}
+                >
+                  <div>
+                    <textarea
+                      rows={4}
+                      cols={50}
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      placeholder="Describe Your Experience"
+                    />
+                  </div>
+                  <div>
+                    <button
+                      onClick={sendText}
+                      className="sendIcon"
+                      style={{
+                        cursor: comment == "" ? "not-allowed" : "pointer",
+                        fontSize: "13px",
+                        width: "90%",
+                        padding: "5px",
+                      }}
+                    >
+                      Post Review
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {pitch?.comments?.length > 0 && (
+          <div>
+            <b>Discussions:</b>
+          </div>
+        )}
         {pitch?.comments?.length > 0 &&
           pitch.comments?.map((c) => (
             <IndividualPitchComment c={c} deleteComment={deleteComment} />
