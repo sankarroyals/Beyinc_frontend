@@ -13,7 +13,7 @@ body {
   width: 1100px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 
@@ -39,14 +39,6 @@ body {
 .fas.fa-users:hover {
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.indiPitchDetailsContainer {
-  width: 900px;
-  margin: auto;
-  background: white;
-  transform: translateY(-30px);
-  border-radius: 10px;
 }
 
 .indiUserDetailsContainer {
@@ -79,7 +71,7 @@ body {
   margin: auto;
 }
 
-.commentsContainer {
+.individualUserContainer .commentsContainer {
   width: 97%;
   background: white;
   margin-top: 5px;
@@ -162,7 +154,7 @@ body {
   margin-left: 30px;
 }
 
-.sendIcon{
+.sendIcon {
   cursor: pointer;
   font-size: 13px;
   width: auto !important;
@@ -170,13 +162,11 @@ body {
 }
 
 @media (max-width: 760px) {
-  .indiUserDetailsContainer {
-    width: 350px;
-    margin-left: 0px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  .individualUserContainer {
+    width: 350px !important;
   }
   .Top-Notch {
-    margin-left: 13px;
+    align-self: flex-start;
   }
 
   .User-Top-Details .profile {
@@ -185,11 +175,14 @@ body {
     align-self: center;
   }
 
+  .indiUserHeading {
+    width: 300px !important;
+    margin-left: 0px !important;
+  }
   .Top-Notch span {
     padding: 5px;
     border-radius: 5px;
     margin-top: 5px;
-    /* margin-right: 60px; */
   }
 
   .fas.fa-users {
@@ -214,8 +207,8 @@ body {
     margin: auto;
   }
 
-  .commentsContainer {
-    width: 318px;
+  .individualUserContainer .commentsContainer {
+    width: 315.9px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
@@ -239,10 +232,21 @@ body {
   }
 
   .writing-review {
+    margin-top: 15px !important;
     flex-direction: column;
+    align-self: flex-start !important;
   }
-  .sendIcon{
+  .writing-review .textarea {
+    width: 250px !important;
+  }
+  .writing-review .sendIcon {
+    width: 262px !important;
+    margin-right: 0px !important;
+    transform: translateY(-20px) !important;
+  }
+  .sendIcon {
     margin-top: 0px;
     margin-right: 50px;
+    width: 50px !important;
   }
 }

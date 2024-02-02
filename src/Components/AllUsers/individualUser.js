@@ -188,51 +188,51 @@ const IndividualUser = () => {
                 srcset=""
               />
               <div className="indiUserHeading">
-                <div style={{marginTop: '50px'}}>
-                {user?.userName}{" "}
-                {user.verification == "approved" && (
-                  <img 
-                    title="verified"
-                    src="/verify.png"
-                    alt=""
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      marginLeft: "5px",
-                    }}
-                  />
-                )}
-                <div className="location-info">
-                  {user?.country !== "" && <div>{user?.country},</div>}
-                  {user?.state !== "" && <div>{user?.state},</div>}
-                  {user?.town !== "" && <div>{user?.town}</div>}
-                </div>
-                <div className="indiPitchId">
-                  <a href={`mailto:${user.email}`}>{user?.email}</a>
-                </div>
-                <div className="reviewInterestContainer">
-                  <ReviewStars avg={averagereview} />
-                </div>
-                <div className="indiPitchDate">
-                  Profile Created on <b>{formatedDate(user?.createdAt)}</b>
-                </div>
+                <div style={{ marginTop: '50px' }}>
+                  {user?.userName}{" "}
+                  {user.verification == "approved" && (
+                    <img
+                      title="verified"
+                      src="/verify.png"
+                      alt=""
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginLeft: "5px",
+                      }}
+                    />
+                  )}
+                  <div className="location-info">
+                    {user?.country !== "" && <div>{user?.country},</div>}
+                    {user?.state !== "" && <div>{user?.state},</div>}
+                    {user?.town !== "" && <div>{user?.town}</div>}
+                  </div>
+                  <div className="indiPitchId">
+                    <a href={`mailto:${user.email}`}>{user?.email}</a>
+                  </div>
+                  <div className="reviewInterestContainer">
+                    <ReviewStars avg={averagereview} />
+                  </div>
+                  <div className="indiPitchDate">
+                    Profile Created on <b>{formatedDate(user?.createdAt)}</b>
+                  </div>
                 </div>
               </div>
-             
+
             </div>
             <div className="indiPitchDesc">
-                  <h2>About Me</h2>
-                  <textarea
-                    className="about"
-                    style={{
-                      border: "none",
-                      fontFamily: "'Google Sans Text', sans- serif",
-                    }}
-                    disabled
-                    rows={13}
-                    value={user?.bio}
-                  ></textarea>
-                </div>
+              <h2>About Me</h2>
+              <textarea
+                className="about"
+                style={{
+                  border: "none",
+                  fontFamily: "'Google Sans Text', sans- serif",
+                }}
+                disabled
+                rows={13}
+                value={user?.bio}
+              ></textarea>
+            </div>
             <div>
               <div>
                 <label className="indiPitchHiringPositions">Skills</label>
@@ -351,94 +351,94 @@ const IndividualUser = () => {
         </div>
 
         <div className="commentsContainer">
-        <h2>Ratings & Reviews</h2>
+          <h2>Ratings & Reviews</h2>
           {email !==
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
               .email && (
-            <div>
-              <div style={{ display: "flex", gap: "10px" }}>
-                <img src={image} />
-                <div>
-                  <span>
-                    <b>{userName}</b>
-                  </span>
-                  <div style={{ fontSize: "12px", marginBottom: "20px" }}>
-                    Reviews are public and include your account details
+              <div>
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <img src={image} />
+                  <div>
+                    <span>
+                      <b>{userName}</b>
+                    </span>
+                    <div style={{ fontSize: "12px", marginBottom: "20px" }}>
+                      Reviews are public and include your account details
+                    </div>
+                  </div>
+                </div>
+
+                <div className="Rating-Content" style={{ marginLeft: "60px" }}>
+                  <h4>Rate this user</h4>
+                  <h6>Tell others what you think</h6>
+                  <div
+                    className="stars"
+                    style={{ display: "flex", marginBottom: "10px" }}
+                  >
+                    <AddReviewStars
+                      filledStars={filledStars}
+                      setFilledStars={setFilledStars}
+                    />{" "}
+                    <button
+                      className="sendIcon"
+                      style={{
+                        cursor: "pointer",
+                        fontSize: "13px",
+                        width: "auto",
+                        padding: "3px 4px",
+                      }}
+                      onClick={sendReview}
+                    >
+                      Post
+                    </button>
+                  </div>
+                  <div>
+                    {!isWritingReview && (
+                      <div
+                        style={{ color: "blue", cursor: "pointer" }}
+                        onClick={() => setIsWritingReview(true)}
+                      >
+                        <b>Write a Review</b>
+                      </div>
+                    )}
+                    {isWritingReview && (
+                      <div
+                        className="writing-review"
+                        style={{
+                          display: "flex",
+                          gap: "20px",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div>
+                          <textarea
+                            className="textarea"
+                            rows={4}
+                            cols={50}
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            placeholder="Describe Your Experience"
+                          />
+                        </div>
+                        <div>
+                          <button
+                            onClick={sendText}
+                            className="sendIcon"
+                            style={{
+                              cursor: comment == "" ? "not-allowed" : "pointer",
+                              fontSize: "13px",
+                              padding: "10px",
+                            }}
+                          >
+                            Post Review
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-
-              <div className="Rating-Content" style={{ marginLeft: "60px" }}>
-                <h4>Rate this user</h4>
-                <h6>Tell others what you think</h6>
-                <div
-                  className="stars"
-                  style={{ display: "flex", marginBottom: "10px" }}
-                >
-                  <AddReviewStars
-                    filledStars={filledStars}
-                    setFilledStars={setFilledStars}
-                  />{" "}
-                  <button
-                  className="sendIcon"
-                    style={{
-                      cursor: "pointer",
-                      fontSize: "13px",
-                      width: "auto",
-                      padding: "3px 4px",
-                    }}
-                    onClick={sendReview}
-                  >
-                    Post
-                  </button>
-                </div>
-                <div>
-                  {!isWritingReview && (
-                    <div
-                      style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => setIsWritingReview(true)}
-                    >
-                      <b>Write a Review</b>
-                    </div>
-                  )}
-                  {isWritingReview && (
-                    <div
-                    className="writing-review"
-                      style={{
-                        display: "flex",
-                        gap: "20px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div>
-                        <textarea
-                          className="textarea"
-                          rows={4}
-                          cols={50}
-                          value={comment}
-                          onChange={(e) => setComment(e.target.value)}
-                          placeholder="Describe Your Experience"
-                        />
-                      </div>
-                      <div>
-                        <button
-                          onClick={sendText}
-                          className="sendIcon"
-                          style={{
-                            cursor: comment == "" ? "not-allowed" : "pointer",
-                            fontSize: "13px",
-                            padding: "10px",
-                          }}
-                        >
-                          Post Review
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
+            )}
 
           {user?.comments?.length > 0 && (
             <div>

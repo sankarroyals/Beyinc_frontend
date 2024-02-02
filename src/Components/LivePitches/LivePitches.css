@@ -1,12 +1,38 @@
 body {
   background: #f6f8fc;
 }
-.Notch{
+.Notch {
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
+.profile-Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.individualPitchContainer {
+  width: 1100px !important;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.Top-Notch {
+  align-self: flex-start;
+}
+
+.Top-Notch span {
+  background: #0095f6;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
 .livePitchesContainer {
   background: #f0f0f0;
   padding: 10px;
@@ -82,23 +108,23 @@ input[type="checkbox"] {
   color: #007fed;
 }
 
-.indiPitchDetailsContainer{
-  width: 1100px !important;
-  margin: auto;
+.indiPitchDetailsContainer {
+  width: 100%;
   background: white;
-  transform: translateY(-30px);
+  margin-top: 5px;
   border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
 }
 
 .indiPitchDetails {
   border: 1px solid rgba(128, 128, 128, 0.473);
   padding: 15px;
   border-radius: 10px;
-  margin-top: 50px;
 }
 
-.commentsContainer{
-  width: 1070px !important;
+.commentsContainer {
+  width: 97%;
   margin: auto;
   background: white;
   border: 1px solid rgba(128, 128, 128, 0.473);
@@ -109,7 +135,6 @@ input[type="checkbox"] {
   gap: 20px;
   margin-top: 0px;
   margin-bottom: 30px !important;
-
 }
 
 .indiPitchHeading {
@@ -129,7 +154,7 @@ input[type="checkbox"] {
 .indiPitchId {
   font-size: 12px;
 }
-.indiPitchId a{
+.indiPitchId a {
   color: #545454;
   text-decoration: none;
 }
@@ -142,7 +167,7 @@ input[type="checkbox"] {
 
 .star {
   font-size: 24px;
-  color: #ffd700; 
+  color: #ffd700;
   margin-right: 5px;
 }
 
@@ -161,7 +186,7 @@ input[type="checkbox"] {
   left: 0;
   top: -2.5px;
   mask: linear-gradient(to left, #ffd700 50%, transparent 50%);
-  color: #ccc; 
+  color: #ccc;
 }
 
 .average-rating {
@@ -235,7 +260,6 @@ input[type="checkbox"] {
   margin: 5px 0px;
 }
 
-
 .indiPitchHeading {
   font-size: 20px;
   font-weight: 600;
@@ -243,54 +267,67 @@ input[type="checkbox"] {
 }
 
 @media (max-width: 768px) {
-  .indiPitchDetailsContainer {
-    width: 380px ;
-    margin-top: 0px ;
-    background: white;
+  .individualPitchContainer {
+    width: 330px !important;
+  }
+  .Top-Notch {
+    align-self: flex-start;
+  }
+
+.individualPitchContainer .commentsContainer {
+    width: 300.9px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   .indiPitchDate {
     font-size: 10px;
-  }
-  .commentsContainer {
-    width: 350px !important;
   }
 
   .commentsContainer img {
     margin-left: 0px;
   }
 
-  .commentsContainer .Rating-Content h4,
-  h6,
-  .stars,
-  .textarea {
-    margin-left: -60px;
+ .writing-review {
+    margin-top: 15px !important;
+    flex-direction: column;
+    align-self: flex-start !important;
   }
-
-  .commentsContainer .textarea {
-    width: 290px;
-    margin-top: 0px;
-    margin-bottom: -20px;
+  .writing-review .textarea {
+    width: 250px !important;
   }
-
+  .writing-review .sendIcon {
+    width: 262px !important;
+    margin-right: 0px !important;
+    transform: translateY(-20px) !important;
+  }
   .sendIcon {
-    margin-top: 80px;
-    white-space: noWrap;
-    padding: 0px 3px;
+    margin-top: 0px;
+    margin-right: 50px;
+    width: 50px !important;
+  }
+  .reviewIntrestContainer {
+    margin-top: 5px;
+  }
+  .indiPitchHeading {
+    font-size: 20px;
+    font-weight: 600;
+    white-space: wrap;
     width: auto;
   }
 
-  .reviewIntrestContainer {
-    margin-top: 200px;
+  .intrestButton {
+    width: 150px !important;
+    padding: 5px;
+    border: 1px solid gray;
+    display: flex;
+    margin: 10px 0px !important;
+    font-size: 14px !important;
+    justify-content: center;
   }
-  .indiPitchHeading {
-    font-size: 16px;
-    font-weight: 600;
-    white-space: wrap;
-    width: 100px;
-    
-  }
-  .fas.fa-eye {
-    width: 100%;
+  .indiPitchHeading .fas.fa-eye {
+    margin-left: 5px !important;
+    border-radius: 50%;
+    padding: 5px;
+    background: rgba(128, 128, 128, 0.39);
+    /* width: 100%; */
   }
 }
