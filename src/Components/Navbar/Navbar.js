@@ -252,8 +252,6 @@ const Navbar = () => {
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250, overFlowX: 'hidden' }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
     >
 
       <Tabs value={value} className='pitchTabs' style={{ width: '450px' }}

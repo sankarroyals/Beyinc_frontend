@@ -419,34 +419,6 @@ h1 {
   }
 }
 
-.css-1160xiw-MuiPaper-root-MuiDrawer-paper {
-  background-color: #fff;
-  color: rgba(0, 0, 0, 0.87);
-  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
-    0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
-  overflow-y: auto;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  height: 100%;
-  width: 33% !important;
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  z-index: 1200;
-  -webkit-overflow-scrolling: touch;
-  position: fixed;
-  top: 0;
-  outline: 0;
-  right: 0;
-}
-
 .Notification-Heading {
   margin-top: 15px;
   margin-left: 30px;
@@ -482,7 +454,7 @@ h1 {
   .Individual-Notifications {
     width: 100%;
   }
-  .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
+  /* .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
     width: 70% !important;
-  }
+  } */
 }
