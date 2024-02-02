@@ -341,13 +341,13 @@ const IndividualMessage = () => {
         <div>
           {sendMessage !== "" || file !== "" ? (
             <SendIcon
-              className="sendIcon"
+              className=""
               onClick={sendText}
               style={{ color: "#0b57d0", cursor: "pointer", fontSize: "24px" }}
             />
           ) : (
             <SendIcon
-              className="sendIcon"
+              className=""
               onClick={sendText}
               style={{ color: "gray", fontSize: "24px", marginTop: "10px" }}
             />
