@@ -6,18 +6,20 @@ import { setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
 import { format } from "timeago.js";
 import { io } from "socket.io-client";
-import { setConversationId, setOnlineUsers } from "../../../redux/Conversationreducer/ConversationReducer";
+import {
+  setConversationId,
+  setOnlineUsers,
+} from "../../../redux/Conversationreducer/ConversationReducer";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams, useNavigate } from "react-router";
 import "./IndividualMessage.css";
-import sendSound from '../Notification/send.mp3'
+import sendSound from "../Notification/send.mp3";
 import { socket_io } from "../../../Utils";
-import { Howl } from 'howler';
-import moment from 'moment';
-
+import { Howl } from "howler";
+import moment from "moment";
 
 const IndividualMessage = () => {
-  // const conversationId = useSelector(state => state.conv.conversationId)
+  const [loadingFile, setLoadingFile] = useState("");
   const { conversationId } = useParams();
   const receiverId = useSelector((state) => state.conv.receiverId);
   const liveMessage = useSelector((state) => state.conv.liveMessage);
@@ -35,10 +37,8 @@ const IndividualMessage = () => {
   const navigate = useNavigate();
 
   const [isSending, setIsSending] = useState(false);
-
-  // const sendSoundRef = useRef();
   const sound = new Howl({
-    src: ['/send.mp3']
+    src: ["/send.mp3"],
   });
 
   const socket = useRef();
@@ -64,14 +64,17 @@ const IndividualMessage = () => {
     if (conversationId !== "") {
       ApiServices.getMessages({
         conversationId: conversationId,
-      }).then((res) => {
-        setMessages(res.data);
-        setNormalFileName("");
-        setFile("");
-        setSendMessage("");
-      }).catch(err => {
-        navigate('/conversations')
-      });
+      })
+        .then((res) => {
+          setMessages(res.data);
+          setNormalFileName("");
+          setFile("");
+          setSendMessage("");
+          setLoadingFile("");
+        })
+        .catch((err) => {
+          navigate("/conversations");
+        });
     }
   }, [conversationId, messageTrigger]);
 
@@ -81,29 +84,28 @@ const IndividualMessage = () => {
 
   useEffect(() => {
     if (liveMessage?.fileSent == true) {
-
       ApiServices.getMessages({
         conversationId: conversationId,
-      }).then((res) => {
-        setMessages(res.data);
-        setNormalFileName("");
-        setFile("");
-        setSendMessage("");
-        // sendSoundRef?.current?.play()
-        sound.play()
-
-      }).catch(err => {
-        navigate('/conversations')
-      });;
+      })
+        .then((res) => {
+          setMessages(res.data);
+          setNormalFileName("");
+          setFile("");
+          setSendMessage("");
+          // sendSoundRef?.current?.play()
+          sound.play();
+        })
+        .catch((err) => {
+          navigate("/conversations");
+        });
     }
   }, [liveMessage?.fileSent]);
-
 
   useEffect(() => {
     console.log(liveMessage);
     if (Object.keys(liveMessage).length > 0) {
       // sendSoundRef?.current?.play();
-      sound.play()
+      sound.play();
 
       setMessages((prev) => [
         ...prev,
@@ -112,12 +114,9 @@ const IndividualMessage = () => {
     }
   }, [liveMessage]);
 
-
-
-
   const handleFile = (e) => {
     const file = e.target.files[0];
-    setNormalFileName(file.name);
+    setNormalFileName(file);
     setFileBase(e, file);
   };
   const setFileBase = (e, file) => {
@@ -129,6 +128,11 @@ const IndividualMessage = () => {
   };
 
   const sendText = async (e) => {
+    if (file != "") {
+      setLoadingFile(file);
+      console.log(file);
+    }
+    setFile("");
     setIsSending(true);
     setIsSending(false);
     console.log({
@@ -185,7 +189,6 @@ const IndividualMessage = () => {
   //   };
   // }, []);
 
-
   useEffect(() => {
     console.log(messages);
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -196,7 +199,7 @@ const IndividualMessage = () => {
       <div className="messageNavbar">
         <div
           onClick={() => {
-            dispatch(setConversationId(''))
+            dispatch(setConversationId(""));
 
             navigate(-1);
           }}
@@ -212,7 +215,7 @@ const IndividualMessage = () => {
             className="Dp"
             src={
               receiverId?.profile_pic !== undefined &&
-                receiverId?.profile_pic !== ""
+              receiverId?.profile_pic !== ""
                 ? receiverId.profile_pic
                 : "/profile.jpeg"
             }
@@ -262,8 +265,8 @@ const IndividualMessage = () => {
                       : receiverId?.profile_pic !== undefined &&
                         receiverId?.profile_pic !== "" &&
                         m.senderId !== email
-                        ? receiverId.profile_pic
-                        : "/profile.jpeg"
+                      ? receiverId.profile_pic
+                      : "/profile.jpeg"
                   }
                   alt=""
                   srcset=""
@@ -273,33 +276,87 @@ const IndividualMessage = () => {
               <div className="personalDetails">
                 <div className="email">
                   {m.senderId === email ? (
-                    <div className="time">{moment(m.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
+                    <div className="time">
+                      {moment(m.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+                    </div>
                   ) : (
                     <div className="friendDetails">
                       <div className="userName">{receiverId?.userName}</div>
-                      <div className="time">{moment(m.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
+                      <div className="time">
+                        {moment(m.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+                      </div>
                     </div>
                   )}
                 </div>
                 {m.message !== "" && <div className="text">{m.message}</div>}
                 {m.file !== "" && m.file !== undefined && (
                   <a href={m.file.secure_url} target="_blank" rel="noreferrer">
-                    {(m.file.secure_url?.includes('.png') || m.file.secure_url?.includes('.jpg') || m.file.secure_url?.includes('.webp') || m.file.secure_url?.includes('.gif') || m.file.secure_url?.includes('.svg') || m.file.secure_url?.includes('.jpeg')) ?
-                      <img src={m.file.secure_url} alt="" srcset="" style={{ borderRadius: 'none', height: '150px', width: '150px' }} />
-                      : 'File'}
+                    {m.file.secure_url?.includes(".png") ||
+                    m.file.secure_url?.includes(".jpg") ||
+                    m.file.secure_url?.includes(".webp") ||
+                    m.file.secure_url?.includes(".gif") ||
+                    m.file.secure_url?.includes(".svg") ||
+                    m.file.secure_url?.includes(".jpeg") ? (
+                      <img
+                        src={m.file.secure_url}
+                        alt=""
+                        srcset=""
+                        style={{
+                          borderRadius: "none",
+                          height: "150px",
+                          width: "150px",
+                        }}
+                      />
+                    ) : (
+                      "File"
+                    )}
                   </a>
                 )}
               </div>
             </div>
           ))}
+        {loadingFile != "" && (
+          <div className={`details owner`} ref={scrollRef}>
+            <div className="personalDetails">
+              <div className="email">
+                <div className="time">
+                  {moment(new Date()).format("MMMM Do YYYY, h:mm:ss a")}
+                </div>
+              </div>
+              {loadingFile !== "" && loadingFile !== undefined && (
+                <div style={{position: 'relative'}}>
+                  {loadingFile?.includes("data:image/png") ||
+                  loadingFile?.includes("data:image/jpg") ||
+                  loadingFile?.includes("data:image/webp") ||
+                  loadingFile?.includes("data:image/gif") ||
+                  loadingFile?.includes("data:image/svg") ||
+                  loadingFile?.includes("data:image/jpeg") ? (
+                    <>
+                   
+                      <img src={loadingFile} alt="" srcset="" style={{ borderRadius: 'none', height: '150px', width: '150px' }} />
+                      <div className="loading_viewer" ><img
+                        src="/loading-button.gif"
+                        alt="Loading..."
+                      /></div>
+                      
+                    </>
+                  ) : (
+                    "Sending File"
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
       <div className="bottom-line"></div>
 
       <div className="sendBoxContainer">
         <div className="sendBox">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-
-            <div style={{ marginLeft: '10px' }}>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          >
+            <div style={{ marginLeft: "10px" }}>
               <input
                 type="text"
                 name="message"
@@ -315,39 +372,79 @@ const IndividualMessage = () => {
                 autoFocus
               />
             </div>
-            {file !== '' && (file.split(';')[0]?.includes('data:image') ?
-              <div style={{ position: 'relative' }} className="senMessageView">
-                <img src={file} style={{ height: '250px', width: '250px', objectFit: 'cover' }} className="sendingFiles"></img>
-                <div style={{ position: 'absolute', top: '10px', right: '0px' }}>
-                  <i className="fas fa-times cross" onClick={() => setFile('')}></i>
-                </div>
-
-              </div> :
-              <div style={{ position: 'relative' }} className="senMessageView">
-                <iframe src={file} width="250px" height="250px" frameborder="0" className="sendingFiles"></iframe>              <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
-                  <div style={{ position: 'absolute', top: '10px', right: '0px' }}>
-                    <i className="fas fa-times cross" onClick={() => setFile('')}></i>
+            {file !== "" &&
+              (file.split(";")[0]?.includes("data:image") ? (
+                <div
+                  style={{ position: "relative" }}
+                  className="senMessageView"
+                >
+                  <img
+                    src={file}
+                    style={{
+                      height: "250px",
+                      width: "250px",
+                      objectFit: "cover",
+                    }}
+                    className="sendingFiles"
+                  ></img>
+                  <div
+                    style={{ position: "absolute", top: "10px", right: "0px" }}
+                  >
+                    <i
+                      className="fas fa-times cross"
+                      onClick={() => setFile("")}
+                    ></i>
                   </div>
                 </div>
+              ) : (
+                <div
+                  style={{ position: "relative" }}
+                  className="senMessageView"
+                >
+                  <iframe
+                    src={file}
+                    width="250px"
+                    height="250px"
+                    frameborder="0"
+                    className="sendingFiles"
+                  ></iframe>{" "}
+                  <div
+                    style={{ position: "absolute", top: "20px", right: "20px" }}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        right: "0px",
+                      }}
+                    >
+                      <i
+                        className="fas fa-times cross"
+                        onClick={() => {
+                          setFile("") 
+                        }
 
-              </div>
-              )}
+                        }
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              ))}
           </div>
 
-          <div style={{ position: 'absolute', right: '50px' }}>
+          <div style={{ position: "absolute", right: "50px" }}>
             <label htmlFor="chatFile" className="uploadingFileIcon">
-
               <CloudUploadIcon />
-
             </label>
             <input
               type="file"
               id="chatFile"
-              onChange={handleFile} accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+              onChange={handleFile}
+              accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
               style={{ display: "none" }}
             />
           </div>
-          <div >
+          <div>
             <label className="uploadingFileIcon">
               <i class="fas fa-link"></i>
             </label>
@@ -363,7 +460,8 @@ const IndividualMessage = () => {
           ) : (
             <SendIcon
               className=""
-              onClick={sendText}
+              // onClick={sendText}
+
               style={{ color: "gray", fontSize: "24px", marginTop: "10px" }}
             />
           )}
