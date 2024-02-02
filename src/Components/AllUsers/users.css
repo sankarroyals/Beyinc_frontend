@@ -29,14 +29,14 @@ body {
   margin-top: 5px;
 }
 
-.fas.fa-users {
+.Top-Notch .fas.fa-users {
   background: #cccccc;
   padding: 10px;
   border-radius: 5px;
   margin-top: 5px;
 }
 
-.fas.fa-users:hover {
+.Top-Notch .fas.fa-users:hover {
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -185,7 +185,7 @@ body {
     margin-top: 5px;
   }
 
-  .fas.fa-users {
+  .Top-Notch .fas.fa-users {
     padding: 6px;
     border-radius: 5px;
     margin-top: 5px;
