@@ -316,14 +316,14 @@ const IndividualMessage = () => {
             {file !== '' && (file.split(';')[0]?.includes('data:image') ?
               <div style={{ position: 'relative' }} className="senMessageView">
                 <img src={file} style={{ height: '250px', width: '250px', objectFit: 'cover' }} className="sendingFiles"></img>
-                <div style={{ position: 'absolute', top: '10px', right: '5px' }}>
+                <div style={{ position: 'absolute', top: '10px', right: '0px' }}>
                   <i className="fas fa-times cross" onClick={() => setFile('')}></i>
                 </div>
 
               </div> :
               <div style={{ position: 'relative' }} className="senMessageView">
                 <iframe src={file} width="250px" height="250px" frameborder="0" className="sendingFiles"></iframe>              <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
-                  <div style={{ position: 'absolute', top: '10px', right: '5px' }}>
+                  <div style={{ position: 'absolute', top: '10px', right: '0px' }}>
                     <i className="fas fa-times cross" onClick={() => setFile('')}></i>
                   </div>
                 </div>
