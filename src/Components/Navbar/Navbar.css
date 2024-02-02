@@ -120,6 +120,7 @@
   /* background-color: #17171E; */
   height: 4.5vh;
   color: black;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   padding: 15px;
   font-weight: 600;
   /* width: 1300px;
