@@ -73,6 +73,11 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
     const handleTeamMemberPic = (e) => {
         setTeampic(e.target.files[0].name)
         const file = e.target.files[0];
+        if (file.size > 4 * 1024 * 1024) {
+            alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+            e.target.value = null; // Clear the selected file
+            return;
+        }
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
@@ -251,6 +256,11 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
     const handlePitchBusiness = (e) => {
         SetBusiness(e.target.files[0].name)
         const file = e.target.files[0];
+        if (file.size > 4 * 1024 * 1024) {
+            alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+            e.target.value = null; // Clear the selected file
+            return;
+        }
         setFileBase(file);
     };
     const setFileBase = (file) => {
@@ -268,6 +278,11 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
     const handlePitchFinancials = (e) => {
         SetFinancial(e.target.files[0].name)
         const file = e.target.files[0];
+        if (file.size > 4 * 1024 * 1024) {
+            alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+            e.target.value = null; // Clear the selected file
+            return;
+        }
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
@@ -282,6 +297,11 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
     const handlePitchLogo = (e) => {
         SetLogo(e.target.files[0].name)
         const file = e.target.files[0];
+        if (file.size > 4 * 1024 * 1024) {
+            alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+            e.target.value = null; // Clear the selected file
+            return;
+        }
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
@@ -296,6 +316,11 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
     const handleBannerPic = (e) => {
         SetBanner(e.target.files[0].name)
         const file = e.target.files[0];
+        if (file.size > 4 * 1024 * 1024) {
+            alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+            e.target.value = null; // Clear the selected file
+            return;
+        }
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {

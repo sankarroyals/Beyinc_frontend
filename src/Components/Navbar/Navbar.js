@@ -321,6 +321,11 @@ const Navbar = () => {
   const [originalImage, setOriginalImage] = useState("");
   const handleImage = (e) => {
     const file = e.target.files[0];
+    if (file.size > 4 * 1024 * 1024) {
+      alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+      e.target.value = null; // Clear the selected file
+      return;
+    }
     setOriginalImage(file.name);
     setFileBase(file);
   };
