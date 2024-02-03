@@ -674,6 +674,7 @@ const Navbar = () => {
                 </label>
                 <input
                   type="file"
+                  accept="image/*,.webp"
                   name=""
                   id="profilePic"
                   onChange={handleImage}
