@@ -12,12 +12,12 @@ const AllNotifications = ({ n }) => {
   }
   return (
     <div className={`individualrequest`} onClick={() => {
-      navigate(`/user/${n.senderEmail}`)
+      navigate(`/user/${n.senderInfo?.email}`)
       changeStatus()
     }} >
       <div className='individualrequestWrapper' style={{gap: '5px', alignItems: 'center'}}>
         <div>
-          <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderProfile == undefined ? '/profile.jpeg' : n.senderProfile} alt="" srcset="" />
+          <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderInfo?.image?.url == undefined ? '/profile.jpeg' : n.senderInfo?.image?.url} alt="" srcset="" />
         </div>
         <div>{n.message} </div>
         <div className=''>

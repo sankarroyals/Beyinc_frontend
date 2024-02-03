@@ -86,9 +86,13 @@ const LivePitches = () => {
                                 return intrest?.filter(f => f.email == email).length>0 ? true : false
                             });
                         }
-                    } else if (ob == 'industry1' || ob == 'industry2' || ob == 'country' ||  ob == 'state') {
+                    } else if (ob == 'industry1' || ob == 'industry2' ) {
                         filteredData = filteredData.filter(f => {
                             return filters[ob].some(fs=> fs === f[ob])
+                        })
+                    } else if (ob == 'country' || ob == 'state') {
+                        filteredData = filteredData.filter(f => {
+                            return filters[ob].some(fs => fs === f['userInfo'][ob])
                         })
                     } else if (ob == 'review') {
                         if (filters[ob] !== 0) {

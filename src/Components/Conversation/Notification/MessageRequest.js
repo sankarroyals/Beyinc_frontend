@@ -88,9 +88,9 @@ const MessageRequest = ({ m, setMessageRequest }) => {
             <div className='individualrequestWrapper'>
                 <div className='userNotiD'>
                     <div>
-                        <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={m.members?.filter((f) => f.userName !== userName)[0].profile_pic == undefined ? '/profile.jpeg' : m.members?.filter((f) => f.userName !== userName)[0].profile_pic} alt="" srcset="" />
+                        <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={m.members?.filter((f) => f.userName !== userName)[0].user?.image?.url == undefined ? '/profile.jpeg' : m.members?.filter((f) => f.userName !== userName)[0].user?.image?.url} alt="" srcset="" />
                     </div>
-                    <div className='message'><b>{m.members?.filter((f) => f.userName !== userName)[0].userName}</b> sent you a message request</div>
+                    <div className='message'><b>{m.members?.filter((f) => f.userName !== userName)[0].user?.userName}</b> sent you a message request</div>
 
                 </div>
                 <div className='updateActions'>
