@@ -571,6 +571,15 @@ const Navbar = () => {
             </abbr>
           )}
         </div>
+        <div id="" className="icon" onClick={() => {
+          const body = document.body;
+          const currentTheme = body.getAttribute('data-theme');
+          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+          body.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme)
+        }}>
+          <i class="fas fa-moon"></i>
+        </div>
         <div className="userDetails" ref={userDetailsRef}>
           <span className="line-loader"></span>
           <div

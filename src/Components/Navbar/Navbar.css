@@ -1,3 +1,5 @@
+
+
 * {
   margin: 0;
   padding: 0;
@@ -116,15 +118,12 @@
   color: rgba(128, 128, 128, 0.758);
 }
 .navbar {
-  background-color: #fff;
-  /* background-color: #17171E; */
+  background-color: var(--body-background);
   height: 4.5vh;
-  color: black;
+  color: var(--text-total-color);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   padding: 15px;
   font-weight: 600;
-  /* width: 1300px;
-    margin: auto; */
   z-index: 999;
   position: sticky;
   top: 0;
@@ -140,7 +139,7 @@
 }
 
 .fas.fa-bars {
-  color: black;
+  /* color: black; */
   font-size: 24px;
 }
 

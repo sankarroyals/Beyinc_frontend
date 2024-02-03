@@ -1,5 +1,18 @@
+body[data-theme="dark"] {
+
+    --body-background: #1D2A35;
+    --text-total-color: #fff;
+}
+
+body[data-theme="light"] {
+    --body-background: #fff;
+    --text-total-color: #212529;
+}
+
 body {
   font-family: "Google Sans Text", sans-serif;
+  background: var(--body-background);
+  color: var(--text-total-color);
 }
 i {
   cursor: pointer;
