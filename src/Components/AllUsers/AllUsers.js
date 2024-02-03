@@ -191,6 +191,8 @@ const AllUsers = () => {
       email: [],
       state: [],
       country: [],
+      skills: [],
+      languagesKnown: [],
       userColleges: [],
       verification: false,
       userName: [],
@@ -426,25 +428,27 @@ const AllUsers = () => {
                   flexDirection: "column",
                 }}
               >
-                {allskills.map((h) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={h}
-                        checked={filters.skills.includes(h)}
-                        onChange={() =>
-                          setFilters((prev) => ({
-                            ...prev,
-                            skills: prev.skills.includes(h)
-                              ? prev.skills.filter((v) => v !== h)
-                              : [...filters.skills, h],
-                          }))
-                        }
-                      />
-                    }
-                    label={h}
-                  />
-                ))}
+                {allskills.map((h) => {
+                  return (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value={h}
+                          checked={filters.skills.includes(h)}
+                          onChange={() =>
+                            setFilters(() => ({
+                              ...filters,
+                              skills: filters.skills.includes(h)
+                                ? filters.skills.filter((v) => v !== h)
+                                : [...filters.skills, h],
+                            }))
+                          }
+                        />
+                      }
+                      label={h}
+                    />
+                  );
+                })}
               </div>
             </TabPanel>
             <TabPanel value={value} index={5}>
@@ -498,7 +502,6 @@ const AllUsers = () => {
                   </div>
                 </div>
 
-                {/* verification */}
                 <div className="verificationFilter">
                   <div
                     style={{

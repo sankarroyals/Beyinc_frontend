@@ -96,17 +96,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
-  padding: 10px;
 }
 .userscontainer {
   flex: 1 0 75%;
   /* padding: 10px; */
-  background: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   border-radius: 10px;
-  padding: 20px;
 }
 .singleUser {
   padding: 25px;
