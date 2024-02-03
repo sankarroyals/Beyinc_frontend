@@ -234,7 +234,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
             // sx={ gridCSS.tabContainer }
             >
                 <DialogContent style={{ height: '90vh', position: 'relative', display: 'flex', flexDirection: 'column' }}>
-                    <button
+                    <button className="schedulerbtnn"
                         id="authorize_button"
                         hidden={accessToken && expiresIn}
                         onClick={handleAuthClick}
