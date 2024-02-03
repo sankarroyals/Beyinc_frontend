@@ -14,6 +14,7 @@ const SingleUserDetails = ({ d }) => {
   const { email } = useSelector((state) => state.auth.loginDetails);
   const dispatch = useDispatch();
   const [receiverRole, setreceiverRole] = useState("");
+  const [pitchSendTo, setPitchSendTo] = useState('')
 
   const [averagereview, setAverageReview] = useState(0);
   const navigate = useNavigate();
@@ -95,8 +96,13 @@ const SingleUserDetails = ({ d }) => {
               )}
             </span>
           </div>
-          <button>Connect</button>
+          <button onClick={() => {
+            setPitchSendTo(d.email)
+            setreceiverRole(d.role)
+          }}>Connect</button>
         </div>
+        <AddPitch receiverMail={pitchSendTo} setReceivermail={setPitchSendTo} receiverRole={receiverRole} />
+
       </div>
     </>
   );
