@@ -512,14 +512,14 @@ const Navbar = () => {
               ></i>
               {notificationAlert && <div className="blinkBall"> </div>}
             </div>
-            <SwipeableDrawer
+            <Drawer
               anchor="right"
               open={notificationDrawerState["right"]}
               onClose={toggleNotificationDrawer("right", false)}
               onOpen={toggleNotificationDrawer("right", true)}
             >
               {NotificationList("right")}
-            </SwipeableDrawer>
+            </Drawer>
           </>
         )}
         {isMobile && <div id="notifications" className="icon">
@@ -728,14 +728,14 @@ const Navbar = () => {
         </div>
 
         {/* Swipeable Drawer for right anchor */}
-        <SwipeableDrawer
+        <Drawer
           anchor="right"
           open={drawerState["right"]}
           onClose={toggleDrawer("right", false)}
           onOpen={toggleDrawer("right", true)}
         >
           {list("right")}
-        </SwipeableDrawer>
+        </Drawer>
       </div>
     </div>
   );
