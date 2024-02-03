@@ -4,13 +4,13 @@
     justify-content: space-between;
     align-items: center;
     min-width: 250px;
-    position: absolute;
+    position: fixed;
+    top: 0;
     line-break: auto;
     height: auto;
     border-radius: 20px;
     margin-top: 40px;
     z-index: 999;
-    
     /* margin: auto; */
 }
 

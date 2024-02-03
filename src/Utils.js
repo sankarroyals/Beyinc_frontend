@@ -164,7 +164,7 @@ export const domain_subdomain = {
 }
 
 export const stages = ['Pre-Startup/R&D', 'MVP/Finished Product', 'Achieving Sales', 'Breaking Even', 'Profitable', 'Other']
-export const idealUserRole = ['User Role', 'Silent', 'Daily Involvement', 'Weekly Involvement', 'Monthly Involvement','Any']
+export const idealUserRole = ['User Role', 'Silent', 'Daily Involvement', 'Weekly Involvement', 'Monthly Involvement', 'Any']
 export const allskills = [
     "Accounting",
     "Aerospace Engineering",
@@ -462,7 +462,7 @@ export const convertToDate = (inputDate) => {
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
-    const date = inputDate?.split('-')[1][0] == '0' ? inputDate?.split('-')[1][1]-1 : inputDate?.split('-')[1]-1
+    const date = inputDate?.split('-')[1][0] == '0' ? inputDate?.split('-')[1][1] - 1 : inputDate?.split('-')[1] - 1
     return `${months[date]} ${inputDate?.split('-')[0]}`
 
 }
@@ -475,7 +475,7 @@ export const formatedDate = (inputDate) => {
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
     const date = inputDate?.split('-')[1][0] == '0' ? inputDate?.split('-')[1][1] - 1 : inputDate?.split('-')[1] - 1
-    return `${inputDate?.split('-')[0]}-${months[date]}-${inputDate?.split('-')[2].slice(0, 2)}`
+    return `${inputDate?.split('-')[2].slice(0, 2)} ${months[date]} ${inputDate?.split('-')[0]}`
 
 }
 
@@ -489,5 +489,31 @@ export const fetchRating = (db) => {
         avg = avg / db.review?.length;
     }
     return avg
-} 
+}
+
+
+
+
+
+
+
+const heirarchy = {
+    Admin: 0,
+    Investor: 1,
+    Mentor: 2,
+    Entrepreneur: 3,
+
+};
+
+// Function to check if a given role is the parent of another role
+export function isParent(givenRole, childRole) {
+    console.log(heirarchy[givenRole], heirarchy[childRole]);
+    if (heirarchy[givenRole] <= heirarchy[childRole]) {
+        return true
+    }
+    
+    return false
+}
+
+
 

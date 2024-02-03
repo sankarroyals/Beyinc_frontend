@@ -145,6 +145,7 @@ button {
   border-radius: 3px;
   cursor: pointer;
 }
+
 button:hover {
   background-color: #1e4bb8;
 }
@@ -323,7 +324,7 @@ button:hover {
 }
 
 input[type="radio"] {
-  width: 30px !important;
+  width: 23px !important;
 }
 input[type="radio"] + label {
   font-weight: 400;

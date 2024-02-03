@@ -317,8 +317,8 @@ body {
   margin-top: 20px;
 }
 
-.working-box p {
-}
+/* .working-box p {
+} */
 
 .black-container {
   background: #000000;
@@ -542,7 +542,7 @@ body {
 
   .container-2 {
     height: 900px;
-    width: 400px;
+    width: 350px;
     margin-top: -280px;
     text-align: center;
     
@@ -550,7 +550,8 @@ body {
 
   .container-2 .content-2 h2,.container-2 .content-2 span{
     font-size: 26px;
-    margin-left: 98px;
+    text-align: center !important;
+    margin-left: 50px;
     margin-top: 0px;
     
     
@@ -595,7 +596,7 @@ body {
   }
   
   .black-container img {
-    width: auto;
+    width: 300px;
     height: 220px;
     margin-top: 50px;
     position: relative;

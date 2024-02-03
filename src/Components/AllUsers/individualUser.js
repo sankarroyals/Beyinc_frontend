@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { ApiServices } from "../../Services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
-import { setToast } from "../../redux/AuthReducers/AuthReducer";
+import { setLoading, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
 import SendIcon from "@mui/icons-material/Send";
-
 import "../LivePitches/LivePitches.css";
 import ReviewStars from "../LivePitches/ReviewStars";
 import AddReviewStars from "../LivePitches/AddReviewStars";
 import { jwtDecode } from "jwt-decode";
 import IndividualPitchComment from "../LivePitches/IndividualPitchComment";
 import { convertToDate, formatedDate } from "../../Utils";
+import IndividualUserReview from "./IndividualUserReview";
 
 const IndividualUser = () => {
   const { image, userName } = useSelector((state) => state.auth.loginDetails);
-
+  const [isWritingReview, setIsWritingReview] = useState(false);
+  const { visible } = useSelector((state) => state.auth.LoadingDetails);
   const [user, setuser] = useState("");
   const [averagereview, setAverageReview] = useState(0);
   const [emailTrigger, setemailTrigger] = useState(false);
@@ -26,6 +27,7 @@ const IndividualUser = () => {
 
   useEffect(() => {
     if (email) {
+      dispatch(setLoading({ visible: "yes" }));
       ApiServices.getProfile({ email: email })
         .then((res) => {
           setuser({
@@ -44,6 +46,7 @@ const IndividualUser = () => {
             });
             setAverageReview(avgR / res.data.review.length);
           }
+          dispatch(setLoading({ visible: "no" }));
         })
         .catch((err) => {
           dispatch(
@@ -53,6 +56,7 @@ const IndividualUser = () => {
               visible: "yes",
             })
           );
+          navigate("/searchusers");
         });
     }
   }, [email, emailTrigger]);
@@ -155,57 +159,72 @@ const IndividualUser = () => {
         );
       });
   };
-  return (
-    <div>
-      <div className="individualPitchContainer">
-        <div className="bgPitch">
-          <img
-            src="https://www.f-cdn.com/assets/main/en/assets/project-view/logged-out/header.jpg?image-optimizer=force&format=webply&width=1920"
-            alt=""
-          />
+
+  return visible == "yes" ? (
+    ""
+  ) : (
+    <div className="profile-Container">
+      <div className="individualUserContainer">
+        <div className="Top-Notch">
+          <i
+            className="fas fa-users"
+            onClick={() => {
+              navigate(-1);
+            }}
+          ></i>
+          <span>{user?.userName}'s Profile</span>
         </div>
+
         <div className="indiUserDetailsContainer">
           <div className="indiUserDetails">
-            <div style={{ display: "flex", gap: "0px" }}>
-              <div>
-                <div>
-                  <img
-                    src={
-                      user?.image?.url !== undefined
-                        ? user?.image?.url
-                        : "/profile.jpeg"
-                    }
-                    alt=""
-                    srcset=""
-                    style={{ height: "120px", width: "120px" }}
-                  />
+            <div className="User-Top-Details">
+              <img
+                className="profile"
+                src={
+                  user?.image?.url !== undefined
+                    ? user?.image?.url
+                    : "/profile.jpeg"
+                }
+                alt=""
+                srcset=""
+              />
+              <div className="indiUserHeading">
+                <div style={{ marginTop: "50px" }}>
+                  {user?.userName}{" "}
+                  {user.verification == "approved" && (
+                    <img
+                      title="verified"
+                      src="/verify.png"
+                      alt=""
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginLeft: "5px",
+                      }}
+                    />
+                  )}
+                  <div className="location-info">
+                    {user?.country !== "" && <div>{user?.country},</div>}
+                    {user?.state !== "" && <div>{user?.state},</div>}
+                    {user?.town !== "" && <div>{user?.town}</div>}
+                  </div>
+                  <div className="indiPitchId">
+                    <a href={`mailto:${user.email}`}>{user?.email}</a>
+                  </div>
+                  <div className="reviewInterestContainer">
+                    <ReviewStars avg={averagereview} />
+                  </div>
+                  <div className="indiPitchDate">
+                    Profile Created on <b>{formatedDate(user?.createdAt)}</b>
+                  </div>
                 </div>
-                <div className="indiUserHeading">{user?.userName}</div>
-              </div>
-
-              <div className="reviewIntrestContainer">
-                {user.verification == "approved" && (
-                  <img
-                    title="verified"
-                    src="/verify.png"
-                    alt=""
-                    style={{ width: "25px", height: "25px", marginLeft: "5px" }}
-                  />
-                )}
-                <div className="">
-                  <ReviewStars avg={averagereview} />
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="indiPitchDate">
-                Profile created at {formatedDate(user?.createdAt)}
               </div>
             </div>
             <div className="indiPitchDesc">
+              <h2>About Me</h2>
               <textarea
+                className="about"
                 style={{
-                  width: "100%",
                   border: "none",
                   fontFamily: "'Google Sans Text', sans- serif",
                 }}
@@ -214,33 +233,11 @@ const IndividualUser = () => {
                 value={user?.bio}
               ></textarea>
             </div>
-            <div className="indiPitchId">
-              Mail ID: <a href={`mailto:${user.email}`}>{user?.email}</a>
-            </div>
-
-            {user?.country !== "" && (
-              <div className="indiPitchHiringPositions">
-                Country:
-                <div className="hp">{user?.country}</div>
-              </div>
-            )}
-            {user?.state !== "" && (
-              <div className="indiPitchHiringPositions">
-                State:
-                <div className="hp">{user?.state}</div>
-              </div>
-            )}
-            {user?.town !== "" && (
-              <div className="indiPitchHiringPositions">
-                Town:
-                <div className="hp">{user?.town}</div>
-              </div>
-            )}
             <div>
               <div>
                 <label className="indiPitchHiringPositions">Skills</label>
               </div>
-              <div>
+              <div className="texts">
                 {user.skills?.length > 0 && (
                   <div className="listedTeam">
                     {user.skills?.map((t, i) => (
@@ -296,11 +293,13 @@ const IndividualUser = () => {
                           <div className="company indiPitchHiringPositions">
                             {te.college}
                           </div>
-                          <div className="profession indiPitchHiringPositions">
-                            {te.grade}
-                          </div>
-                          <div className="timeline indiPitchHiringPositions">
-                            {convertToDate(te.Edstart)}
+                          <div style={{ marginLeft: "10px" }}>
+                            <div className="profession indiPitchHiringPositions">
+                              {te.grade}
+                            </div>
+                            <div className="timeline indiPitchHiringPositions">
+                              {convertToDate(te.Edstart)}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -333,12 +332,14 @@ const IndividualUser = () => {
                           <div className="company indiPitchHiringPositions">
                             {te.company}
                           </div>
-                          <div className="profession indiPitchHiringPositions">
-                            {te.profession}
-                          </div>
-                          <div className="timeline indiPitchHiringPositions">
-                            {convertToDate(te.start)}-
-                            {te.end == "" ? "Present" : convertToDate(te.end)}
+                          <div style={{ marginLeft: "10px" }}>
+                            <div className="profession indiPitchHiringPositions">
+                              {te.profession}
+                            </div>
+                            <div className="timeline indiPitchHiringPositions">
+                              {convertToDate(te.start)}-
+                              {te.end == "" ? "Present" : convertToDate(te.end)}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -346,61 +347,111 @@ const IndividualUser = () => {
                   ))}
               </div>
             )}
-            {email !==
-              jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
-                .email && (
-              <div>
-                <AddReviewStars
-                  filledStars={filledStars}
-                  setFilledStars={setFilledStars}
-                />{" "}
-                <div>
-                  <span
-                    style={{ cursor: "pointer", fontSize: "15px" }}
-                    onClick={sendReview}
-                  >
-                    Send Review
-                  </span>
-                </div>
-              </div>
-            )}
-            <div></div>
           </div>
         </div>
+
         <div className="commentsContainer">
-          <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+          <h2>Ratings & Reviews</h2>
+          {email !==
+            jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
+              .email && (
             <div>
-              <textarea
-                row={4}
-                cols={50}
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Enter Comment"
-              />
+              <div style={{ display: "flex", gap: "10px" }}>
+                <img src={image} />
+                <div>
+                  <span>
+                    <b>{userName}</b>
+                  </span>
+                  <div style={{ fontSize: "12px", marginBottom: "20px" }}>
+                    Reviews are public and include your account details
+                  </div>
+                </div>
+              </div>
+
+              <div className="Rating-Content" style={{ marginLeft: "60px" }}>
+                <h4>Rate this user</h4>
+                <h6>Tell others what you think</h6>
+                <div
+                  className="stars"
+                  style={{ display: "flex", marginBottom: "10px" }}
+                >
+                  <AddReviewStars
+                    filledStars={filledStars}
+                    setFilledStars={setFilledStars}
+                  />{" "}
+                  <button
+                    className="sendIcon"
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "13px",
+                      width: "auto",
+                      padding: "3px 4px",
+                    }}
+                    onClick={sendReview}
+                  >
+                    Post
+                  </button>
+                </div>
+                <div>
+                  {!isWritingReview && (
+                    <div
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => setIsWritingReview(true)}
+                    >
+                      <b>Write a Review</b>
+                    </div>
+                  )}
+                  {isWritingReview && (
+                    <div
+                      className="writing-review"
+                      style={{
+                        display: "flex",
+                        gap: "20px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <textarea
+                          className="textarea"
+                          rows={4}
+                          cols={50}
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          placeholder="Describe Your Experience"
+                        />
+                      </div>
+                      <div>
+                        <button
+                          onClick={sendText}
+                          className="sendIcon"
+                          style={{
+                            cursor: comment == "" ? "not-allowed" : "pointer",
+                            fontSize: "13px",
+                            padding: "10px",
+                          }}
+                        >
+                          Post Review
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
+          )}
+
+          {user?.comments?.length > 0 && (
             <div>
-              {comment !== "" ? (
-                <SendIcon
-                  className="sendIcon"
-                  onClick={sendText}
-                  style={{
-                    color: "#0b57d0",
-                    cursor: "pointer",
-                    fontSize: "24px",
-                  }}
-                />
-              ) : (
-                <SendIcon
-                  className="sendIcon"
-                  style={{ color: "gray", fontSize: "24px", marginTop: "10px" }}
-                />
-              )}
+              <b>Reviews:</b>
             </div>
-          </div>
-          {user?.comments?.length > 0 && <div>Reviews:</div>}
+          )}
           {user?.comments?.length > 0 &&
-            user.comments?.map((c) => (
-              <IndividualPitchComment c={c} deleteComment={deleteComment} />
+            user.comments?.map((c, index) => (
+              <IndividualUserReview
+                key={index}
+                c={c}
+                deleteComment={deleteComment}
+              />
             ))}
         </div>
       </div>

@@ -46,7 +46,7 @@ const LandingPage = () => {
         <div>
           <h1>Welcome to BeyInc, </h1>
           <span> Beyond Incubation</span>
-          <p>At BeyInc, we go beyond the traditional norms of incubation.</p>
+          <p className="Landing-p">At BeyInc, we go beyond the traditional norms of incubation.</p>
         </div>
 
         <div className="container">
