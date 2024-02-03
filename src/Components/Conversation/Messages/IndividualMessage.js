@@ -210,7 +210,9 @@ const IndividualMessage = () => {
             style={{ marginLeft: "20px", color: "grey" }}
           ></i>
         </div>
-        <div>
+        <div style={{ cursor: 'pointer'}} onClick={() => {
+          navigate(`/user/${receiverId?.user?.email}`)
+        }}>
           <img
             className="Dp"
             src={
@@ -223,7 +225,9 @@ const IndividualMessage = () => {
             srcset=""
           />
         </div>
-        <div>
+        <div style={{ cursor: 'pointer' }} onClick={() => {
+          navigate(`/user/${receiverId?.user?.email}`)
+        }}>
           <div className="User-name">{receiverId?.user?.userName}</div>
           <div
             style={{
