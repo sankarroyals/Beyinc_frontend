@@ -17,12 +17,14 @@ import sendSound from "../Notification/send.mp3";
 import { socket_io } from "../../../Utils";
 import { Howl } from "howler";
 import moment from "moment";
+import { GoogleCalenderEvent } from "../../Common/GoogleCalender";
 
 const IndividualMessage = () => {
   const [loadingFile, setLoadingFile] = useState("");
   const { conversationId } = useParams();
   const receiverId = useSelector((state) => state.conv.receiverId);
   const liveMessage = useSelector((state) => state.conv.liveMessage);
+  const [gmeetLinkOpen, setGmeetLinkOpen] = useState(false)
 
   const { email, image, userName } = useSelector(
     (state) => state.auth.loginDetails
@@ -455,7 +457,7 @@ const IndividualMessage = () => {
             />
           </div>
           <div>
-            <label className="uploadingFileIcon">
+            <label className="uploadingFileIcon" onClick={()=> {setGmeetLinkOpen(true)}}>
               <i class="fas fa-link"></i>
             </label>
           </div>
@@ -477,6 +479,7 @@ const IndividualMessage = () => {
           )}
         </div>
       </div>
+      <GoogleCalenderEvent gmeetLinkOpen={gmeetLinkOpen} setGmeetLinkOpen={setGmeetLinkOpen} receiver={receiverId?.user?.email} />
     </div>
   );
 };
