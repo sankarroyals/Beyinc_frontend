@@ -266,7 +266,7 @@ const Navbar = () => {
         {notifications.map((n) => (
           <>
             <div className={`individualrequest`} onClick={() => {
-              navigate(`/user/${n.senderEmail}`)
+              navigate(`/user/${n.senderInfo?.email}`)
             }} style={{ width: '400px', marginLeft: '20px', textAlign: 'start' }}>
               <div className='individualrequestWrapper' style={{ gap: '5px', alignItems: 'center', width: '100%' }}>
                 <div>
