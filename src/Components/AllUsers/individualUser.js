@@ -137,7 +137,12 @@ const IndividualUser = () => {
         setComment("");
       })
       .catch((err) => {
-        navigate("/searchusers");
+        // navigate("/searchusers");
+        dispatch(setToast({
+          visible: 'yes',
+          message: 'Error Occured while adding comment',
+          bgColor: ToastColors.failure
+        }))
       });
   };
 

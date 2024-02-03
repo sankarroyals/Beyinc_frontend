@@ -22,7 +22,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
     const dispatch = useDispatch()
     useEffect(() => {
         const friendMail = a.members.filter((f) => f.email !== email)[0]
-        setFriend(friendMail)
+        setFriend(friendMail.user)
         // ApiServices.getProfile({ email: friendMail }).then((res) => {
         //     setFriend(res.data)
         // })
@@ -33,7 +33,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
 
         if (status !== 'pending' && a._id !== conversationId) {
             // await ApiServices.getProfile({ email: a.members.filter((f) => f.email !== email)[0].email }).then((res) => {
-            dispatch(setReceiverId(a.members.filter((f) => f.email !== email)[0].email))
+            dispatch(setReceiverId(a.members.filter((f) => f.email !== email)[0]))
             // })
             navigate(`/conversations/${a._id}`)
 
@@ -51,15 +51,15 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
         })
         socket.current.emit("sendNotification", {
             senderId: email,
-            receiverId: friend.email,
+            receiverId: friend?.email,
         });
     }
 
     return (
         <div className={`individuals ${conversationId == a._id && 'selected'}`} onClick={storingDetails} style={{ display: (a.requestedTo === email && status == 'pending') && 'none' }}>
-            <div><img src={friend.profile_pic === undefined ? '/profile.jpeg' : friend.profile_pic} alt="" srcset="" /></div>
+            <div><img src={friend.image?.url === undefined ? '/profile.jpeg' : friend.image.url} alt="" srcset="" /></div>
             <div className='onlineHolder'>
-                <abbr title={friend.email} style={{ textDecoration: 'none' }}><div className='userName'>{friend.userName}</div></abbr>
+                <abbr title={friend?.email} style={{ textDecoration: 'none' }}><div className='userName'>{friend.userName}</div></abbr>
 
                 {status === 'pending' ? <><abbr title='pending'>
 
@@ -69,9 +69,9 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
 
                 </abbr></>
                     :
-                    <abbr title={onlineEmails.includes(friend.email) ? 'online' : 'away'}>
-                        <div className={onlineEmails.includes(friend.email) ? 'online' : 'away'}>
-                            {/* {onlineEmails.includes(friend.email) ? 'online' : 'away'} */}
+                    <abbr title={onlineEmails.includes(friend?.email) ? 'online' : 'away'}>
+                        <div className={onlineEmails.includes(friend?.email) ? 'online' : 'away'}>
+                            {/* {onlineEmails.includes(friend?.email) ? 'online' : 'away'} */}
                         </div>
                     </abbr>
                 }

@@ -270,7 +270,7 @@ const Navbar = () => {
             }} style={{ width: '400px', marginLeft: '20px', textAlign: 'start' }}>
               <div className='individualrequestWrapper' style={{ gap: '5px', alignItems: 'center', width: '100%' }}>
                 <div>
-                  <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderProfile == undefined ? '/profile.jpeg' : n.senderProfile} alt="" srcset="" />
+                  <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderInfo?.image?.url == undefined ? '/profile.jpeg' : n.senderInfo?.image?.url} alt="" srcset="" />
                 </div>
                 <div>{n.message} </div>
 

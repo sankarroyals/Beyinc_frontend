@@ -92,9 +92,9 @@ export default function PitchCard({ d }) {
         <><Card sx={{ maxWidth: 340, minWidth: 250, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)' }}>
             <div style={{ display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px' }}>
                 <img className='userCardImage'
-                    src={d.profile_pic !== undefined && d.profile_pic !== "" ? d.profile_pic : "/profile.jpeg"}
+                    src={d.userInfo?.image?.url !== undefined && d.userInfo?.image?.url !== "" ? d.userInfo?.image?.url : "/profile.jpeg"}
                     title={d.email} />
-                <div style={{ fontWeight: '600', marginTop: '40px', marginLeft: '30px' }}>{d.role}
+                <div style={{ fontWeight: '600', marginTop: '40px', marginLeft: '30px' }}>{d.userInfo?.role}
                     <div title={d.status}>
                         <span style={{
                             fontSize: '14px', marginLeft: '5px', color: d.status == 'approved' ? 'green' : (d.status == 'pending' ? 'orange' : 'red'),
@@ -107,7 +107,7 @@ export default function PitchCard({ d }) {
             </div>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    {d.userName}
+                    {d.userInfo?.userName}
                 </Typography>
             </CardContent>
             <CardActions>

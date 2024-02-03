@@ -214,9 +214,9 @@ const IndividualMessage = () => {
           <img
             className="Dp"
             src={
-              receiverId?.profile_pic !== undefined &&
-              receiverId?.profile_pic !== ""
-                ? receiverId.profile_pic
+              receiverId?.user?.image?.url !== undefined &&
+              receiverId?.user?.image?.url !== ""
+                ? receiverId.user?.image?.url
                 : "/profile.jpeg"
             }
             alt=""
@@ -224,7 +224,7 @@ const IndividualMessage = () => {
           />
         </div>
         <div>
-          <div className="User-name">{receiverId?.userName}</div>
+          <div className="User-name">{receiverId?.user?.userName}</div>
           <div
             style={{
               display: "flex",
@@ -262,10 +262,10 @@ const IndividualMessage = () => {
                   src={
                     image !== undefined && image !== "" && m.senderId === email
                       ? image
-                      : receiverId?.profile_pic !== undefined &&
-                        receiverId?.profile_pic !== "" &&
+                      : receiverId?.user?.image?.url !== undefined &&
+                        receiverId?.user?.image?.url !== "" &&
                         m.senderId !== email
-                      ? receiverId.profile_pic
+                      ? receiverId.user?.image?.url
                       : "/profile.jpeg"
                   }
                   alt=""
@@ -281,7 +281,7 @@ const IndividualMessage = () => {
                     </div>
                   ) : (
                     <div className="friendDetails">
-                      <div className="userName">{receiverId?.userName}</div>
+                      <div className="userName">{receiverId?.user?.userName}</div>
                       <div className="time">
                         {moment(m.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
                       </div>
@@ -319,9 +319,9 @@ const IndividualMessage = () => {
           <div className={`details owner`} ref={scrollRef}>
             <div className="personalDetails">
               <div className="email">
-                <div className="time">
+                {/* <div className="time">
                   {moment(new Date()).format("MMMM Do YYYY, h:mm:ss a")}
-                </div>
+                </div> */}
               </div>
               {loadingFile !== "" && loadingFile !== undefined && (
                 <div style={{position: 'relative'}}>
