@@ -116,8 +116,14 @@ const IndividualMessage = () => {
 
   const handleFile = (e) => {
     const file = e.target.files[0];
+    if (file.size > 4 * 1024 * 1024) {
+      alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+      e.target.value = null; // Clear the selected file
+      return;
+    }
     setNormalFileName(file);
     setFileBase(e, file);
+    e.target.value = null;
   };
   const setFileBase = (e, file) => {
     const reader = new FileReader();
