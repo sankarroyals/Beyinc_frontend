@@ -97,7 +97,7 @@ const HistoryChats = () => {
             </TabPanel>
             <TabPanel style={{ padding: 0 }} className="" value={value} index={1}>
                 <div style={{ marginTop: '10px' }}>
-                    {historicalConversations.filter(f => f.status == 'approved' && f.members[0].email == email).length > 0 ? historicalConversations.map((a) => (
+                    {historicalConversations.filter(f => f.status == 'approved').length > 0 ? historicalConversations.map((a) => (
                         a.status === 'approved' && <IndividualHistory a={a} onlineEmails={onlineEmails} status='approved' />
                     )) : <div style={{ textAlign: 'start' }}>No Approved chats</div>}
                 </div>
