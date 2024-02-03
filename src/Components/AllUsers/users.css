@@ -156,14 +156,6 @@ body {
     margin: auto;
   }
 }
-
-.indiUserDetailsContainer {
-  width: 900px;
-  margin: auto;
-  background: white;
-  transform: translateY(-30px);
-  border-radius: 10px;
-}
 .fas.fa-star {
   color: goldenrod;
 }
@@ -276,17 +268,18 @@ body {
     margin-right: 50px;
     width: 50px !important;
   }
-}
-.user-card-main-container {
+  .user-card-main-container {
   background-color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 365px;
+  width: 300px !important;
   padding: 13px;
   box-shadow: 0 0 10px #ccc;
   border-radius: 10px;
 }
+}
+
 .user-card-details-text {
   display: flex;
   flex-direction: column;
