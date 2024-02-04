@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
 import moment from "moment";
+import CloseIcon from "@mui/icons-material/Close";
 
 import './GoogleCalender.css'
 export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver }) => {
@@ -17,6 +18,10 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
     const [selectedUserEvents, setSelectedUserEvent] = useState([])
     const [summary, setSummary] = useState('')
     const [desc, setdesc] = useState('')
+    const [singleguestDetails, setsingleguestDetails] = useState([])
+
+    const [guestDetails, setguestDetails] = useState([])
+
 
     
 
@@ -185,7 +190,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                 timeZone: "Asia/Kolkata", // Update to your specific time zone
             },
             recurrence: ["RRULE:FREQ=DAILY;COUNT=1"],
-            attendees: [
+            attendees: [...guestDetails.map(g => ({ email: g, responseStatus: "needsAction" })),
                 { email: receiver, responseStatus: "needsAction" },
             ],
             reminders: {
@@ -199,7 +204,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                     },
                 }
             },
-            guestsCanSeeOtherGuests: false,
+            guestsCanSeeOtherGuests: true,
         };
 
         const request = gapi.client.calendar.events.insert({
@@ -280,6 +285,31 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                         <input type="text" placeholder="Enter Summary" value={summary} onChange={(e) => setSummary(e.target.value)} />
                         <label>Description</label>
                         <input type="text" placeholder="Enter Description" value={desc} onChange={(e) => setdesc(e.target.value)} />
+                        <label>Add Guest</label>
+                        <div>
+                            {guestDetails.length > 0 && (
+                                <div className="listedTeam">
+                                    {guestDetails.map((t, i) => (
+                                        <div className="singleMember">
+                                            <div>{t}</div>
+                                            <div
+                                                onClick={(e) => {
+                                                    setguestDetails(guestDetails.filter((f, j) => i !== j));
+                                                 
+                                                }}
+                                            >
+                                                <CloseIcon className="deleteMember" />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        <input type="text" placeholder="Enter Guest mails" value={singleguestDetails} onChange={(e) => setsingleguestDetails(e.target.value)} />
+                        <button className="schedulerbtnn" onClick={(e) => {
+                            setguestDetails(prev => [...prev, singleguestDetails])
+                            setsingleguestDetails('')
+                        }}>Add guests</button>
                         <label>Start date and time*</label>
                         <input type="datetime-local" name="" value={startDate} id="" onChange={(e) => {
                             setStartDate(e.target.value)
