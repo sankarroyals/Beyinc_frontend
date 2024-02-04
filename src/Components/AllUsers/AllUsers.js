@@ -28,6 +28,8 @@ import {
   Tabs,
   Typography,
 } from "@mui/material";
+import { FilterPanel } from "./FilterPanel";
+import useWindowDimensions from "../Common/WindowSize";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -54,6 +56,16 @@ function a11yProps(index) {
     "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
+
+const tabs = [
+  "Role",
+  "Emails",
+  "Name",
+  "Country",
+  "Skills",
+  "Language",
+  "Other",
+];
 const AllUsers = () => {
   const [value, setValue] = useState(0);
 
@@ -200,10 +212,16 @@ const AllUsers = () => {
     });
     setFilledStars(0);
   };
-
+  const { height, width } = useWindowDimensions();
   return (
     <>
-      <Dialog fullWidth={"sm"} open={open} onClose={handleClose}>
+      <Dialog
+        fullScreen={width <= 400}
+        maxWidth={"md"}
+        fullWidth={true}
+        open={open}
+        onClose={handleClose}
+      >
         <DialogTitle
           style={{
             display: "flex",
@@ -211,7 +229,7 @@ const AllUsers = () => {
             justifyContent: "space-between",
           }}
         >
-          <>Filter</>{" "}
+          <>Filter</>
           <CachedIcon
             style={{ cursor: "pointer" }}
             className={isSpinning ? "spin" : ""}
@@ -220,13 +238,14 @@ const AllUsers = () => {
             }}
           />
         </DialogTitle>
-        <DialogContent>
+        <DialogContent style={{ padding: 0 }}>
           <Box
             sx={{
               display: "flex",
+              width: "100%",
               flexGrow: 1,
               bgcolor: "background.paper",
-              height: 400,
+              height: width <= 400 ? "100%" : 400,
             }}
           >
             <Tabs
@@ -234,250 +253,69 @@ const AllUsers = () => {
               variant="scrollable"
               value={value}
               onChange={handleChange}
+              className="tabs-vertical"
               sx={{
-                width: 200,
                 borderRight: 1,
                 borderColor: "divider",
               }}
             >
-              <Tab
-                sx={{
-                  width: "100%",
-                  ":hover": { backgroundColor: "#f0f0f0" },
-                }}
-                label="Role"
-                {...a11yProps(0)}
-              />
-              <Tab
-                sx={{
-                  width: "100%",
-                  ":hover": { backgroundColor: "#f0f0f0" },
-                }}
-                label="Emails"
-                {...a11yProps(1)}
-              />
-              <Tab
-                sx={{
-                  width: "100%",
-                  ":hover": { backgroundColor: "#f0f0f0" },
-                }}
-                label="Name"
-                {...a11yProps(2)}
-              />
-              <Tab
-                sx={{
-                  width: "100%",
-                  ":hover": { backgroundColor: "#f0f0f0" },
-                }}
-                label="Country"
-                {...a11yProps(3)}
-              />
-              <Tab
-                sx={{
-                  width: "100%",
-                  ":hover": { backgroundColor: "#f0f0f0" },
-                }}
-                label="Skills"
-                {...a11yProps(4)}
-              />
-              <Tab
-                sx={{
-                  width: "100%",
-                  ":hover": { backgroundColor: "#f0f0f0" },
-                }}
-                label="Language"
-                {...a11yProps(5)}
-              />
-              <Tab
-                sx={{
-                  width: "100%",
-                  ":hover": { backgroundColor: "#f0f0f0" },
-                }}
-                label="Others"
-                {...a11yProps(6)}
-              />
+              {tabs.map((v, i) => (
+                <Tab
+                  className="filter-tab-style"
+                  label={<div className="filter-tab-text">{v}</div>}
+                  {...a11yProps(i)}
+                />
+              ))}
             </Tabs>
-            <TabPanel
-              style={{
-                width: "100%",
-              }}
-              value={value}
-              index={0}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {totalRoles.map((h) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={h.role}
-                        checked={filters.role.includes(h.role)}
-                        onChange={() => {
-                          setFilters((prev) => ({
-                            ...prev,
-                            role: prev.role.includes(h.role)
-                              ? prev.role.filter((v) => v !== h.role)
-                              : [...filters.role, h.role],
-                          }));
-                        }}
-                      />
-                    }
-                    label={h.role}
-                  />
-                ))}
-              </div>
+            <TabPanel value={value} index={0}>
+              <FilterPanel
+                rawData={totalRoles}
+                dataKey={"role"}
+                filters={filters}
+                setFilters={setFilters}
+              />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {data.map((h) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={h.email}
-                        checked={filters.email.includes(h.email)}
-                        onChange={() =>
-                          setFilters((prev) => ({
-                            ...prev,
-                            email: prev.email.includes(h.email)
-                              ? prev.email.filter((v) => v !== h.email)
-                              : [...filters.email, h.email],
-                          }))
-                        }
-                      />
-                    }
-                    label={h.email}
-                  />
-                ))}
-              </div>
+              <FilterPanel
+                rawData={data}
+                dataKey={"email"}
+                filters={filters}
+                setFilters={setFilters}
+              />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {data.map((h) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={h.userName}
-                        checked={filters.userName.includes(h.userName)}
-                        onChange={() =>
-                          setFilters((prev) => ({
-                            ...prev,
-                            userName: prev.userName.includes(h.userName)
-                              ? prev.userName.filter((v) => v !== h.userName)
-                              : [...filters.userName, h.userName],
-                          }))
-                        }
-                      />
-                    }
-                    label={h.userName}
-                  />
-                ))}
-              </div>
+              <FilterPanel
+                rawData={data}
+                dataKey={"userName"}
+                filters={filters}
+                setFilters={setFilters}
+              />
             </TabPanel>
             <TabPanel value={value} index={3}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {Country?.getAllCountries().map((h) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={`${h.name}-${h.isoCode}`}
-                        checked={filters.userName.includes(
-                          `${h.name}-${h.isoCode}`
-                        )}
-                        onChange={() =>
-                          setFilters((prev) => ({
-                            ...prev,
-                            userName: prev.userName.includes(
-                              `${h.name}-${h.isoCode}`
-                            )
-                              ? prev.userName.filter(
-                                  (v) => v !== `${h.name}-${h.isoCode}`
-                                )
-                              : [...filters.userName, `${h.name}-${h.isoCode}`],
-                          }))
-                        }
-                      />
-                    }
-                    label={h.name}
-                  />
-                ))}
-              </div>
+              <FilterPanel
+                rawData={Country?.getAllCountries()}
+                isCountry={true}
+                filters={filters}
+                setFilters={setFilters}
+              />
             </TabPanel>
             <TabPanel value={value} index={4}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {allskills.map((h) => {
-                  return (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          value={h}
-                          checked={filters.skills.includes(h)}
-                          onChange={() =>
-                            setFilters(() => ({
-                              ...filters,
-                              skills: filters.skills.includes(h)
-                                ? filters.skills.filter((v) => v !== h)
-                                : [...filters.skills, h],
-                            }))
-                          }
-                        />
-                      }
-                      label={h}
-                    />
-                  );
-                })}
-              </div>
+              <FilterPanel
+                rawData={allskills}
+                dataKey={"skills"}
+                isFlat={true}
+                filters={filters}
+                setFilters={setFilters}
+              />
             </TabPanel>
             <TabPanel value={value} index={5}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {allLanguages.map((h) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={h}
-                        checked={filters.languagesKnown.includes(h)}
-                        onChange={() =>
-                          setFilters((prev) => ({
-                            ...prev,
-                            languagesKnown: prev.languagesKnown.includes(h)
-                              ? prev.languagesKnown.filter((v) => v !== h)
-                              : [...filters.languagesKnown, h],
-                          }))
-                        }
-                      />
-                    }
-                    label={h}
-                  />
-                ))}
-              </div>
+              <FilterPanel
+                rawData={allLanguages}
+                dataKey={"languagesKnown"}
+                isFlat={true}
+                filters={filters}
+                setFilters={setFilters}
+              />
             </TabPanel>
             <TabPanel value={value} index={6}>
               <div
@@ -491,9 +329,10 @@ const AllUsers = () => {
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
+                    marginBottom: 20,
                   }}
                 >
-                  <div>Rating:</div>
+                  <div className="filter-rating-label">Rating:</div>
                   <div className="inputTag" style={{ marginLeft: 20 }}>
                     <AddReviewStars
                       filledStars={filledStars}
@@ -504,6 +343,7 @@ const AllUsers = () => {
 
                 <div className="verificationFilter">
                   <div
+                    className="filter-options-label"
                     style={{
                       display: "flex",
                       flexDirection: "row",
