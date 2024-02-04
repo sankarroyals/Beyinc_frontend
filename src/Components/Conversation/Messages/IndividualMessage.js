@@ -71,6 +71,11 @@ const IndividualMessage = () => {
       // to make seen for other users this api is works
       ApiServices.changeStatusMessage({ senderId: receiverId.email, receiverId: email }).then(res => {
         console.log('changed status')
+        socket.current.emit("seenMessage", {
+          senderId: email,
+          receiverId: receiverId.email,
+          conversationId: conversationId,
+        });
       })
       ApiServices.getMessages({
         conversationId: conversationId,
