@@ -270,6 +270,10 @@ const IndividualMessage = () => {
         visible: 'yes',
         bgColor: ToastColors.success
       }))
+      socket.current.emit("chatBlocking", {
+        senderId: email,
+        receiverId: receiverId.email,
+      });
     }).catch(err => {
       dispatch(setToast({
         message: 'Error occured',

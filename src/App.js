@@ -83,7 +83,12 @@ const App = () => {
       })
       // setMessages(prev => [...prev, data])
     })
+    socket.current.on('sendchatBlockingInfo', data => {
+      console.log(data);
+      window.location.reload()
+    })
   }, [])
+  
 
 
 
