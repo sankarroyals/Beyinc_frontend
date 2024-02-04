@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useRef } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useParams } from "react-router-dom";
 import './App.css'
 import AuthHoc, { AdminDeciderHoc, LoginAuth } from "./AuthHoc";
 import Toast from "./Components/Toast/Toast";
@@ -9,7 +9,7 @@ import { ApiServices } from "./Services/ApiServices";
 import UserRequests from "./Components/Admin/UserRequests/UserRequests";
 import { SingleRequestProfile } from "./Components/Admin/UserRequests/SingleProfile";
 import { Socket, io } from "socket.io-client";
-import { setLiveMessage, setNotification, setOnlineUsers } from "./redux/Conversationreducer/ConversationReducer";
+import { setLastMessageRead, setLiveMessage, setNotification, setOnlineUsers } from "./redux/Conversationreducer/ConversationReducer";
 import LivePitches from "./Components/LivePitches/LivePitches";
 import IndividualPitch from "./Components/LivePitches/IndividualPitch";
 import LoadingData from "./Components/Toast/Loading";
@@ -67,8 +67,20 @@ const App = () => {
       dispatch(setLiveMessage({
         message: data.message,
         senderId: data.senderId,
-        fileSent: data.fileSent
+        fileSent: data.fileSent,
+        conversationId: data.conversationId
       }))
+      // setMessages(prev => [...prev, data])
+    })
+  }, [])
+
+  useEffect(() => {
+    socket.current.on('sendseenMessage', data => {
+      console.log(data);
+      dispatch(setLastMessageRead(true))
+      ApiServices.changeStatusMessage({ senderId: data.receiverId, receiverId: data.senderId }).then(res => {
+        console.log('changed status')
+      })
       // setMessages(prev => [...prev, data])
     })
   }, [])

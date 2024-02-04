@@ -1,3 +1,5 @@
+import moment from "moment"
+
 // export const socket_io = "https://beyinc-socket.onrender.com"
 export const socket_io = process.env.REACT_APP_SOCKET_IO
 
@@ -507,13 +509,39 @@ const heirarchy = {
 
 // Function to check if a given role is the parent of another role
 export function isParent(givenRole, childRole) {
-    console.log(givenRole, childRole);
-    console.log(heirarchy[givenRole] <= heirarchy[childRole]);
+    // console.log(givenRole, childRole);
+    // console.log(heirarchy[givenRole] <= heirarchy[childRole]);
     if (heirarchy[givenRole] <= heirarchy[childRole]) {
         return true
     }
     
     return false
+}
+
+
+export function updateLastSeen() {
+    // Get the current time using Moment.js
+    var currentTime = moment();
+
+    // Get the last seen time (replace this with your actual last seen time logic)
+    var lastSeenTime = moment().subtract(2, 'minutes'); // Example: 2 minutes ago
+
+    // Calculate the difference between current time and last seen time
+    var timeDifference = currentTime.diff(lastSeenTime, 'minutes');
+
+    // Display the last seen time in a user-friendly format
+    var displayText = '';
+
+    if (timeDifference < 1) {
+        displayText = 'Online';
+    } else if (timeDifference < 60) {
+        displayText = timeDifference + ' minutes ago';
+    } else if (timeDifference < 1440) {
+        displayText = moment.duration(timeDifference, 'minutes').humanize();
+    } else {
+        displayText = lastSeenTime.format('MMM D, YYYY [at] h:mm A');
+    }
+    return displayText
 }
 
 

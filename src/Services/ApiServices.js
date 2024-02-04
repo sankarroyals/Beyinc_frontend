@@ -244,6 +244,20 @@ export const ApiServices = {
     },
 
 
+    changeStatusMessage: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/changeChatSeen`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
     sendMessages: (obj) => {
         return new Promise((resolve, reject) => {
             axiosInstance.post(`/chat/addMessage`, obj)

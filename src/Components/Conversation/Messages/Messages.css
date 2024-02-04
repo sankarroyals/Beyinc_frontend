@@ -72,6 +72,11 @@
   font-size: 12px;
   font-weight: 600;
 }
+.seenMessage{
+  font-size: 12px;
+  align-self: flex-start;
+  margin-left: 10px;
+}
 
 .friendDetails {
   display: flex;

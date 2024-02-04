@@ -8,13 +8,15 @@ import { format } from "timeago.js";
 import { io } from "socket.io-client";
 import {
   setConversationId,
+  setLastMessageRead,
+  setLiveMessage,
   setOnlineUsers,
 } from "../../../redux/Conversationreducer/ConversationReducer";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams, useNavigate } from "react-router";
 import "./IndividualMessage.css";
 import sendSound from "../Notification/send.mp3";
-import { isParent, socket_io } from "../../../Utils";
+import { isParent, socket_io, updateLastSeen } from "../../../Utils";
 import { Howl } from "howler";
 import moment from "moment";
 import { GoogleCalenderEvent } from "../../Common/GoogleCalender";
@@ -24,6 +26,8 @@ const IndividualMessage = () => {
   const { conversationId } = useParams();
   const receiverId = useSelector((state) => state.conv.receiverId);
   const liveMessage = useSelector((state) => state.conv.liveMessage);
+  const lastMessageRead = useSelector((state) => state.conv.lastMessageRead);
+
   const [gmeetLinkOpen, setGmeetLinkOpen] = useState(false)
 
   const { email, image, userName, role } = useSelector(
@@ -63,7 +67,11 @@ const IndividualMessage = () => {
   }, [onlineUsers]);
 
   useEffect(() => {
-    if (conversationId !== "") {
+    if (conversationId !== "" && receiverId !== undefined && receiverId !== '') {
+      // to make seen for other users this api is works
+      ApiServices.changeStatusMessage({ senderId: receiverId.email, receiverId: email }).then(res => {
+        console.log('changed status')
+      })
       ApiServices.getMessages({
         conversationId: conversationId,
       })
@@ -78,14 +86,14 @@ const IndividualMessage = () => {
           navigate("/conversations");
         });
     }
-  }, [conversationId, messageTrigger]);
+  }, [conversationId, messageTrigger, receiverId]);
 
   // useEffect(() => {
   //   sendSoundRef.current = new Audio(sendSound);
   // }, []);
 
   useEffect(() => {
-    if (liveMessage?.fileSent == true) {
+    if (liveMessage?.fileSent == true && liveMessage.conversationId == conversationId) {
       ApiServices.getMessages({
         conversationId: conversationId,
       })
@@ -94,6 +102,7 @@ const IndividualMessage = () => {
           setNormalFileName("");
           setFile("");
           setSendMessage("");
+          dispatch(setLiveMessage({}))
           // sendSoundRef?.current?.play()
           sound.play();
         })
@@ -105,7 +114,7 @@ const IndividualMessage = () => {
 
   useEffect(() => {
     console.log(liveMessage);
-    if (Object.keys(liveMessage).length > 0) {
+    if (Object.keys(liveMessage).length > 0 && liveMessage.conversationId == conversationId) {
       // sendSoundRef?.current?.play();
       sound.play();
 
@@ -113,8 +122,28 @@ const IndividualMessage = () => {
         ...prev,
         { ...liveMessage, createdAt: Date.now() },
       ]);
+      dispatch(setLiveMessage({}))
+      socket.current.emit("seenMessage", {
+        senderId: email,
+        receiverId: receiverId.email,
+        conversationId: conversationId,
+      });
     }
   }, [liveMessage]);
+
+
+  useEffect(() => {
+    if (lastMessageRead) {
+      const oldMessages = [...messages]
+      console.log({ ...messages[messages.length - 1], seen: new Date() });
+      oldMessages.splice(oldMessages.length - 1, 1, { ...oldMessages[oldMessages.length - 1], seen: new Date() })
+      dispatch(setLastMessageRead(false))
+      setMessages([...oldMessages])
+    }
+  }, [lastMessageRead])
+
+
+
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -174,6 +203,7 @@ const IndividualMessage = () => {
             receiverId: receiverId.email,
             message: sendMessage,
             fileSent: file !== "",
+            conversationId: conversationId
           });
           if (file !== "") {
             setMessageTrigger(!messageTrigger);
@@ -201,7 +231,7 @@ const IndividualMessage = () => {
   // }, []);
 
   useEffect(() => {
-    console.log(messages);
+    // console.log(messages);
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -264,7 +294,7 @@ const IndividualMessage = () => {
       </div>
       <div className="messageBox">
         {messages.length > 0 &&
-          messages.map((m) => (
+          messages.map((m, i) => (
             <div
               className={`details ${m.senderId === email ? "owner" : "friend"}`}
               ref={scrollRef}
@@ -327,7 +357,12 @@ const IndividualMessage = () => {
                     )}
                   </a>
                 )}
+                {(i == messages.length - 1 && m.senderId == email && m.seen!==undefined) &&
+                  <div className="seenMessage">
+                    seen {format(m.seen)}
+                </div>}
               </div>
+             
             </div>
           ))}
         {loadingFile != "" && (
