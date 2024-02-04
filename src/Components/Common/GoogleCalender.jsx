@@ -15,6 +15,10 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
     const dispatch = useDispatch()
     const {email} = useSelector(state=>state.auth.loginDetails)
     const [selectedUserEvents, setSelectedUserEvent] = useState([])
+    const [summary, setSummary] = useState('')
+    const [desc, setdesc] = useState('')
+
+    
 
     const CLIENT_ID = process.env.REACT_APP_CALENDER_CLIENT_ID;
     const API_KEY = process.env.REACT_APP_CALENDER_API_KEY;
@@ -154,7 +158,10 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         //     "<b>Events:</b>\n"
         // );
         console.log(events);
-        setSelectedUserEvent(events)
+        setSelectedUserEvent(events.filter((event) => {
+            const attendees = event.attendees || [];
+            return attendees.some((attendee) => attendee.email === receiver);
+        }))
         // document.getElementById("content").innerText = output;
     }
 
@@ -162,9 +169,9 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         e.target.disabled=true
         const event = {
             kind: "calendar#event",
-            summary: `Meeting with ${email}`,
+            summary: summary,
             location: "",
-            description: "Pitch discussion",
+            description: desc,
             start: {
                 dateTime: new Date(startDate).toISOString(),
                 timeZone: "Asia/Kolkata", // Update to your specific time zone
@@ -208,6 +215,8 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                 }))
                 setStartDate('')
                 setEndDate('')
+                setSummary('')
+                setdesc('')
             },
             (error) => {
                 console.error(error);
@@ -217,14 +226,6 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         
     }
 
-    useEffect(() => {
-        console.log(selectedUserEvents);
-        const eventsWithAttendee = selectedUserEvents.filter((event) => {
-            const attendees = event.attendees || [];
-            return attendees.some((attendee) => attendee.email === receiver);
-        })
-        console.log(eventsWithAttendee);
-    }, [selectedUserEvents])
     return (
         <div>
             {/* <button
@@ -270,32 +271,32 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                     {(accessToken && expiresIn) &&
                         <>
                         <h2>Schedule the meeting</h2>  
+                        <label>Summary*</label>
+                        <input type="text" placeholder="Enter Summary" value={summary} onChange={(e) => setSummary(e.target.value)} />
+                        <label>Description</label>
+                        <input type="text" placeholder="Enter Description" value={desc} onChange={(e) => setdesc(e.target.value)} />
+                        <label>Start date and time*</label>
                         <input type="datetime-local" name="" value={startDate} id="" onChange={(e) => {
                             setStartDate(e.target.value)
                             setEndDate('')
                         }} />
+                        <label>End date and time*</label>
                         <input type="datetime-local" min={startDate} value={EndDate} name="" id="" onChange={(e) => setEndDate(e.target.value)} />
                         <button className="schedulerbtnn"
                             id="add_manual_event"
                             hidden={!accessToken && !expiresIn}
                             onClick={addManualEvent}
-                            disabled={startDate==''||EndDate==''}
+                            disabled={startDate == '' || EndDate == '' || summary=='' }
                         >
                             Add Event
                         </button></>}
                    
                     {/* <pre id="content" style={{ whiteSpace: "pre-wrap" }}></pre> */}
-                    {selectedUserEvents.filter((event) => {
-                        const attendees = event.attendees || [];
-                        return attendees.some((attendee) => attendee.email === receiver);
-                    }).length > 0 && <>
+                    {selectedUserEvents.length > 0 && <>
                         <h5 style={{ margin: '5px 0px' }}>Events with {receiver}</h5>
                         {/* <ol> */}
                         <div className='Totalmeetings'>
-                            {selectedUserEvents.filter((event) => {
-                                const attendees = event.attendees || [];
-                                return attendees.some((attendee) => attendee.email === receiver);
-                            }).map((sel, i) => (
+                            {selectedUserEvents.map((sel, i) => (
                                 <div  className='meetings'>
                                     <div className="meetsummary">{sel.summary}</div>
                                     <b>To:</b>
