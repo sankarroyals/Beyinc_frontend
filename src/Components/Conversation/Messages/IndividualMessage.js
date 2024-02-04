@@ -76,6 +76,8 @@ const IndividualMessage = () => {
           receiverId: receiverId.email,
           conversationId: conversationId,
         });
+      }).catch(err => {
+        console.log(err)
       })
       ApiServices.getMessages({
         conversationId: conversationId,
@@ -243,7 +245,7 @@ const IndividualMessage = () => {
   return (
     <div className="messageContainer">
       <div className="messageNavbar">
-        <div
+        {/* <div
           onClick={() => {
             dispatch(setConversationId(""));
 
@@ -255,7 +257,7 @@ const IndividualMessage = () => {
             title="back"
             style={{ marginLeft: "20px", color: "grey" }}
           ></i>
-        </div>
+        </div> */}
         <div style={{ cursor: 'pointer' }} onClick={() => {
           navigate(`/user/${receiverId?.user?.email}`)
         }}>
@@ -300,82 +302,91 @@ const IndividualMessage = () => {
       <div className="messageBox">
         {messages.length > 0 &&
           messages.map((m, i) => (
-            <div
-              className={`details ${m.senderId === email ? "owner" : "friend"}`}
-              ref={scrollRef}
-            >
+            <>
+              {/* showing day on top */}
+              {(moment(messages[i - 1]?.createdAt).format('MMMM Do YYYY') !== moment(m.createdAt).format('MMMM Do YYYY'))  &&
+                <div className="specificDay">{moment(m.createdAt).format('MMMM Do YYYY')}</div>
+              }
               <div
-                className="imageContainer"
-                style={{ display: m.senderId === email ? "none" : "flex" }}
+                className={`details ${m.senderId === email ? "owner" : "friend"}`}
+                ref={scrollRef}
               >
-                <img
-                  src={
-                    image !== undefined && image !== "" && m.senderId === email
-                      ? image
-                      : receiverId?.user?.image?.url !== undefined &&
-                        receiverId?.user?.image?.url !== "" &&
-                        m.senderId !== email
-                        ? receiverId.user?.image?.url
-                        : "/profile.jpeg"
-                  }
-                  alt=""
-                  srcset=""
-                />
-                {/* <div className="messageBottom">{format(m.createdAt)}</div> */}
-              </div>
-              <div className="personalDetails">
-                <div className="email">
-                  {m.senderId === email ? (
-                    <div className="time">
-                      {moment(m.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
-                    </div>
-                  ) : (
-                    <div className="friendDetails">
-                      <div className="userName">{receiverId?.user?.userName}</div>
-                      <div className="time">
-                        {moment(m.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
-                      </div>
-                    </div>
-                  )}
+                <div
+                  className="imageContainer"
+                  style={{ display: m.senderId === email ? "none" : "none" }}
+                >
+                  <img
+                    src={
+                      image !== undefined && image !== "" && m.senderId === email
+                        ? image
+                        : receiverId?.user?.image?.url !== undefined &&
+                          receiverId?.user?.image?.url !== "" &&
+                          m.senderId !== email
+                          ? receiverId.user?.image?.url
+                          : "/profile.jpeg"
+                    }
+                    alt=""
+                    srcset=""
+                  />
                 </div>
-                {m.message !== "" && <div className="text">{m.message}</div>}
-                {m.file !== "" && m.file !== undefined && (
-                  <a href={m.file.secure_url} target="_blank" rel="noreferrer">
-                    {m.file.secure_url?.includes(".png") ||
-                      m.file.secure_url?.includes(".jpg") ||
-                      m.file.secure_url?.includes(".webp") ||
-                      m.file.secure_url?.includes(".gif") ||
-                      m.file.secure_url?.includes(".svg") ||
-                      m.file.secure_url?.includes(".jpeg") ? (
-                      <img
-                        src={m.file.secure_url}
-                        alt=""
-                        srcset=""
-                        style={{
-                          borderRadius: "none",
-                          height: "150px",
-                          width: "150px",
-                        }}
-                      />
+                <div className="personalDetails">
+                  {/* checking previous day is not same */}
+                  <div className="email">
+                    {m.senderId === email ? (
+                      <div className="time">
+                        {moment(m.createdAt).format("h:mm a")}
+                      </div>
                     ) : (
-                      "File"
+                      <div className="friendDetails">
+                        {/* <div className="userName">{receiverId?.user?.userName}</div> */}
+                        <div className="time">
+                          {/* MMMM Do YYYY,  */}
+                          {moment(m.createdAt).format("h:mm a")}
+                        </div>
+                      </div>
                     )}
-                  </a>
-                )}
-                {(i == messages.length - 1 && m.senderId == email && m.seen!==undefined) &&
-                  <div className="seenMessage">
-                    seen {format(m.seen)}
-                </div>}
+                  </div>
+                  {m.message !== "" && <div className="text">{m.message}</div>}
+                  {m.file !== "" && m.file !== undefined && (
+                    <a href={m.file.secure_url} target="_blank" rel="noreferrer">
+                      {m.file.secure_url?.includes(".png") ||
+                        m.file.secure_url?.includes(".jpg") ||
+                        m.file.secure_url?.includes(".webp") ||
+                        m.file.secure_url?.includes(".gif") ||
+                        m.file.secure_url?.includes(".svg") ||
+                        m.file.secure_url?.includes(".jpeg") ? (
+                        <img
+                          src={m.file.secure_url}
+                          alt=""
+                          srcset=""
+                          style={{
+                            borderRadius: "none",
+                            height: "150px",
+                            width: "150px",
+                          }}
+                        />
+                      ) : (
+                        "File"
+                      )}
+                    </a>
+                  )}
+                  {(i == messages.length - 1 && m.senderId == email) &&
+                    <div className="seenMessage">
+                      {m.seen !== undefined ?
+                        `seen ${format(m.seen)}`
+                        : onlineEmails.includes(receiverId?.email) && 'Delivered'}
+                    </div>}
+                </div>
+
               </div>
-             
-            </div>
+           </>
           ))}
         {loadingFile != "" && (
           <div className={`details owner`} ref={scrollRef}>
             <div className="personalDetails">
               <div className="email">
                 {/* <div className="time">
-                  {moment(new Date()).format("MMMM Do YYYY, h:mm:ss a")}
+                  {moment(new Date()).format("h:mm a")}
                 </div> */}
               </div>
               {loadingFile !== "" && loadingFile !== undefined && (

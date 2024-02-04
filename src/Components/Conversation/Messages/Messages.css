@@ -24,7 +24,7 @@
   justify-content: space-between;
   gap: 5px;
   padding-bottom: 15px;
-  border-radius: 50px;
+  /* border-radius: 50px; */
   background: white !important;
   background: none;
 }
@@ -38,6 +38,7 @@
   /* margin-top: -10px; */
   height: 67vh;
   overflow-y: scroll;
+  position: relative !important;
 }
 
 .details {
@@ -190,12 +191,23 @@
   margin-top: -5px;
 }
 
+.specificDay {
+  align-self: center !important;
+  font-size: 12px;
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  background: rgb(218, 213, 213);
+  border-radius: 10px;
+}
+
 @media (max-width: 768px) {
   .messageContainer{
     border-radius: 0px !important;
   }
   .messageBox {
       height: auto;
+      min-height: 62vh;
   overflow-y: scroll;
   overflow-x: hidden;
 
@@ -211,7 +223,7 @@
   }
 
   .sendBox{
-    width: 200px !important;
+    width: 300px !important;
     position: sticky;
     bottom: 20px !important;
 
@@ -235,5 +247,12 @@
   .sendingFiles {
     width: 100px !important;
     height: 100px !important;
+  }
+  .messageNavbar{
+    z-index: 999 !important;
+  }
+  .specificDay{
+    position: sticky;
+    top: 0px !important;
   }
 }
