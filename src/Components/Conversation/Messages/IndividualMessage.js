@@ -14,17 +14,19 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams, useNavigate } from "react-router";
 import "./IndividualMessage.css";
 import sendSound from "../Notification/send.mp3";
-import { socket_io } from "../../../Utils";
+import { isParent, socket_io } from "../../../Utils";
 import { Howl } from "howler";
 import moment from "moment";
+import { GoogleCalenderEvent } from "../../Common/GoogleCalender";
 
 const IndividualMessage = () => {
   const [loadingFile, setLoadingFile] = useState("");
   const { conversationId } = useParams();
   const receiverId = useSelector((state) => state.conv.receiverId);
   const liveMessage = useSelector((state) => state.conv.liveMessage);
+  const [gmeetLinkOpen, setGmeetLinkOpen] = useState(false)
 
-  const { email, image, userName } = useSelector(
+  const { email, image, userName, role } = useSelector(
     (state) => state.auth.loginDetails
   );
   const [messages, setMessages] = useState([]);
@@ -116,8 +118,14 @@ const IndividualMessage = () => {
 
   const handleFile = (e) => {
     const file = e.target.files[0];
+    if (file.size > 4 * 1024 * 1024) {
+      alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+      e.target.value = null; // Clear the selected file
+      return;
+    }
     setNormalFileName(file);
     setFileBase(e, file);
+    e.target.value = null;
   };
   const setFileBase = (e, file) => {
     const reader = new FileReader();
@@ -128,10 +136,12 @@ const IndividualMessage = () => {
   };
 
   const sendText = async (e) => {
+   
     if (file != "") {
       setLoadingFile(file);
       console.log(file);
     }
+    setSendMessage('')
     setFile("");
     setIsSending(true);
     setIsSending(false);
@@ -169,6 +179,7 @@ const IndividualMessage = () => {
             setMessageTrigger(!messageTrigger);
           }
           document.getElementById("chatFile").value = "";
+
         })
         .catch((err) => {
           dispatch(
@@ -210,12 +221,14 @@ const IndividualMessage = () => {
             style={{ marginLeft: "20px", color: "grey" }}
           ></i>
         </div>
-        <div>
+        <div style={{ cursor: 'pointer' }} onClick={() => {
+          navigate(`/user/${receiverId?.user?.email}`)
+        }}>
           <img
             className="Dp"
             src={
               receiverId?.user?.image?.url !== undefined &&
-              receiverId?.user?.image?.url !== ""
+                receiverId?.user?.image?.url !== ""
                 ? receiverId.user?.image?.url
                 : "/profile.jpeg"
             }
@@ -223,7 +236,9 @@ const IndividualMessage = () => {
             srcset=""
           />
         </div>
-        <div>
+        <div style={{ cursor: 'pointer' }} onClick={() => {
+          navigate(`/user/${receiverId?.user?.email}`)
+        }}>
           <div className="User-name">{receiverId?.user?.userName}</div>
           <div
             style={{
@@ -265,8 +280,8 @@ const IndividualMessage = () => {
                       : receiverId?.user?.image?.url !== undefined &&
                         receiverId?.user?.image?.url !== "" &&
                         m.senderId !== email
-                      ? receiverId.user?.image?.url
-                      : "/profile.jpeg"
+                        ? receiverId.user?.image?.url
+                        : "/profile.jpeg"
                   }
                   alt=""
                   srcset=""
@@ -292,11 +307,11 @@ const IndividualMessage = () => {
                 {m.file !== "" && m.file !== undefined && (
                   <a href={m.file.secure_url} target="_blank" rel="noreferrer">
                     {m.file.secure_url?.includes(".png") ||
-                    m.file.secure_url?.includes(".jpg") ||
-                    m.file.secure_url?.includes(".webp") ||
-                    m.file.secure_url?.includes(".gif") ||
-                    m.file.secure_url?.includes(".svg") ||
-                    m.file.secure_url?.includes(".jpeg") ? (
+                      m.file.secure_url?.includes(".jpg") ||
+                      m.file.secure_url?.includes(".webp") ||
+                      m.file.secure_url?.includes(".gif") ||
+                      m.file.secure_url?.includes(".svg") ||
+                      m.file.secure_url?.includes(".jpeg") ? (
                       <img
                         src={m.file.secure_url}
                         alt=""
@@ -324,21 +339,21 @@ const IndividualMessage = () => {
                 </div> */}
               </div>
               {loadingFile !== "" && loadingFile !== undefined && (
-                <div style={{position: 'relative'}}>
+                <div style={{ position: 'relative' }}>
                   {loadingFile?.includes("data:image/png") ||
-                  loadingFile?.includes("data:image/jpg") ||
-                  loadingFile?.includes("data:image/webp") ||
-                  loadingFile?.includes("data:image/gif") ||
-                  loadingFile?.includes("data:image/svg") ||
-                  loadingFile?.includes("data:image/jpeg") ? (
+                    loadingFile?.includes("data:image/jpg") ||
+                    loadingFile?.includes("data:image/webp") ||
+                    loadingFile?.includes("data:image/gif") ||
+                    loadingFile?.includes("data:image/svg") ||
+                    loadingFile?.includes("data:image/jpeg") ? (
                     <>
-                   
+
                       <img src={loadingFile} alt="" srcset="" style={{ borderRadius: 'none', height: '150px', width: '150px' }} />
                       <div className="loading_viewer" ><img
                         src="/loading-button.gif"
                         alt="Loading..."
                       /></div>
-                      
+
                     </>
                   ) : (
                     "Sending File"
@@ -421,7 +436,7 @@ const IndividualMessage = () => {
                       <i
                         className="fas fa-times cross"
                         onClick={() => {
-                          setFile("") 
+                          setFile("")
                         }
 
                         }
@@ -432,7 +447,7 @@ const IndividualMessage = () => {
               ))}
           </div>
 
-          <div style={{ position: "absolute", right: "50px" }}>
+          <div style={{ position: "absolute", right: isParent(role, receiverId?.user?.role) ? "50px" : '10px' }}>
             <label htmlFor="chatFile" className="uploadingFileIcon">
               <CloudUploadIcon />
             </label>
@@ -444,14 +459,15 @@ const IndividualMessage = () => {
               style={{ display: "none" }}
             />
           </div>
-          <div>
-            <label className="uploadingFileIcon">
+          {isParent(role, receiverId?.user?.role) && <div>
+            <div className="uploadingFileIcon" onClick={() => { setGmeetLinkOpen(true) }}>
               <i class="fas fa-link"></i>
-            </label>
-          </div>
+            </div>
+          </div>}
+
         </div>
         <div>
-          {sendMessage !== "" || file !== "" ? (
+          {(sendMessage !== "" || file !== "") ? (
             <SendIcon
               className=""
               onClick={sendText}
@@ -467,6 +483,7 @@ const IndividualMessage = () => {
           )}
         </div>
       </div>
+      <GoogleCalenderEvent gmeetLinkOpen={gmeetLinkOpen} setGmeetLinkOpen={setGmeetLinkOpen} receiver={receiverId?.user?.email} />
     </div>
   );
 };

@@ -66,6 +66,7 @@
 .userName {
   font-size: 10px;
   align-self: flex-end;
+  white-space: noWrap;
 }
 .userName {
   font-size: 12px;
@@ -88,6 +89,8 @@
   border-radius: 20px;
   word-wrap: break-word;
   background: #f2f2f2;
+  max-width: 150px;
+  width: auto;
   color: black;
 }
 .messageBottom {
@@ -124,6 +127,8 @@
   align-items: center;
   min-height: 5vh;
   padding: 5px 15px;
+    width: 650px !important;
+
   justify-content: space-between;
 }
 .sendBox input[type="text"],
@@ -134,12 +139,14 @@
   outline: 0;
   white-space: wrap;
   padding: 10px !important;
-  width: 650px !important;
+    width: 450px !important;
+
 }
 
 .uploadingFileIcon {
   cursor: pointer;
   max-width: 200px;
+  margin-right: -10px !important;
   margin: 0 4px;
   color: grey;
   padding: 6px 6px;
@@ -163,6 +170,9 @@
   align-items: center;
   border-bottom: 1px solid lightgray;
   position: relative;
+  position: sticky;
+  top: 0px;
+  background: white;
 }
 .bottom-line {
   display: flex;
@@ -180,7 +190,9 @@
     border-radius: 0px !important;
   }
   .messageBox {
-      height: 62vh;
+      height: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
     padding: 0 !important;
     justify-content: center;
@@ -193,6 +205,13 @@
     margin: auto !important;
   }
 
+  .sendBox{
+    width: 200px !important;
+    position: sticky;
+    bottom: 20px !important;
+
+  }
+
   .sendBox input[type="text"],
   .sendBox textarea {
     margin-bottom: -2px;
@@ -201,7 +220,8 @@
     outline: 0;
     white-space: wrap;
     padding: 0px !important;
-    width: 200px !important;
+        width: 130px !important;
+
   }
   .senMessageView {
     width: 150px;

@@ -88,6 +88,7 @@ input {
 .signup-page .signup-container .role-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .signup-page .signup-container form input {

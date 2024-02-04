@@ -266,7 +266,7 @@ const Navbar = () => {
         {notifications.map((n) => (
           <>
             <div className={`individualrequest`} onClick={() => {
-              navigate(`/user/${n.senderEmail}`)
+              navigate(`/user/${n.senderInfo?.email}`)
             }} style={{ width: '400px', marginLeft: '20px', textAlign: 'start' }}>
               <div className='individualrequestWrapper' style={{ gap: '5px', alignItems: 'center', width: '100%' }}>
                 <div>
@@ -321,6 +321,11 @@ const Navbar = () => {
   const [originalImage, setOriginalImage] = useState("");
   const handleImage = (e) => {
     const file = e.target.files[0];
+    if (file.size > 4 * 1024 * 1024) {
+      alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+      e.target.value = null; // Clear the selected file
+      return;
+    }
     setOriginalImage(file.name);
     setFileBase(file);
   };
@@ -512,14 +517,14 @@ const Navbar = () => {
               ></i>
               {notificationAlert && <div className="blinkBall"> </div>}
             </div>
-            <SwipeableDrawer
+            <Drawer
               anchor="right"
               open={notificationDrawerState["right"]}
               onClose={toggleNotificationDrawer("right", false)}
               onOpen={toggleNotificationDrawer("right", true)}
             >
               {NotificationList("right")}
-            </SwipeableDrawer>
+            </Drawer>
           </>
         )}
         {isMobile && <div id="notifications" className="icon">
@@ -623,6 +628,7 @@ const Navbar = () => {
                   className="logout"
                   onClick={() => {
                     localStorage.removeItem("user");
+                    localStorage.clear()
                     window.location.href = "/login";
                   }}
                 >
@@ -674,6 +680,7 @@ const Navbar = () => {
                 </label>
                 <input
                   type="file"
+                  accept="image/*,.webp"
                   name=""
                   id="profilePic"
                   onChange={handleImage}
@@ -728,14 +735,14 @@ const Navbar = () => {
         </div>
 
         {/* Swipeable Drawer for right anchor */}
-        <SwipeableDrawer
+        <Drawer
           anchor="right"
           open={drawerState["right"]}
           onClose={toggleDrawer("right", false)}
           onOpen={toggleDrawer("right", true)}
         >
           {list("right")}
-        </SwipeableDrawer>
+        </Drawer>
       </div>
     </div>
   );

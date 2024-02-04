@@ -12,6 +12,7 @@ import { Box, Dialog, DialogContent } from '@mui/material'
 import { gridCSS } from '../../CommonStyles'
 import { io } from 'socket.io-client'
 import { socket_io } from '../../../Utils'
+import { useNavigate } from 'react-router'
 
 
 const MessageRequest = ({ m, setMessageRequest }) => {
@@ -22,6 +23,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
     const [reasonPop, setReasonPop] = useState(false)
     const [reason, setReason] = useState('')
     const [popStatus, setpopStatus] = useState('')
+    const navigate = useNavigate()
 
     const socket = useRef();
     useEffect(() => {
@@ -82,15 +84,16 @@ const MessageRequest = ({ m, setMessageRequest }) => {
             setPitchdetails(res.data)
         })
     }, [m])
-
     return (
         <div className='individualrequest'>
             <div className='individualrequestWrapper'>
-                <div className='userNotiD'>
+                <div className='userNotiD' onClick={() => {
+                    navigate(`/user/${m.members?.filter((f) => f.user?.userName !== userName)[0].user?.email}`)
+                }}>
                     <div>
-                        <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={m.members?.filter((f) => f.userName !== userName)[0].user?.image?.url == undefined ? '/profile.jpeg' : m.members?.filter((f) => f.userName !== userName)[0].user?.image?.url} alt="" srcset="" />
+                        <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={m.members?.filter((f) => f.user?.userName !== userName)[0].user?.image?.url == undefined ? '/profile.jpeg' : m.members?.filter((f) => f.user?.userName !== userName)[0].user?.image?.url} alt="" srcset="" />
                     </div>
-                    <div className='message'><b>{m.members?.filter((f) => f.userName !== userName)[0].user?.userName}</b> sent you a message request</div>
+                    <div className='message'><b>{m.members?.filter((f) => f.user?.userName !== userName)[0].user?.userName}</b> sent you a message request</div>
 
                 </div>
                 <div className='updateActions'>
