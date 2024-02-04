@@ -136,6 +136,7 @@ const IndividualMessage = () => {
   };
 
   const sendText = async (e) => {
+    e.target.disabled = true
     if (file != "") {
       setLoadingFile(file);
       console.log(file);
@@ -177,6 +178,8 @@ const IndividualMessage = () => {
             setMessageTrigger(!messageTrigger);
           }
           document.getElementById("chatFile").value = "";
+          e.target.disabled = false
+
         })
         .catch((err) => {
           dispatch(
@@ -186,6 +189,7 @@ const IndividualMessage = () => {
               visible: "yes",
             })
           );
+          e.target.disabled = false
         });
     }
   };
@@ -375,11 +379,11 @@ const IndividualMessage = () => {
                 id="message"
                 value={sendMessage}
                 onChange={(e) => setSendMessage(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    sendText();
-                  }
-                }}
+                // onKeyPress={(e) => {
+                //   if (e.key === "Enter") {
+                //     sendText();
+                //   }
+                // }}
                 placeholder="Type a message"
                 autoFocus
               />
