@@ -38,6 +38,9 @@ const IndividualMessage = () => {
   const [file, setFile] = useState("");
   const [messageTrigger, setMessageTrigger] = useState("");
   const [normalFileName, setNormalFileName] = useState("");
+  const [userchatBlocked, setUserChatBlocked] = useState(null)
+  const [userchatBlockedBy, setUserChatBlockedBy] = useState('')
+
   const scrollRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -95,9 +98,24 @@ const IndividualMessage = () => {
     }
   }, [conversationId, messageTrigger, receiverId]);
 
-  // useEffect(() => {
-  //   sendSoundRef.current = new Audio(sendSound);
-  // }, []);
+  useEffect(() => {
+    setUserChatBlocked(null)
+    setUserChatBlockedBy('')
+    if (conversationId !== '') {
+      ApiServices.getConversationById({ conversationId: conversationId }).then((res) => {
+        if (res.data.chatBlocked?.blockedBy !== undefined || res.data.chatBlocked?.blockedBy !== '') {
+          setUserChatBlocked(true)
+          setUserChatBlockedBy(res.data.chatBlocked.blockedBy)
+        } else {
+          setUserChatBlocked(false)
+          setUserChatBlockedBy('')
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+
+    }
+  }, [conversationId]);
 
   useEffect(() => {
     if (liveMessage?.fileSent == true && liveMessage.conversationId == conversationId) {
@@ -242,6 +260,26 @@ const IndividualMessage = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+
+  const blockChat = async (by) => {
+    await ApiServices.chatBlock({ conversationId: conversationId, blockedBy: email }).then(res => {
+      setUserChatBlocked(!userchatBlocked)
+      setUserChatBlockedBy(by)
+      dispatch(setToast({
+        message: res.data,
+        visible: 'yes',
+        bgColor: ToastColors.success
+      }))
+    }).catch(err => {
+      dispatch(setToast({
+        message: 'Error occured',
+        visible: 'no',
+        bgColor: ToastColors.failure
+      }))
+    })
+  }
+
+
   return (
     <div className="messageContainer">
       <div className="messageNavbar">
@@ -298,6 +336,13 @@ const IndividualMessage = () => {
             </div>
           </div>
         </div>
+        {(userchatBlockedBy !== '') ?
+          userchatBlockedBy == email &&
+          <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={()=>blockChat('')}>
+          Open Chat
+        </div> : <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={()=>blockChat(email)}>
+          Close Chat
+        </div>}
       </div>
       <div className="messageBox">
         {messages.length > 0 &&
@@ -417,7 +462,7 @@ const IndividualMessage = () => {
       </div>
       <div className="bottom-line"></div>
 
-      <div className="sendBoxContainer">
+      {userchatBlockedBy =='' ? <div className="sendBoxContainer">
         <div className="sendBox">
           <div
             style={{ display: "flex", flexDirection: "column", gap: "20px" }}
@@ -533,7 +578,7 @@ const IndividualMessage = () => {
             />
           )}
         </div>
-      </div>
+      </div> : <p> Your chat conversation between <b>{receiverId?.user?.userName}</b> is closed.</p>}
       <GoogleCalenderEvent gmeetLinkOpen={gmeetLinkOpen} setGmeetLinkOpen={setGmeetLinkOpen} receiver={receiverId?.user?.email} />
     </div>
   );

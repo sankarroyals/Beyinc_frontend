@@ -159,6 +159,15 @@
   border-radius: 50% !important;
   transition: background-color 0.3s, color 0.3s;
 }
+.blockUnblock{
+  border: 1px solid gray;
+  padding: 5px;
+  width: auto;
+  justify-self: flex-end !important;
+  position: absolute;
+  right: 20px;
+
+}
 
 .uploadingFileIcon:hover {
   color: #0b57d0;
