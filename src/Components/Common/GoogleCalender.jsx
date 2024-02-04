@@ -45,7 +45,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         
         gapiLoaded();
         gisLoaded();
-    }, [accessToken]);
+    }, [accessToken, receiver]);
 
     function gapiLoaded() {
         gapi.load("client", initializeGapiClient);
@@ -157,7 +157,11 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         //         })\n`,
         //     "<b>Events:</b>\n"
         // );
-        console.log(events);
+        console.log(events, receiver);
+        console.log(events.filter((event) => {
+            const attendees = event.attendees || [];
+            return attendees.some((attendee) => attendee.email === receiver);
+        }));
         setSelectedUserEvent(events.filter((event) => {
             const attendees = event.attendees || [];
             return attendees.some((attendee) => attendee.email === receiver);
