@@ -4,6 +4,8 @@ import { gridCSS } from "../CommonStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
+import moment from "moment";
+
 import './GoogleCalender.css'
 export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver }) => {
     const gapi = window.gapi;
@@ -12,6 +14,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
     const [EndDate, setEndDate] = useState('')
     const dispatch = useDispatch()
     const {email} = useSelector(state=>state.auth.loginDetails)
+    const [selectedUserEvents, setSelectedUserEvent] = useState([])
 
     const CLIENT_ID = process.env.REACT_APP_CALENDER_CLIENT_ID;
     const API_KEY = process.env.REACT_APP_CALENDER_API_KEY;
@@ -129,6 +132,11 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
             };
             response = await gapi.client.calendar.events.list(request);
         } catch (err) {
+            console.log(err);
+            localStorage.removeItem('access_token')
+            localStorage.removeItem("expires_in")
+            setAccessToken('')
+            setExpiresIn('')
             // document.getElementById("content").innerText = err.message;
             return;
         }
@@ -138,15 +146,16 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
             // document.getElementById("content").innerText = "No events found.";
             return;
         }
-        // Flatten to string to display
-        const output = events.reduce(
-            (str, event) =>
-                `${str}${event.summary} (${event.start.dateTime || event.start.date
-                })\n`,
-            "Events:\n"
-        );
-        console.log(output);
-        document.getElementById("content").innerText = output;
+        // // Flatten to string to display
+        // const output = events.reduce(
+        //     (str, event) =>
+        //         `${str}${event.summary} (${event.start.dateTime || event.start.date
+        //         })\n`,
+        //     "<b>Events:</b>\n"
+        // );
+        console.log(events);
+        setSelectedUserEvent(events)
+        // document.getElementById("content").innerText = output;
     }
 
     function addManualEvent(e) {
@@ -207,6 +216,15 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         );
         
     }
+
+    useEffect(() => {
+        console.log(selectedUserEvents);
+        const eventsWithAttendee = selectedUserEvents.filter((event) => {
+            const attendees = event.attendees || [];
+            return attendees.some((attendee) => attendee.email === receiver);
+        })
+        console.log(eventsWithAttendee);
+    }, [selectedUserEvents])
     return (
         <div>
             {/* <button
@@ -266,7 +284,35 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                             Add Event
                         </button></>}
                    
-                    <pre id="content" style={{ whiteSpace: "pre-wrap" }}></pre>
+                    {/* <pre id="content" style={{ whiteSpace: "pre-wrap" }}></pre> */}
+                    {selectedUserEvents.filter((event) => {
+                        const attendees = event.attendees || [];
+                        return attendees.some((attendee) => attendee.email === receiver);
+                    }).length > 0 && <>
+                        <h5 style={{ margin: '5px 0px' }}>Events with {receiver}</h5>
+                        {/* <ol> */}
+                        <div className='Totalmeetings'>
+                            {selectedUserEvents.filter((event) => {
+                                const attendees = event.attendees || [];
+                                return attendees.some((attendee) => attendee.email === receiver);
+                            }).map((sel, i) => (
+                                <div  className='meetings'>
+                                    <div className="meetsummary">{sel.summary}</div>
+                                    <b>To:</b>
+                                    {sel.attendees.map(a => (
+                                        <div className="attendees">{a.email}</div>
+                                    ))}
+                                    <b>Start:</b>
+                                    <div className="meetTime">{moment(sel.start?.dateTime).format("MMMM DD YYYY, h:mm:ss a")}</div>
+                                    <b>End:</b> 
+                                    <div className="meetTime">{moment(sel.end?.dateTime).format("MMMM DD YYYY, h:mm:ss a")}</div>
+                                    <a href={sel.hangoutLink} target="_blank">Meet Link</a>
+                                </div>
+                            ))}
+                            </div>
+                        {/* </ol> */}
+                        
+                    </>}
                 </DialogContent>
             </Dialog>
         </div>
