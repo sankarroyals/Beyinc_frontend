@@ -351,6 +351,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                                     <b>End:</b> 
                                     <div className="meetTime">{moment(sel.end?.dateTime).format("MMMM DD YYYY, h:mm:ss a")}</div>
                                     <a href={sel.hangoutLink} target="_blank">Meet Link</a>
+                                    <a href={sel.htmlLink} target="_blank">Visit Calender</a>
                                 </div>
                             ))}
                             </div>
