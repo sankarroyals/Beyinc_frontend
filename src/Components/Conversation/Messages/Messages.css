@@ -66,6 +66,7 @@
 .userName {
   font-size: 10px;
   align-self: flex-end;
+  white-space: noWrap;
 }
 .userName {
   font-size: 12px;
