@@ -136,11 +136,12 @@ const IndividualMessage = () => {
   };
 
   const sendText = async (e) => {
-    e.target.disabled = true
+   
     if (file != "") {
       setLoadingFile(file);
       console.log(file);
     }
+    setSendMessage('')
     setFile("");
     setIsSending(true);
     setIsSending(false);
@@ -178,7 +179,6 @@ const IndividualMessage = () => {
             setMessageTrigger(!messageTrigger);
           }
           document.getElementById("chatFile").value = "";
-          e.target.disabled = false
 
         })
         .catch((err) => {
@@ -189,7 +189,6 @@ const IndividualMessage = () => {
               visible: "yes",
             })
           );
-          e.target.disabled = false
         });
     }
   };
@@ -222,14 +221,14 @@ const IndividualMessage = () => {
             style={{ marginLeft: "20px", color: "grey" }}
           ></i>
         </div>
-        <div style={{ cursor: 'pointer'}} onClick={() => {
+        <div style={{ cursor: 'pointer' }} onClick={() => {
           navigate(`/user/${receiverId?.user?.email}`)
         }}>
           <img
             className="Dp"
             src={
               receiverId?.user?.image?.url !== undefined &&
-              receiverId?.user?.image?.url !== ""
+                receiverId?.user?.image?.url !== ""
                 ? receiverId.user?.image?.url
                 : "/profile.jpeg"
             }
@@ -281,8 +280,8 @@ const IndividualMessage = () => {
                       : receiverId?.user?.image?.url !== undefined &&
                         receiverId?.user?.image?.url !== "" &&
                         m.senderId !== email
-                      ? receiverId.user?.image?.url
-                      : "/profile.jpeg"
+                        ? receiverId.user?.image?.url
+                        : "/profile.jpeg"
                   }
                   alt=""
                   srcset=""
@@ -308,11 +307,11 @@ const IndividualMessage = () => {
                 {m.file !== "" && m.file !== undefined && (
                   <a href={m.file.secure_url} target="_blank" rel="noreferrer">
                     {m.file.secure_url?.includes(".png") ||
-                    m.file.secure_url?.includes(".jpg") ||
-                    m.file.secure_url?.includes(".webp") ||
-                    m.file.secure_url?.includes(".gif") ||
-                    m.file.secure_url?.includes(".svg") ||
-                    m.file.secure_url?.includes(".jpeg") ? (
+                      m.file.secure_url?.includes(".jpg") ||
+                      m.file.secure_url?.includes(".webp") ||
+                      m.file.secure_url?.includes(".gif") ||
+                      m.file.secure_url?.includes(".svg") ||
+                      m.file.secure_url?.includes(".jpeg") ? (
                       <img
                         src={m.file.secure_url}
                         alt=""
@@ -340,21 +339,21 @@ const IndividualMessage = () => {
                 </div> */}
               </div>
               {loadingFile !== "" && loadingFile !== undefined && (
-                <div style={{position: 'relative'}}>
+                <div style={{ position: 'relative' }}>
                   {loadingFile?.includes("data:image/png") ||
-                  loadingFile?.includes("data:image/jpg") ||
-                  loadingFile?.includes("data:image/webp") ||
-                  loadingFile?.includes("data:image/gif") ||
-                  loadingFile?.includes("data:image/svg") ||
-                  loadingFile?.includes("data:image/jpeg") ? (
+                    loadingFile?.includes("data:image/jpg") ||
+                    loadingFile?.includes("data:image/webp") ||
+                    loadingFile?.includes("data:image/gif") ||
+                    loadingFile?.includes("data:image/svg") ||
+                    loadingFile?.includes("data:image/jpeg") ? (
                     <>
-                   
+
                       <img src={loadingFile} alt="" srcset="" style={{ borderRadius: 'none', height: '150px', width: '150px' }} />
                       <div className="loading_viewer" ><img
                         src="/loading-button.gif"
                         alt="Loading..."
                       /></div>
-                      
+
                     </>
                   ) : (
                     "Sending File"
@@ -437,7 +436,7 @@ const IndividualMessage = () => {
                       <i
                         className="fas fa-times cross"
                         onClick={() => {
-                          setFile("") 
+                          setFile("")
                         }
 
                         }
@@ -460,12 +459,12 @@ const IndividualMessage = () => {
               style={{ display: "none" }}
             />
           </div>
-          {isParent(role, receiverId?.user?.role ) && <div>
+          {isParent(role, receiverId?.user?.role) && <div>
             <div className="uploadingFileIcon" onClick={() => { setGmeetLinkOpen(true) }}>
               <i class="fas fa-link"></i>
             </div>
           </div>}
-          
+
         </div>
         <div>
           {(sendMessage !== "" || file !== "") ? (
