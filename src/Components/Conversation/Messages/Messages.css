@@ -88,6 +88,8 @@
   border-radius: 20px;
   word-wrap: break-word;
   background: #f2f2f2;
+  max-width: 150px;
+  width: auto;
   color: black;
 }
 .messageBottom {
@@ -167,6 +169,9 @@
   align-items: center;
   border-bottom: 1px solid lightgray;
   position: relative;
+  position: sticky;
+  top: 0px;
+  background: white;
 }
 .bottom-line {
   display: flex;
@@ -184,7 +189,9 @@
     border-radius: 0px !important;
   }
   .messageBox {
-      height: 62vh;
+      height: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
     padding: 0 !important;
     justify-content: center;
@@ -199,6 +206,8 @@
 
   .sendBox{
     width: 200px !important;
+    position: sticky;
+    bottom: 20px !important;
 
   }
 

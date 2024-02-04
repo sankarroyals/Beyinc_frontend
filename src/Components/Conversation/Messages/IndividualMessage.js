@@ -378,11 +378,11 @@ const IndividualMessage = () => {
                 id="message"
                 value={sendMessage}
                 onChange={(e) => setSendMessage(e.target.value)}
-                // onKeyPress={(e) => {
-                //   if (e.key === "Enter") {
-                //     sendText();
-                //   }
-                // }}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    sendText();
+                  }
+                }}
                 placeholder="Type a message"
                 autoFocus
               />
