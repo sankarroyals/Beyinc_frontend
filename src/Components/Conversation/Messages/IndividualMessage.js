@@ -444,7 +444,7 @@ const IndividualMessage = () => {
               ))}
           </div>
 
-          <div style={{ position: "absolute", right: "50px" }}>
+          <div style={{ position: "absolute", right: isParent(role, receiverId?.user?.role) ? "50px" : '10px' }}>
             <label htmlFor="chatFile" className="uploadingFileIcon">
               <CloudUploadIcon />
             </label>
@@ -457,9 +457,9 @@ const IndividualMessage = () => {
             />
           </div>
           {isParent(role, receiverId?.user?.role ) && <div>
-            <label className="uploadingFileIcon" onClick={() => { setGmeetLinkOpen(true) }}>
+            <div className="uploadingFileIcon" onClick={() => { setGmeetLinkOpen(true) }}>
               <i class="fas fa-link"></i>
-            </label>
+            </div>
           </div>}
           
         </div>
