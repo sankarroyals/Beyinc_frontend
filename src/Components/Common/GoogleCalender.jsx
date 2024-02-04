@@ -223,6 +223,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                 e.target.disabled = false
             }
         );
+        listUpcomingEvents()
         
     }
 
