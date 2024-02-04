@@ -507,7 +507,8 @@ const heirarchy = {
 
 // Function to check if a given role is the parent of another role
 export function isParent(givenRole, childRole) {
-    console.log(heirarchy[givenRole], heirarchy[childRole]);
+    console.log(givenRole, childRole);
+    console.log(heirarchy[givenRole] <= heirarchy[childRole]);
     if (heirarchy[givenRole] <= heirarchy[childRole]) {
         return true
     }

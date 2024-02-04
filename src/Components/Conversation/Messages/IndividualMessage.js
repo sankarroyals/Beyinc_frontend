@@ -14,7 +14,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams, useNavigate } from "react-router";
 import "./IndividualMessage.css";
 import sendSound from "../Notification/send.mp3";
-import { socket_io } from "../../../Utils";
+import { isParent, socket_io } from "../../../Utils";
 import { Howl } from "howler";
 import moment from "moment";
 import { GoogleCalenderEvent } from "../../Common/GoogleCalender";
@@ -26,7 +26,7 @@ const IndividualMessage = () => {
   const liveMessage = useSelector((state) => state.conv.liveMessage);
   const [gmeetLinkOpen, setGmeetLinkOpen] = useState(false)
 
-  const { email, image, userName } = useSelector(
+  const { email, image, userName, role } = useSelector(
     (state) => state.auth.loginDetails
   );
   const [messages, setMessages] = useState([]);
@@ -456,14 +456,15 @@ const IndividualMessage = () => {
               style={{ display: "none" }}
             />
           </div>
-          <div>
-            <label className="uploadingFileIcon" onClick={()=> {setGmeetLinkOpen(true)}}>
+          {isParent(role, receiverId?.user?.role ) && <div>
+            <label className="uploadingFileIcon" onClick={() => { setGmeetLinkOpen(true) }}>
               <i class="fas fa-link"></i>
             </label>
-          </div>
+          </div>}
+          
         </div>
         <div>
-          {sendMessage !== "" || file !== "" ? (
+          {(sendMessage !== "" || file !== "") ? (
             <SendIcon
               className=""
               onClick={sendText}

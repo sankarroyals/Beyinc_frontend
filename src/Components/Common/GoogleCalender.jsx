@@ -145,7 +145,8 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                 })\n`,
             "Events:\n"
         );
-        // document.getElementById("content").innerText = output;
+        console.log(output);
+        document.getElementById("content").innerText = output;
     }
 
     function addManualEvent(e) {
@@ -265,7 +266,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                             Add Event
                         </button></>}
                    
-                    <pre id="content" style={{ whiteSpace: "pre-wrap", display: 'none' }}></pre>
+                    <pre id="content" style={{ whiteSpace: "pre-wrap" }}></pre>
                 </DialogContent>
             </Dialog>
         </div>
