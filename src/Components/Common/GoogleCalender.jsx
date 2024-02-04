@@ -190,7 +190,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                 timeZone: "Asia/Kolkata", // Update to your specific time zone
             },
             recurrence: ["RRULE:FREQ=DAILY;COUNT=1"],
-            attendees: [...guestDetails.map(g => ({ email: g, responseStatus: "needsAction" })),
+            attendees: [...guestDetails?.map(g => ({ email: g, responseStatus: "needsAction" })),
                 { email: receiver, responseStatus: "needsAction" },
             ],
             reminders: {
@@ -226,6 +226,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                 setEndDate('')
                 setSummary('')
                 setdesc('')
+                setguestDetails([])
             },
             (error) => {
                 console.error(error);
@@ -305,11 +306,18 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                                 </div>
                             )}
                         </div>
-                        <input type="text" placeholder="Enter Guest mails" value={singleguestDetails} onChange={(e) => setsingleguestDetails(e.target.value)} />
-                        <button className="schedulerbtnn" onClick={(e) => {
-                            setguestDetails(prev => [...prev, singleguestDetails])
+                        <form action="" className="guestForm" onSubmit={(e) => {
+                            e.preventDefault()
+                                if (!guestDetails.includes(singleguestDetails)) {
+                                    setguestDetails(prev => [...prev, singleguestDetails])
+                                }
                             setsingleguestDetails('')
-                        }}>Add guests</button>
+                        }}>
+                            <input style={{minWidth: '200px'}} type="email" placeholder="Enter Guest mails" value={singleguestDetails} onChange={(e) => setsingleguestDetails(e.target.value)} />
+                            <div>
+                                <button className="schedulerbtnn" disabled={singleguestDetails==''} >Add guests</button>
+                            </div>              
+                        </form>
                         <label>Start date and time*</label>
                         <input type="datetime-local" name="" value={startDate} id="" onChange={(e) => {
                             setStartDate(e.target.value)
