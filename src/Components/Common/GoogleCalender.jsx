@@ -173,7 +173,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         e.target.disabled=true
         const event = {
             kind: "calendar#event",
-            summary: summary,
+            summary: `${summary}(${moment(startDate).format("MMMM DD YYYY, h:mm:ss a")}-${moment(EndDate).format("MMMM DD YYYY, h:mm:ss a")})`,
             location: "",
             description: desc,
             start: {
