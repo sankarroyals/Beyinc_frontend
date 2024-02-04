@@ -16,6 +16,7 @@ export const conversationSlice = createSlice(
             notificationAlert: false,
             onlineUsers: [],
             liveMessage: {},
+            lastMessageRead: false,
             notifications: []
         },
         reducers: {
@@ -36,6 +37,8 @@ export const conversationSlice = createSlice(
                 state.onlineUsers = action.payload
             }, setLiveMessage: (state, action) => {
                 state.liveMessage = action.payload
+            }, setLastMessageRead: (state, action) => {
+                state.lastMessageRead = action.payload
             }, setNotification: (state, action) => {
                 state.notificationAlert = action.payload
             },
@@ -65,7 +68,7 @@ export const getAllNotifications = (email) => async (dispatch) => {
 
 
 
-export const { setAllUsers, setNotification, setHistoricalConversation, setNotificationData, setLiveMessage, setConversationId, setReceiverId, setOnlineUsers } = conversationSlice.actions;
+export const { setAllUsers, setNotification, setHistoricalConversation, setNotificationData, setLiveMessage, setLastMessageRead, setConversationId, setReceiverId, setOnlineUsers } = conversationSlice.actions;
 
 // this is for configureStore
 export default conversationSlice.reducer;
