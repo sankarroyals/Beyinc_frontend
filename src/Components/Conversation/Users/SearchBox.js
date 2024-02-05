@@ -83,7 +83,7 @@ const SearchBox = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }} className="newChatContainer">
         <div id='newchat'
           className="newChat"
           onClick={() => {
@@ -101,7 +101,7 @@ const SearchBox = () => {
         <div title="Reload for latest request updates">
           <CachedIcon
             style={{ cursor: "pointer" }}
-            className={isSpinning ? "spin" : ""}
+            className={isSpinning ? "spin" : "spinText"}
             onClick={() => {
               handleReloadClick();
               dispatch(getAllHistoricalConversations(email));

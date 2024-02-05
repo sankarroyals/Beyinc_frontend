@@ -495,7 +495,12 @@ export const fetchRating = (db) => {
 
 
 
-
+export const userColor = {
+    Admin: '0',
+    Investor: 1,
+    Mentor: 2,
+    Entrepreneur: 3,
+}
 
 
 

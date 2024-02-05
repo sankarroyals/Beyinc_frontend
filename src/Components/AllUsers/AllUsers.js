@@ -14,7 +14,14 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Tab, Tabs, Typography } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  Tab,
+  Tabs,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { FilterPanel } from "./FilterPanel";
 import useWindowDimensions from "../Common/WindowSize";
 function TabPanel(props) {
@@ -75,6 +82,7 @@ const AllUsers = () => {
   const [filteredData, setFilteredData] = useState([]);
   const { email } = useSelector((state) => state.auth.loginDetails);
   const [filledStars, setFilledStars] = useState(0);
+  const [search, setSearch] = useState("");
   const [filters, setFilters] = useState({
     role: [],
     languagesKnown: [],
@@ -362,13 +370,39 @@ const AllUsers = () => {
 
       <div className="usersContainer">
         <div className="user-nav-bar">
-          <button className="nav-bar-buttons" onClick={handleClickOpen}>
-            <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
-          </button>
-          <button className="nav-bar-buttons">
-            <i class="fa fa-sort-amount-desc"></i>
-            Sort by
-          </button>
+          <div>
+            <h3>Connect with Users</h3>
+          </div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <button className="nav-bar-buttons" onClick={handleClickOpen}>
+              <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
+            </button>
+            {/* <button className="nav-bar-buttons">
+              <i class="fa fa-sort-amount-desc"></i>
+              Sort by
+            </button> */}
+            <input
+              type="text"
+              style={{ marginTop: "2px", marginLeft: "8px" }}
+              className="nav-bar-buttons"
+              value={search}
+              placeholder="Search user"
+              onChange={(e) => {
+                setSearch(e.target.value);
+                if (e.target.value !== "") {
+                  setFilteredData(
+                    filteredData.filter((f) => {
+                      return f.userName.includes(e.target.value);
+                    })
+                  );
+                } else {
+                  setFilteredData(data);
+                }
+              }}
+              label="Search.."
+              variant="standard"
+            />
+          </div>
         </div>
         <div className="usersWrapper">
           <div className="userscontainer">

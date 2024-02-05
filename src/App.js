@@ -74,8 +74,18 @@ const App = () => {
     })
   }, [])
 
-  useEffect(() => {
-    socket.current.on('sendseenMessage', data => {
+  // DONT REMOVE THIS IT IS FOR DARK AND WHITE THEME
+//   useEffect(() => {
+//     if (!localStorage.getItem('theme')) {
+//       localStorage.setItem('theme', 'light')
+//       document.body.setAttribute('data-theme', 'light')
+//     } else {
+//       document.body.setAttribute('data-theme', localStorage.getItem('theme'))
+
+//    }
+//  }, [])
+useEffect(() => {
+socket.current.on('sendseenMessage', data => {
       console.log(data);
       dispatch(setLastMessageRead(true))
       ApiServices.changeStatusMessage({ senderId: data.receiverId, receiverId: data.senderId }).then(res => {

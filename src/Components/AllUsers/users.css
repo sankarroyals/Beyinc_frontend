@@ -1,6 +1,6 @@
-body {
+/* body {
   background: #f6f8fc !important;
-}
+} */
 
 .profile-Container {
   display: flex;
@@ -123,7 +123,7 @@ body {
 } */
 
 .usersContainer {
-  background: #f0f0f0;
+  background: var(--body-background);
   padding: 10px;
   height: 100vh;
 }
@@ -132,7 +132,7 @@ body {
   margin: auto;
   display: flex;
   gap: 10px;
-  background: #f0f0f0;
+  background: var(--body-background);
 
   /* flex-wrap: wrap; */
 }
@@ -266,12 +266,10 @@ body {
     width: 50px !important;
   }
   .user-card-main-container {
-    background-color: white;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 13px;
-    box-shadow: 0 0 10px #ccc;
     border-radius: 10px;
   }
 }
@@ -346,13 +344,13 @@ body {
   width: 80%; /* Could be more or less, depending on screen size */
 }
 .user-card-main-container {
-  background-color: white;
+  background-color: var(--nav-head-bg);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 365px;
   padding: 13px;
-  box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 0 10px var(--userCard-boxshadow);
   border-radius: 10px;
 }
 .user-card-details-text {
@@ -406,19 +404,26 @@ body {
   flex-direction: column;
   justify-content: space-between;
 }
+@media (max-width: 768px){
+  .user-nav-bar div h3{
+    display: none;
+  }
+}
 .margin-entrepreneur {
-  border: 2px solid rgb(158, 51, 158);
+  border-left: 2px solid rgb(158, 51, 158);
   border-radius: 10px;
 }
 .margin-mentor {
-  border: 2px solid blue;
+  border-left: 2px solid blue;
   border-radius: 10px;
 }
 
 .user-nav-bar {
-  width: 100%;
+    width: 80%;
   display: flex;
+  margin: auto;
   flex-direction: row;
+  justify-content: space-between;
   margin-bottom: 10px;
 }
 

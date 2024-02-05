@@ -1,18 +1,24 @@
 body {
   margin: 0;
   padding: 0;
-  background: #fff;
+  /* background: #fff; */
 }
 
 .Beyinc-logo {
-  background: transparent;
-  width: 100%;
+  background: var(--nav-head-bg);
+  /* width: 100%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 .Beyinc-logo img {
   height: auto;
   width: 150px;
-  margin-left: 60px;
+  /* margin-left: 60px; */
   margin-top: 10px;
 }
 
@@ -20,10 +26,11 @@ body {
   background: #ff6824;
   border-radius: 15px;
   width: 140px;
-  position: absolute;
+  margin-right: 10px;
+  /* position: absolute;
   top: 6%;
   right: 5%;
-  transform: translate(0, -50%);
+  transform: translate(0, -50%); */
 }
 
 .sign-button:hover {
@@ -39,7 +46,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-top: -8%;
+  /* margin-top: -8%; */
 }
 
 .home img {
@@ -49,7 +56,7 @@ body {
   font-size: 50px;
   font-family: "BasierCircleBold", sans-serif;
   font-weight: 600;
-  color: #212529;
+  /* color: #212529; */
   margin-bottom: 10px;
 }
 
@@ -61,7 +68,9 @@ body {
   -webkit-background-clip: text;
   color: transparent;
 }
-
+.Landing-p{
+  color: var(--landingpage-text-color) !important;
+}
 /* .playstore {
   display: flex;
   justify-content: center;
@@ -118,6 +127,7 @@ body {
   font-size: 50px;
   font-family: "BasierCircleBold", sans-serif;
   font-weight: 600;
+  color: var(--landingpage-text-color) !important;
 }
 
 .section-2 p {
@@ -239,7 +249,7 @@ body {
   box-sizing: border-box;
   margin-bottom: 10px;
   text-align: left;
-  color: #343239;
+  color: var(--landingpage-text-color);
 }
 
 .container-2 .dummy {
@@ -289,7 +299,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background: #f1f1f1;
+  background: var(--landingPage-working-container-bg);
 }
 
 .header-container {
@@ -349,13 +359,12 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 30px;
-  background: #ffffff;
 }
 .random-box1 {
   width: 500px;
   height: 650px;
   border-radius: 15px;
-  background: #f1f1f1;
+  background: #e2e1e1;
   box-sizing: border-box;
   margin-bottom: 80px;
   text-align: center;
@@ -368,6 +377,8 @@ body {
 .random-containers h3 {
   margin-top: 30px;
   font-size: 34px;
+  color: #000000;
+  
 }
 
 .random-box2 {
@@ -397,7 +408,7 @@ body {
   width: 500px;
   height: 400px;
   border-radius: 15px;
-  background: #f1f1f1;
+  background: #e2e1e1;
   box-sizing: border-box;
   position: absolute;
   margin-top: 44%;
@@ -413,7 +424,7 @@ body {
   width: 500px;
   height: 220px;
   border-radius: 15px;
-  background: #f1f1f1;
+  background: #e2e1e1;
   box-sizing: border-box;
   position: absolute;
   margin-top: 56%;
@@ -435,7 +446,7 @@ body {
 
   .sign-button {
     width: 125px !important;
-    margin-top: 5px;
+    /* margin-top: 5px; */
   }
 
   /* section-1 */

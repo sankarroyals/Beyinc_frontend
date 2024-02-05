@@ -340,13 +340,13 @@ const IndividualMessage = () => {
             </div>
           </div>
         </div>
-        {(userchatBlockedBy !== '') ?
+        {receiverId?.user?.role!=='Admin' && ((userchatBlockedBy !== '') ?
           userchatBlockedBy == email &&
           <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={()=>blockChat('')}>
           Open Chat
         </div> : <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={()=>blockChat(email)}>
           Close Chat
-        </div>}
+        </div>)}
       </div>
       <div className="messageBox">
         {messages.length > 0 &&
@@ -464,7 +464,7 @@ const IndividualMessage = () => {
           </div>
         )}
       </div>
-      <div className="bottom-line"></div>
+      {/* <div className="bottom-line"></div> */}
 
       {userchatBlockedBy =='' ? <div className="sendBoxContainer">
         <div className="sendBox">

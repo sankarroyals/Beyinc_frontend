@@ -1,5 +1,63 @@
+:root {
+  --white: #fff;
+}
+body[data-theme="dark"] {
+  --body-background: #17171e;
+  --nabar-text: #fff;
+  --text-total-color: #fff;
+  --navbar-profile-hover: #2172e2;
+  --nav-head-bg: #021521;
+  --landingPage-working-container-bg: #212130;
+  --chatcontainer-bg: #212130;
+  --user-details-container-bg: #212130;
+  --menubar-bg: #212130;
+  --menubar-txt: #fff;
+  --menubar-hover-txt:#6a73fa;
+  --users-bg: #212130;
+  --newchat-button: #48abec;
+  --searchmenu-bg: #212130;
+  --input-box-bg: #212130;
+  --historical-selected-chat: #5e7585;
+  --messageNavbar-bg: #021521;
+  --tabPanel-text-color: #fff;
+  --landingpage-text-color: #fff;
+  --menubar-hover-color: #17171e;
+  --border-colors: 1px solid rgba(249, 238, 238, 0.155);
+  --userCard-boxshadow: #23232e;
+--messageNavbar-text: #fff;
+}
+
+body[data-theme="light"] {
+  --body-background: #f4f4f6;
+    --nabar-text: #fff;
+  --text-total-color: #212529;
+  --navbar-profile-hover: #eaf1fb;
+  --nav-head-bg: #1c1b1b;
+  --landingPage-working-container-bg: #f1f1f1;
+  --user-details-container-bg: #eaf1fb;
+  --menubar-bg: #fff;
+  --menubar-txt: #212130;
+  --menubar-hover-txt:#6a73fa;
+  --chatcontainer-bg: #fff;
+  --newchat-button: #c2e7ff;
+  --searchmenu-bg: #fff;
+  --users-bg: #fff;
+  --input-box-bg: #fff;
+  --historical-selected-chat: #c2e7ff;
+  --landingpage-text-color: #000000;
+  --menubar-hover-color:#f4f4f6;
+  --messageNavbar-bg: #fff;
+  --messageNavbar-border: #cccecf;
+  --border-colors: 1px solid #cccecf;
+  --userCard-boxshadow: #ccc;
+  --messageNavbar-text: #000;
+ 
+}
+
 body {
   font-family: "Google Sans Text", sans-serif;
+  background: var(--body-background);
+  color: var(--text-total-color);
 }
 i {
   cursor: pointer;
@@ -344,8 +402,12 @@ input[type="radio"] + label {
 ::-webkit-scrollbar-track {
   /* background-color: #f1f1f1; */
 }
+.spinText{
+      color: var(--messageNavbar-text) !important;
 
+}
 .spin {
+    color: var(--messageNavbar-text) !important;
   animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
 
@@ -360,10 +422,10 @@ input[type="radio"] + label {
 @media (max-width: 768px) {
   input[type="email"],
   input[type="password"],
-  input[type="text"], input[type="number"]  {
+  input[type="text"],
+  input[type="number"] {
     /* width: 280px !important; */
   }
-  
 
   .Loading {
     align-items: center;

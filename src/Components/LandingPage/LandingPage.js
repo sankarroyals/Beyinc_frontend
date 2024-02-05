@@ -17,10 +17,14 @@ const LandingPage = () => {
         className="Beyinc-logo"
         style={{ display: email == undefined ? "flex" : "none" }}
       >
-        <img src="/logo.png" alt="logo" />
-        <button className="sign-button" onClick={() => navigate("/login")}>
-          Sign In / Signup
-        </button>
+        <div>
+          <img src="/Footer-logo.png" alt="logo" />
+        </div>
+        <div>
+          <button className="sign-button" onClick={() => navigate("/login")}>
+            Sign In / Signup
+          </button>
+        </div>
       </div>
       <div className="home">
         <img src="/business.png" />

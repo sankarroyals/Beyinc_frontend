@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Toast.css'
 import { useDispatch, useSelector } from 'react-redux'
 import CloseIcon from "@mui/icons-material/Close";
@@ -6,8 +6,10 @@ import { setToast } from '../../redux/AuthReducers/AuthReducer';
 const Toast = () => {
   const { message, visible, bgColor } = useSelector(state => state.auth.ToastDetails)
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     if (visible == 'yes') {
+      setLoading(true)
       setTimeout(() => {
         dispatch(
           setToast({
@@ -16,6 +18,8 @@ const Toast = () => {
             visible: "no",
           })
         );
+        setLoading(false)
+
       }, 4000)
     }
   }, [visible])
@@ -23,7 +27,7 @@ const Toast = () => {
     <div style={{ justifyContent: 'center', display: visible === 'yes' ? 'flex' : 'none' }}>
       <div className='toastStyles' style={{ backgroundColor: bgColor, color: 'white',zIndex: '1401' }}>
         <div>{message}</div>
-        <CloseIcon style={{ cursor: 'pointer' }} onClick={() => {
+        {/* <CloseIcon style={{ cursor: 'pointer' }} onClick={() => {
           dispatch(
             setToast({
               message: ``,
@@ -31,7 +35,9 @@ const Toast = () => {
               visible: "no",
             })
           );
-        }} />
+        }} /> */}
+        <span className="line-loader-toast"></span>
+
       </div>
 
     </div>

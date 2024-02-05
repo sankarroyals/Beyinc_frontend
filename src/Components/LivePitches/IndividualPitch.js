@@ -12,6 +12,7 @@ import SendIcon from "@mui/icons-material/Send";
 import AddReviewStars from "./AddReviewStars";
 import { io } from "socket.io-client";
 import { socket_io } from "../../Utils";
+import moment from "moment";
 
 const IndividualPitch = () => {
   const [pitch, setpitch] = useState("");
@@ -293,8 +294,8 @@ const IndividualPitch = () => {
             </div>
             <div>
               <div className="indiPitchDate">
-                Posted about {format(pitch?.createdAt)} by{" "}
-                <b>{pitch.userName}</b>
+                Posted about {moment(pitch?.createdAt).format('MMM Do YY')} by{" "}
+                <b>{pitch?.userInfo?.userName}</b>
               </div>
             </div>
             <div className="indiPitchDesc">

@@ -20,11 +20,9 @@
   cursor: pointer;
   padding: 4px;
   margin-left: -8px;
-
-
 }
 .Profile-img:hover {
-  background: #eaf1fb;
+  background: var(--navbar-profile-hover);
 }
 
 .navIcons {
@@ -37,8 +35,6 @@
 .icon {
   cursor: pointer !important;
   transition: color 0.3s ease, transform 0.3s ease !important;
-  font-size: 24px !important;
-  font-weight: 600 !;
 }
 
 .icon:hover {
@@ -116,15 +112,13 @@
   color: rgba(128, 128, 128, 0.758);
 }
 .navbar {
-  background-color: #fff;
-  /* background-color: #17171E; */
+  background-color: var(--nav-head-bg);
   height: 4.5vh;
-  color: black;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  color: var(--nabar-text);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   padding: 15px;
   font-weight: 600;
-  /* width: 1300px;
-    margin: auto; */
   z-index: 999;
   position: sticky;
   top: 0;
@@ -140,7 +134,6 @@
 }
 
 .fas.fa-bars {
-  color: black;
   font-size: 24px;
 }
 
@@ -174,7 +167,7 @@ h1 {
 .userDetails {
   height: 380px;
   width: 380px;
-  background: #eaf1fb;
+  background: var(--user-details-container-bg);
   position: absolute;
   display: none;
   padding: 10px;
@@ -202,16 +195,30 @@ h1 {
   }
 }
 
+
+/* menu bar */
+.css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+  background-color: var(--menubar-bg) !important;
+  color: var(--menubar-txt) !important;
+  
+}
+
+.css-bshv44-MuiButtonBase-root-MuiListItem-root:hover {
+  background-color: var(--menubar-hover-color) !important;
+  color: var(--menubar-hover-txt);
+}
+
+.far.fa-file,.fas.fa-users,.fas.fa-home,.far.fa-comment-alt {
+  color: var(--menubar-txt);
+}
+
+
 .line-loader {
   width: 91%;
-  /* border: 1px solid green; */
-
   height: 5px;
   display: inline-block;
   position: relative;
-  background: rgba(255, 255, 255, 0.15);
   overflow: hidden;
-  /* transform: translateY(-19px); */
   border-radius: 50px !important;
   position: absolute;
   top: 0px;
@@ -268,15 +275,12 @@ h1 {
   position: absolute;
   bottom: 0;
   right: 0;
-  background: #fff;
+  background-color: #0b57d0;
+  color: white;
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;
   font-size: 12px;
-}
-.edit-icon:hover {
-  background-color: #0b57d0;
-  color: white;
 }
 
 .username {
@@ -427,15 +431,15 @@ h1 {
 .Individual-Notifications {
   /* margin-left: 30px; */
   /* border: 1px solid black; */
- display: flex;
- align-items: center;
+  display: flex;
+  align-items: center;
   width: 450px;
   text-align: start;
   padding: 10px;
   margin-bottom: 10px;
 }
 .css-1v3zj0x {
-    width: 550px !important;
+  width: 550px !important;
 }
 
 .divider {
@@ -456,8 +460,7 @@ h1 {
   }
   .profileImage {
     margin-left: 0 !important;
-      width: auto !important;
-
+    width: auto !important;
   }
   /* .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
     width: 70% !important;

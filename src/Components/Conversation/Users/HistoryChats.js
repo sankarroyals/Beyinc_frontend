@@ -34,7 +34,7 @@ function TabPanel(props) {
     );
 }
 const HistoryChats = () => {
-    const [value, setValue] = useState(1)
+    const [value, setValue] = useState(0)
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -85,18 +85,19 @@ const HistoryChats = () => {
                 indicatorColor="secondary"
                 onChange={handleChange} aria-label="basic tabs example"
             >
-                <Tab className='tabs' sx={{ width: '50px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label={`Pending`} {...a11yProps(1)} />
                 <Tab className='tabs' sx={{ width: '50px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label={`Approved`} {...a11yProps(0)} />
+                <Tab className='tabs' sx={{ width: '50px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label={`Pending`} {...a11yProps(1)} />
+
             </Tabs>
-            <TabPanel style={{ padding: 0 }} className="" value={value} index={0}>
-                <div style={{marginTop: '10px'}}>
+            <TabPanel style={{ padding: 0 }} className="" value={value} index={1}>
+                <div style={{ marginTop: '10px', maxHeight: '400px', overflowY: 'scroll' }}>
                     {historicalConversations.filter(f => f.status == 'pending' && f.members[0].email == email).length > 0 ? historicalConversations.map((a) => (
                         a.status === 'pending' && <IndividualHistory a={a} onlineEmails={onlineEmails} status='pending' />
                     )) : <div style={{textAlign: 'start'}}>No Pending Requests</div>}
                 </div>    
             </TabPanel>
-            <TabPanel style={{ padding: 0 }} className="" value={value} index={1}>
-                <div style={{ marginTop: '10px' }}>
+            <TabPanel style={{ padding: 0 }} className="" value={value} index={0}>
+                <div style={{ marginTop: '10px', maxHeight: '400px', overflowY: 'scroll' }}>
                     {historicalConversations.filter(f => f.status == 'approved').length > 0 ? historicalConversations.map((a) => (
                         a.status === 'approved' && <IndividualHistory a={a} onlineEmails={onlineEmails} status='approved' />
                     )) : <div style={{ textAlign: 'start' }}>No Approved chats</div>}
