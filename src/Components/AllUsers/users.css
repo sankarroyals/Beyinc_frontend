@@ -266,12 +266,10 @@
     width: 50px !important;
   }
   .user-card-main-container {
-    background-color: white;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 13px;
-    box-shadow: 0 0 10px #ccc;
     border-radius: 10px;
   }
 }
