@@ -93,7 +93,7 @@ export default function LoggedInPitchCard({ d }) {
             </div>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    {d.userName}
+                    {d?.userInfo?.userName}
                 </Typography>
             </CardContent>
             <CardActions>
