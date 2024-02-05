@@ -22,6 +22,7 @@ import moment from "moment";
 import { GoogleCalenderEvent } from "../../Common/GoogleCalender";
 import { TextField } from "@mui/material";
 
+
 const IndividualMessage = () => {
   const [loadingFile, setLoadingFile] = useState("");
   const { conversationId } = useParams();
@@ -473,28 +474,17 @@ const IndividualMessage = () => {
             style={{ display: "flex", flexDirection: "column", gap: "20px" }}
           >
             <div style={{ marginLeft: "10px" }}>
-              {/* <input
-                type="text"
-                name="message"
-                id="message"
-                value={sendMessage}
-                onChange={(e) => setSendMessage(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    sendText();
-                  }
+              <TextField style={{ padding: '0px' }}
+                sx={{
+                  "& fieldset": { border: 'none' },
                 }}
-                placeholder="Type a message"
-                autoFocus
-              /> */}
-              <TextField style={{padding: '0px'}}
                 id="outlined-multiline-flexible"
                 name="message"
                 value={sendMessage}
                 onChange={(e) => setSendMessage(e.target.value)}
                 multiline
                 placeholder="Type a message"
-                // maxRows={4}
+                
               />
             </div>
             {file !== "" &&
@@ -557,7 +547,7 @@ const IndividualMessage = () => {
               ))}
           </div>
 
-          <div style={{ position: "absolute", right: isParent(role, receiverId?.user?.role) ? "50px" : '10px' }}>
+          <div>
             <label htmlFor="chatFile" className="uploadingFileIcon">
               <CloudUploadIcon />
             </label>
