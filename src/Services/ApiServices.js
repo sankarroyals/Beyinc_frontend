@@ -244,6 +244,33 @@ export const ApiServices = {
     },
 
 
+    changeStatusMessage: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/changeChatSeen`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+    chatBlock: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/blockUserschat`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
+
+
     sendMessages: (obj) => {
         return new Promise((resolve, reject) => {
             axiosInstance.post(`/chat/addMessage`, obj)
@@ -516,6 +543,19 @@ export const ApiServices = {
         })
     },
 
+    
+    getConversationById: (obj) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post(`/chat/getConversationById`, obj)
+                .then((res) => {
+                    if (res) {
+                        resolve(res)
+                    }
+                })
+                .catch((err) => reject(err));
+
+        })
+    },
 
     deleteConversation: (obj) => {
         return new Promise((resolve, reject) => {

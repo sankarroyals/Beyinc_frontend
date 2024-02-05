@@ -24,7 +24,7 @@
   justify-content: space-between;
   gap: 5px;
   padding-bottom: 15px;
-  border-radius: 50px;
+  /* border-radius: 50px; */
   background: white !important;
   background: none;
 }
@@ -38,6 +38,7 @@
   /* margin-top: -10px; */
   height: 67vh;
   overflow-y: scroll;
+  position: relative !important;
 }
 
 .details {
@@ -66,10 +67,16 @@
 .userName {
   font-size: 10px;
   align-self: flex-end;
+  white-space: noWrap;
 }
 .userName {
   font-size: 12px;
   font-weight: 600;
+}
+.seenMessage{
+  font-size: 12px;
+  align-self: flex-start;
+  margin-left: 10px;
 }
 
 .friendDetails {
@@ -88,6 +95,8 @@
   border-radius: 20px;
   word-wrap: break-word;
   background: #f2f2f2;
+  max-width: 150px;
+  width: auto;
   color: black;
 }
 .messageBottom {
@@ -124,6 +133,8 @@
   align-items: center;
   min-height: 5vh;
   padding: 5px 15px;
+    width: 650px !important;
+
   justify-content: space-between;
 }
 .sendBox input[type="text"],
@@ -134,17 +145,28 @@
   outline: 0;
   white-space: wrap;
   padding: 10px !important;
-  width: 650px !important;
+    width: 450px !important;
+
 }
 
 .uploadingFileIcon {
   cursor: pointer;
   max-width: 200px;
+  margin-right: -10px !important;
   margin: 0 4px;
   color: grey;
   padding: 6px 6px;
   border-radius: 50% !important;
   transition: background-color 0.3s, color 0.3s;
+}
+.blockUnblock{
+  border: 1px solid gray;
+  padding: 5px;
+  width: auto;
+  justify-self: flex-end !important;
+  position: absolute;
+  right: 20px;
+
 }
 
 .uploadingFileIcon:hover {
@@ -163,6 +185,9 @@
   align-items: center;
   border-bottom: 1px solid lightgray;
   position: relative;
+  position: sticky;
+  top: 0px;
+  background: white;
 }
 .bottom-line {
   display: flex;
@@ -175,12 +200,25 @@
   margin-top: -5px;
 }
 
+.specificDay {
+  align-self: center !important;
+  font-size: 12px;
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  background: rgb(218, 213, 213);
+  border-radius: 10px;
+}
+
 @media (max-width: 768px) {
   .messageContainer{
     border-radius: 0px !important;
   }
   .messageBox {
-      height: 62vh;
+      height: auto;
+      min-height: 62vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
     padding: 0 !important;
     justify-content: center;
@@ -193,6 +231,13 @@
     margin: auto !important;
   }
 
+  .sendBox{
+    width: 300px !important;
+    position: sticky;
+    bottom: 20px !important;
+
+  }
+
   .sendBox input[type="text"],
   .sendBox textarea {
     margin-bottom: -2px;
@@ -201,7 +246,8 @@
     outline: 0;
     white-space: wrap;
     padding: 0px !important;
-    width: 200px !important;
+        width: 130px !important;
+
   }
   .senMessageView {
     width: 150px;
@@ -210,5 +256,12 @@
   .sendingFiles {
     width: 100px !important;
     height: 100px !important;
+  }
+  .messageNavbar{
+    z-index: 999 !important;
+  }
+  .specificDay{
+    position: sticky;
+    top: 0px !important;
   }
 }

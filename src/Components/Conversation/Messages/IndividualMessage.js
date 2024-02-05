@@ -8,23 +8,29 @@ import { format } from "timeago.js";
 import { io } from "socket.io-client";
 import {
   setConversationId,
+  setLastMessageRead,
+  setLiveMessage,
   setOnlineUsers,
 } from "../../../redux/Conversationreducer/ConversationReducer";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams, useNavigate } from "react-router";
 import "./IndividualMessage.css";
 import sendSound from "../Notification/send.mp3";
-import { socket_io } from "../../../Utils";
+import { isParent, socket_io, updateLastSeen } from "../../../Utils";
 import { Howl } from "howler";
 import moment from "moment";
+import { GoogleCalenderEvent } from "../../Common/GoogleCalender";
 
 const IndividualMessage = () => {
   const [loadingFile, setLoadingFile] = useState("");
   const { conversationId } = useParams();
   const receiverId = useSelector((state) => state.conv.receiverId);
   const liveMessage = useSelector((state) => state.conv.liveMessage);
+  const lastMessageRead = useSelector((state) => state.conv.lastMessageRead);
 
-  const { email, image, userName } = useSelector(
+  const [gmeetLinkOpen, setGmeetLinkOpen] = useState(false)
+
+  const { email, image, userName, role } = useSelector(
     (state) => state.auth.loginDetails
   );
   const [messages, setMessages] = useState([]);
@@ -32,6 +38,9 @@ const IndividualMessage = () => {
   const [file, setFile] = useState("");
   const [messageTrigger, setMessageTrigger] = useState("");
   const [normalFileName, setNormalFileName] = useState("");
+  const [userchatBlocked, setUserChatBlocked] = useState(null)
+  const [userchatBlockedBy, setUserChatBlockedBy] = useState('')
+
   const scrollRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,7 +70,18 @@ const IndividualMessage = () => {
   }, [onlineUsers]);
 
   useEffect(() => {
-    if (conversationId !== "") {
+    if (conversationId !== "" && receiverId !== undefined && receiverId !== '') {
+      // to make seen for other users this api is works
+      ApiServices.changeStatusMessage({ senderId: receiverId.email, receiverId: email }).then(res => {
+        console.log('changed status')
+        socket.current.emit("seenMessage", {
+          senderId: email,
+          receiverId: receiverId.email,
+          conversationId: conversationId,
+        });
+      }).catch(err => {
+        console.log(err)
+      })
       ApiServices.getMessages({
         conversationId: conversationId,
       })
@@ -76,14 +96,29 @@ const IndividualMessage = () => {
           navigate("/conversations");
         });
     }
-  }, [conversationId, messageTrigger]);
-
-  // useEffect(() => {
-  //   sendSoundRef.current = new Audio(sendSound);
-  // }, []);
+  }, [conversationId, messageTrigger, receiverId]);
 
   useEffect(() => {
-    if (liveMessage?.fileSent == true) {
+    setUserChatBlocked(null)
+    setUserChatBlockedBy('')
+    if (conversationId !== '') {
+      ApiServices.getConversationById({ conversationId: conversationId }).then((res) => {
+        if (res.data.chatBlocked?.blockedBy !== undefined || res.data.chatBlocked?.blockedBy !== '') {
+          setUserChatBlocked(true)
+          setUserChatBlockedBy(res.data.chatBlocked.blockedBy)
+        } else {
+          setUserChatBlocked(false)
+          setUserChatBlockedBy('')
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+
+    }
+  }, [conversationId]);
+
+  useEffect(() => {
+    if (liveMessage?.fileSent == true && liveMessage.conversationId == conversationId) {
       ApiServices.getMessages({
         conversationId: conversationId,
       })
@@ -92,6 +127,7 @@ const IndividualMessage = () => {
           setNormalFileName("");
           setFile("");
           setSendMessage("");
+          dispatch(setLiveMessage({}))
           // sendSoundRef?.current?.play()
           sound.play();
         })
@@ -103,7 +139,7 @@ const IndividualMessage = () => {
 
   useEffect(() => {
     console.log(liveMessage);
-    if (Object.keys(liveMessage).length > 0) {
+    if (Object.keys(liveMessage).length > 0 && liveMessage.conversationId == conversationId) {
       // sendSoundRef?.current?.play();
       sound.play();
 
@@ -111,8 +147,28 @@ const IndividualMessage = () => {
         ...prev,
         { ...liveMessage, createdAt: Date.now() },
       ]);
+      dispatch(setLiveMessage({}))
+      socket.current.emit("seenMessage", {
+        senderId: email,
+        receiverId: receiverId.email,
+        conversationId: conversationId,
+      });
     }
   }, [liveMessage]);
+
+
+  useEffect(() => {
+    if (lastMessageRead) {
+      const oldMessages = [...messages]
+      console.log({ ...messages[messages.length - 1], seen: new Date() });
+      oldMessages.splice(oldMessages.length - 1, 1, { ...oldMessages[oldMessages.length - 1], seen: new Date() })
+      dispatch(setLastMessageRead(false))
+      setMessages([...oldMessages])
+    }
+  }, [lastMessageRead])
+
+
+
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -134,10 +190,12 @@ const IndividualMessage = () => {
   };
 
   const sendText = async (e) => {
+   
     if (file != "") {
       setLoadingFile(file);
       console.log(file);
     }
+    setSendMessage('')
     setFile("");
     setIsSending(true);
     setIsSending(false);
@@ -170,11 +228,13 @@ const IndividualMessage = () => {
             receiverId: receiverId.email,
             message: sendMessage,
             fileSent: file !== "",
+            conversationId: conversationId
           });
           if (file !== "") {
             setMessageTrigger(!messageTrigger);
           }
           document.getElementById("chatFile").value = "";
+
         })
         .catch((err) => {
           dispatch(
@@ -196,14 +256,38 @@ const IndividualMessage = () => {
   // }, []);
 
   useEffect(() => {
-    console.log(messages);
+    // console.log(messages);
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+
+  const blockChat = async (by) => {
+    await ApiServices.chatBlock({ conversationId: conversationId, blockedBy: email }).then(res => {
+      setUserChatBlocked(!userchatBlocked)
+      setUserChatBlockedBy(by)
+      dispatch(setToast({
+        message: res.data,
+        visible: 'yes',
+        bgColor: ToastColors.success
+      }))
+      socket.current.emit("chatBlocking", {
+        senderId: email,
+        receiverId: receiverId.email,
+      });
+    }).catch(err => {
+      dispatch(setToast({
+        message: 'Error occured',
+        visible: 'no',
+        bgColor: ToastColors.failure
+      }))
+    })
+  }
+
 
   return (
     <div className="messageContainer">
       <div className="messageNavbar">
-        <div
+        {/* <div
           onClick={() => {
             dispatch(setConversationId(""));
 
@@ -215,15 +299,15 @@ const IndividualMessage = () => {
             title="back"
             style={{ marginLeft: "20px", color: "grey" }}
           ></i>
-        </div>
-        <div style={{ cursor: 'pointer'}} onClick={() => {
+        </div> */}
+        <div style={{ cursor: 'pointer' }} onClick={() => {
           navigate(`/user/${receiverId?.user?.email}`)
         }}>
           <img
             className="Dp"
             src={
               receiverId?.user?.image?.url !== undefined &&
-              receiverId?.user?.image?.url !== ""
+                receiverId?.user?.image?.url !== ""
                 ? receiverId.user?.image?.url
                 : "/profile.jpeg"
             }
@@ -256,99 +340,120 @@ const IndividualMessage = () => {
             </div>
           </div>
         </div>
+        {receiverId?.user?.role!=='Admin' && ((userchatBlockedBy !== '') ?
+          userchatBlockedBy == email &&
+          <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={()=>blockChat('')}>
+          Open Chat
+        </div> : <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={()=>blockChat(email)}>
+          Close Chat
+        </div>)}
       </div>
       <div className="messageBox">
         {messages.length > 0 &&
-          messages.map((m) => (
-            <div
-              className={`details ${m.senderId === email ? "owner" : "friend"}`}
-              ref={scrollRef}
-            >
+          messages.map((m, i) => (
+            <>
+              {/* showing day on top */}
+              {(moment(messages[i - 1]?.createdAt).format('MMMM Do YYYY') !== moment(m.createdAt).format('MMMM Do YYYY'))  &&
+                <div className="specificDay">{moment(m.createdAt).format('MMMM Do YYYY')}</div>
+              }
               <div
-                className="imageContainer"
-                style={{ display: m.senderId === email ? "none" : "flex" }}
+                className={`details ${m.senderId === email ? "owner" : "friend"}`}
+                ref={scrollRef}
               >
-                <img
-                  src={
-                    image !== undefined && image !== "" && m.senderId === email
-                      ? image
-                      : receiverId?.user?.image?.url !== undefined &&
-                        receiverId?.user?.image?.url !== "" &&
-                        m.senderId !== email
-                      ? receiverId.user?.image?.url
-                      : "/profile.jpeg"
-                  }
-                  alt=""
-                  srcset=""
-                />
-                {/* <div className="messageBottom">{format(m.createdAt)}</div> */}
-              </div>
-              <div className="personalDetails">
-                <div className="email">
-                  {m.senderId === email ? (
-                    <div className="time">
-                      {moment(m.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
-                    </div>
-                  ) : (
-                    <div className="friendDetails">
-                      <div className="userName">{receiverId?.user?.userName}</div>
-                      <div className="time">
-                        {moment(m.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
-                      </div>
-                    </div>
-                  )}
+                <div
+                  className="imageContainer"
+                  style={{ display: m.senderId === email ? "none" : "none" }}
+                >
+                  <img
+                    src={
+                      image !== undefined && image !== "" && m.senderId === email
+                        ? image
+                        : receiverId?.user?.image?.url !== undefined &&
+                          receiverId?.user?.image?.url !== "" &&
+                          m.senderId !== email
+                          ? receiverId.user?.image?.url
+                          : "/profile.jpeg"
+                    }
+                    alt=""
+                    srcset=""
+                  />
                 </div>
-                {m.message !== "" && <div className="text">{m.message}</div>}
-                {m.file !== "" && m.file !== undefined && (
-                  <a href={m.file.secure_url} target="_blank" rel="noreferrer">
-                    {m.file.secure_url?.includes(".png") ||
-                    m.file.secure_url?.includes(".jpg") ||
-                    m.file.secure_url?.includes(".webp") ||
-                    m.file.secure_url?.includes(".gif") ||
-                    m.file.secure_url?.includes(".svg") ||
-                    m.file.secure_url?.includes(".jpeg") ? (
-                      <img
-                        src={m.file.secure_url}
-                        alt=""
-                        srcset=""
-                        style={{
-                          borderRadius: "none",
-                          height: "150px",
-                          width: "150px",
-                        }}
-                      />
+                <div className="personalDetails">
+                  {/* checking previous day is not same */}
+                  <div className="email">
+                    {m.senderId === email ? (
+                      <div className="time">
+                        {moment(m.createdAt).format("h:mm a")}
+                      </div>
                     ) : (
-                      "File"
+                      <div className="friendDetails">
+                        {/* <div className="userName">{receiverId?.user?.userName}</div> */}
+                        <div className="time">
+                          {/* MMMM Do YYYY,  */}
+                          {moment(m.createdAt).format("h:mm a")}
+                        </div>
+                      </div>
                     )}
-                  </a>
-                )}
+                  </div>
+                  {m.message !== "" && <div className="text">{m.message}</div>}
+                  {m.file !== "" && m.file !== undefined && (
+                    <a href={m.file.secure_url} target="_blank" rel="noreferrer">
+                      {m.file.secure_url?.includes(".png") ||
+                        m.file.secure_url?.includes(".jpg") ||
+                        m.file.secure_url?.includes(".webp") ||
+                        m.file.secure_url?.includes(".gif") ||
+                        m.file.secure_url?.includes(".svg") ||
+                        m.file.secure_url?.includes(".jpeg") ? (
+                        <img
+                          src={m.file.secure_url}
+                          alt=""
+                          srcset=""
+                          style={{
+                            borderRadius: "none",
+                            height: "150px",
+                            width: "150px",
+                          }}
+                        />
+                      ) : (
+                        "File"
+                      )}
+                    </a>
+                  )}
+                  {(i == messages.length - 1 && m.senderId == email) &&
+                    <div className="seenMessage">
+                      {m.seen !== undefined ?
+                        `seen ${format(m.seen)}`
+                        : onlineEmails.includes(receiverId?.email) && 'Delivered'}
+                    </div>}
+                </div>
+
               </div>
-            </div>
+           </>
           ))}
         {loadingFile != "" && (
           <div className={`details owner`} ref={scrollRef}>
             <div className="personalDetails">
               <div className="email">
                 {/* <div className="time">
-                  {moment(new Date()).format("MMMM Do YYYY, h:mm:ss a")}
+                  {moment(new Date()).format("h:mm a")}
                 </div> */}
               </div>
               {loadingFile !== "" && loadingFile !== undefined && (
-                <div style={{position: 'relative'}}>
+                <div style={{ position: 'relative' }}>
                   {loadingFile?.includes("data:image/png") ||
-                  loadingFile?.includes("data:image/jpg") ||
-                  loadingFile?.includes("data:image/webp") ||
-                  loadingFile?.includes("data:image/gif") ||
-                  loadingFile?.includes("data:image/svg") ||
-                  loadingFile?.includes("data:image/jpeg") ? (
+                    loadingFile?.includes("data:image/jpg") ||
+                    loadingFile?.includes("data:image/webp") ||
+                    loadingFile?.includes("data:image/gif") ||
+                    loadingFile?.includes("data:image/svg") ||
+                    loadingFile?.includes("data:image/jpeg") ? (
                     <>
-                   
+
                       <img src={loadingFile} alt="" srcset="" style={{ borderRadius: 'none', height: '150px', width: '150px' }} />
                       <div className="loading_viewer" ><img
                         src="/loading-button.gif"
                         alt="Loading..."
                       /></div>
-                      
+
                     </>
                   ) : (
                     "Sending File"
@@ -361,7 +466,7 @@ const IndividualMessage = () => {
       </div>
       <div className="bottom-line"></div>
 
-      <div className="sendBoxContainer">
+      {userchatBlockedBy =='' ? <div className="sendBoxContainer">
         <div className="sendBox">
           <div
             style={{ display: "flex", flexDirection: "column", gap: "20px" }}
@@ -431,7 +536,7 @@ const IndividualMessage = () => {
                       <i
                         className="fas fa-times cross"
                         onClick={() => {
-                          setFile("") 
+                          setFile("")
                         }
 
                         }
@@ -442,7 +547,7 @@ const IndividualMessage = () => {
               ))}
           </div>
 
-          <div style={{ position: "absolute", right: "50px" }}>
+          <div style={{ position: "absolute", right: isParent(role, receiverId?.user?.role) ? "50px" : '10px' }}>
             <label htmlFor="chatFile" className="uploadingFileIcon">
               <CloudUploadIcon />
             </label>
@@ -454,14 +559,15 @@ const IndividualMessage = () => {
               style={{ display: "none" }}
             />
           </div>
-          <div>
-            <label className="uploadingFileIcon">
+          {isParent(role, receiverId?.user?.role) && <div>
+            <div className="uploadingFileIcon" onClick={() => { setGmeetLinkOpen(true) }}>
               <i class="fas fa-link"></i>
-            </label>
-          </div>
+            </div>
+          </div>}
+
         </div>
         <div>
-          {sendMessage !== "" || file !== "" ? (
+          {(sendMessage !== "" || file !== "") ? (
             <SendIcon
               className=""
               onClick={sendText}
@@ -476,7 +582,8 @@ const IndividualMessage = () => {
             />
           )}
         </div>
-      </div>
+      </div> : <p> Your chat conversation between <b>{receiverId?.user?.userName}</b> is closed.</p>}
+      <GoogleCalenderEvent gmeetLinkOpen={gmeetLinkOpen} setGmeetLinkOpen={setGmeetLinkOpen} receiver={receiverId?.user?.email} />
     </div>
   );
 };

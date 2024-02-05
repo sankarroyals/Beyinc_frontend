@@ -4,6 +4,7 @@ import { ApiServices } from "../../Services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
+import SendIcon from "@mui/icons-material/Send";
 import "../LivePitches/LivePitches.css";
 import ReviewStars from "../LivePitches/ReviewStars";
 import AddReviewStars from "../LivePitches/AddReviewStars";
@@ -193,7 +194,7 @@ const IndividualUser = () => {
                 srcset=""
               />
               <div className="indiUserHeading">
-                <div style={{ marginTop: '50px' }}>
+                <div style={{ marginTop: "50px" }}>
                   {user?.userName}{" "}
                   {user.verification == "approved" && (
                     <img
@@ -223,7 +224,6 @@ const IndividualUser = () => {
                   </div>
                 </div>
               </div>
-
             </div>
             <div className="indiPitchDesc">
               <h2>About Me</h2>
@@ -360,90 +360,90 @@ const IndividualUser = () => {
           {email !==
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
               .email && (
-              <div>
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src={image} />
-                  <div>
-                    <span>
-                      <b>{userName}</b>
-                    </span>
-                    <div style={{ fontSize: "12px", marginBottom: "20px" }}>
-                      Reviews are public and include your account details
-                    </div>
-                  </div>
-                </div>
-
-                <div className="Rating-Content" style={{ marginLeft: "60px" }}>
-                  <h4>Rate this user</h4>
-                  <h6>Tell others what you think</h6>
-                  <div
-                    className="stars"
-                    style={{ display: "flex", marginBottom: "10px" }}
-                  >
-                    <AddReviewStars
-                      filledStars={filledStars}
-                      setFilledStars={setFilledStars}
-                    />{" "}
-                    <button
-                      className="sendIcon"
-                      style={{
-                        cursor: "pointer",
-                        fontSize: "13px",
-                        width: "auto",
-                        padding: "3px 4px",
-                      }}
-                      onClick={sendReview}
-                    >
-                      Post
-                    </button>
-                  </div>
-                  <div>
-                    {!isWritingReview && (
-                      <div
-                        style={{ color: "blue", cursor: "pointer" }}
-                        onClick={() => setIsWritingReview(true)}
-                      >
-                        <b>Write a Review</b>
-                      </div>
-                    )}
-                    {isWritingReview && (
-                      <div
-                        className="writing-review"
-                        style={{
-                          display: "flex",
-                          gap: "20px",
-                          alignItems: "center",
-                        }}
-                      >
-                        <div>
-                          <textarea
-                            className="textarea"
-                            rows={4}
-                            cols={50}
-                            value={comment}
-                            onChange={(e) => setComment(e.target.value)}
-                            placeholder="Describe Your Experience"
-                          />
-                        </div>
-                        <div>
-                          <button
-                            onClick={sendText}
-                            className="sendIcon"
-                            style={{
-                              cursor: comment == "" ? "not-allowed" : "pointer",
-                              fontSize: "13px",
-                              padding: "10px",
-                            }}
-                          >
-                            Post Review
-                          </button>
-                        </div>
-                      </div>
-                    )}
+            <div>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <img src={image} />
+                <div>
+                  <span>
+                    <b>{userName}</b>
+                  </span>
+                  <div style={{ fontSize: "12px", marginBottom: "20px" }}>
+                    Reviews are public and include your account details
                   </div>
                 </div>
               </div>
-            )}
+
+              <div className="Rating-Content" style={{ marginLeft: "60px" }}>
+                <h4>Rate this user</h4>
+                <h6>Tell others what you think</h6>
+                <div
+                  className="stars"
+                  style={{ display: "flex", marginBottom: "10px" }}
+                >
+                  <AddReviewStars
+                    filledStars={filledStars}
+                    setFilledStars={setFilledStars}
+                  />{" "}
+                  <button
+                    className="sendIcon"
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "13px",
+                      width: "auto",
+                      padding: "3px 4px",
+                    }}
+                    onClick={sendReview}
+                  >
+                    Post
+                  </button>
+                </div>
+                <div>
+                  {!isWritingReview && (
+                    <div
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => setIsWritingReview(true)}
+                    >
+                      <b>Write a Review</b>
+                    </div>
+                  )}
+                  {isWritingReview && (
+                    <div
+                      className="writing-review"
+                      style={{
+                        display: "flex",
+                        gap: "20px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <textarea
+                          className="textarea"
+                          rows={4}
+                          cols={50}
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          placeholder="Describe Your Experience"
+                        />
+                      </div>
+                      <div>
+                        <button
+                          onClick={sendText}
+                          className="sendIcon"
+                          style={{
+                            cursor: comment == "" ? "not-allowed" : "pointer",
+                            fontSize: "13px",
+                            padding: "10px",
+                          }}
+                        >
+                          Post Review
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
 
           {user?.comments?.length > 0 && (
             <div>

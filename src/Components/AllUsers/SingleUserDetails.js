@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "@mui/material/Card";
@@ -7,14 +7,14 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 
-
 import Typography from "@mui/material/Typography";
 import AddPitch from "../Common/AddPitch";
 
-
 const SingleUserDetails = ({ d }) => {
+  const { email } = useSelector((state) => state.auth.loginDetails);
   const dispatch = useDispatch();
   const [receiverRole, setreceiverRole] = useState("");
+  const [pitchSendTo, setPitchSendTo] = useState('')
 
   const [averagereview, setAverageReview] = useState(0);
   const navigate = useNavigate();
@@ -29,153 +29,82 @@ const SingleUserDetails = ({ d }) => {
     }
   }, [d]);
 
-
-
-  const [pitchSendTo, setPitchSendTo] =  useState('')
-  
-
+  const openUser = () => navigate(`/user/${d.email}`);
   return (
-    <Card
-      sx={{
-        maxWidth: 340,
-        minWidth: 250,
-        height: "300px",
-        boxShadow:
-          "2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)",
-      }}
-    >
+    <>
       <div
-        style={{
-          display: "flex",
-          fontSize: "24px",
-          flexWrap: "wrap",
-          gap: "5px",
-        }}
+        className={
+          "user-card-main-container " +
+          (d.role === "Entrepreneur"
+            ? "margin-entrepreneur"
+            : d.role === "Mentor"
+            ? "margin-mentor"
+            : "")
+        }
       >
-        <img
-          className="userCardImage"
-          src={
-            d.image !== undefined && d.image.url !== ""
-              ? d.image.url
-              : "/profile.jpeg"
-          }
-          title={d.email}
-        />
-        <div>
-          <div
-            style={{ fontWeight: "600", marginTop: "40px", marginLeft: "10px", display: "flex", justifyContent: 'center', alignItems: 'center' }}
-          >
-            {d.role}
-            {d.verification == "approved" && (
+        <div className="user-card-details">
+          <div className="user-card-img-rating-container">
+            <div className="user-card-image" onClick={openUser}>
               <img
-                src="/verify.png"
-                alt=""
-                style={{ width: "15px", height: "15px", marginLeft: "5px" }}
+                alt="user-pic"
+                src={
+                  d.image !== undefined && d.image.url !== ""
+                    ? d.image.url
+                    : "/profile.jpeg"
+                }
+                title={d.email}
               />
-            )}
+            </div>
+            <div className="user-card-rating">
+              <div className="rating-content">
+                <i class="far fa-comment"></i>
+                <span style={{ marginLeft: "3px" }}>{d.comments?.length}</span>
+              </div>
+              <div className="rating-content">
+                <i class="far fa-star"></i>
+                <span style={{ marginLeft: "3px" }}>{averagereview}</span>
+              </div>
+            </div>
           </div>
-          <Typography
-            gutterBottom
-            component="div"
+          <div className="user-card-details-text">
+            <span className="user-name" onClick={openUser}>
+              {d.userName}
+            </span>
+            <span>
+              {d.educationDetails[0]?.grade} @ {d.educationDetails[0]?.college}
+            </span>
+            <span className="skills">{d.skills?.join(", ")}</span>
+          </div>
+        </div>
+        <div className="user-card-actions">
+          <div
             style={{
+              fontWeight: "400",
               display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: "12px",
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
-           <b> {d.userName}</b>
-          </Typography>
-          <div style={{ display: "flex", gap: "10px", justifyContent: 'center', alignItems: 'center' }}>
-            <div
-              style={{ fontSize: "12px", marginLeft: "5px" }}
-              title="total comments"
-            >
-              <i class="far fa-comment"></i>
-              <span style={{ marginLeft: "3px" }}>{d.comments?.length}</span>
-            </div>
-            <div
-              style={{ fontSize: "12px", marginLeft: "5px" }}
-              title="total stars"
-            >
-              <i className="fas fa-star" ></i>
-              <span style={{ marginLeft: "3px" }}>{averagereview}</span>
-            </div>
+            <span>{d.role}</span>
+            <span>
+              {d.verification === "approved" && (
+                <img
+                  src="/verify.png"
+                  alt=""
+                  style={{ width: "15px", height: "15px", marginLeft: "5px" }}
+                />
+              )}
+            </span>
           </div>
-        </div>
-      </div>
-      <CardContent>
-        <div style={{ display: "flex", gap: "5px" }}>
-          <div>
-            <label className="indiPitchHiringPositions">College:</label>
-          </div>
-          <div className="indiPitchHiringPositions">
-            {d.educationDetails[0]?.college}
-          </div>
-        </div>
-
-        <div style={{ display: "flex", gap: "5px" }}>
-          <div>
-            <label className="indiPitchHiringPositions">Degree:</label>
-          </div>
-          <div className="indiPitchHiringPositions">
-            {d.educationDetails[0]?.grade}
-          </div>
-        </div>
-
-        <div style={{ display: "flex", gap: "5px" }}>
-          <div>
-            <label className="indiPitchHiringPositions">Skills:</label>
-          </div>
-          <div style={{ maxHeight: "45px", overflowY: "scroll" }}>
-            {d.skills?.length > 0 && (
-              <div className="" style={{ display: "flex", flexWrap: "wrap" }}>
-                {d.skills?.map((t, i) => (
-                  <div className="indiPitchHiringPositions">
-                    <div>{t}</div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        {/* <Typography gutterBottom variant="h5" component="div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    {d.userName}
-                </Typography> */}
-      </CardContent>
-      {/* <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {d.userName}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
-                </Typography>
-            </CardContent> */}
-      <CardActions>
-        <Button
-          id="view-request"
-          size="small"
-          onClick={() => {
-            navigate(`/user/${d.email}`);
-          }}
-        >
-          View Profile
-        </Button>
-        <Button
-          id="view-request"
-          size="small"
-          onClick={() => {
+          <button onClick={() => {
             setPitchSendTo(d.email)
             setreceiverRole(d.role)
-          }}
-        >
-          Connect
-        </Button>
-        {/* <Button size="small">Learn More</Button> */}
-      </CardActions>
-      <AddPitch receiverMail={pitchSendTo} setReceivermail={setPitchSendTo} receiverRole={receiverRole}/>
-    </Card>
+          }}>Connect</button>
+        </div>
+        <AddPitch receiverMail={pitchSendTo} setReceivermail={setPitchSendTo} receiverRole={receiverRole} />
+
+      </div>
+    </>
   );
 };
 

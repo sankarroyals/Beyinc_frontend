@@ -638,6 +638,7 @@ const Navbar = () => {
                   className="logout"
                   onClick={() => {
                     localStorage.removeItem("user");
+                    localStorage.clear()
                     window.location.href = "/login";
                   }}
                 >

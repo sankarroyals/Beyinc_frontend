@@ -126,6 +126,8 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                     setOpen(false);
                     setdefaultTrigger(!defaultTrigger);
                     setReceivermail('')
+                    document
+                        .getElementsByClassName("newConversation")[0]?.classList?.remove("show");
                 })
                 .catch((err) => {
                     console.log(err);
@@ -157,6 +159,8 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                     setOpen(false);
                     setdefaultTrigger(!defaultTrigger);
                     setReceivermail('')
+                    document
+                        .getElementsByClassName("newConversation")[0]?.classList?.remove("show");
                 })
                 .catch((err) => {
                     console.log(err);
@@ -196,6 +200,8 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                         setOpen(false);
                         setdefaultTrigger(!defaultTrigger);
                         setReceivermail('')
+                        document
+                            .getElementsByClassName("newConversation")[0]?.classList?.remove("show");
                     })
                     .catch((err) => {
                         console.log(err);

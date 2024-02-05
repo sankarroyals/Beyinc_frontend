@@ -65,14 +65,14 @@ p {
   margin-top: 70px;
 }
 
-form {
+/* form {
   display: flex;
   flex-direction: column;
   margin-top: -20px;
   width: 350px;
   margin: auto;
   justify-content: center;
-}
+} */
 
 label {
   margin-top: 5px;
