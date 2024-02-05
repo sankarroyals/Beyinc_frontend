@@ -39,8 +39,6 @@
 .icon {
   cursor: pointer !important;
   transition: color 0.3s ease, transform 0.3s ease !important;
-  font-size: 24px !important;
-  font-weight: 600 !;
 }
 
 .icon:hover {
@@ -139,11 +137,11 @@
 }
 
 .fas.fa-bars {
-  /* color: black; */
   font-size: 24px;
 }
 
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+
   width: 8px !important;
   color: #1976d2;
 }
@@ -173,7 +171,7 @@ h1 {
 .userDetails {
   height: 380px;
   width: 380px;
-  background: #eaf1fb;
+  background: var(--user-details-container-bg);
   position: absolute;
   display: none;
   padding: 10px;
@@ -201,16 +199,18 @@ h1 {
   }
 }
 
+  /* menu bar */
+.css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+  background-color: var(--menubar-bg) !important;
+  color:var(--menubar-txt) !important;
+}
+
 .line-loader {
   width: 91%;
-  /* border: 1px solid green; */
-
   height: 5px;
   display: inline-block;
   position: relative;
-  background: rgba(255, 255, 255, 0.15);
   overflow: hidden;
-  /* transform: translateY(-19px); */
   border-radius: 50px !important;
   position: absolute;
   top: 0px;
@@ -267,16 +267,14 @@ h1 {
   position: absolute;
   bottom: 0;
   right: 0;
-  background: #fff;
+  background-color: #0b57d0;
+  color: white;
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;
   font-size: 12px;
 }
-.edit-icon:hover {
-  background-color: #0b57d0;
-  color: white;
-}
+
 
 .username {
   font-weight: 600;

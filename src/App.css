@@ -5,6 +5,9 @@ body[data-theme="dark"] {
     --nav-head-bg: #212130;
     --landingPage-working-container-bg: #212130;
     --chatcontainer-bg: #212130;
+    --user-details-container-bg:#212130;
+    --menubar-bg: #212130 ;
+    --menubar-txt: #fff  ;
 
 }
 
@@ -15,6 +18,9 @@ body[data-theme="light"] {
     --nav-head-bg: #f1f1f1;
     --landingPage-working-container-bg: #f1f1f1;
     --chatcontainer-bg: #f1f1f1;
+    --user-details-container-bg:#eaf1fb;
+    --menubar-bg:#fff ;
+    --menubar-txt: #212130 ;
 
 }
 

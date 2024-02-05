@@ -40,10 +40,10 @@
   top: 0;
   left: 0px;
   box-sizing: border-box;
-  animation: animloader 4s linear forwards infinite;
+  animation: animloadertoast 4s linear forwards infinite;
 }
 
-@keyframes animloader {
+@keyframes animloadertoast {
   0% {
     left: 0px;
     /* transform: translateX(0%); */
