@@ -1,3 +1,6 @@
+:root{
+      --white: #fff;
+}
 body[data-theme="dark"] {
     --body-background: #17171E;
     --text-total-color: #fff;
@@ -5,16 +8,29 @@ body[data-theme="dark"] {
     --nav-head-bg: #212130;
     --landingPage-working-container-bg: #212130;
     --chatcontainer-bg: #212130;
+    --users-bg: #212130;
+    --newchat-button: #48abec;
+    --searchmenu-bg: #212130;
+--input-box-bg: #212130;
+--historical-selected-chat: #5e7585;
+--messageNavbar-bg : #202c33;
 
 }
 
 body[data-theme="light"] {
-    --body-background: #f8f9fa;
+    --body-background: #f4f4f6;
     --text-total-color: #212529;
     --navbar-profile-hover: #eaf1fb;
     --nav-head-bg: #f1f1f1;
     --landingPage-working-container-bg: #f1f1f1;
-    --chatcontainer-bg: #f1f1f1;
+    --chatcontainer-bg: #fff;
+    --newchat-button: #C2E7FF;
+    --searchmenu-bg: #fff;
+--users-bg: #fff;
+--input-box-bg: #fff;
+--historical-selected-chat: #C2E7FF;
+--messageNavbar-bg : #fff;
+
 
 }
 

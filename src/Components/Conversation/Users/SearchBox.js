@@ -83,7 +83,7 @@ const SearchBox = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }} className="newChatContainer">
         <div id='newchat'
           className="newChat"
           onClick={() => {
