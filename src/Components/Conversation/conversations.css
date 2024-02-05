@@ -12,7 +12,7 @@ body {
   padding: 0px 0px 15px 15px;
   /* gap: 20px; */
   background: var(--chatcontainer-bg);
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }
 
 .users {
@@ -38,5 +38,7 @@ body {
   }
   .chatContainer {
   width: 200px !important;
+  
+      margin-left: -20px !important;
 }
 }
