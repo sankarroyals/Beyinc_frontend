@@ -2,18 +2,11 @@ import React, { useEffect, useState } from "react";
 import { ApiServices } from "../../Services/ApiServices";
 import "../LivePitches/LivePitches.css";
 import { useSelector } from "react-redux";
-import CloseIcon from "@mui/icons-material/Close";
-import axios from "axios";
-import { Country, State } from "country-state-city";
+import { Country } from "country-state-city";
 import CachedIcon from "@mui/icons-material/Cached";
 import SingleUserDetails from "./SingleUserDetails";
 import "./users.css";
-import {
-  allLanguages,
-  allskills,
-  fetchRating,
-  idealUserRole,
-} from "../../Utils";
+import { allLanguages, allskills, fetchRating } from "../../Utils";
 import AddReviewStars from "../LivePitches/AddReviewStars";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -21,13 +14,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import {
-  Checkbox,
-  FormControlLabel,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Tab, Tabs, Typography } from "@mui/material";
 import { FilterPanel } from "./FilterPanel";
 import useWindowDimensions from "../Common/WindowSize";
 function TabPanel(props) {
