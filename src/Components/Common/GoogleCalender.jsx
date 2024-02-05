@@ -270,7 +270,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                         hidden={accessToken && expiresIn}
                         onClick={handleAuthClick}
                     >
-                        Authorize
+                        Authorize to create meet
                     </button>
                     {/* <button
                         id="add_manual_event"
