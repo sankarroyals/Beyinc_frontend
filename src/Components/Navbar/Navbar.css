@@ -1,5 +1,3 @@
-
-
 * {
   margin: 0;
   padding: 0;
@@ -22,8 +20,6 @@
   cursor: pointer;
   padding: 4px;
   margin-left: -8px;
-
-
 }
 .Profile-img:hover {
   background: var(--navbar-profile-hover);
@@ -119,7 +115,8 @@
   background-color: var(--nav-head-bg);
   height: 4.5vh;
   color: var(--text-total-color);
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   padding: 15px;
   font-weight: 600;
   z-index: 999;
@@ -141,7 +138,6 @@
 }
 
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
-
   width: 8px !important;
   color: #1976d2;
 }
@@ -199,11 +195,24 @@ h1 {
   }
 }
 
-  /* menu bar */
+
+/* menu bar */
 .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
   background-color: var(--menubar-bg) !important;
-  color:var(--menubar-txt) !important;
+  color: var(--menubar-txt) !important;
+  
 }
+
+.css-bshv44-MuiButtonBase-root-MuiListItem-root:hover {
+  background-color: var(--menubar-hover-color) !important;
+  color: var(--menubar-hover-txt);
+}
+
+.far.fa-file {
+  color: var(--menubar-txt);
+  margin-left: 25px;
+}
+
 
 .line-loader {
   width: 91%;
@@ -274,7 +283,6 @@ h1 {
   cursor: pointer;
   font-size: 12px;
 }
-
 
 .username {
   font-weight: 600;
@@ -424,15 +432,15 @@ h1 {
 .Individual-Notifications {
   /* margin-left: 30px; */
   /* border: 1px solid black; */
- display: flex;
- align-items: center;
+  display: flex;
+  align-items: center;
   width: 450px;
   text-align: start;
   padding: 10px;
   margin-bottom: 10px;
 }
 .css-1v3zj0x {
-    width: 550px !important;
+  width: 550px !important;
 }
 
 .divider {
@@ -453,8 +461,7 @@ h1 {
   }
   .profileImage {
     margin-left: 0 !important;
-      width: auto !important;
-
+    width: auto !important;
   }
   /* .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
     width: 70% !important;
