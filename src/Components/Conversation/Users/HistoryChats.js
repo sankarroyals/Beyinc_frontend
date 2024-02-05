@@ -90,14 +90,14 @@ const HistoryChats = () => {
 
             </Tabs>
             <TabPanel style={{ padding: 0 }} className="" value={value} index={1}>
-                <div style={{marginTop: '10px'}}>
+                <div style={{ marginTop: '10px', maxHeight: '400px', overflowY: 'scroll' }}>
                     {historicalConversations.filter(f => f.status == 'pending' && f.members[0].email == email).length > 0 ? historicalConversations.map((a) => (
                         a.status === 'pending' && <IndividualHistory a={a} onlineEmails={onlineEmails} status='pending' />
                     )) : <div style={{textAlign: 'start'}}>No Pending Requests</div>}
                 </div>    
             </TabPanel>
             <TabPanel style={{ padding: 0 }} className="" value={value} index={0}>
-                <div style={{ marginTop: '10px' }}>
+                <div style={{ marginTop: '10px', maxHeight: '400px', overflowY: 'scroll' }}>
                     {historicalConversations.filter(f => f.status == 'approved').length > 0 ? historicalConversations.map((a) => (
                         a.status === 'approved' && <IndividualHistory a={a} onlineEmails={onlineEmails} status='approved' />
                     )) : <div style={{ textAlign: 'start' }}>No Approved chats</div>}

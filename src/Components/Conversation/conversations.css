@@ -6,29 +6,36 @@ body {
   max-width: 1300px;
   height: 80vh;
   /* border: 1px solid green; */
-  margin: auto;
+  margin: 30px auto;
   display: flex;
   /* flex-wrap: wrap; */
-  padding: 5px;
+  padding: 0px 0px 15px 15px;
   /* gap: 20px; */
-  background: #f6f8fc;
+  background: var(--chatcontainer-bg);
   border-radius: 20px;
 }
 
 .users {
   flex: 1 0 25%;
-  background: #f6f8fc;
+  background: var(--chatcontainer-bg);
   /* margin-left: -80px; */
-  margin-top: -15px;
+  border-radius: 20px;
+
+  /* margin-top: -15px; */
   padding: 20px 0 40px 20px;
-  height: 600px;
+  height: 520px;
 }
 .chatContainer {
-  flex: 1 0 75%;
+  flex: 1 0 70%;
   padding: 12px 0px;
+  height: 100%;
 }
 
 @media (max-width: 768px) {
+  .conversationContainer{
+      margin: 10px auto;
+
+  }
   .chatContainer {
   width: 200px !important;
 }

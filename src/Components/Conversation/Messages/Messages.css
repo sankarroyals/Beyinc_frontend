@@ -8,14 +8,17 @@
 }
 
 .No_Conversation {
-  height: 600px;
-  width: 600px;
-  margin-top: -30px;
+  height: 500px;
+  width: 500px;
+  /* margin-top: -30px; */
 }
 
 .messages {
-  height: 83vh;
-  margin-top: -10px;
+  height: 100%;
+  margin-top: -11px;
+  width: 100%;
+  border-radius: 20px;
+
 }
 
 .messageContainer {
@@ -23,7 +26,8 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 5px;
-  padding-bottom: 15px;
+  height: 100%;
+  /* padding-bottom: 15px; */
   /* border-radius: 50px; */
   background: white !important;
   background: none;
@@ -36,9 +40,10 @@
   /* gap: 40px; */
   padding: 0px 120px;
   /* margin-top: -10px; */
-  height: 67vh;
+  height: 60.2vh;
   overflow-y: scroll;
   position: relative !important;
+  margin-left: -2px;
 }
 
 .details {
@@ -187,7 +192,8 @@
   position: relative;
   position: sticky;
   top: 0px;
-  background: white;
+  background: #fff;
+  /* border-top-right-radius: 20px; */
 }
 .bottom-line {
   display: flex;

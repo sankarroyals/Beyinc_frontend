@@ -1,12 +1,21 @@
 body[data-theme="dark"] {
-
-    --body-background: #1D2A35;
+    --body-background: #17171E;
     --text-total-color: #fff;
+    --navbar-profile-hover: #2172e2;
+    --nav-head-bg: #212130;
+    --landingPage-working-container-bg: #212130;
+    --chatcontainer-bg: #212130;
+
 }
 
 body[data-theme="light"] {
-    --body-background: #fff;
+    --body-background: #f8f9fa;
     --text-total-color: #212529;
+    --navbar-profile-hover: #eaf1fb;
+    --nav-head-bg: #f1f1f1;
+    --landingPage-working-container-bg: #f1f1f1;
+        --chatcontainer-bg: #f1f1f1;
+
 }
 
 body {
