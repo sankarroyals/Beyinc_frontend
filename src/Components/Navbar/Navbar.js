@@ -178,6 +178,36 @@ const Navbar = () => {
           </>
         )}
 
+        {isMobile && <>
+          <ListItem
+            button
+            key="searchUsers"
+            onClick={() => navigate("/searchusers")}
+          >
+            <ListItemIcon>
+              <SearchOutlinedIcon
+                id="searchusers"
+                className="icon"
+              ></SearchOutlinedIcon>
+            </ListItemIcon>
+            <ListItemText primary="Search Users" />
+          </ListItem>
+
+          <ListItem
+            button
+            key="livePitches"
+            onClick={() => navigate("/livePitches")}
+          >
+            <ListItemIcon>
+              <QuestionAnswerOutlinedIcon
+                id="livePitches"
+                className="icon"
+              ></QuestionAnswerOutlinedIcon>
+            </ListItemIcon>
+            <ListItemText primary="Live Pitches" />
+          </ListItem>
+        </>}
+
         {role === "Admin" && (
           <>
             <ListItem

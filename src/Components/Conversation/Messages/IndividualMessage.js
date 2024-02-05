@@ -20,6 +20,7 @@ import { isParent, socket_io, updateLastSeen } from "../../../Utils";
 import { Howl } from "howler";
 import moment from "moment";
 import { GoogleCalenderEvent } from "../../Common/GoogleCalender";
+import { TextField } from "@mui/material";
 
 const IndividualMessage = () => {
   const [loadingFile, setLoadingFile] = useState("");
@@ -472,7 +473,7 @@ const IndividualMessage = () => {
             style={{ display: "flex", flexDirection: "column", gap: "20px" }}
           >
             <div style={{ marginLeft: "10px" }}>
-              <input
+              {/* <input
                 type="text"
                 name="message"
                 id="message"
@@ -485,6 +486,15 @@ const IndividualMessage = () => {
                 }}
                 placeholder="Type a message"
                 autoFocus
+              /> */}
+              <TextField style={{padding: '0px'}}
+                id="outlined-multiline-flexible"
+                name="message"
+                value={sendMessage}
+                onChange={(e) => setSendMessage(e.target.value)}
+                multiline
+                placeholder="Type a message"
+                // maxRows={4}
               />
             </div>
             {file !== "" &&
@@ -571,14 +581,14 @@ const IndividualMessage = () => {
             <SendIcon
               className=""
               onClick={sendText}
-              style={{ color: "#0b57d0", cursor: "pointer", fontSize: "34px", marginTop: "10px", marginLeft: '10px' }}
+              style={{ color: "#0b57d0", cursor: "pointer", fontSize: "34px", marginTop: "8px", marginLeft: '10px' }}
             />
           ) : (
             <SendIcon
               className=""
               // onClick={sendText}
 
-                style={{ color: "gray", fontSize: "34px", marginTop: "10px", marginLeft: '10px' }}
+                style={{ color: "gray", fontSize: "34px", marginTop: "8px", marginLeft: '10px' }}
             />
           )}
         </div>

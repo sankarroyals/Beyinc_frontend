@@ -25,6 +25,7 @@ body[data-theme="dark"] {
   --border-colors: 1px solid rgba(249, 238, 238, 0.155);
   --userCard-boxshadow: #23232e;
 --messageNavbar-text: #fff;
+--singleUserCard-bg: #1c1b1b;
 }
 
 body[data-theme="light"] {
@@ -33,6 +34,8 @@ body[data-theme="light"] {
   --text-total-color: #212529;
   --navbar-profile-hover: #eaf1fb;
   --nav-head-bg: #1c1b1b;
+    --singleUserCard-bg: #fdf5f5;
+
   --landingPage-working-container-bg: #f1f1f1;
   --user-details-container-bg: #eaf1fb;
   --menubar-bg: #fff;

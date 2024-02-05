@@ -344,7 +344,7 @@
   width: 80%; /* Could be more or less, depending on screen size */
 }
 .user-card-main-container {
-  background-color: var(--nav-head-bg);
+  background-color: var( --singleUserCard-bg);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
