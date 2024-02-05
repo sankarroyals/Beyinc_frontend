@@ -208,7 +208,7 @@ h1 {
   color: var(--menubar-hover-txt);
 }
 
-.far.fa-file,.fas.fa-users {
+.far.fa-file,.fas.fa-users,.fas.fa-home,.far.fa-comment-alt {
   color: var(--menubar-txt);
 }
 
