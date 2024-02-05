@@ -15,10 +15,10 @@
 
 .messages {
   height: 100%;
-  margin-top: -11px;
+  margin-top: -12px;
   width: 100%;
   border-radius: 20px;
-
+  /* border-left: 1px solid rgb(189, 193, 189); */
 }
 
 .messageContainer {
@@ -27,9 +27,10 @@
   justify-content: space-between;
   gap: 5px;
   height: 100%;
+  /* margin-left: 15px; */
   /* padding-bottom: 15px; */
   /* border-radius: 50px; */
-  background: white !important;
+  background: var(--chatcontainer-bg) !important;
   background: none;
 }
 
@@ -78,7 +79,7 @@
   font-size: 12px;
   font-weight: 600;
 }
-.seenMessage{
+.seenMessage {
   font-size: 12px;
   align-self: flex-start;
   margin-left: 10px;
@@ -90,7 +91,7 @@
 }
 
 .senMessageView {
-  padding:10px 5px;
+  padding: 10px 5px;
   background: rgba(236, 233, 233, 0.626);
   width: 300px;
   border-radius: 30px;
@@ -138,7 +139,7 @@
   align-items: center;
   min-height: 5vh;
   padding: 5px 15px;
-    width: 650px !important;
+  width: 650px !important;
 
   justify-content: space-between;
 }
@@ -148,10 +149,11 @@
   height: auto;
   border: 0;
   outline: 0;
+  background: var( --input-box-bg);
+  color: var(--text-total-color);
   white-space: wrap;
   padding: 10px !important;
-    width: 450px !important;
-
+  width: 450px !important;
 }
 
 .uploadingFileIcon {
@@ -164,14 +166,13 @@
   border-radius: 50% !important;
   transition: background-color 0.3s, color 0.3s;
 }
-.blockUnblock{
+.blockUnblock {
   border: 1px solid gray;
   padding: 5px;
   width: auto;
   justify-self: flex-end !important;
   position: absolute;
   right: 20px;
-
 }
 
 .uploadingFileIcon:hover {
@@ -184,7 +185,7 @@
   white-space: wrap;
 }
 .messageNavbar {
-  padding: 19px 0px 0px 0px;
+  padding: 19px 0px 3px 0px;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -192,7 +193,7 @@
   position: relative;
   position: sticky;
   top: 0px;
-  background: #fff;
+  background: var(--messageNavbar-bg) !important;
   /* border-top-right-radius: 20px; */
 }
 .bottom-line {
@@ -201,8 +202,8 @@
   align-items: center;
   border-bottom: 0.1px solid rgb(238, 238, 238);
   position: relative;
-  width: 85%;
-  margin-left: 8%;
+  width: 100%;
+  /* margin-left: 8%; */
   margin-top: -5px;
 }
 
@@ -217,16 +218,16 @@
 }
 
 @media (max-width: 768px) {
-  .messageContainer{
+  .messageContainer {
     border-radius: 0px !important;
   }
   .messageBox {
-      height: auto;
-      min-height: 62vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
+    height: auto;
+    min-height: 62vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
-    padding: 0 !important;
+    padding: 0 10px !important;
     justify-content: center;
   }
   .sendBoxContainer {
@@ -237,11 +238,10 @@
     margin: auto !important;
   }
 
-  .sendBox{
+  .sendBox {
     width: 300px !important;
     position: sticky;
     bottom: 20px !important;
-
   }
 
   .sendBox input[type="text"],
@@ -252,8 +252,7 @@
     outline: 0;
     white-space: wrap;
     padding: 0px !important;
-        width: 130px !important;
-
+    width: 130px !important;
   }
   .senMessageView {
     width: 150px;
@@ -263,10 +262,10 @@
     width: 100px !important;
     height: 100px !important;
   }
-  .messageNavbar{
+  .messageNavbar {
     z-index: 999 !important;
   }
-  .specificDay{
+  .specificDay {
     position: sticky;
     top: 0px !important;
   }
