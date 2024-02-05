@@ -3,9 +3,10 @@
 }
 body[data-theme="dark"] {
   --body-background: #17171e;
+  --nabar-text: #fff;
   --text-total-color: #fff;
   --navbar-profile-hover: #2172e2;
-  --nav-head-bg: #212130;
+  --nav-head-bg: #022136;
   --landingPage-working-container-bg: #212130;
   --chatcontainer-bg: #212130;
   --user-details-container-bg: #212130;
@@ -28,9 +29,10 @@ body[data-theme="dark"] {
 
 body[data-theme="light"] {
   --body-background: #f4f4f6;
+    --nabar-text: #fff;
   --text-total-color: #212529;
   --navbar-profile-hover: #eaf1fb;
-  --nav-head-bg: #f1f1f1;
+  --nav-head-bg: #021b2b;
   --landingPage-working-container-bg: #f1f1f1;
   --user-details-container-bg: #eaf1fb;
   --menubar-bg: #fff;
