@@ -34,12 +34,11 @@ const SingleUserDetails = ({ d }) => {
     <>
       <div
         className={
-          "user-card-main-container " +
-          (d.role === "Entrepreneur"
+          "user-card-main-container " + (d.role === "Entrepreneur"
             ? "margin-entrepreneur"
             : d.role === "Mentor"
-            ? "margin-mentor"
-            : "")
+              ? "margin-mentor"
+              : "")
         }
       >
         <div className="user-card-details">

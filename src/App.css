@@ -22,6 +22,8 @@ body[data-theme="dark"] {
   --landingpage-text-color: #fff;
   --menubar-hover-color: #17171e;
   --border-colors: 1px solid rgba(249, 238, 238, 0.155);
+  --userCard-boxshadow: #23232e;
+
 }
 
 body[data-theme="light"] {
@@ -41,10 +43,11 @@ body[data-theme="light"] {
   --input-box-bg: #fff;
   --historical-selected-chat: #c2e7ff;
   --landingpage-text-color: #000000;
-  --menubar-hover-color:#f4f4f6
+  --menubar-hover-color:#f4f4f6;
   --messageNavbar-bg: #f0f2f5;
   --messageNavbar-border: #cccecf;
   --border-colors: 1px solid #cccecf;
+  --userCard-boxshadow: #ccc;
  
 }
 
