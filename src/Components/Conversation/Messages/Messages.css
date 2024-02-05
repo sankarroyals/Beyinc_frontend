@@ -193,8 +193,10 @@
   padding: 5px;
   width: auto;
   justify-self: flex-end !important;
-  position: absolute;
-  right: 20px;
+  margin-right: 10px;
+  white-space: noWrap;
+  /* position: absolute;
+  right: 20px; */
 }
 
 .uploadingFileIcon:hover {
@@ -209,8 +211,9 @@
 .messageNavbar {
   padding: 19px 0px 3px 0px;
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   align-items: center;
+
   /* border-bottom: var(--messageNavbar-border); */
   position: relative;
   position: sticky;
@@ -273,7 +276,6 @@
   .sendBox input[type="text"],
   .sendBox textarea {
     margin-bottom: -2px;
-    height: auto;
     border: none !important;
     outline: 0;
     white-space: wrap;

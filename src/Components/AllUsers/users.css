@@ -405,8 +405,12 @@
   justify-content: space-between;
 }
 @media (max-width: 768px){
-  .user-nav-bar div h3{
+  .user-nav-bar div{
     display: none;
+  }
+  .user-nav-bar div:nth-child(2){
+
+   flex-direction: row-reverse;
   }
 }
 .margin-entrepreneur {
@@ -419,7 +423,7 @@
 }
 
 .user-nav-bar {
-    width: 80%;
+    width: 70%;
   display: flex;
   margin: auto;
   flex-direction: row;

@@ -302,43 +302,45 @@ const IndividualMessage = () => {
             style={{ marginLeft: "20px", color: "grey" }}
           ></i>
         </div> */}
-        <div style={{ cursor: 'pointer' }} onClick={() => {
-          navigate(`/user/${receiverId?.user?.email}`)
-        }}>
-          <img
-            className="Dp"
-            src={
-              receiverId?.user?.image?.url !== undefined &&
-                receiverId?.user?.image?.url !== ""
-                ? receiverId.user?.image?.url
-                : "/profile.jpeg"
-            }
-            alt=""
-            srcset=""
-          />
-        </div>
-        <div style={{ cursor: 'pointer' }} onClick={() => {
-          navigate(`/user/${receiverId?.user?.email}`)
-        }}>
-          <div className="User-name">{receiverId?.user?.userName}</div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "10px",
-            }}
-          >
+        <div style={{display: 'flex', alignItems: 'center'}}>
+          <div style={{ cursor: 'pointer' }} onClick={() => {
+            navigate(`/user/${receiverId?.user?.email}`)
+          }}>
+            <img
+              className="Dp"
+              src={
+                receiverId?.user?.image?.url !== undefined &&
+                  receiverId?.user?.image?.url !== ""
+                  ? receiverId.user?.image?.url
+                  : "/profile.jpeg"
+              }
+              alt=""
+              srcset=""
+            />
+          </div>
+          <div style={{ cursor: 'pointer' }} onClick={() => {
+            navigate(`/user/${receiverId?.user?.email}`)
+          }}>
+            <div className="User-name">{receiverId?.user?.userName}</div>
             <div
-              title={
-                onlineEmails.includes(receiverId.email) ? "online" : "away"
-              }
-              style={{ position: "relative", marginLeft: "10px" }}
-              className={
-                onlineEmails.includes(receiverId.email) ? "online" : "away"
-              }
-            ></div>
-            <div style={{ marginLeft: "-16px", fontSize: "12px" }}>
-              {onlineEmails.includes(receiverId.email) ? "online" : "away"}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginLeft: "10px",
+              }}
+            >
+              <div
+                title={
+                  onlineEmails.includes(receiverId.email) ? "online" : "away"
+                }
+                style={{ position: "relative", marginLeft: "10px" }}
+                className={
+                  onlineEmails.includes(receiverId.email) ? "online" : "away"
+                }
+              ></div>
+              <div style={{ marginLeft: "-16px", fontSize: "12px" }}>
+                {onlineEmails.includes(receiverId.email) ? "online" : "away"}
+              </div>
             </div>
           </div>
         </div>
