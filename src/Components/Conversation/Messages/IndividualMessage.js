@@ -571,7 +571,7 @@ const IndividualMessage = () => {
             <SendIcon
               className=""
               onClick={sendText}
-              style={{ color: "#0b57d0", cursor: "pointer", fontSize: "24px" }}
+              style={{ color: "#0b57d0", cursor: "pointer", fontSize: "24px", marginTop: "10px" }}
             />
           ) : (
             <SendIcon

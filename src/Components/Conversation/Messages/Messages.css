@@ -138,7 +138,7 @@
   display: flex;
   align-items: center;
   min-height: 5vh;
-  padding: 5px 15px;
+  padding: 5px 15px 5px 0px;
   width: 650px !important;
 
   justify-content: space-between;
@@ -238,10 +238,12 @@
     gap: 2px !important;
     align-items: center !important;
     margin: auto !important;
+    width: 350px !important;
+
   }
 
   .sendBox {
-    width: 300px !important;
+    width: 250px !important;
     position: sticky;
     bottom: 20px !important;
   }
@@ -250,11 +252,11 @@
   .sendBox textarea {
     margin-bottom: -2px;
     height: auto;
-    border: 0;
+    /* border: 0; */
     outline: 0;
     white-space: wrap;
-    padding: 0px !important;
-    width: 130px !important;
+  padding: 10px !important;
+    width: 160px !important;
   }
   .senMessageView {
     width: 150px;
