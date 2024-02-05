@@ -8,6 +8,9 @@ body[data-theme="dark"] {
   --nav-head-bg: #212130;
   --landingPage-working-container-bg: #212130;
   --chatcontainer-bg: #212130;
+  --user-details-container-bg: #212130;
+  --menubar-bg: #212130;
+  --menubar-txt: #fff;
   --users-bg: #212130;
   --newchat-button: #48abec;
   --searchmenu-bg: #212130;
@@ -16,6 +19,7 @@ body[data-theme="dark"] {
   --messageNavbar-bg: #202c33;
   --tabPanel-text-color: #fff;
   --border-colors: 1px solid rgba(249, 238, 238, 0.155);
+  --landingpage-text-color: #fff;
 }
 
 body[data-theme="light"] {
@@ -24,6 +28,9 @@ body[data-theme="light"] {
   --navbar-profile-hover: #eaf1fb;
   --nav-head-bg: #f1f1f1;
   --landingPage-working-container-bg: #f1f1f1;
+  --user-details-container-bg: #eaf1fb;
+  --menubar-bg: #fff;
+  --menubar-txt: #212130;
   --chatcontainer-bg: #fff;
   --newchat-button: #c2e7ff;
   --searchmenu-bg: #fff;
@@ -33,6 +40,8 @@ body[data-theme="light"] {
   --messageNavbar-bg: #f0f2f5;
   --messageNavbar-border: #cccecf;
   --border-colors: 1px solid #cccecf;
+
+  --landingpage-text-color: #000000;
 }
 
 body {

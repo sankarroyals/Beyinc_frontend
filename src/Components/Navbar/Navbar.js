@@ -6,7 +6,7 @@ import { ApiServices } from "../../Services/ApiServices";
 import axiosInstance from "../axiosInstance";
 import { setLoginData, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
-import { Howl } from 'howler';
+import { Howl } from "howler";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { jwtDecode } from "jwt-decode";
 import Button from "@mui/material/Button";
@@ -19,6 +19,7 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import { io } from "socket.io-client";
 
 import Box from "@mui/material/Box";
@@ -31,7 +32,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { getAllNotifications, setNotification } from "../../redux/Conversationreducer/ConversationReducer";
+import {
+  getAllNotifications,
+  setNotification,
+} from "../../redux/Conversationreducer/ConversationReducer";
 import { Drawer, Tab, Tabs, Typography } from "@mui/material";
 import MessageRequest from "../Conversation/Notification/MessageRequest";
 import { format } from "timeago.js";
@@ -39,7 +43,7 @@ import { format } from "timeago.js";
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -70,13 +74,13 @@ const Navbar = () => {
   );
 
   const sound = new Howl({
-    src: ['/send.mp3']
+    src: ["/send.mp3"],
   });
 
   const [messageRequest, setMessageRequest] = useState([]);
 
   const notifications = useSelector((state) => state.conv.notifications);
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -93,12 +97,14 @@ const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const notificationAlert = useSelector(state => state.conv.notificationAlert);
+  const notificationAlert = useSelector(
+    (state) => state.conv.notificationAlert
+  );
   useEffect(() => {
     if (notificationAlert) {
-      sound.play()
+      sound.play();
     }
-  }, [notificationAlert])
+  }, [notificationAlert]);
   const [notificationDrawerState, setNotificationDrawerState] = useState({
     right: false,
   });
@@ -106,12 +112,12 @@ const Navbar = () => {
     await ApiServices.getUserRequest({ email: email }).then((res) => {
       setMessageRequest(res.data);
     });
-    dispatch(getAllNotifications(email))
-  }
+    dispatch(getAllNotifications(email));
+  };
 
   useEffect(() => {
     if (notificationDrawerState.right == true) {
-      getNotifys()
+      getNotifys();
     }
   }, [notificationDrawerState]);
 
@@ -119,8 +125,6 @@ const Navbar = () => {
     right: false,
     // Add other anchors if needed (left, top, bottom)
   });
-
-
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -134,7 +138,7 @@ const Navbar = () => {
   };
 
   const toggleNotificationDrawer = (anchor, open) => (event) => {
-    dispatch(setNotification(false))
+    dispatch(setNotification(false));
     if (
       event &&
       event.type === "keydown" &&
@@ -152,7 +156,6 @@ const Navbar = () => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-
       <List>
         {isMobile && (
           <>
@@ -161,7 +164,8 @@ const Navbar = () => {
                 <i className="fas fa-home"></i>
               </ListItemIcon>
               <ListItemText primary="Home" />
-            </ListItem><ListItem
+            </ListItem>
+            <ListItem
               button
               key="conversations"
               onClick={() => navigate("/conversations")}
@@ -171,31 +175,8 @@ const Navbar = () => {
               </ListItemIcon>
               <ListItemText primary="Conversations" />
             </ListItem>
-            {/* <ListItem
-            button
-            key="notifications"
-            onClick={() => {
-              navigate('/notifications')
-            }}
-          >
-            <ListItemIcon>
-              <i className="far fa-bell"></i>
-            </ListItemIcon>
-            <ListItemText primary="Notifications" />
-            {notificationAlert && <div className="blinkBall"></div>}
-          </ListItem> */}
           </>
         )}
-        <ListItem
-          button
-          key="searchUsers"
-          onClick={() => navigate("/searchusers")}
-        >
-          <ListItemIcon>
-            <SearchOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary="Search Users" />
-        </ListItem>
 
         {role === "Admin" && (
           <>
@@ -232,71 +213,104 @@ const Navbar = () => {
             <ListItemText primary="User Pitch" />
           </ListItem>
         )}
-
-        <ListItem
-          button
-          key="livePitches"
-          onClick={() => navigate("/livePitches")}
-        >
-          <ListItemIcon>
-            <i className="far fa-comments"></i>
-          </ListItemIcon>
-          <ListItemText primary="Live Pitches" />
-        </ListItem>
       </List>
-
-
     </Box>
   );
   const NotificationList = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250, overFlowX: 'hidden' }}
+      sx={{
+        width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+        overFlowX: "hidden",
+      }}
       role="presentation"
     >
-
-      <Tabs value={value} className='pitchTabs' style={{ width: '450px' }}
+      <Tabs
+        value={value}
+        className="pitchTabs"
+        style={{ width: "450px" }}
         textColor="primary"
         indicatorColor="secondary"
-        onChange={handleChange} aria-label="basic tabs example"
+        onChange={handleChange}
+        aria-label="basic tabs example"
       >
-        <Tab className='tabs' sx={{ width: '200px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label={`Notifications (${notifications?.length})`} {...a11yProps(1)} />
-        <Tab className='tabs' sx={{ width: '200px', background: 'none', textTransform: 'capitalize', padding: "0px", fontSize: '13px', fontWeight: 600 }} label={`Message Requests (${messageRequest?.length})`} {...a11yProps(0)} />
+        <Tab
+          className="tabs"
+          sx={{
+            width: "200px",
+            background: "none",
+            textTransform: "capitalize",
+            padding: "0px",
+            fontSize: "13px",
+            fontWeight: 600,
+          }}
+          label={`Notifications (${notifications?.length})`}
+          {...a11yProps(1)}
+        />
+        <Tab
+          className="tabs"
+          sx={{
+            width: "200px",
+            background: "none",
+            textTransform: "capitalize",
+            padding: "0px",
+            fontSize: "13px",
+            fontWeight: 600,
+          }}
+          label={`Message Requests (${messageRequest?.length})`}
+          {...a11yProps(0)}
+        />
       </Tabs>
       <TabPanel style={{ padding: 0 }} className="" value={value} index={0}>
         {notifications.map((n) => (
           <>
-            <div className={`individualrequest`} onClick={() => {
-              navigate(`/user/${n.senderInfo?.email}`)
-            }} style={{ width: '400px', marginLeft: '20px', textAlign: 'start' }}>
-              <div className='individualrequestWrapper' style={{ gap: '5px', alignItems: 'center', width: '100%' }}>
+            <div
+              className={`individualrequest`}
+              onClick={() => {
+                navigate(`/user/${n.senderInfo?.email}`);
+              }}
+              style={{ width: "400px", marginLeft: "20px", textAlign: "start" }}
+            >
+              <div
+                className="individualrequestWrapper"
+                style={{ gap: "5px", alignItems: "center", width: "100%" }}
+              >
                 <div>
-                  <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderInfo?.image?.url == undefined ? '/profile.jpeg' : n.senderInfo?.image?.url} alt="" srcset="" />
+                  <img
+                    style={{
+                      height: "50px",
+                      width: "50px",
+                      borderRadius: "50%",
+                    }}
+                    src={
+                      n.senderInfo?.image?.url == undefined
+                        ? "/profile.jpeg"
+                        : n.senderInfo?.image?.url
+                    }
+                    alt=""
+                    srcset=""
+                  />
                 </div>
                 <div>{n.message} </div>
-
               </div>
-
             </div>
             <div className="divider"></div>
           </>
         ))}
-
       </TabPanel>
       <TabPanel style={{ padding: 0 }} className="" value={value} index={1}>
         {(messageRequest.length > 0 || notifications.length > 0) && (
-          <><div>{messageRequest?.map((m) => (
-            <><MessageRequest m={m} setMessageRequest={setMessageRequest} />
-              <div className="divider"></div></>
-
-          ))}
-          </div>
+          <>
+            <div>
+              {messageRequest?.map((m) => (
+                <>
+                  <MessageRequest m={m} setMessageRequest={setMessageRequest} />
+                  <div className="divider"></div>
+                </>
+              ))}
+            </div>
           </>
         )}
-
       </TabPanel>
-
-
-
     </Box>
   );
 
@@ -322,7 +336,9 @@ const Navbar = () => {
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (file.size > 4 * 1024 * 1024) {
-      alert(`File size should be less than ${4 * 1024 * 1024 / (1024 * 1024)} MB.`);
+      alert(
+        `File size should be less than ${(4 * 1024 * 1024) / (1024 * 1024)} MB.`
+      );
       e.target.value = null; // Clear the selected file
       return;
     }
@@ -475,48 +491,62 @@ const Navbar = () => {
           navigate("/");
         }}
       >
-        <img src="/logo.png" alt="logo" />
+        <img id="logoImage" src={localStorage.getItem('theme') == 'light' ? "/logo.png" : "/Footer-Logo.png"} alt="logo" />
       </div>
 
       <div className="menuIcons">
         {isMobile || (
           <>
-            <div>
-              <attr title="Home">
-                <HomeOutlinedIcon
-                  id="home"
-                  className="icon"
-                  onClick={() => {
-                    navigate("/home");
-                  }}
-                ></HomeOutlinedIcon>
-              </attr>
+            <div title="Home">
+              <HomeOutlinedIcon
+                id="home"
+                className="icon"
+                onClick={() => {
+                  navigate("/home");
+                }}
+              ></HomeOutlinedIcon>
             </div>
-            <div style={{ position: "relative" }} >
-              <attr title="Conversations">
-                {" "}
-                <ChatBubbleOutlineOutlinedIcon
-                  id="conversations"
-                  className="icon"
-                  onClick={() => {
-                    navigate("/conversations");
-                  }}
-                ></ChatBubbleOutlineOutlinedIcon>
-              </attr>
-
+            <div style={{ position: "relative" }} title="Conversations">
+              {" "}
+              <ChatBubbleOutlineOutlinedIcon
+                id="conversations"
+                className="icon"
+                onClick={() => {
+                  navigate("/conversations");
+                }}
+              ></ChatBubbleOutlineOutlinedIcon>
               <div
                 className="Conversations-count"
                 title="unread conversations"
               ></div>
             </div>
-            <div id="notifications" className="icon">
-              <i
-                className="far fa-bell"
-                title="notifications"
-                onClick={toggleNotificationDrawer("right", true)}
-              ></i>
-              {notificationAlert && <div className="blinkBall"> </div>}
+
+            <div title="Search Users">
+              <SearchOutlinedIcon
+                id="searchusers"
+                className="icon"
+                onClick={() => navigate("/searchusers")}
+              ></SearchOutlinedIcon>
             </div>
+
+            <div title="Live Pitches">
+              <QuestionAnswerOutlinedIcon
+                id="livePitches"
+                className="icon"
+                onClick={() => navigate("/livePitches")}
+              ></QuestionAnswerOutlinedIcon>
+            </div>
+
+            <div title="Notifications">
+              <NotificationsNoneIcon
+                id="notifications"
+                className="icon"
+                onClick={toggleNotificationDrawer("right", true)}
+              >
+                {notificationAlert && <div className="blinkBall"> </div>}
+              </NotificationsNoneIcon>
+            </div>
+
             <Drawer
               anchor="right"
               open={notificationDrawerState["right"]}
@@ -527,14 +557,53 @@ const Navbar = () => {
             </Drawer>
           </>
         )}
-        {isMobile && <div id="notifications" className="icon">
+        {isMobile && (
+          <div id="notifications" className="icon">
+            <i
+              className="far fa-bell"
+              title="notifications"
+              onClick={() => {
+                navigate("/notifications");
+              }}
+            ></i>
+            {notificationAlert && <div className="blinkBall"> </div>}
+          </div>
+        )}
+
+        <div
+          id=""
+          className="icon"
+          title={`Switch to ${
+            localStorage.getItem("theme") === "light" ? "Dark" : "Light"
+          } Mode`}
+          onClick={(e) => {
+            const body = document.body;
+            const currentTheme = body.getAttribute("data-theme");
+            const newTheme = currentTheme === "light" ? "dark" : "light";
+            const mode = newTheme === "light" ? "Dark" : "Light";
+
+            body.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+            document.getElementById("themeIcon").className = `fas fa-${
+              newTheme == "light" ? "moon" : "sun"
+            }`;
+
+            // Switching the logo based on the theme
+            const logoImg = document.getElementById("logoImage");
+            logoImg.src =
+              newTheme === "light" ? "/logo.png" : "/Footer-Logo.png";
+            logoImg.alt = `${mode} Logo`;
+
+            e.currentTarget.title = `Switch to ${mode} Mode`;
+          }}
+        >
           <i
-            className="far fa-bell"
-            title="notifications"
-            onClick={() => { navigate('/notifications') }}
+            id="themeIcon"
+            class={`fas fa-${
+              localStorage.getItem("theme") == "light" ? "moon" : "sun"
+            }`}
           ></i>
-          {notificationAlert && <div className="blinkBall"> </div>}
-        </div>}
+        </div>
 
         <div
           id="editProfile"
@@ -549,9 +618,7 @@ const Navbar = () => {
             title={`${userName} \n ${email}`}
             id="Profile-img"
             className="Profile-img"
-            src={
-              image !== undefined && image !== "" ? image : "/profile.jpeg"
-            }
+            src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
             alt=""
           />
           {verification === "approved" && (
@@ -571,16 +638,7 @@ const Navbar = () => {
             </abbr>
           )}
         </div>
-        <div id="" className="icon" onClick={(e) => {
-          const body = document.body;
-          const currentTheme = body.getAttribute('data-theme');
-          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-          body.setAttribute('data-theme', newTheme);
-          localStorage.setItem('theme', newTheme)
-          document.getElementById('themeIcon').className = `fas fa-${newTheme == 'light' ? 'moon' : 'sun'}`
-        }}>
-          <i id='themeIcon' class={`fas fa-${localStorage.getItem('theme')=='light' ? 'moon' : 'sun'}`}></i>
-        </div>
+
         <div className="userDetails" ref={userDetailsRef}>
           <span className="line-loader"></span>
           <div
@@ -638,7 +696,7 @@ const Navbar = () => {
                   className="logout"
                   onClick={() => {
                     localStorage.removeItem("user");
-                    localStorage.clear()
+                    localStorage.clear();
                     window.location.href = "/login";
                   }}
                 >
@@ -677,7 +735,9 @@ const Navbar = () => {
                     width: "150px",
                   }}
                   src={
-                    image !== undefined && image !== "" ? image : "/profile.jpeg"
+                    image !== undefined && image !== ""
+                      ? image
+                      : "/profile.jpeg"
                   }
                   alt="Profile"
                 />
@@ -698,7 +758,9 @@ const Navbar = () => {
                 />
               </div>
 
-              <div style={{ display: "flex", gap: "2px", borderRadius: "10px" }}>
+              <div
+                style={{ display: "flex", gap: "2px", borderRadius: "10px" }}
+              >
                 <button
                   onClick={submit}
                   style={{ whiteSpace: "nowrap", position: "relative" }}
@@ -731,7 +793,10 @@ const Navbar = () => {
                 </button>
 
                 <button onClick={deleteImg}>
-                  <i class="fas fa-trash-alt" style={{ marginRight: "5px" }}></i>{" "}
+                  <i
+                    class="fas fa-trash-alt"
+                    style={{ marginRight: "5px" }}
+                  ></i>{" "}
                   Delete
                 </button>
               </div>
@@ -740,8 +805,8 @@ const Navbar = () => {
         </Dialog>
 
         {/* Button to open the right drawer */}
-        <div onClick={toggleDrawer("right", true)} >
-          <i className="fas fa-bars" title="Menu" ></i>
+        <div onClick={toggleDrawer("right", true)}>
+          <i className="fas fa-bars" title="Menu"></i>
         </div>
 
         {/* Swipeable Drawer for right anchor */}
