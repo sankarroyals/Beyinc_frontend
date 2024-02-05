@@ -198,6 +198,27 @@
   /* position: absolute;
   right: 20px; */
 }
+.downGoing{
+  padding: 15px;
+  background: rgba(207, 203, 203, 0.566);
+  position: fixed;
+  right: 34%;
+  border-radius: 50%;
+  bottom: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+}
+
+.downGoing:hover{
+  background: rgb(207, 203, 203);
+}
+.downGoing i{
+  margin-left: 4px;
+}
 
 .uploadingFileIcon:hover {
   color: #0b57d0;
@@ -245,6 +266,12 @@
 }
 
 @media (max-width: 768px) {
+  .downGoing{
+  position: fixed;
+  right: 42% !important;
+  bottom: 20px !important;
+  background: rgba(207, 203, 203) !important;
+  }
   .messageContainer {
     border-radius: 0px !important;
   }
