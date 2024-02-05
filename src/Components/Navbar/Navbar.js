@@ -491,7 +491,7 @@ const Navbar = () => {
           navigate("/");
         }}
       >
-        <img id="logoImage" src="/logo.png" alt="logo" />
+        <img id="logoImage" src={localStorage.getItem('theme') == 'light' ? "/logo.png" : "/Footer-Logo.png"} alt="logo" />
       </div>
 
       <div className="menuIcons">

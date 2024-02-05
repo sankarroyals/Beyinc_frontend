@@ -131,8 +131,8 @@
 .sendBox {
   position: sticky;
   bottom: -10px;
-  border-radius: 50px;
-  border: 1.5px solid lightgray;
+  border-radius: 10px;
+  border: var(--border-colors);
   margin-top: 10px;
   margin-bottom: 5px;
   display: flex;
@@ -167,7 +167,7 @@
   transition: background-color 0.3s, color 0.3s;
 }
 .blockUnblock {
-  border: 1px solid gray;
+  border: var(--border-colors);
   padding: 5px;
   width: auto;
   justify-self: flex-end !important;
@@ -189,7 +189,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  border-bottom: 1px solid lightgray;
+  /* border-bottom: var(--messageNavbar-border); */
   position: relative;
   position: sticky;
   top: 0px;
@@ -200,7 +200,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  border-bottom: 0.1px solid rgb(238, 238, 238);
+  border-bottom: var(--border-colors);
   position: relative;
   width: 100%;
   /* margin-left: 8%; */
@@ -215,6 +215,7 @@
   padding: 10px;
   background: rgb(218, 213, 213);
   border-radius: 10px;
+  color: black !important;
 }
 
 @media (max-width: 768px) {

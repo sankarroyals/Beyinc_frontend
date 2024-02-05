@@ -21,6 +21,7 @@ body[data-theme="dark"] {
   --tabPanel-text-color: #fff;
   --landingpage-text-color: #fff;
   --menubar-hover-color: #17171e;
+  --border-colors: 1px solid rgba(249, 238, 238, 0.155);
 }
 
 body[data-theme="light"] {
@@ -39,9 +40,12 @@ body[data-theme="light"] {
   --users-bg: #fff;
   --input-box-bg: #fff;
   --historical-selected-chat: #c2e7ff;
-  --messageNavbar-bg: #fff;
   --landingpage-text-color: #000000;
   --menubar-hover-color:#f4f4f6
+  --messageNavbar-bg: #f0f2f5;
+  --messageNavbar-border: #cccecf;
+  --border-colors: 1px solid #cccecf;
+ 
 }
 
 body {

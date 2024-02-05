@@ -464,7 +464,7 @@ const IndividualMessage = () => {
           </div>
         )}
       </div>
-      <div className="bottom-line"></div>
+      {/* <div className="bottom-line"></div> */}
 
       {userchatBlockedBy =='' ? <div className="sendBoxContainer">
         <div className="sendBox">
