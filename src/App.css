@@ -46,11 +46,11 @@ body[data-theme="light"] {
   --historical-selected-chat: #c2e7ff;
   --landingpage-text-color: #000000;
   --menubar-hover-color:#f4f4f6;
-  --messageNavbar-bg: #1c1b1b;
+  --messageNavbar-bg: #fff;
   --messageNavbar-border: #cccecf;
   --border-colors: 1px solid #cccecf;
   --userCard-boxshadow: #ccc;
-  --messageNavbar-text: #fff;
+  --messageNavbar-text: #000;
  
 }
 

@@ -570,7 +570,8 @@ const Navbar = () => {
           </div>
         )}
 
-        <div
+        {/* DARK AND WHITE THEME */}
+        {/* <div
           id=""
           className="icon"
           title={`Switch to ${
@@ -603,7 +604,7 @@ const Navbar = () => {
               localStorage.getItem("theme") == "light" ? "moon" : "sun"
             }`}
           ></i>
-        </div>
+        </div> */}
 
         <div
           id="editProfile"

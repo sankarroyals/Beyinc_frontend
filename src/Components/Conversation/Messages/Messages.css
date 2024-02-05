@@ -229,7 +229,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
 
-    padding: 0 10px !important;
+    padding: 0 30px !important;
     justify-content: center;
   }
   .sendBoxContainer {
@@ -266,6 +266,8 @@
   }
   .messageNavbar {
     z-index: 999 !important;
+        padding: 10px 30px !important;
+ 
   }
   .specificDay {
     position: sticky;
