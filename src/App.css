@@ -1,39 +1,38 @@
-:root{
-      --white: #fff;
+:root {
+  --white: #fff;
 }
 body[data-theme="dark"] {
-    --body-background: #17171E;
-    --text-total-color: #fff;
-    --navbar-profile-hover: #2172e2;
-    --nav-head-bg: #212130;
-    --landingPage-working-container-bg: #212130;
-    --chatcontainer-bg: #212130;
-    --users-bg: #212130;
-    --newchat-button: #48abec;
-    --searchmenu-bg: #212130;
---input-box-bg: #212130;
---historical-selected-chat: #5e7585;
---messageNavbar-bg : #202c33;
---tabPanel-text-color : #fff;
-
-
+  --body-background: #17171e;
+  --text-total-color: #fff;
+  --navbar-profile-hover: #2172e2;
+  --nav-head-bg: #212130;
+  --landingPage-working-container-bg: #212130;
+  --chatcontainer-bg: #212130;
+  --users-bg: #212130;
+  --newchat-button: #48abec;
+  --searchmenu-bg: #212130;
+  --input-box-bg: #212130;
+  --historical-selected-chat: #5e7585;
+  --messageNavbar-bg: #202c33;
+  --tabPanel-text-color: #fff;
+  --border-colors: 1px solid rgba(249, 238, 238, 0.155);
 }
 
 body[data-theme="light"] {
-    --body-background: #f4f4f6;
-    --text-total-color: #212529;
-    --navbar-profile-hover: #eaf1fb;
-    --nav-head-bg: #f1f1f1;
-    --landingPage-working-container-bg: #f1f1f1;
-    --chatcontainer-bg: #fff;
-    --newchat-button: #C2E7FF;
-    --searchmenu-bg: #fff;
---users-bg: #fff;
---input-box-bg: #fff;
---historical-selected-chat: #C2E7FF;
---messageNavbar-bg : #fff;
-
-
+  --body-background: #f4f4f6;
+  --text-total-color: #212529;
+  --navbar-profile-hover: #eaf1fb;
+  --nav-head-bg: #f1f1f1;
+  --landingPage-working-container-bg: #f1f1f1;
+  --chatcontainer-bg: #fff;
+  --newchat-button: #c2e7ff;
+  --searchmenu-bg: #fff;
+  --users-bg: #fff;
+  --input-box-bg: #fff;
+  --historical-selected-chat: #c2e7ff;
+  --messageNavbar-bg: #f0f2f5;
+  --messageNavbar-border: #cccecf;
+  --border-colors: 1px solid #cccecf;
 }
 
 body {
@@ -400,10 +399,10 @@ input[type="radio"] + label {
 @media (max-width: 768px) {
   input[type="email"],
   input[type="password"],
-  input[type="text"], input[type="number"]  {
+  input[type="text"],
+  input[type="number"] {
     /* width: 280px !important; */
   }
-  
 
   .Loading {
     align-items: center;
