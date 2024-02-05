@@ -101,7 +101,7 @@ const SearchBox = () => {
         <div title="Reload for latest request updates">
           <CachedIcon
             style={{ cursor: "pointer" }}
-            className={isSpinning ? "spin" : ""}
+            className={isSpinning ? "spin" : "spinText"}
             onClick={() => {
               handleReloadClick();
               dispatch(getAllHistoricalConversations(email));

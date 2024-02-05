@@ -194,6 +194,7 @@
   position: sticky;
   top: 0px;
   background: var(--messageNavbar-bg) !important;
+  color: var(--messageNavbar-text) !important;
   /* border-top-right-radius: 20px; */
 }
 .bottom-line {
