@@ -381,12 +381,8 @@ const AllUsers = () => {
               <i class="fa fa-sort-amount-desc"></i>
               Sort by
             </button> */}
-            <input
-              type="text"
-              style={{ marginTop: "2px", marginLeft: "8px" }}
-              className="nav-bar-buttons"
-              value={search}
-              placeholder="Search user"
+            <input type='text' style={{marginTop:'2px', marginLeft: '8px', width: '150px'}} className="nav-bar-buttons"
+              value={search} placeholder="Search user"
               onChange={(e) => {
                 setSearch(e.target.value);
                 if (e.target.value !== "") {

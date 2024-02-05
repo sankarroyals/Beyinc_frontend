@@ -40,6 +40,6 @@ body {
   .chatContainer {
     width: 200px !important;
 
-    margin-left: -20px !important;
+    /* margin-left: -20px !important; */
   }
 }

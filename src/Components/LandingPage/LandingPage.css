@@ -446,6 +446,7 @@ body {
 
   .sign-button {
     width: 125px !important;
+    height: 43px;
     /* margin-top: 5px; */
   }
 

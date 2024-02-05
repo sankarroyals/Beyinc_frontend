@@ -344,7 +344,7 @@
   width: 80%; /* Could be more or less, depending on screen size */
 }
 .user-card-main-container {
-  background-color: var(--nav-head-bg);
+  background-color: var( --singleUserCard-bg);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -405,8 +405,12 @@
   justify-content: space-between;
 }
 @media (max-width: 768px){
-  .user-nav-bar div h3{
+  .user-nav-bar div{
     display: none;
+  }
+  .user-nav-bar div:nth-child(2){
+
+   flex-direction: row-reverse;
   }
 }
 .margin-entrepreneur {
@@ -419,7 +423,7 @@
 }
 
 .user-nav-bar {
-    width: 80%;
+    width: 70%;
   display: flex;
   margin: auto;
   flex-direction: row;
