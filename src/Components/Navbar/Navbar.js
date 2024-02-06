@@ -178,6 +178,36 @@ const Navbar = () => {
           </>
         )}
 
+        {isMobile && <>
+          <ListItem
+            button
+            key="searchUsers"
+            onClick={() => navigate("/searchusers")}
+          >
+            <ListItemIcon>
+              <SearchOutlinedIcon
+                id="searchusers"
+                className="icon"
+              ></SearchOutlinedIcon>
+            </ListItemIcon>
+            <ListItemText primary="Search Users" />
+          </ListItem>
+
+          <ListItem
+            button
+            key="livePitches"
+            onClick={() => navigate("/livePitches")}
+          >
+            <ListItemIcon>
+              <QuestionAnswerOutlinedIcon
+                id="livePitches"
+                className="icon"
+              ></QuestionAnswerOutlinedIcon>
+            </ListItemIcon>
+            <ListItemText primary="Live Pitches" />
+          </ListItem>
+        </>}
+
         {role === "Admin" && (
           <>
             <ListItem
@@ -491,8 +521,7 @@ const Navbar = () => {
           navigate("/");
         }}
       >
-        {/* <img id="logoImage" src={localStorage.getItem('theme') == 'light' ? "/logo.png" : "/Footer-Logo.png"} alt="logo" /> */}
-        <img src="/Footer-Logo.png" alt="logo" />
+        <img id="logoImage" src={localStorage.getItem('theme') == 'light' ? "/Footer-Logo.png" : "/Footer-Logo.png"} alt="logo" />
       </div>
 
       <div className="menuIcons">
@@ -571,7 +600,8 @@ const Navbar = () => {
           </div>
         )}
 
-        <div
+        {/* DARK AND WHITE THEME */}
+        {/* <div
           id=""
           className="icon"
           title={`Switch to ${
@@ -592,7 +622,7 @@ const Navbar = () => {
             // Switching the logo based on the theme
             const logoImg = document.getElementById("logoImage");
             logoImg.src =
-              newTheme === "light" ? "/logo.png" : "/Footer-Logo.png";
+              newTheme === "light" ? "/Footer-Logo.png" : "/Footer-Logo.png";
             logoImg.alt = `${mode} Logo`;
 
             e.currentTarget.title = `Switch to ${mode} Mode`;
@@ -604,7 +634,7 @@ const Navbar = () => {
               localStorage.getItem("theme") == "light" ? "moon" : "sun"
             }`}
           ></i>
-        </div>
+        </div> */}
 
         <div
           id="editProfile"

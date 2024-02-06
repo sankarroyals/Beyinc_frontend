@@ -5,14 +5,20 @@ body {
 }
 
 .Beyinc-logo {
-  background: transparent;
-  width: 100%;
+  background: var(--nav-head-bg);
+  /* width: 100%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 .Beyinc-logo img {
   height: auto;
   width: 150px;
-  margin-left: 60px;
+  /* margin-left: 60px; */
   margin-top: 10px;
 }
 
@@ -20,10 +26,11 @@ body {
   background: #ff6824;
   border-radius: 15px;
   width: 140px;
-  position: absolute;
+  margin-right: 10px;
+  /* position: absolute;
   top: 6%;
   right: 5%;
-  transform: translate(0, -50%);
+  transform: translate(0, -50%); */
 }
 
 .sign-button:hover {
@@ -439,7 +446,8 @@ body {
 
   .sign-button {
     width: 125px !important;
-    margin-top: 5px;
+    height: 43px;
+    /* margin-top: 5px; */
   }
 
   /* section-1 */

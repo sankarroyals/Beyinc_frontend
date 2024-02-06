@@ -9,6 +9,7 @@ export function FilterPanel({
   dataKey,
   isCountry,
   isFlat,
+  isPitch,
 }) {
   const [data, setData] = useState(rawData);
   const [query, setQuery] = useState("");
@@ -85,15 +86,22 @@ export function FilterPanel({
               control={
                 <Checkbox
                   value={`${h.name}-${h.isoCode}`}
-                  checked={filters.userName.includes(`${h.name}-${h.isoCode}`)}
+                  checked={filters[isPitch ? "country" : "userName"].includes(
+                    `${h.name}-${h.isoCode}`
+                  )}
                   onChange={() =>
                     setFilters((prev) => ({
                       ...prev,
-                      userName: prev.userName.includes(`${h.name}-${h.isoCode}`)
-                        ? prev.userName.filter(
+                      [isPitch ? "country" : "userName"]: prev[
+                        isPitch ? "country" : "userName"
+                      ].includes(`${h.name}-${h.isoCode}`)
+                        ? prev[isPitch ? "country" : "userName"].filter(
                             (v) => v !== `${h.name}-${h.isoCode}`
                           )
-                        : [...filters.userName, `${h.name}-${h.isoCode}`],
+                        : [
+                            ...filters[isPitch ? "country" : "userName"],
+                            `${h.name}-${h.isoCode}`,
+                          ],
                     }))
                   }
                 />

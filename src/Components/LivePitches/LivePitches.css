@@ -38,7 +38,6 @@ body {
   padding: 10px;
 }
 .livePitchesWrapper {
-  width: 1300px;
   margin: auto;
   display: flex;
   gap: 10px;
@@ -274,7 +273,7 @@ input[type="checkbox"] {
     align-self: flex-start;
   }
 
-.individualPitchContainer .commentsContainer {
+  .individualPitchContainer .commentsContainer {
     width: 300.9px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
@@ -286,7 +285,7 @@ input[type="checkbox"] {
     margin-left: 0px;
   }
 
- .writing-review {
+  .writing-review {
     margin-top: 15px !important;
     flex-direction: column;
     align-self: flex-start !important;

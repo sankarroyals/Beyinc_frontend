@@ -22,6 +22,7 @@ import {
   convertToDate,
   itPositions,
 } from "../../Utils";
+import { TextField } from "@mui/material";
 
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
@@ -1083,13 +1084,14 @@ const Editprofile = () => {
                   <label className="update-form-label">Bio</label>
                 </div>
                 <div>
-                  <textarea
+                  <TextField style={{ padding: '0px' }}
+                    id="outlined-multiline-flexible"
                     name="bio"
-                    cols={45}
                     value={bio}
-                    id=""
                     onChange={(e) => setBio(e.target.value)}
-                    placeholder="Enter your bio"
+                    multiline
+                    placeholder="Enter Your Bio"
+                  // maxRows={4}
                   />
                 </div>
               </div>

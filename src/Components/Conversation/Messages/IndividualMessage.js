@@ -20,6 +20,8 @@ import { isParent, socket_io, updateLastSeen } from "../../../Utils";
 import { Howl } from "howler";
 import moment from "moment";
 import { GoogleCalenderEvent } from "../../Common/GoogleCalender";
+import { TextField } from "@mui/material";
+
 
 const IndividualMessage = () => {
   const [loadingFile, setLoadingFile] = useState("");
@@ -33,6 +35,8 @@ const IndividualMessage = () => {
   const { email, image, userName, role } = useSelector(
     (state) => state.auth.loginDetails
   );
+  const [showDiv, setShowDiv] = useState(true);
+
   const [messages, setMessages] = useState([]);
   const [sendMessage, setSendMessage] = useState("");
   const [file, setFile] = useState("");
@@ -261,6 +265,28 @@ const IndividualMessage = () => {
   }, [messages]);
 
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Calculate the distance from the bottom of the page
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const bottomDistance = documentHeight - (scrollPosition + windowHeight);
+
+      // Set visibility based on scroll position
+      setShowDiv(bottomDistance > 100); // Adjust the threshold as needed
+    };
+
+    // Attach the scroll event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
+
   const blockChat = async (by) => {
     await ApiServices.chatBlock({ conversationId: conversationId, blockedBy: email }).then(res => {
       setUserChatBlocked(!userchatBlocked)
@@ -287,56 +313,46 @@ const IndividualMessage = () => {
   return (
     <div className="messageContainer">
       <div className="messageNavbar">
-        {/* <div
-          onClick={() => {
-            dispatch(setConversationId(""));
-
-            navigate(-1);
-          }}
-        >
-          <i
-            className="fas fa-arrow-left"
-            title="back"
-            style={{ marginLeft: "20px", color: "grey" }}
-          ></i>
-        </div> */}
-        <div style={{ cursor: 'pointer' }} onClick={() => {
-          navigate(`/user/${receiverId?.user?.email}`)
-        }}>
-          <img
-            className="Dp"
-            src={
-              receiverId?.user?.image?.url !== undefined &&
-                receiverId?.user?.image?.url !== ""
-                ? receiverId.user?.image?.url
-                : "/profile.jpeg"
-            }
-            alt=""
-            srcset=""
-          />
-        </div>
-        <div style={{ cursor: 'pointer' }} onClick={() => {
-          navigate(`/user/${receiverId?.user?.email}`)
-        }}>
-          <div className="User-name">{receiverId?.user?.userName}</div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "10px",
-            }}
-          >
+       
+        <div style={{display: 'flex', alignItems: 'center'}}>
+          <div style={{ cursor: 'pointer' }} onClick={() => {
+            navigate(`/user/${receiverId?.user?.email}`)
+          }}>
+            <img
+              className="Dp"
+              src={
+                receiverId?.user?.image?.url !== undefined &&
+                  receiverId?.user?.image?.url !== ""
+                  ? receiverId.user?.image?.url
+                  : "/profile.jpeg"
+              }
+              alt=""
+              srcset=""
+            />
+          </div>
+          <div style={{ cursor: 'pointer' }} onClick={() => {
+            navigate(`/user/${receiverId?.user?.email}`)
+          }}>
+            <div className="User-name">{receiverId?.user?.userName}</div>
             <div
-              title={
-                onlineEmails.includes(receiverId.email) ? "online" : "away"
-              }
-              style={{ position: "relative", marginLeft: "10px" }}
-              className={
-                onlineEmails.includes(receiverId.email) ? "online" : "away"
-              }
-            ></div>
-            <div style={{ marginLeft: "-16px", fontSize: "12px" }}>
-              {onlineEmails.includes(receiverId.email) ? "online" : "away"}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginLeft: "10px",
+              }}
+            >
+              <div
+                title={
+                  onlineEmails.includes(receiverId.email) ? "online" : "away"
+                }
+                style={{ position: "relative", marginLeft: "10px" }}
+                className={
+                  onlineEmails.includes(receiverId.email) ? "online" : "away"
+                }
+              ></div>
+              <div style={{ marginLeft: "-16px", fontSize: "12px" }}>
+                {onlineEmails.includes(receiverId.email) ? "online" : "away"}
+              </div>
             </div>
           </div>
         </div>
@@ -465,26 +481,34 @@ const IndividualMessage = () => {
         )}
       </div>
       {/* <div className="bottom-line"></div> */}
-
+      <div className="downGoing" id='downGoing' style={{ display: showDiv? 'block': 'none' }}
+        onClick={() => {
+          scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+        }}
+      >
+        <i
+          className="fas fa-arrow-down"
+          title="Scroll below"
+          
+        ></i>
+      </div>
       {userchatBlockedBy =='' ? <div className="sendBoxContainer">
         <div className="sendBox">
           <div
             style={{ display: "flex", flexDirection: "column", gap: "20px" }}
           >
             <div style={{ marginLeft: "10px" }}>
-              <input
-                type="text"
+              <TextField style={{ padding: '0px' }}
+                sx={{
+                  "& fieldset": { border: 'none' },
+                }}
+                id="outlined-multiline-flexible"
                 name="message"
-                id="message"
                 value={sendMessage}
                 onChange={(e) => setSendMessage(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    sendText();
-                  }
-                }}
+                multiline
                 placeholder="Type a message"
-                autoFocus
+                
               />
             </div>
             {file !== "" &&
@@ -547,7 +571,7 @@ const IndividualMessage = () => {
               ))}
           </div>
 
-          <div style={{ position: "absolute", right: isParent(role, receiverId?.user?.role) ? "50px" : '10px' }}>
+          <div>
             <label htmlFor="chatFile" className="uploadingFileIcon">
               <CloudUploadIcon />
             </label>
@@ -571,14 +595,14 @@ const IndividualMessage = () => {
             <SendIcon
               className=""
               onClick={sendText}
-              style={{ color: "#0b57d0", cursor: "pointer", fontSize: "24px" }}
+              style={{ color: "#0b57d0", cursor: "pointer", fontSize: "34px", marginTop: "8px", marginLeft: '10px' }}
             />
           ) : (
             <SendIcon
               className=""
               // onClick={sendText}
 
-              style={{ color: "gray", fontSize: "24px", marginTop: "10px" }}
+                style={{ color: "gray", fontSize: "34px", marginTop: "8px", marginLeft: '10px' }}
             />
           )}
         </div>

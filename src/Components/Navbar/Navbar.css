@@ -115,7 +115,8 @@
 .navbar {
   background-color: var(--nav-head-bg);
   height: 4.5vh;
-  color: var(--text-total-color);
+  /* color: var(--text-total-color); */
+  color: var(--nabar-text);
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
   padding: 15px;
@@ -179,6 +180,7 @@ h1 {
   transition: all ease 0.2s;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 999 !important;
+  color: var(--text-total-color);
 }
 
 .showUserDetails {
