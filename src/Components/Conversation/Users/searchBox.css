@@ -133,7 +133,8 @@ body[data-theme="dark"] .tabs{
 }
 
 .tabs:hover{
-    background: none !important;
+    background: #4e54c7  !important;
+    color: #fff;
 }
 
 .pitchForm{

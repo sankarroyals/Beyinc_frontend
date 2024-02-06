@@ -5,7 +5,9 @@ body[data-theme="dark"] {
   --body-background: #17171e;
   --text-total-color: #fff;
   --navbar-profile-hover: #2172e2;
-  --nav-head-bg: #212130;
+  /* --nav-head-bg: #212130; */
+  --nav-head-bg: #032036;
+  --nav-head-icons: #fff;
   --landingPage-working-container-bg: #212130;
   --chatcontainer-bg: #212130;
   --user-details-container-bg: #212130;
@@ -28,7 +30,9 @@ body[data-theme="light"] {
   --body-background: #f4f4f6;
   --text-total-color: #212529;
   --navbar-profile-hover: #eaf1fb;
-  --nav-head-bg: #f1f1f1;
+  /* --nav-head-bg: #f1f1f1; */
+  --nav-head-bg: #032036;
+    --nav-head-icons: #fff;
   --landingPage-working-container-bg: #f1f1f1;
   --user-details-container-bg: #eaf1fb;
   --menubar-bg: #fff;
@@ -184,14 +188,16 @@ input.invalid {
 }
 
 button:disabled {
-  background-color: #3b82f6 !important;
+  background-color: #6a73fa !important;
   cursor: not-allowed;
 }
 
 button {
   width: 360px;
   padding: 15px;
-  background-color: #3b82f6;
+  background-color: #6a73fa;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -199,7 +205,7 @@ button {
 }
 
 button:hover {
-  background-color: #1e4bb8;
+  background-color: #4e54c7;
 }
 
 .invalid input {

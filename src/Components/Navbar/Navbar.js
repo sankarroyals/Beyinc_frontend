@@ -220,14 +220,14 @@ const Navbar = () => {
     <Box
       sx={{
         width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
-        overFlowX: "hidden",
+        overFlowX: "hidden", 
       }}
       role="presentation"
     >
       <Tabs
         value={value}
         className="pitchTabs"
-        style={{ width: "450px" }}
+        style={{ width: "500px" }}
         textColor="primary"
         indicatorColor="secondary"
         onChange={handleChange}
@@ -236,7 +236,7 @@ const Navbar = () => {
         <Tab
           className="tabs"
           sx={{
-            width: "200px",
+            width: "250px",
             background: "none",
             textTransform: "capitalize",
             padding: "0px",
@@ -249,7 +249,7 @@ const Navbar = () => {
         <Tab
           className="tabs"
           sx={{
-            width: "200px",
+            width: "250px",
             background: "none",
             textTransform: "capitalize",
             padding: "0px",
@@ -268,7 +268,7 @@ const Navbar = () => {
               onClick={() => {
                 navigate(`/user/${n.senderInfo?.email}`);
               }}
-              style={{ width: "400px", marginLeft: "20px", textAlign: "start" }}
+              style={{ width: "500px", marginLeft: "15px", textAlign: "start" }}
             >
               <div
                 className="individualrequestWrapper"
@@ -491,7 +491,8 @@ const Navbar = () => {
           navigate("/");
         }}
       >
-        <img id="logoImage" src={localStorage.getItem('theme') == 'light' ? "/logo.png" : "/Footer-Logo.png"} alt="logo" />
+        {/* <img id="logoImage" src={localStorage.getItem('theme') == 'light' ? "/logo.png" : "/Footer-Logo.png"} alt="logo" /> */}
+        <img src="/Footer-Logo.png" alt="logo" />
       </div>
 
       <div className="menuIcons">
@@ -722,7 +723,7 @@ const Navbar = () => {
             id="alert-dialog-title"
             style={{ display: "flex", justifyContent: "center" }}
           >
-            {"Profile Picture"}
+            <b> {"Profile Picture"}</b>
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
