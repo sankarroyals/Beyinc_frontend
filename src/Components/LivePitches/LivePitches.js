@@ -398,12 +398,298 @@ const LivePitches = () => {
       </Dialog>
 
       <div className="livePitchesContainer">
-        <div className="livePitchesWrapper">
-          <div className="user-nav-bar" style={{ margin: 0 }}>
-            <button className="nav-bar-buttons" onClick={handleClickOpen}>
-              <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
-            </button>
-          </div>
+        <div
+          className="livePitchesWrapper"
+          style={{ flexWrap: width < 1100 ? "wrap" : "nowrap" }}
+        >
+          {width < 1100 ? (
+            <div className="user-nav-bar" style={{ margin: 0 }}>
+              <button className="nav-bar-buttons" onClick={handleClickOpen}>
+                <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
+              </button>
+            </div>
+          ) : (
+            <div className="filterContainer">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div className="filterHeader">Filter By:</div>
+                <div title="Reset filters">
+                  <CachedIcon
+                    style={{ cursor: "pointer" }}
+                    className={isSpinning ? "spin" : ""}
+                    onClick={() => {
+                      handleReloadClick();
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Position */}
+              <div className="tagFilter">
+                <div>People required:</div>
+                {filters.hiringPositions?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.hiringPositions.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              hiringPositions: [
+                                ...filters.hiringPositions.filter(
+                                  (f, j) => i !== j
+                                ),
+                              ],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="hiringPositions"
+                    // value={form?.hiringPositions}
+                    onChange={(e) => {
+                      if (!filters.hiringPositions.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          hiringPositions: [
+                            ...filters.hiringPositions,
+                            e.target.value,
+                          ],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {itPositions.map((h) => (
+                      <option value={h}>{h}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Domain */}
+              <div className="tagFilter">
+                <div>Domain:</div>
+                {filters.industry1?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.industry1.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              industry1: [
+                                ...filters.industry1.filter((f, j) => i !== j),
+                              ],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="hiringPositions"
+                    // value={form?.hiringPositions}
+                    onChange={(e) => {
+                      if (!filters.industry1.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          industry1: [...filters.industry1, e.target.value],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {Object.keys(domain_subdomain).map((d) => (
+                      <option value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Tech */}
+              <div className="tagFilter">
+                <div>Tech:</div>
+                {filters.industry2?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.industry2.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              industry2: [
+                                ...filters.industry2.filter((f, j) => i !== j),
+                              ],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="hiringPositions"
+                    // value={form?.hiringPositions}
+                    onChange={(e) => {
+                      if (!filters.industry2.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          industry2: [...filters.industry2, e.target.value],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {filters.industry1?.map((d) =>
+                      domain_subdomain[d]?.map((d) => (
+                        <option value={d}>{d}</option>
+                      ))
+                    )}
+                  </select>
+                </div>
+              </div>
+
+              <div className="tagFilter">
+                <div>Country:</div>
+                {filters.country?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.country.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              country: [
+                                ...filters.country.filter((f, j) => i !== j),
+                              ],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="hiringPositions"
+                    // value={form?.hiringPositions}
+                    onChange={(e) => {
+                      if (!filters.country.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          country: [...filters.country, e.target.value],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {Country?.getAllCountries().map((h) => (
+                      <option value={`${h.name}-${h.isoCode}`}>{h.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div className="tagFilter">
+                <div>Tags</div>
+                {filters.tags?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.tags.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              tags: [...filters.tags.filter((f, j) => i !== j)],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <div>
+                    <input
+                      type="text"
+                      value={tag}
+                      onChange={(e) => settag(e.target.value)}
+                    />
+                  </div>
+                  <div
+                    onClick={() => {
+                      if (tag !== "" && !filters.tags.includes(tag)) {
+                        setFilters((prev) => ({
+                          ...prev,
+                          tags: [...filters.tags, tag],
+                        }));
+                        settag("");
+                      }
+                    }}
+                  >
+                    <i className="fas fa-plus"></i>
+                  </div>
+                </div>
+              </div>
+
+              {/* Rating */}
+              <div className="tagFilter">
+                <div>Rating:</div>
+                <div className="inputTag">
+                  <AddReviewStars
+                    filledStars={filledStars}
+                    setFilledStars={setFilledStars}
+                  />
+                </div>
+              </div>
+
+              {/* Intrested */}
+              <div className="intrestedFilter">
+                <input
+                  type="checkbox"
+                  style={{ width: "20px" }}
+                  checked={filters.intrested}
+                  onChange={() => {
+                    setFilters((prev) => ({
+                      ...prev,
+                      intrested: !filters.intrested,
+                    }));
+                  }}
+                />
+                Interested
+              </div>
+            </div>
+          )}
+
           <div className="pitchcontainer">
             {filteredData.length > 0 ? (
               filteredData?.map((d) => <SinglePitchetails d={d} />)

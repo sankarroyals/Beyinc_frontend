@@ -138,7 +138,6 @@
 }
 
 .usersWrapper .filterContainer {
-  flex: 1 0 20%;
   padding: 10px;
 }
 
@@ -344,7 +343,7 @@
   width: 80%; /* Could be more or less, depending on screen size */
 }
 .user-card-main-container {
-  background-color: var( --singleUserCard-bg);
+  background-color: var(--singleUserCard-bg);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -404,13 +403,12 @@
   flex-direction: column;
   justify-content: space-between;
 }
-@media (max-width: 768px){
-  .user-nav-bar div{
+@media (max-width: 768px) {
+  .user-nav-bar div {
     display: none;
   }
-  .user-nav-bar div:nth-child(2){
-
-   flex-direction: row-reverse;
+  .user-nav-bar div:nth-child(2) {
+    flex-direction: row-reverse;
   }
 }
 .margin-entrepreneur {
@@ -423,7 +421,7 @@
 }
 
 .user-nav-bar {
-    width: 70%;
+  width: 70%;
   display: flex;
   margin: auto;
   flex-direction: row;

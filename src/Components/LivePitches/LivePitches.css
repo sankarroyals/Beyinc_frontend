@@ -45,7 +45,6 @@ body {
 }
 
 .livePitchesWrapper .filterContainer {
-  flex: 1 0 20%;
   padding: 10px;
 }
 .pitchcontainer {
@@ -61,6 +60,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 220px;
 }
 .filterContainer .filterHeader {
   font-size: 18px;

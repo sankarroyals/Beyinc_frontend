@@ -14,6 +14,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Checkbox,
   FormControlLabel,
@@ -373,34 +374,366 @@ const AllUsers = () => {
           <div>
             <h3>Connect with Users</h3>
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <button className="nav-bar-buttons" onClick={handleClickOpen}>
-              <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
-            </button>
-            {/* <button className="nav-bar-buttons">
+          {width < 770 ? (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <button className="nav-bar-buttons" onClick={handleClickOpen}>
+                <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
+              </button>
+              {/* <button className="nav-bar-buttons">
               <i class="fa fa-sort-amount-desc"></i>
               Sort by
             </button> */}
-            <input type='text' style={{marginTop:'2px', marginLeft: '8px', width: '150px'}} className="nav-bar-buttons"
-              value={search} placeholder="Search user"
-              onChange={(e) => {
-                setSearch(e.target.value);
-                if (e.target.value !== "") {
-                  setFilteredData(
-                    filteredData.filter((f) => {
-                      return f.userName.includes(e.target.value);
-                    })
-                  );
-                } else {
-                  setFilteredData(data);
-                }
-              }}
-              label="Search.."
-              variant="standard"
-            />
-          </div>
+              <input
+                type="text"
+                style={{ marginTop: "2px", marginLeft: "8px", width: "150px" }}
+                className="nav-bar-buttons"
+                value={search}
+                placeholder="Search user"
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  if (e.target.value !== "") {
+                    setFilteredData(
+                      filteredData.filter((f) => {
+                        return f.userName.includes(e.target.value);
+                      })
+                    );
+                  } else {
+                    setFilteredData(data);
+                  }
+                }}
+                label="Search.."
+                variant="standard"
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className="usersWrapper">
+          {width > 770 ? (
+            <div className="filterContainer">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div className="filterHeader">Filter By:</div>
+                <div title="Reset filters">
+                  <CachedIcon
+                    style={{ cursor: "pointer" }}
+                    className={isSpinning ? "spin" : ""}
+                    onClick={() => {
+                      handleReloadClick();
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Role */}
+              <div className="tagFilter">
+                <div>Role:</div>
+                {filters.role?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.role.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              role: [...filters.role.filter((f, j) => i !== j)],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="role"
+                    // value={form?.email}
+                    onChange={(e) => {
+                      if (!filters.role.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          role: [...filters.role, e.target.value],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {totalRoles.map((h) => (
+                      <option value={h.role}>{h.role}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* mail */}
+              <div className="tagFilter">
+                <div>Email:</div>
+                {filters.email?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.email.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              email: [
+                                ...filters.email.filter((f, j) => i !== j),
+                              ],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="email"
+                    // value={form?.email}
+                    onChange={(e) => {
+                      if (!filters.email.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          email: [...filters.email, e.target.value],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {data.map((h) => (
+                      <option value={h.email}>{h.email}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Domain */}
+              <div className="tagFilter">
+                <div>User Names:</div>
+                {filters.userName?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.userName.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              userName: [
+                                ...filters.userName.filter((f, j) => i !== j),
+                              ],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="hiringPositions"
+                    // value={form?.hiringPositions}
+                    onChange={(e) => {
+                      if (!filters.userName.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          userName: [...filters.userName, e.target.value],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {data.map((h) => (
+                      <option value={h.userName}>{h.userName}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* country */}
+              <div className="tagFilter">
+                <div>Country:</div>
+                {filters.country?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.country.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              country: [
+                                ...filters.country.filter((f, j) => i !== j),
+                              ],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="hiringPositions"
+                    // value={form?.hiringPositions}
+                    onChange={(e) => {
+                      if (!filters.country.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          country: [...filters.country, e.target.value],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {Country?.getAllCountries().map((h) => (
+                      <option value={`${h.name}-${h.isoCode}`}>{h.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="tagFilter">
+                <div>Skills:</div>
+                {filters.skills?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.skills.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              skills: [
+                                ...filters.skills.filter((f, j) => i !== j),
+                              ],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="hiringPositions"
+                    // value={form?.hiringPositions}
+                    onChange={(e) => {
+                      if (!filters.skills.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          skills: [...filters.skills, e.target.value],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {allskills?.map((h) => (
+                      <option value={h}>{h}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* languagesKnown */}
+              <div className="tagFilter">
+                <div>Languages known:</div>
+                {filters.languagesKnown?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.languagesKnown.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              languagesKnown: [
+                                ...filters.languagesKnown.filter(
+                                  (f, j) => i !== j
+                                ),
+                              ],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <select
+                    name="hiringPositions"
+                    // value={form?.hiringPositions}
+                    onChange={(e) => {
+                      if (!filters.languagesKnown.includes(e.target.value)) {
+                        setFilters((prev) => ({
+                          ...filters,
+                          languagesKnown: [
+                            ...filters.languagesKnown,
+                            e.target.value,
+                          ],
+                        }));
+                      }
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {allLanguages?.map((h) => (
+                      <option value={h}>{h}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Rating */}
+              <div className="tagFilter">
+                <div>Rating:</div>
+                <div className="inputTag">
+                  <AddReviewStars
+                    filledStars={filledStars}
+                    setFilledStars={setFilledStars}
+                  />
+                </div>
+              </div>
+
+              {/* verification */}
+              <div className="verificationFilter">
+                <input
+                  type="checkbox"
+                  style={{ width: "20px" }}
+                  checked={filters.verification}
+                  onChange={() => {
+                    setFilters((prev) => ({
+                      ...prev,
+                      verification: !filters.verification,
+                    }));
+                  }}
+                />
+                Verified
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
           <div className="userscontainer">
             {filteredData.length > 0 ? (
               filteredData?.map((d) => <SingleUserDetails d={d} />)
