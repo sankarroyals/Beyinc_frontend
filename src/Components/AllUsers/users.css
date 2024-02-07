@@ -511,5 +511,6 @@
   font-size: 14px;
 }
 .filterContainer hr {
-  border: 1px solid #dedede;
+  border: none;
+  border-bottom: 1px solid #dedede;
 }
