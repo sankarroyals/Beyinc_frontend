@@ -138,7 +138,10 @@
 }
 
 .usersWrapper .filterContainer {
-  padding: 10px;
+  padding: 15px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 760px) {
@@ -506,4 +509,7 @@
 }
 .filter-header {
   font-size: 14px;
+}
+.filterContainer hr {
+  border: 1px solid #dedede;
 }
