@@ -131,7 +131,7 @@
   max-width: 1300px;
   margin: auto;
   display: flex;
-  gap: 10px;
+  gap: 2%;
   background: var(--body-background);
 
   /* flex-wrap: wrap; */
@@ -351,6 +351,7 @@
   padding: 13px;
   box-shadow: 0 0 10px var(--userCard-boxshadow);
   border-radius: 10px;
+  height: fit-content;
 }
 .user-card-details-text {
   display: flex;
@@ -481,4 +482,28 @@
 .filter-options-label::-webkit-scrollbar {
   height: 3px; /* height of horizontal scrollbar ← You're missing this */
   width: 4px; /* width of vertical scrollbar */
+}
+.tagFilter ul {
+  width: 100%;
+  marker: none;
+  list-style-type: none;
+}
+.tagFilter li {
+  width: 100%;
+  marker: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+.tagFilter label {
+  font-size: 14px;
+  font-weight: normal;
+}
+.tagFilter .inputTag input[type="checkbox"] {
+  width: 14px !important;
+  margin: 0;
+}
+.filter-header {
+  font-size: 14px;
 }

@@ -25,6 +25,7 @@ import {
 } from "@mui/material";
 import { FilterPanel } from "./FilterPanel";
 import useWindowDimensions from "../Common/WindowSize";
+import { FilterCheckBoxes } from "./FilterCheckBox";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -209,6 +210,7 @@ const AllUsers = () => {
     setFilledStars(0);
   };
   const { height, width } = useWindowDimensions();
+  useEffect(() => console.log(filters), [filters]);
   return (
     <>
       <Dialog
@@ -430,283 +432,107 @@ const AllUsers = () => {
                   />
                 </div>
               </div>
-
               {/* Role */}
               <div className="tagFilter">
-                <div>Role:</div>
-                {filters.role?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.role.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              role: [...filters.role.filter((f, j) => i !== j)],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="role"
-                    // value={form?.email}
-                    onChange={(e) => {
-                      if (!filters.role.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          role: [...filters.role, e.target.value],
-                        }));
-                      }
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {totalRoles.map((h) => (
-                      <option value={h.role}>{h.role}</option>
-                    ))}
-                  </select>
+                <div className="filter-header">
+                  <b>Role</b>
                 </div>
-              </div>
 
-              {/* mail */}
-              <div className="tagFilter">
-                <div>Email:</div>
-                {filters.email?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.email.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              email: [
-                                ...filters.email.filter((f, j) => i !== j),
-                              ],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="email"
-                    // value={form?.email}
-                    onChange={(e) => {
-                      if (!filters.email.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          email: [...filters.email, e.target.value],
-                        }));
-                      }
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {data.map((h) => (
-                      <option value={h.email}>{h.email}</option>
-                    ))}
-                  </select>
-                </div>
+                <FilterCheckBoxes
+                  dataKey={"role"}
+                  rawData={totalRoles}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
               </div>
+              <hr />
+
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Email</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  dataKey={"email"}
+                  rawData={data}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
 
               {/* Domain */}
               <div className="tagFilter">
-                <div>User Names:</div>
-                {filters.userName?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.userName.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              userName: [
-                                ...filters.userName.filter((f, j) => i !== j),
-                              ],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="hiringPositions"
-                    // value={form?.hiringPositions}
-                    onChange={(e) => {
-                      if (!filters.userName.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          userName: [...filters.userName, e.target.value],
-                        }));
-                      }
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {data.map((h) => (
-                      <option value={h.userName}>{h.userName}</option>
-                    ))}
-                  </select>
+                <div className="filter-header">
+                  <b>User Names</b>
                 </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  dataKey={"userName"}
+                  rawData={data}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
               </div>
 
+              <hr />
               {/* country */}
               <div className="tagFilter">
-                <div>Country:</div>
-                {filters.country?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.country.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              country: [
-                                ...filters.country.filter((f, j) => i !== j),
-                              ],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="hiringPositions"
-                    // value={form?.hiringPositions}
-                    onChange={(e) => {
-                      if (!filters.country.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          country: [...filters.country, e.target.value],
-                        }));
-                      }
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {Country?.getAllCountries().map((h) => (
-                      <option value={`${h.name}-${h.isoCode}`}>{h.name}</option>
-                    ))}
-                  </select>
+                <div className="filter-header">
+                  <b>Country</b>
                 </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  rawData={Country?.getAllCountries()}
+                  isCountry={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
               </div>
 
+              <hr />
               <div className="tagFilter">
-                <div>Skills:</div>
-                {filters.skills?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.skills.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              skills: [
-                                ...filters.skills.filter((f, j) => i !== j),
-                              ],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="hiringPositions"
-                    // value={form?.hiringPositions}
-                    onChange={(e) => {
-                      if (!filters.skills.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          skills: [...filters.skills, e.target.value],
-                        }));
-                      }
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {allskills?.map((h) => (
-                      <option value={h}>{h}</option>
-                    ))}
-                  </select>
+                <div className="filter-header">
+                  <b>Skills</b>
                 </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  rawData={allskills}
+                  dataKey={"skills"}
+                  isFlat={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
               </div>
 
-              {/* languagesKnown */}
+              <hr />
               <div className="tagFilter">
-                <div>Languages known:</div>
-                {filters.languagesKnown?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.languagesKnown.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              languagesKnown: [
-                                ...filters.languagesKnown.filter(
-                                  (f, j) => i !== j
-                                ),
-                              ],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="hiringPositions"
-                    // value={form?.hiringPositions}
-                    onChange={(e) => {
-                      if (!filters.languagesKnown.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          languagesKnown: [
-                            ...filters.languagesKnown,
-                            e.target.value,
-                          ],
-                        }));
-                      }
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {allLanguages?.map((h) => (
-                      <option value={h}>{h}</option>
-                    ))}
-                  </select>
+                <div className="filter-header">
+                  <b>Languages known</b>
                 </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  rawData={allLanguages}
+                  dataKey={"languagesKnown"}
+                  isFlat={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
               </div>
-
+              <hr />
               {/* Rating */}
-              <div className="tagFilter">
-                <div>Rating:</div>
-                <div className="inputTag">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  fontSize: 14,
+                }}
+              >
+                <div style={{ marginLeft: 8 }} className="filter-rating-label">
+                  <b> Rating</b>
+                </div>
+                <div className="inputTag" style={{ marginLeft: 20 }}>
                   <AddReviewStars
                     filledStars={filledStars}
                     setFilledStars={setFilledStars}
@@ -714,42 +540,53 @@ const AllUsers = () => {
                 </div>
               </div>
 
-              {/* verification */}
               <div className="verificationFilter">
-                <input
-                  type="checkbox"
-                  style={{ width: "20px" }}
-                  checked={filters.verification}
-                  onChange={() => {
-                    setFilters((prev) => ({
-                      ...prev,
-                      verification: !filters.verification,
-                    }));
+                <div
+                  className="filter-options-label"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    fontSize: 14,
+                    marginLeft: 8,
                   }}
-                />
-                Verified
+                >
+                  <b> Verified</b>
+                  <input
+                    type="checkbox"
+                    style={{ width: "20px", marginLeft: 20, marginBottom: 0 }}
+                    checked={filters.verification}
+                    onChange={() => {
+                      setFilters((prev) => ({
+                        ...prev,
+                        verification: !filters.verification,
+                      }));
+                    }}
+                  />
+                </div>
               </div>
             </div>
           ) : (
             ""
           )}
-
-          <div className="userscontainer">
-            {filteredData.length > 0 ? (
-              filteredData?.map((d) => <SingleUserDetails d={d} />)
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                  width: "100%",
-                }}
-              >
-                No Users Available
-              </div>
-            )}
+          <div>
+            <div className="userscontainer">
+              {filteredData.length > 0 ? (
+                filteredData?.map((d) => <SingleUserDetails d={d} />)
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                    width: "100%",
+                  }}
+                >
+                  No Users Available
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
