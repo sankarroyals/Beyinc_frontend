@@ -410,7 +410,7 @@ const AllUsers = () => {
           )}
         </div>
         <div className="usersWrapper">
-          {width > 770 ? (
+          {width > 770 && (
             <div className="filterContainer">
               <div
                 style={{
@@ -548,8 +548,6 @@ const AllUsers = () => {
                 </div>
               </div>
             </div>
-          ) : (
-            ""
           )}
           <div className="user-cards-panel">
             {width > 770 && (

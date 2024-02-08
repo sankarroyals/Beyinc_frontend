@@ -28,6 +28,7 @@ import {
 } from "@mui/material";
 import useWindowDimensions from "../Common/WindowSize";
 import { FilterPanel } from "../AllUsers/FilterPanel";
+import { FilterCheckBoxes } from "../AllUsers/FilterCheckBox";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -428,196 +429,121 @@ const LivePitches = () => {
                   />
                 </div>
               </div>
-
-              {/* Position */}
               <div className="tagFilter">
-                <div>People required:</div>
-                {filters.hiringPositions?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.hiringPositions.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              hiringPositions: [
-                                ...filters.hiringPositions.filter(
-                                  (f, j) => i !== j
-                                ),
-                              ],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="hiringPositions"
-                    // value={form?.hiringPositions}
-                    onChange={(e) => {
-                      if (!filters.hiringPositions.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          hiringPositions: [
-                            ...filters.hiringPositions,
-                            e.target.value,
-                          ],
-                        }));
-                      }
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {itPositions.map((h) => (
-                      <option value={h}>{h}</option>
-                    ))}
-                  </select>
+                <div className="filter-header">
+                  <b>Poistion</b>
                 </div>
-              </div>
 
+                <FilterCheckBoxes
+                  showSearch={true}
+                  dataKey={"hiringPositions"}
+                  rawData={itPositions}
+                  setFilters={setFilters}
+                  filters={filters}
+                  isFlat={true}
+                />
+              </div>
+              <hr />
               {/* Domain */}
               <div className="tagFilter">
-                <div>Domain:</div>
-                {filters.industry1?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.industry1.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              industry1: [
-                                ...filters.industry1.filter((f, j) => i !== j),
-                              ],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="hiringPositions"
-                    // value={form?.hiringPositions}
-                    onChange={(e) => {
-                      if (!filters.industry1.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          industry1: [...filters.industry1, e.target.value],
-                        }));
-                      }
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {Object.keys(domain_subdomain).map((d) => (
-                      <option value={d}>{d}</option>
-                    ))}
-                  </select>
+                <div className="filter-header">
+                  <b>Domain</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  dataKey={"industry1"}
+                  rawData={Object.keys(domain_subdomain)}
+                  isFlat={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Skills</b>
+                </div>
+                <FilterCheckBoxes
+                  rawData={filters.industry1?.reduce(
+                    (prev, cur) => [...prev, ...domain_subdomain[cur]],
+                    []
+                  )}
+                  showSearch={true}
+                  dataKey={"industry2"}
+                  isFlat={true}
+                  filters={filters}
+                  setFilters={setFilters}
+                />
+              </div>
+              <hr />
+              {/* country */}
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Country</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  rawData={Country?.getAllCountries()}
+                  isCountry={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
+              {/* Rating */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  fontSize: 14,
+                }}
+              >
+                <div style={{ marginLeft: 8 }} className="filter-rating-label">
+                  <b> Rating:</b>
+                </div>
+                <div className="inputTag" style={{ marginLeft: 20 }}>
+                  <AddReviewStars
+                    filledStars={filledStars}
+                    setFilledStars={setFilledStars}
+                  />
                 </div>
               </div>
-
-              {/* Tech */}
-              <div className="tagFilter">
-                <div>Tech:</div>
-                {filters.industry2?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.industry2.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              industry2: [
-                                ...filters.industry2.filter((f, j) => i !== j),
-                              ],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="hiringPositions"
-                    // value={form?.hiringPositions}
-                    onChange={(e) => {
-                      if (!filters.industry2.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          industry2: [...filters.industry2, e.target.value],
-                        }));
-                      }
-                    }}
+              <div className="intrestedFilter">
+                <div
+                  className="filter-options-label"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{ marginLeft: 8, fontSize: 14 }}
+                    className="filter-rating-label"
                   >
-                    <option value="">Select</option>
-                    {filters.industry1?.map((d) =>
-                      domain_subdomain[d]?.map((d) => (
-                        <option value={d}>{d}</option>
-                      ))
-                    )}
-                  </select>
+                    <b>Intrested:</b>
+                  </div>
+                  <input
+                    type="checkbox"
+                    style={{ width: "20px", marginLeft: 20, marginBottom: 0 }}
+                    checked={filters.intrested}
+                    onChange={() => {
+                      setFilters((prev) => ({
+                        ...prev,
+                        intrested: !filters.intrested,
+                      }));
+                    }}
+                  />
                 </div>
               </div>
-
               <div className="tagFilter">
-                <div>Country:</div>
-                {filters.country?.length > 0 && (
-                  <div className="listedTeam">
-                    {filters.country.map((t, i) => (
-                      <div className="singleMember">
-                        <div>{t}</div>
-                        <div
-                          onClick={(e) => {
-                            setFilters((prev) => ({
-                              ...prev,
-                              country: [
-                                ...filters.country.filter((f, j) => i !== j),
-                              ],
-                            }));
-                          }}
-                        >
-                          <CloseIcon className="deleteMember" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="inputTag">
-                  <select
-                    name="hiringPositions"
-                    // value={form?.hiringPositions}
-                    onChange={(e) => {
-                      if (!filters.country.includes(e.target.value)) {
-                        setFilters((prev) => ({
-                          ...filters,
-                          country: [...filters.country, e.target.value],
-                        }));
-                      }
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {Country?.getAllCountries().map((h) => (
-                      <option value={`${h.name}-${h.isoCode}`}>{h.name}</option>
-                    ))}
-                  </select>
+                <div
+                  style={{ marginLeft: 8, fontSize: 14 }}
+                  className="filter-rating-label"
+                >
+                  <b>Tags:</b>
                 </div>
-              </div>
-
-              {/* Tags */}
-              <div className="tagFilter">
-                <div>Tags</div>
                 {filters.tags?.length > 0 && (
                   <div className="listedTeam">
                     {filters.tags.map((t, i) => (
@@ -660,36 +586,8 @@ const LivePitches = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Rating */}
-              <div className="tagFilter">
-                <div>Rating:</div>
-                <div className="inputTag">
-                  <AddReviewStars
-                    filledStars={filledStars}
-                    setFilledStars={setFilledStars}
-                  />
-                </div>
-              </div>
-
-              {/* Intrested */}
-              <div className="intrestedFilter">
-                <input
-                  type="checkbox"
-                  style={{ width: "20px" }}
-                  checked={filters.intrested}
-                  onChange={() => {
-                    setFilters((prev) => ({
-                      ...prev,
-                      intrested: !filters.intrested,
-                    }));
-                  }}
-                />
-                Interested
-              </div>
             </div>
           )}
-
           <div className="pitchcontainer">
             {filteredData.length > 0 ? (
               filteredData?.map((d) => <SinglePitchetails d={d} />)
