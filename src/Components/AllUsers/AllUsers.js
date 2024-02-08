@@ -26,6 +26,7 @@ import {
 import { FilterPanel } from "./FilterPanel";
 import useWindowDimensions from "../Common/WindowSize";
 import { FilterCheckBoxes } from "./FilterCheckBox";
+import { Search } from "@mui/icons-material";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -210,7 +211,7 @@ const AllUsers = () => {
     setFilledStars(0);
   };
   const { height, width } = useWindowDimensions();
-  useEffect(() => console.log(filters), [filters]);
+  const [query, setQuery] = useState("");
   return (
     <>
       <Dialog
@@ -374,8 +375,39 @@ const AllUsers = () => {
       <div className="usersContainer">
         <div className="user-nav-bar">
           <div>
-            <h3>Connect with Users</h3>
+            <h3 style={{ width: "max-content" }}>Connect with Users</h3>
           </div>
+          <Box
+            className="search-box"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              marginY: 2,
+              marginLeft: 3,
+              width: "70%",
+            }}
+          >
+            <Search sx={{ color: "action.active", width: 20, mx: 1 }} />
+            <input
+              className="search-input"
+              style={{ width: "100%", height: 10, padding: 10, margin: 0 }}
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setFilteredData(
+                  e.target.value !== ""
+                    ? filteredData.filter((f) =>
+                        f.userName
+                          .toLowerCase()
+                          .includes(e.target.value.toLowerCase())
+                      )
+                    : data
+                );
+              }}
+              placeholder="Search Users.."
+              variant="standard"
+            />
+          </Box>
           {width < 770 ? (
             <div style={{ display: "flex", alignItems: "center" }}>
               <button className="nav-bar-buttons" onClick={handleClickOpen}>
@@ -441,20 +473,6 @@ const AllUsers = () => {
                 <FilterCheckBoxes
                   dataKey={"role"}
                   rawData={totalRoles}
-                  setFilters={setFilters}
-                  filters={filters}
-                />
-              </div>
-              <hr />
-
-              <div className="tagFilter">
-                <div className="filter-header">
-                  <b>Email</b>
-                </div>
-                <FilterCheckBoxes
-                  showSearch={true}
-                  dataKey={"email"}
-                  rawData={data}
                   setFilters={setFilters}
                   filters={filters}
                 />

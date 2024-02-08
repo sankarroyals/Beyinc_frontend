@@ -425,11 +425,12 @@
 }
 
 .user-nav-bar {
-  width: 70%;
+  width: 80%;
   display: flex;
   margin: auto;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   margin-bottom: 10px;
 }
 
@@ -513,4 +514,14 @@
 .filterContainer hr {
   border: none;
   border-bottom: 1px solid #dedede;
+}
+.search-box {
+  background-color: white;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+}
+.search-input {
+  border: none;
 }
