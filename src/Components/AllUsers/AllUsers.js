@@ -58,8 +58,8 @@ const tabs = [
   "Role",
   "Emails",
   "Name",
-  "Country",
   "Skills",
+  "Country",
   "Language",
   "Other",
 ];
@@ -289,20 +289,20 @@ const AllUsers = () => {
                 filters={filters}
                 setFilters={setFilters}
               />
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              <FilterPanel
-                rawData={Country?.getAllCountries()}
-                isCountry={true}
-                filters={filters}
-                setFilters={setFilters}
-              />
-            </TabPanel>
+            </TabPanel>{" "}
             <TabPanel value={value} index={4}>
               <FilterPanel
                 rawData={allskills}
                 dataKey={"skills"}
                 isFlat={true}
+                filters={filters}
+                setFilters={setFilters}
+              />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <FilterPanel
+                rawData={Country?.getAllCountries()}
+                isCountry={true}
                 filters={filters}
                 setFilters={setFilters}
               />
@@ -372,42 +372,8 @@ const AllUsers = () => {
         </DialogActions>
       </Dialog>
 
-      <div className="usersContainer">
+      <div className="users-main-box">
         <div className="user-nav-bar">
-          <div>
-            <h3 style={{ width: "max-content" }}>Connect with Users</h3>
-          </div>
-          <Box
-            className="search-box"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              marginY: 2,
-              marginLeft: 3,
-              width: "70%",
-            }}
-          >
-            <Search sx={{ color: "action.active", width: 20, mx: 1 }} />
-            <input
-              className="search-input"
-              style={{ width: "100%", height: 10, padding: 10, margin: 0 }}
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setFilteredData(
-                  e.target.value !== ""
-                    ? filteredData.filter((f) =>
-                        f.userName
-                          .toLowerCase()
-                          .includes(e.target.value.toLowerCase())
-                      )
-                    : data
-                );
-              }}
-              placeholder="Search Users.."
-              variant="standard"
-            />
-          </Box>
           {width < 770 ? (
             <div style={{ display: "flex", alignItems: "center" }}>
               <button className="nav-bar-buttons" onClick={handleClickOpen}>
@@ -492,22 +458,6 @@ const AllUsers = () => {
                   filters={filters}
                 />
               </div>
-
-              <hr />
-              {/* country */}
-              <div className="tagFilter">
-                <div className="filter-header">
-                  <b>Country</b>
-                </div>
-                <FilterCheckBoxes
-                  showSearch={true}
-                  rawData={Country?.getAllCountries()}
-                  isCountry={true}
-                  setFilters={setFilters}
-                  filters={filters}
-                />
-              </div>
-
               <hr />
               <div className="tagFilter">
                 <div className="filter-header">
@@ -518,6 +468,20 @@ const AllUsers = () => {
                   rawData={allskills}
                   dataKey={"skills"}
                   isFlat={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
+              {/* country */}
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Country</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  rawData={Country?.getAllCountries()}
+                  isCountry={true}
                   setFilters={setFilters}
                   filters={filters}
                 />
@@ -587,7 +551,40 @@ const AllUsers = () => {
           ) : (
             ""
           )}
-          <div>
+          <div className="user-cards-panel">
+            {width > 770 && (
+              <Box
+                className="search-box"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: 3,
+                  width: "100%",
+                  boxSizing: "border-box",
+                }}
+              >
+                <Search sx={{ color: "action.active", width: 20, mx: 1 }} />
+                <input
+                  className="search-input"
+                  style={{ height: 10, padding: 10, margin: 0 }}
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    setFilteredData(
+                      e.target.value !== ""
+                        ? filteredData.filter((f) =>
+                            f.userName
+                              .toLowerCase()
+                              .includes(e.target.value.toLowerCase())
+                          )
+                        : data
+                    );
+                  }}
+                  placeholder="Search Users.."
+                  variant="standard"
+                />
+              </Box>
+            )}
             <div className="userscontainer">
               {filteredData.length > 0 ? (
                 filteredData?.map((d) => <SingleUserDetails d={d} />)
