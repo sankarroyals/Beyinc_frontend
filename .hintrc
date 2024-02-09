@@ -8,7 +8,9 @@
       {
         "ignore": [
           "line-break",
-          "position: sticky"
+          "position: sticky",
+          "height: fit-content",
+          "user-select"
         ]
       }
     ]

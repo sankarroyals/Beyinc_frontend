@@ -12,6 +12,7 @@ import { jwtDecode } from "jwt-decode";
 import IndividualPitchComment from "../LivePitches/IndividualPitchComment";
 import { convertToDate, formatedDate } from "../../Utils";
 import IndividualUserReview from "./IndividualUserReview";
+import { TextField, Tab, Tabs, Box, Typography } from "@mui/material";
 
 const IndividualUser = () => {
   const { image, userName } = useSelector((state) => state.auth.loginDetails);
@@ -24,6 +25,7 @@ const IndividualUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [comment, setComment] = useState("");
+  const [tabValue, setTabValue] = useState(0);
 
   useEffect(() => {
     if (email) {
@@ -51,7 +53,7 @@ const IndividualUser = () => {
         .catch((err) => {
           dispatch(
             setToast({
-              message: "Error Occured",
+              message: "Error Occurred",
               bgColor: ToastColors.failure,
               visible: "yes",
             })
@@ -62,6 +64,9 @@ const IndividualUser = () => {
   }, [email, emailTrigger]);
 
   const [filledStars, setFilledStars] = useState(0);
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
 
   useEffect(() => {
     ApiServices.getUsersStarsFrom({
@@ -91,7 +96,7 @@ const IndividualUser = () => {
       .catch((err) => {
         dispatch(
           setToast({
-            message: "Error Occured",
+            message: "Error Occurred",
             visible: "yes",
             bgColor: ToastColors.failure,
           })
@@ -138,11 +143,13 @@ const IndividualUser = () => {
       })
       .catch((err) => {
         // navigate("/searchusers");
-        dispatch(setToast({
-          visible: 'yes',
-          message: 'Error Occured while adding comment',
-          bgColor: ToastColors.failure
-        }))
+        dispatch(
+          setToast({
+            visible: "yes",
+            message: "Error Occurred while adding comment",
+            bgColor: ToastColors.failure,
+          })
+        );
       });
   };
 
@@ -158,14 +165,14 @@ const IndividualUser = () => {
         dispatch(
           setToast({
             visible: "yes",
-            message: "Error Occured",
+            message: "Error Occurred",
             bgColor: "red",
           })
         );
       });
   };
 
-  return visible == "yes" ? (
+  return visible === "yes" ? (
     ""
   ) : (
     <div className="profile-Container">
@@ -191,12 +198,12 @@ const IndividualUser = () => {
                     : "/profile.jpeg"
                 }
                 alt=""
-                srcset=""
+                srcSet=""
               />
               <div className="indiUserHeading">
-                <div style={{ marginTop: "50px" }}>
+                <div style={{ marginTop: "38px" }}>
                   {user?.userName}{" "}
-                  {user.verification == "approved" && (
+                  {user.verification === "approved" && (
                     <img
                       title="verified"
                       src="/verify.png"
@@ -209,82 +216,129 @@ const IndividualUser = () => {
                     />
                   )}
                   <div className="location-info">
-                    {user?.country !== "" && <div>{user?.country},</div>}
-                    {user?.state !== "" && <div>{user?.state},</div>}
-                    {user?.town !== "" && <div>{user?.town}</div>}
+                    {user?.country && <div>{user.country}</div>}
+                    {user?.state && user.country && <div>,</div>}
+                    {user?.state && <div>{user.state}</div>}
+                    {user?.town && (user.country || user.state) && <div>,</div>}
+                    {user?.town && <div>{user.town}</div>}
                   </div>
                   <div className="indiPitchId">
                     <a href={`mailto:${user.email}`}>{user?.email}</a>
                   </div>
                   <div className="reviewInterestContainer">
-                    <ReviewStars avg={averagereview} />
+                    {averagereview !== 0 && <ReviewStars avg={averagereview} />}
                   </div>
                   <div className="indiPitchDate">
                     Profile Created on <b>{formatedDate(user?.createdAt)}</b>
                   </div>
+                  {user.languagesKnown?.length > 0 && (
+                    <>
+                      <div className="texts">
+                        <div className="listedTeam">
+                          {user.languagesKnown.map((t, i) => (
+                            <div
+                              className="singleMember indiPitchHiringPositions"
+                              key={i}
+                            >
+                              <div>{t}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
-            <div className="indiPitchDesc">
-              <h2>About Me</h2>
-              <textarea
-                className="about"
-                style={{
-                  border: "none",
-                  fontFamily: "'Google Sans Text', sans- serif",
-                }}
-                disabled
-                rows={13}
-                value={user?.bio}
-              ></textarea>
-            </div>
-            <div>
-              <div>
-                <label className="indiPitchHiringPositions">Skills</label>
-              </div>
-              <div className="texts">
-                {user.skills?.length > 0 && (
-                  <div className="listedTeam">
-                    {user.skills?.map((t, i) => (
-                      <div className="singleMember indiPitchHiringPositions">
-                        <div>{t}</div>
-                      </div>
-                    ))}
+
+            <Tabs
+              value={tabValue}
+              onChange={handleTabChange}
+              aria-label="Profile Tabs"
+            >
+              <Tab label="About" />
+              <Tab label="Skills" />
+              <Tab label="Education" />
+              <Tab label="Experience" />
+            </Tabs>
+            <TabPanel value={tabValue} index={0}>
+              <div className="aboutme">
+                {user?.bio ? (
+                  <TextField
+                    sx={{
+                      "& fieldset": { border: "none" },
+                      width: "100%",
+                      height: "auto",
+                      textAlign: "justify",
+                    }}
+                    id="outlined-multiline-flexible"
+                    name="bio"
+                    value={user.bio}
+                    multiline
+                    maxRows={10}
+                    placeholder="Enter Your Bio"
+                  />
+                ) : (
+                  <div
+                    style={{
+                      textAlign: "left",
+                      background: "#ff4d4d",
+                      color: "white",
+                      padding: "10px",
+                      borderRadius: "10px",
+                     
+                    }}
+                  >
+                    <i
+                      className="fas fa-info-circle"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <span>About not added</span>
                   </div>
                 )}
               </div>
-            </div>
-
-            <div>
-              <div>
-                <label className="indiPitchHiringPositions">
-                  Languages Known
-                </label>
-              </div>
-              <div>
-                {user.languagesKnown?.length > 0 && (
-                  <div className="listedTeam">
-                    {user.languagesKnown?.map((t, i) => (
-                      <div className="singleMember indiPitchHiringPositions">
-                        <div>{t}</div>
-                      </div>
-                    ))}
+            </TabPanel>
+            <TabPanel value={tabValue} index={1}>
+              {user.skills?.length > 0 ? (
+                <div>
+                  {/* <label className="indiPitchHiringPositions">Skills</label> */}
+                  <div className="texts">
+                    <div className="listedTeam">
+                      {user.skills.map((t, i) => (
+                        <div
+                          className="singleMember indiPitchHiringPositions"
+                          key={i}
+                        >
+                          <div>{t}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                )}
-              </div>
-            </div>
-
-            {user.educationDetails?.length > 0 && (
-              <div className="" style={{ flexDirection: "column" }}>
-                <form className="update-form">
-                  <h3 className="indiPitchHiringPositions">
-                    Educational Details
-                  </h3>
-                </form>
-
-                {user.educationDetails?.length > 0 &&
-                  user.educationDetails?.map((te, i) => (
-                    <div style={{ marginLeft: "20px" }}>
+                </div>
+              ) : (
+                <div
+                    style={{
+                      textAlign: "left",
+                      background: "#ff4d4d",
+                      color: "white",
+                      padding: "10px",
+                      borderRadius: "10px",
+                      width: '143px'
+                    }}
+                  >
+                    <i
+                      className="fas fa-info-circle"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <span>Skills not added</span>
+                  </div>
+              )}
+            </TabPanel>
+            <TabPanel value={tabValue} index={2}>
+              {user.educationDetails?.length > 0 ? (
+                <div className="" style={{ flexDirection: "column" }}>
+                  {user.educationDetails.map((te, i) => (
+                    <div style={{ marginLeft: "20px" }} key={i}>
                       <div
                         style={{
                           display: "flex",
@@ -310,20 +364,31 @@ const IndividualUser = () => {
                       </div>
                     </div>
                   ))}
-              </div>
-            )}
-
-            {user.experienceDetails?.length > 0 && (
-              <div className="" style={{ flexDirection: "column" }}>
-                <form className="update-form">
-                  <h3 className="indiPitchHiringPositions">
-                    Experience Details
-                  </h3>
-                </form>
-
-                {user.experienceDetails?.length > 0 &&
-                  user.experienceDetails?.map((te, i) => (
-                    <div style={{ marginLeft: "20px" }}>
+                </div>
+              ) : (
+                <div
+                    style={{
+                      textAlign: "left",
+                      background: "#ff4d4d",
+                      color: "white",
+                      padding: "10px",
+                      borderRadius: "10px",
+                      width: '230px'
+                    }}
+                  >
+                    <i
+                      className="fas fa-info-circle"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <span>Education details not added</span>
+                  </div>
+              )}
+            </TabPanel>
+            <TabPanel value={tabValue} index={3}>
+              {user.experienceDetails?.length > 0 ? (
+                <div className="" style={{ flexDirection: "column" }}>
+                  {user.experienceDetails.map((te, i) => (
+                    <div style={{ marginLeft: "20px" }} key={i}>
                       <div
                         style={{
                           display: "flex",
@@ -343,18 +408,37 @@ const IndividualUser = () => {
                             </div>
                             <div className="timeline indiPitchHiringPositions">
                               {convertToDate(te.start)}-
-                              {te.end == "" ? "Present" : convertToDate(te.end)}
+                              {te.end === ""
+                                ? "Present"
+                                : convertToDate(te.end)}
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   ))}
-              </div>
-            )}
+                </div>
+              ) : (
+                <div
+                    style={{
+                      textAlign: "left",
+                      background: "#ff4d4d",
+                      color: "white",
+                      padding: "10px",
+                      borderRadius: "10px",
+                      width: '240px'
+                    }}
+                  >
+                    <i
+                      className="fas fa-info-circle"
+                      style={{ marginRight: "10px" }}
+                    ></i>
+                    <span>Experience details not added</span>
+                  </div>
+              )}
+            </TabPanel>
           </div>
         </div>
-
         <div className="commentsContainer">
           <h2>Ratings & Reviews</h2>
           {email !==
@@ -430,7 +514,7 @@ const IndividualUser = () => {
                           onClick={sendText}
                           className="sendIcon"
                           style={{
-                            cursor: comment == "" ? "not-allowed" : "pointer",
+                            cursor: comment === "" ? "not-allowed" : "pointer",
                             fontSize: "13px",
                             padding: "10px",
                           }}
@@ -450,14 +534,24 @@ const IndividualUser = () => {
               <b>Reviews:</b>
             </div>
           )}
-          {user?.comments?.length > 0 &&
-            user.comments?.map((c, index) => (
-              <IndividualUserReview
-                key={index}
-                c={c}
-                deleteComment={deleteComment}
-              />
-            ))}
+          <div
+            style={{
+              maxHeight: "340px",
+              overflow: "scroll",
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+            }}
+          >
+            {user?.comments?.length > 0 &&
+              user.comments?.map((c, index) => (
+                <IndividualUserReview
+                  key={index}
+                  c={c}
+                  deleteComment={deleteComment}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </div>
@@ -465,3 +559,23 @@ const IndividualUser = () => {
 };
 
 export default IndividualUser;
+// Custom TabPanel component
+const TabPanel = (props) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+};

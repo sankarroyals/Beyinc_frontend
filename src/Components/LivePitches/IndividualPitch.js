@@ -250,7 +250,7 @@ const IndividualPitch = () => {
               navigate(-1);
             }}
           ></i>
-          <span>{pitch.userName}'s Pitch</span>
+          <span>{pitch?.userInfo?.userName}'s Pitch</span>
         </div>
         <div className="indiPitchDetailsContainer">
           <div className="indiPitchDetails">

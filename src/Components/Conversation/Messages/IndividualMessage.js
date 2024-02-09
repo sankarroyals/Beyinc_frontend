@@ -364,7 +364,18 @@ const IndividualMessage = () => {
           Close Chat
         </div>)}
       </div>
-      <div className="messageBox">
+      <div className="messageBox" style={{position: 'relative'}}>
+      <div className="downGoing" id='downGoing' style={{ display: showDiv? 'block': 'none' }}
+        onClick={() => {
+          scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+        }}
+      >
+        <i
+          className="fas fa-arrow-down"
+          title="Scroll below"
+          
+        ></i>
+      </div>
         {messages.length > 0 &&
           messages.map((m, i) => (
             <>
@@ -479,19 +490,10 @@ const IndividualMessage = () => {
             </div>
           </div>
         )}
+        
       </div>
       {/* <div className="bottom-line"></div> */}
-      <div className="downGoing" id='downGoing' style={{ display: showDiv? 'block': 'none' }}
-        onClick={() => {
-          scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-        }}
-      >
-        <i
-          className="fas fa-arrow-down"
-          title="Scroll below"
-          
-        ></i>
-      </div>
+     
       {userchatBlockedBy =='' ? <div className="sendBoxContainer">
         <div className="sendBox">
           <div

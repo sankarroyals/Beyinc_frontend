@@ -20,7 +20,7 @@ export default function UserRequestCard({ d }) {
         <Card sx={{ maxWidth: 340, minWidth: 250,  boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)'  }}>
             <div style={{display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px'}}>
                 <img className='userCardImage'
-                    src={d.image !== undefined && d.image !== "" ? d.image : "/profile.jpeg"}
+                    src={d.userInfo?.image !== undefined && d.userInfo?.image !== "" ? d.userInfo?.image.url : "/profile.jpeg"}
                     title={d.email}
                 />
                 <div style={{fontWeight: '600', marginTop: '40px', marginLeft: '30px'}}>{d.role}
