@@ -13,7 +13,6 @@
   width: 1100px;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 }
 
@@ -22,7 +21,7 @@
 }
 
 .Top-Notch span {
-  background: #0095f6;
+  background: #6a73fa;
   color: white;
   padding: 8px;
   border-radius: 5px;
@@ -48,6 +47,7 @@
   border-radius: 10px;
   margin-bottom: 10px;
   position: relative;
+  /* display: flex; */
 }
 
 .location-info div {
@@ -62,6 +62,13 @@
   text-align: center;
 }
 
+.aboutme {
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+  text-align: justify;
+}
+
 .indiPitchDesc .about {
   border: none;
   padding: 0px 20px;
@@ -74,10 +81,11 @@
 .individualUserContainer .commentsContainer {
   width: 97%;
   background: white;
-  margin-top: 5px;
+  margin-top: 20px;
   border-radius: 10px;
   margin-bottom: 10px;
   position: relative;
+  /* border: none; */
 }
 
 .User-Top-Details {
@@ -86,10 +94,36 @@
 }
 
 .profile {
-  width: 250px !important;
-  height: 250px !important;
-  border-radius: 50%;
+  width: 200px !important;
+  height: 200px !important;
   margin-top: 10px;
+  padding: 30px;
+}
+
+/* profile tabs sections */
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  max-width: 145px !important;
+  min-width: 50px !important;
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root:hover {
+  color: #fff !important;
+  font-weight: 600 !important;
+  background-color: #6a73fa !important;
+}
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: #6a73fa !important;
+  font-weight: 600 !important;
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected:hover {
+  color: #fff !important;
+  font-weight: 600 !important;
+  background-color: #6a73fa !important;
+}
+
+.css-1aquho2-MuiTabs-indicator {
+  background-color: #6a73fa !important;
 }
 
 .userscontainer {
@@ -141,6 +175,16 @@
   flex: 1 0 20%;
   padding: 10px;
 }
+.fas.fa-trash:hover {
+  color: red;
+  transform: scale(1.2);
+}
+.indiUserDetails {
+  border: 1px solid rgba(128, 128, 128, 0.473);
+  padding: 15px;
+  border-radius: 10px;
+  height: 75vh !important;
+}
 
 @media (max-width: 760px) {
   .usersWrapper {
@@ -152,16 +196,25 @@
   .usersContainer {
     margin: auto;
   }
+  .indiUserDetails {
+    height: 120vh !important;
+  }
+  .aboutme {
+    width: 320px;
+    margin-left: -14px !important;
+    margin-top: -10px;
+  }
+  .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+    width: 76px !important;
+    font-size: 10px !important;
+    /* min-width: 50px !important; */
+  }
 }
 .fas.fa-star {
   color: goldenrod;
 }
 
-.indiUserDetails {
-  border: 1px solid rgba(128, 128, 128, 0.473);
-  padding: 15px;
-  border-radius: 10px;
-}
+
 
 .indiUserHeading {
   font-size: 28px;
@@ -344,7 +397,7 @@
   width: 80%; /* Could be more or less, depending on screen size */
 }
 .user-card-main-container {
-  background-color: var( --singleUserCard-bg);
+  background-color: var(--singleUserCard-bg);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -404,13 +457,12 @@
   flex-direction: column;
   justify-content: space-between;
 }
-@media (max-width: 768px){
-  .user-nav-bar div{
+@media (max-width: 768px) {
+  .user-nav-bar div {
     display: none;
   }
-  .user-nav-bar div:nth-child(2){
-
-   flex-direction: row-reverse;
+  .user-nav-bar div:nth-child(2) {
+    flex-direction: row-reverse;
   }
 }
 .margin-entrepreneur {
@@ -423,7 +475,7 @@
 }
 
 .user-nav-bar {
-    width: 70%;
+  width: 70%;
   display: flex;
   margin: auto;
   flex-direction: row;

@@ -109,7 +109,6 @@
   font-size: 10px;
 }
 
-
 .owner .personalDetails .text {
   background: #c2e7ff;
   color: black;
@@ -149,7 +148,7 @@
   height: auto;
   border: 0;
   outline: 0;
-  background: var( --input-box-bg);
+  background: var(--input-box-bg);
   color: var(--text-total-color);
   white-space: wrap;
   padding: 10px !important;
@@ -161,7 +160,7 @@
   height: auto;
   border: 0;
   outline: 0;
-  background: var( --input-box-bg);
+  background: var(--input-box-bg);
   color: var(--text-total-color);
   white-space: wrap;
   padding: 3px !important;
@@ -169,14 +168,11 @@
 }
 
 /* adding multiline input */
-.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root { 
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
   padding: 0px !important;
-  background: var( --input-box-bg);
+  background: var(--input-box-bg);
   color: var(--text-total-color);
-
 }
-
-
 
 .uploadingFileIcon {
   cursor: pointer;
@@ -198,13 +194,18 @@
   /* position: absolute;
   right: 20px; */
 }
-.downGoing{
-  padding: 15px;
+.downGoing {
+  padding: 13px 4px;
   background: rgba(207, 203, 203, 0.566);
-  position: fixed;
-  right: 34%;
+  position: sticky;
+
+  /* left: 0px; */
+ 
+  top: 20px !important;
+  width: 50px;
   border-radius: 50%;
-  bottom: 150px;
+  /* bottom: 150px; */
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,10 +214,10 @@
   cursor: pointer;
 }
 
-.downGoing:hover{
+.downGoing:hover {
   background: rgb(207, 203, 203);
 }
-.downGoing i{
+.downGoing i {
   margin-left: 4px;
 }
 
@@ -266,11 +267,11 @@
 }
 
 @media (max-width: 768px) {
-  .downGoing{
-  position: fixed;
-  right: 42% !important;
-  bottom: 20px !important;
-  background: rgba(207, 203, 203) !important;
+  .downGoing {
+    position: fixed;
+    right: 42% !important;
+    bottom: 20px !important;
+    background: rgba(207, 203, 203) !important;
   }
   .messageContainer {
     border-radius: 0px !important;
@@ -291,7 +292,6 @@
     align-items: center !important;
     margin: auto !important;
     width: 350px !important;
-
   }
 
   .sendBox {
@@ -306,7 +306,7 @@
     border: none !important;
     outline: 0;
     white-space: wrap;
-  padding: 3px !important;
+    padding: 3px !important;
     width: 160px !important;
   }
   .senMessageView {
@@ -319,8 +319,7 @@
   }
   .messageNavbar {
     z-index: 999 !important;
-        padding: 10px 30px !important;
- 
+    padding: 10px 30px !important;
   }
   .specificDay {
     position: sticky;

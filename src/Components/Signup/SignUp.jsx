@@ -256,9 +256,10 @@ const SignUp = () => {
         setInputs((prev) => ({ ...prev, isMobileOtpSent: true }));
       })
       .catch((err) => {
+        console.log(err)
         dispatch(
           setToast({
-            message: "OTP sent failed !",
+            message: err.response.data ,
             bgColor: ToastColors.failure,
             visible: "yes",
           })
@@ -416,7 +417,7 @@ const SignUp = () => {
                     }
                     name="mobile"
                     value={mobile}
-                    disabled={mobileVerified}
+                    disabled={mobileVerified || isMobileOtpSent}
                     onChange={handleChanges}
                     placeholder="Mobile Number*"
                   />

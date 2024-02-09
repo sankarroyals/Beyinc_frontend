@@ -211,9 +211,6 @@ signup-page .signup-container form .invalid {
 }
 
 @media only screen and (max-width: 400px) {
-  body {
-    font-family: Freight Sans;
-  }
 
   .signup-page {
     width: 250px;
@@ -251,9 +248,6 @@ signup-page .signup-container form .invalid {
 }
 
 @media only screen and (min-width: 401px) {
-  /* body {
-    font-family: Neue Helvetica;
-  } */
   .signup-page {
     border: 1px solid #dbdbdb;
     width: 350px;
