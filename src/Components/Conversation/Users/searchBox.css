@@ -134,7 +134,7 @@ body[data-theme="dark"] .tabs{
 
 .tabs:hover{
     background: #4e54c7  !important;
-    color: #fff;
+    color: #fff !important;
 }
 
 .pitchForm{
@@ -231,6 +231,7 @@ textarea{
 .deleteConv .fa-trash{
     color: red;
     transition: all ease 0.2s;
+ margin-left: 0px;
 }
 .deleteConv .fa-trash:hover{
     transform:scale(1.3)

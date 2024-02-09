@@ -14,10 +14,10 @@ const SingleUserDetails = ({ d }) => {
   const { email } = useSelector((state) => state.auth.loginDetails);
   const dispatch = useDispatch();
   const [receiverRole, setreceiverRole] = useState("");
-  const [pitchSendTo, setPitchSendTo] = useState('')
-
+  const [pitchSendTo, setPitchSendTo] = useState('');
   const [averagereview, setAverageReview] = useState(0);
   const navigate = useNavigate();
+
   useEffect(() => {
     setAverageReview(0);
     if (d.review !== undefined && d.review.length > 0) {
@@ -30,15 +30,19 @@ const SingleUserDetails = ({ d }) => {
   }, [d]);
 
   const openUser = () => navigate(`/user/${d.email}`);
+
+  const isCurrentUser = email === d.email;
+
   return (
     <>
       <div
         className={
-          "user-card-main-container " + (d.role === "Entrepreneur"
+          "user-card-main-container " +
+          (d.role === "Entrepreneur"
             ? "margin-entrepreneur"
             : d.role === "Mentor"
-              ? "margin-mentor"
-              : "")
+            ? "margin-mentor"
+            : "")
         }
       >
         <div className="user-card-details">
@@ -56,11 +60,11 @@ const SingleUserDetails = ({ d }) => {
             </div>
             <div className="user-card-rating">
               <div className="rating-content">
-                <i class="far fa-comment"></i>
+                <i className="far fa-comment"></i>
                 <span style={{ marginLeft: "3px" }}>{d.comments?.length}</span>
               </div>
               <div className="rating-content">
-                <i class="far fa-star"></i>
+                <i className="far fa-star"></i>
                 <span style={{ marginLeft: "3px" }}>{averagereview}</span>
               </div>
             </div>
@@ -95,10 +99,14 @@ const SingleUserDetails = ({ d }) => {
               )}
             </span>
           </div>
-          <button onClick={() => {
-            setPitchSendTo(d.email)
-            setreceiverRole(d.role)
-          }}>Connect</button>
+
+          {!isCurrentUser && ( 
+            <button onClick={() => {
+              setPitchSendTo(d.email)
+              setreceiverRole(d.role)
+            }}>Connect</button>
+          )}
+          
         </div>
         <AddPitch receiverMail={pitchSendTo} setReceivermail={setPitchSendTo} receiverRole={receiverRole} />
 

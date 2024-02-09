@@ -316,7 +316,7 @@ const Editprofile = () => {
       .catch((err) => {
         dispatch(
           setToast({
-            message: "OTP sent failed !",
+            message: err.response.data,
             bgColor: ToastColors.failure,
             visible: "yes",
           })
@@ -603,7 +603,6 @@ const Editprofile = () => {
                     style={{ width: "15px", height: "15px", marginLeft: "5px" }}
                   />
                 )}
-
                 <attr title="Edit Mobile Number">
                   <i
                     className="fas fa-pencil-alt"
@@ -614,10 +613,7 @@ const Editprofile = () => {
                     }}
                   ></i>
                 </attr>
-              
-               
                 <div className="mobile-verification">
-                
                   <div
                     className="closeIcon"
                     onClick={() => {
@@ -1084,15 +1080,24 @@ const Editprofile = () => {
                   <label className="update-form-label">Bio</label>
                 </div>
                 <div>
-                  <TextField style={{ padding: '0px' }}
+                  <TextField
+                    style={{ padding: "0px" }}
                     id="outlined-multiline-flexible"
                     name="bio"
                     value={bio}
-                    onChange={(e) => setBio(e.target.value)}
+                    onChange={(e) => {
+                      const inputText = e.target.value;
+                      if (inputText.length <= 500) {
+                        setBio(inputText);
+                      } else {
+                        setBio(inputText.slice(0, 500));
+                      }
+                    }}
                     multiline
                     placeholder="Enter Your Bio"
-                  // maxRows={4}
+                    maxRows={4}
                   />
+                  <p>{500-bio.length}/500 characters left</p>
                 </div>
               </div>
 
