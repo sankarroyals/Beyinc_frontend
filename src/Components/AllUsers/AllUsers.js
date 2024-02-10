@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ApiServices } from "../../Services/ApiServices";
 import "../LivePitches/LivePitches.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Country } from "country-state-city";
 import CachedIcon from "@mui/icons-material/Cached";
 import SingleUserDetails from "./SingleUserDetails";
@@ -27,6 +27,7 @@ import { FilterPanel } from "./FilterPanel";
 import useWindowDimensions from "../Common/WindowSize";
 import { FilterCheckBoxes } from "./FilterCheckBox";
 import { Search } from "@mui/icons-material";
+import { getAllHistoricalConversations } from "../../redux/Conversationreducer/ConversationReducer";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -211,7 +212,16 @@ const AllUsers = () => {
     setFilledStars(0);
   };
   const { height, width } = useWindowDimensions();
-  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const historicalConversations = useSelector(
+    (state) => state.conv.historicalConversations
+  );
+  useEffect(() => {
+    dispatch(getAllHistoricalConversations(email));
+  }, []);
+  useEffect(() => {
+    console.log(historicalConversations);
+  }, [historicalConversations]);
   return (
     <>
       <Dialog
