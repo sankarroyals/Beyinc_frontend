@@ -580,3 +580,11 @@
 .user-cards-panel {
   width: 70%;
 }
+.user-card-actions .pending-colour {
+  color: #666;
+  border-color: #666;
+}
+.user-card-actions .approved-colour {
+  color: #1c955c;
+  border-color: #198754;
+}

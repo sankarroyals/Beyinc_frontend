@@ -211,6 +211,7 @@ const AllUsers = () => {
     });
     setFilledStars(0);
   };
+  const [connectStatus, setConnectStatus] = useState({});
   const { height, width } = useWindowDimensions();
   const dispatch = useDispatch();
   const historicalConversations = useSelector(
@@ -220,7 +221,24 @@ const AllUsers = () => {
     dispatch(getAllHistoricalConversations(email));
   }, []);
   useEffect(() => {
-    console.log(historicalConversations);
+    setConnectStatus(
+      historicalConversations.reduce(
+        (prev, cur) => ({
+          ...prev,
+          [cur.members[0].email]: { status: cur.status, id: cur._id },
+        }),
+        {}
+      )
+    );
+    console.log(
+      historicalConversations.reduce(
+        (prev, cur) => ({
+          ...prev,
+          [cur.members[0].email]: { status: cur.status, id: cur._id },
+        }),
+        {}
+      )
+    );
   }, [historicalConversations]);
   return (
     <>
@@ -595,7 +613,9 @@ const AllUsers = () => {
             )}
             <div className="userscontainer">
               {filteredData.length > 0 ? (
-                filteredData?.map((d) => <SingleUserDetails d={d} />)
+                filteredData?.map((d) => (
+                  <SingleUserDetails d={d} connectStatus={connectStatus} />
+                ))
               ) : (
                 <div
                   style={{
