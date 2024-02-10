@@ -130,13 +130,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
-}
-.userscontainer {
-  flex: 1 0 75%;
   /* padding: 10px; */
-  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  width: 100%;
   border-radius: 10px;
 }
 .singleUser {
@@ -146,34 +143,35 @@
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
-
   height: 180px;
   min-width: 200px;
-
   max-width: 300px;
 }
 /* .singleUserWrapper:hover {
   background: rgba(238, 238, 238, 0.596);
 } */
 
-.usersContainer {
+.users-main-box {
   background: var(--body-background);
   padding: 10px;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .usersWrapper {
-  max-width: 1300px;
-  margin: auto;
   display: flex;
-  gap: 10px;
+  gap: 2%;
   background: var(--body-background);
-
+  flex-direction: row;
+  justify-content: center;
   /* flex-wrap: wrap; */
 }
 
 .usersWrapper .filterContainer {
-  flex: 1 0 20%;
-  padding: 10px;
+  padding: 15px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 .fas.fa-trash:hover {
   color: red;
@@ -193,7 +191,7 @@
     justify-content: center;
     align-items: center;
   }
-  .usersContainer {
+  .users-main-box {
     margin: auto;
   }
   .indiUserDetails {
@@ -213,8 +211,6 @@
 .fas.fa-star {
   color: goldenrod;
 }
-
-
 
 .indiUserHeading {
   font-size: 28px;
@@ -272,7 +268,7 @@
     justify-content: center;
     align-items: center;
   }
-  .usersContainer {
+  .users-main-box {
     margin: auto;
   }
 
@@ -405,6 +401,7 @@
   padding: 13px;
   box-shadow: 0 0 10px var(--userCard-boxshadow);
   border-radius: 10px;
+  height: fit-content;
 }
 .user-card-details-text {
   display: flex;
@@ -477,9 +474,9 @@
 .user-nav-bar {
   width: 70%;
   display: flex;
-  margin: auto;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   margin-bottom: 10px;
 }
 
@@ -535,4 +532,51 @@
 .filter-options-label::-webkit-scrollbar {
   height: 3px; /* height of horizontal scrollbar ← You're missing this */
   width: 4px; /* width of vertical scrollbar */
+}
+.tagFilter ul {
+  width: 100%;
+  marker: none;
+  list-style-type: none;
+}
+.tagFilter li {
+  width: 100%;
+  marker: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+.tagFilter label {
+  font-size: 14px;
+  font-weight: normal;
+}
+.tagFilter .inputTag input[type="checkbox"] {
+  width: 14px !important;
+  margin: 0;
+}
+.filter-header {
+  font-size: 14px;
+}
+.filterContainer hr {
+  border: none;
+  border-bottom: 1px solid #dedede;
+}
+.search-box {
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+}
+.search-input {
+  border: none;
+  width: 100%;
+}
+
+/* @media only screen and (max-width: 1050px) and (min-width: 450px) {
+  .user-cards-panel {
+    width: 50%;
+  }
+} */
+.user-cards-panel {
+  width: 70%;
 }

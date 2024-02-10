@@ -14,6 +14,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Checkbox,
   FormControlLabel,
@@ -24,6 +25,8 @@ import {
 } from "@mui/material";
 import { FilterPanel } from "./FilterPanel";
 import useWindowDimensions from "../Common/WindowSize";
+import { FilterCheckBoxes } from "./FilterCheckBox";
+import { Search } from "@mui/icons-material";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -55,8 +58,8 @@ const tabs = [
   "Role",
   "Emails",
   "Name",
-  "Country",
   "Skills",
+  "Country",
   "Language",
   "Other",
 ];
@@ -208,6 +211,7 @@ const AllUsers = () => {
     setFilledStars(0);
   };
   const { height, width } = useWindowDimensions();
+  const [query, setQuery] = useState("");
   return (
     <>
       <Dialog
@@ -285,20 +289,20 @@ const AllUsers = () => {
                 filters={filters}
                 setFilters={setFilters}
               />
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              <FilterPanel
-                rawData={Country?.getAllCountries()}
-                isCountry={true}
-                filters={filters}
-                setFilters={setFilters}
-              />
-            </TabPanel>
+            </TabPanel>{" "}
             <TabPanel value={value} index={4}>
               <FilterPanel
                 rawData={allskills}
                 dataKey={"skills"}
                 isFlat={true}
+                filters={filters}
+                setFilters={setFilters}
+              />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <FilterPanel
+                rawData={Country?.getAllCountries()}
+                isCountry={true}
                 filters={filters}
                 setFilters={setFilters}
               />
@@ -368,55 +372,234 @@ const AllUsers = () => {
         </DialogActions>
       </Dialog>
 
-      <div className="usersContainer">
+      <div className="users-main-box">
         <div className="user-nav-bar">
-          <div>
-            <h3>Connect with Users</h3>
-          </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <button className="nav-bar-buttons" onClick={handleClickOpen}>
-              <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
-            </button>
-            {/* <button className="nav-bar-buttons">
+          {width < 770 ? (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <button className="nav-bar-buttons" onClick={handleClickOpen}>
+                <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
+              </button>
+              {/* <button className="nav-bar-buttons">
               <i class="fa fa-sort-amount-desc"></i>
               Sort by
             </button> */}
-            <input type='text' style={{marginTop:'2px', marginLeft: '8px', width: '150px'}} className="nav-bar-buttons"
-              value={search} placeholder="Search user"
-              onChange={(e) => {
-                setSearch(e.target.value);
-                if (e.target.value !== "") {
-                  setFilteredData(
-                    filteredData.filter((f) => {
-                      return f.userName.includes(e.target.value);
-                    })
-                  );
-                } else {
-                  setFilteredData(data);
-                }
-              }}
-              label="Search.."
-              variant="standard"
-            />
-          </div>
+              <input
+                type="text"
+                style={{ marginTop: "2px", marginLeft: "8px", width: "150px" }}
+                className="nav-bar-buttons"
+                value={search}
+                placeholder="Search user"
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  if (e.target.value !== "") {
+                    setFilteredData(
+                      filteredData.filter((f) => {
+                        return f.userName.includes(e.target.value);
+                      })
+                    );
+                  } else {
+                    setFilteredData(data);
+                  }
+                }}
+                label="Search.."
+                variant="standard"
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className="usersWrapper">
-          <div className="userscontainer">
-            {filteredData.length > 0 ? (
-              filteredData?.map((d) => <SingleUserDetails d={d} />)
-            ) : (
+          {width > 770 && (
+            <div className="filterContainer">
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "center",
                   alignItems: "center",
-                  height: "100%",
-                  width: "100%",
+                  justifyContent: "space-between",
                 }}
               >
-                No Users Available
+                <div className="filterHeader">Filter By:</div>
+                <div title="Reset filters">
+                  <CachedIcon
+                    style={{ cursor: "pointer" }}
+                    className={isSpinning ? "spin" : ""}
+                    onClick={() => {
+                      handleReloadClick();
+                    }}
+                  />
+                </div>
               </div>
+              {/* Role */}
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Role</b>
+                </div>
+
+                <FilterCheckBoxes
+                  dataKey={"role"}
+                  rawData={totalRoles}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
+
+              {/* Domain */}
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>User Names</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  dataKey={"userName"}
+                  rawData={data}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Skills</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  rawData={allskills}
+                  dataKey={"skills"}
+                  isFlat={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
+              {/* country */}
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Country</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  rawData={Country?.getAllCountries()}
+                  isCountry={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+
+              <hr />
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Languages known</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  rawData={allLanguages}
+                  dataKey={"languagesKnown"}
+                  isFlat={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
+              {/* Rating */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  fontSize: 14,
+                }}
+              >
+                <div style={{ marginLeft: 8 }} className="filter-rating-label">
+                  <b> Rating</b>
+                </div>
+                <div className="inputTag" style={{ marginLeft: 20 }}>
+                  <AddReviewStars
+                    filledStars={filledStars}
+                    setFilledStars={setFilledStars}
+                  />
+                </div>
+              </div>
+
+              <div className="verificationFilter">
+                <div
+                  className="filter-options-label"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    fontSize: 14,
+                    marginLeft: 8,
+                  }}
+                >
+                  <b> Verified</b>
+                  <input
+                    type="checkbox"
+                    style={{ width: "20px", marginLeft: 20, marginBottom: 0 }}
+                    checked={filters.verification}
+                    onChange={() => {
+                      setFilters((prev) => ({
+                        ...prev,
+                        verification: !filters.verification,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="user-cards-panel">
+            {width > 770 && (
+              <Box
+                className="search-box"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: 3,
+                  width: "100%",
+                  boxSizing: "border-box",
+                }}
+              >
+                <Search sx={{ color: "action.active", width: 20, mx: 1 }} />
+                <input
+                  className="search-input"
+                  style={{ height: 10, padding: 10, margin: 0 }}
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    setFilteredData(
+                      e.target.value !== ""
+                        ? filteredData.filter((f) =>
+                            f.userName
+                              .toLowerCase()
+                              .includes(e.target.value.toLowerCase())
+                          )
+                        : data
+                    );
+                  }}
+                  placeholder="Search Users.."
+                  variant="standard"
+                />
+              </Box>
             )}
+            <div className="userscontainer">
+              {filteredData.length > 0 ? (
+                filteredData?.map((d) => <SingleUserDetails d={d} />)
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                    width: "100%",
+                  }}
+                >
+                  No Users Available
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
