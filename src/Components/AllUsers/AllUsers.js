@@ -220,21 +220,16 @@ const AllUsers = () => {
   useEffect(() => {
     dispatch(getAllHistoricalConversations(email));
   }, []);
+
   useEffect(() => {
     setConnectStatus(
       historicalConversations.reduce(
         (prev, cur) => ({
           ...prev,
-          [cur.members[0].email]: { status: cur.status, id: cur._id },
-        }),
-        {}
-      )
-    );
-    console.log(
-      historicalConversations.reduce(
-        (prev, cur) => ({
-          ...prev,
-          [cur.members[0].email]: { status: cur.status, id: cur._id },
+          [cur.members.filter((f) => f.email !== email)[0].email]: {
+            status: cur.status,
+            id: cur._id,
+          },
         }),
         {}
       )
