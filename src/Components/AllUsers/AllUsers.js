@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ApiServices } from "../../Services/ApiServices";
 import "../LivePitches/LivePitches.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Country } from "country-state-city";
 import CachedIcon from "@mui/icons-material/Cached";
 import SingleUserDetails from "./SingleUserDetails";
@@ -27,6 +27,7 @@ import { FilterPanel } from "./FilterPanel";
 import useWindowDimensions from "../Common/WindowSize";
 import { FilterCheckBoxes } from "./FilterCheckBox";
 import { Search } from "@mui/icons-material";
+import { getAllHistoricalConversations } from "../../redux/Conversationreducer/ConversationReducer";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -210,8 +211,35 @@ const AllUsers = () => {
     });
     setFilledStars(0);
   };
+  const [connectStatus, setConnectStatus] = useState({});
   const { height, width } = useWindowDimensions();
-  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const historicalConversations = useSelector(
+    (state) => state.conv.historicalConversations
+  );
+  useEffect(() => {
+    dispatch(getAllHistoricalConversations(email));
+  }, []);
+  useEffect(() => {
+    setConnectStatus(
+      historicalConversations.reduce(
+        (prev, cur) => ({
+          ...prev,
+          [cur.members[0].email]: { status: cur.status, id: cur._id },
+        }),
+        {}
+      )
+    );
+    console.log(
+      historicalConversations.reduce(
+        (prev, cur) => ({
+          ...prev,
+          [cur.members[0].email]: { status: cur.status, id: cur._id },
+        }),
+        {}
+      )
+    );
+  }, [historicalConversations]);
   return (
     <>
       <Dialog
@@ -585,7 +613,9 @@ const AllUsers = () => {
             )}
             <div className="userscontainer">
               {filteredData.length > 0 ? (
-                filteredData?.map((d) => <SingleUserDetails d={d} />)
+                filteredData?.map((d) => (
+                  <SingleUserDetails d={d} connectStatus={connectStatus} />
+                ))
               ) : (
                 <div
                   style={{
