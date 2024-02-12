@@ -509,7 +509,7 @@ const Navbar = () => {
   return (
     <div
       className="navbar"
-      style={{ display: email == undefined ? "none" : "flex" }}
+      style={{ display: localStorage.getItem('user') == undefined ? "none" : "flex" }}
     >
       <div
         className="logo"
