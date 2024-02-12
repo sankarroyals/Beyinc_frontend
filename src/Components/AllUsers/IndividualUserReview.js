@@ -14,12 +14,12 @@ const IndividualUserReview = ({ c, deleteComment }) => {
     return (
         <div className='IndicommentsSection'>
             <div className='IndicommentsSectionImage'>
-                <img src={(c?.profile_pic || c?.commentBy?.image?.url) || '/profile.jpeg'} alt="" />
+                <img src={c?.profile_pic || c?.commentBy?.image?.url || '/profile.jpeg'} alt="" />
             </div>
             <div className='IndicommentsSectionDetails'>
                 <div className='IndicommentsSectionDetailsUserName'>
                     <div title={(c?.email || c?.commentBy?.email)}>{(c?.userName || c?.commentBy?.userName)}</div>
-                    <div title={'Delete Comment'} onClick={() => deleteComment(c._id)}>{(c?.email || c?.commentBy?.email) == email && <i className='fas fa-trash'></i>}</div>
+                    {/* <div title={'Delete Comment'} onClick={() => deleteComment(c._id)}>{(c?.email || c?.commentBy?.email) == email && <i className='fas fa-trash'></i>}</div> */}
                 </div>
                 <div title={(c?.email || c?.commentBy?.email)} className='IndicommentsSectionDetailscomment'>
                     {c?.comment}
