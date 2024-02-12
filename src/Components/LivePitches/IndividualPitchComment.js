@@ -18,7 +18,7 @@ const IndividualPitchComment = ({ c, deleteComment }) => {
       <div className='IndicommentsSectionDetails'>
         <div className='IndicommentsSectionDetailsUserName'>
           <div title={(c?.email || c?.commentBy?.email)}>{(c?.userName || c?.commentBy?.userName)}</div>
-          <div title={'Delete Comment'} onClick={()=>deleteComment(c._id)}>{(c?.email || c?.commentBy?.email) == email && <i className='fas fa-trash'></i>}</div>
+          {/* <div title={'Delete Comment'} onClick={()=>deleteComment(c._id)}>{(c?.email || c?.commentBy?.email) == email && <i className='fas fa-trash'></i>}</div> */}
         </div>
         <div title={(c?.email || c?.commentBy?.email)} className='IndicommentsSectionDetailscomment'>
           {c?.comment}
