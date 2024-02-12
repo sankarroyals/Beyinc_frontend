@@ -147,23 +147,23 @@
   min-width: 200px;
   max-width: 300px;
 }
-/* .singleUserWrapper:hover {
+/* .singles:hover {
   background: rgba(238, 238, 238, 0.596);
 } */
 
 .users-main-box {
   background: var(--body-background);
-  padding: 10px;
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 .usersWrapper {
   display: flex;
-  gap: 2%;
+  gap: 1%;
   background: var(--body-background);
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
+  padding: 10px;
   /* flex-wrap: wrap; */
 }
 
@@ -342,7 +342,7 @@
   transition: all 0.3s ease-in-out;
   outline: none;
   float: right;
-  width: 100%;
+  width: 79.5px;
   margin-bottom: 0;
   font-weight: 500;
 }
@@ -483,10 +483,17 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 @media only screen and (max-width: 450px) {
+  .user-nav-bar {
+    width: 100%;
+  }
+
+  .user-card-actions button {
+    width: 80px;
+  }
   .user-card-details-text {
     width: 135px;
   }
@@ -584,7 +591,7 @@
   }
 } */
 .user-cards-panel {
-  width: 70%;
+  width: 90%;
 }
 .user-card-actions .pending-colour {
   color: #666;
@@ -593,4 +600,18 @@
 .user-card-actions .approved-colour {
   color: #1c955c;
   border-color: #198754;
+}
+
+.IndicommentsSectionActions {
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.IndicommentsSectionActions span {
+  margin-right: 10px;
+  height: 16px;
+}
+.IndicommentsSectionActions .icon-blue {
+  color: #6a73fa;
 }
