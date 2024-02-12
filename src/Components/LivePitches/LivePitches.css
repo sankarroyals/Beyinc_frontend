@@ -196,7 +196,7 @@ input[type="checkbox"] {
 
 .IndicommentsSection {
   display: flex;
-  gap: 20px;
+  gap: 8px;
 }
 
 .IndicommentsSectionDetails {
