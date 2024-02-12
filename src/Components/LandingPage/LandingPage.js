@@ -18,7 +18,7 @@ const LandingPage = () => {
         style={{ display: email == undefined ? "flex" : "none" }}
       >
         <div>
-          <img src="/Footer-logo.png" alt="logo" />
+          <img src="/Landing-logo.png" alt="logo" />
         </div>
         <div>
           <button className="sign-button" onClick={() => navigate("/login")}>

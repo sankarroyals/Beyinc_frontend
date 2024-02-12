@@ -181,7 +181,7 @@
   border: 1px solid rgba(128, 128, 128, 0.473);
   padding: 15px;
   border-radius: 10px;
-  height: 75vh !important;
+  height: 78vh !important;
 }
 
 @media (max-width: 760px) {
@@ -207,6 +207,12 @@
     font-size: 10px !important;
     /* min-width: 50px !important; */
   }
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  width: 76px !important;
+  font-size: 10px !important;
+  /* min-width: 50px !important; */
 }
 .fas.fa-star {
   color: goldenrod;

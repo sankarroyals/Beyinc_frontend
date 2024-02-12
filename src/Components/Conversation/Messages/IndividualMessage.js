@@ -194,7 +194,7 @@ const IndividualMessage = () => {
   };
 
   const sendText = async (e) => {
-   
+
     if (file != "") {
       setLoadingFile(file);
       console.log(file);
@@ -284,7 +284,7 @@ const IndividualMessage = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []); 
+  }, []);
 
 
   const blockChat = async (by) => {
@@ -313,8 +313,8 @@ const IndividualMessage = () => {
   return (
     <div className="messageContainer">
       <div className="messageNavbar">
-       
-        <div style={{display: 'flex', alignItems: 'center'}}>
+
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <div style={{ cursor: 'pointer' }} onClick={() => {
             navigate(`/user/${receiverId?.user?.email}`)
           }}>
@@ -356,31 +356,32 @@ const IndividualMessage = () => {
             </div>
           </div>
         </div>
-        {receiverId?.user?.role!=='Admin' && ((userchatBlockedBy !== '') ?
+        {receiverId?.user?.role !== 'Admin' && ((userchatBlockedBy !== '') ?
           userchatBlockedBy == email &&
-          <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={()=>blockChat('')}>
-          Open Chat
-        </div> : <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={()=>blockChat(email)}>
-          Close Chat
-        </div>)}
+          <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={() => blockChat('')}>
+            Open Chat
+          </div> : <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={() => blockChat(email)}>
+            Close Chat
+          </div>)}
       </div>
-      <div className="messageBox" style={{position: 'relative'}}>
-      <div className="downGoing" id='downGoing' style={{ display: showDiv? 'block': 'none' }}
-        onClick={() => {
-          scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-        }}
-      >
-        <i
-          className="fas fa-arrow-down"
-          title="Scroll below"
-          
-        ></i>
-      </div>
+
+      <div className="messageBox" style={{ position: 'relative' }}>
+        <div className="downGoing" id='downGoing' style={{ display: showDiv ? 'block' : 'none' }}
+          onClick={() => {
+            scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          <i
+            className="fas fa-arrow-down"
+            title="Scroll below"
+
+          ></i>
+        </div>
         {messages.length > 0 &&
           messages.map((m, i) => (
             <>
               {/* showing day on top */}
-              {(moment(messages[i - 1]?.createdAt).format('MMMM Do YYYY') !== moment(m.createdAt).format('MMMM Do YYYY'))  &&
+              {(moment(messages[i - 1]?.createdAt).format('MMMM Do YYYY') !== moment(m.createdAt).format('MMMM Do YYYY')) &&
                 <div className="specificDay">{moment(m.createdAt).format('MMMM Do YYYY')}</div>
               }
               <div
@@ -455,7 +456,7 @@ const IndividualMessage = () => {
                 </div>
 
               </div>
-           </>
+            </>
           ))}
         {loadingFile != "" && (
           <div className={`details owner`} ref={scrollRef}>
@@ -490,28 +491,18 @@ const IndividualMessage = () => {
             </div>
           </div>
         )}
-        
+
       </div>
       {/* <div className="bottom-line"></div> */}
-     
-      {userchatBlockedBy =='' ? <div className="sendBoxContainer">
+
+      {userchatBlockedBy == '' ? <div className="sendBoxContainer">
         <div className="sendBox">
           <div
             style={{ display: "flex", flexDirection: "column", gap: "20px" }}
           >
-            <div style={{ marginLeft: "10px" }}>
-              <TextField style={{ padding: '0px' }}
-                sx={{
-                  "& fieldset": { border: 'none' },
-                }}
-                id="outlined-multiline-flexible"
-                name="message"
-                value={sendMessage}
-                onChange={(e) => setSendMessage(e.target.value)}
-                multiline
-                placeholder="Type a message"
-                
-              />
+            <div style={{ margin: "2px 2px -8px 10px" }}>
+              <textarea onChange={(e) => setSendMessage(e.target.value)} style={{ resize: 'none', border: 'none' }} id="" cols="2" rows="2" name="message"
+                value={sendMessage} placeholder="Type a message"></textarea>
             </div>
             {file !== "" &&
               (file.split(";")[0]?.includes("data:image") ? (
@@ -604,7 +595,7 @@ const IndividualMessage = () => {
               className=""
               // onClick={sendText}
 
-                style={{ color: "gray", fontSize: "34px", marginTop: "8px", marginLeft: '10px' }}
+              style={{ color: "gray", fontSize: "34px", marginTop: "8px", marginLeft: '10px' }}
             />
           )}
         </div>

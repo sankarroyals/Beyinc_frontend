@@ -208,7 +208,6 @@ const IndividualUser = () => {
               navigate(-1);
             }}
           ></i>
-          <span>{user?.userName}'s Profile</span>
         </div>
 
         <div className="indiUserDetailsContainer">
@@ -247,7 +246,7 @@ const IndividualUser = () => {
                     {user?.town && <div>{user.town}</div>}
                   </div>
                   <div className="indiPitchId">
-                    <a href={`mailto:${user.email}`}>{user?.email}</a>
+                    {user?.role}
                   </div>
                   <div className="reviewInterestContainer">
                     {averagereview !== 0 && <ReviewStars avg={averagereview} />}
@@ -276,6 +275,7 @@ const IndividualUser = () => {
             </div>
 
             <Tabs
+
               value={tabValue}
               onChange={handleTabChange}
               aria-label="Profile Tabs"
