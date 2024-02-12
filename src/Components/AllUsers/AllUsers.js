@@ -55,15 +55,7 @@ function a11yProps(index) {
   };
 }
 
-const tabs = [
-  "Role",
-  "Emails",
-  "Name",
-  "Skills",
-  "Country",
-  "Language",
-  "Other",
-];
+const tabs = ["Role", "Name", "Skills", "Country", "Language", "Other"];
 const AllUsers = () => {
   const [value, setValue] = useState(0);
 
@@ -300,20 +292,12 @@ const AllUsers = () => {
             <TabPanel value={value} index={1}>
               <FilterPanel
                 rawData={data}
-                dataKey={"email"}
-                filters={filters}
-                setFilters={setFilters}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <FilterPanel
-                rawData={data}
                 dataKey={"userName"}
                 filters={filters}
                 setFilters={setFilters}
               />
             </TabPanel>{" "}
-            <TabPanel value={value} index={4}>
+            <TabPanel value={value} index={2}>
               <FilterPanel
                 rawData={allskills}
                 dataKey={"skills"}
@@ -330,7 +314,7 @@ const AllUsers = () => {
                 setFilters={setFilters}
               />
             </TabPanel>
-            <TabPanel value={value} index={5}>
+            <TabPanel value={value} index={4}>
               <FilterPanel
                 rawData={allLanguages}
                 dataKey={"languagesKnown"}
@@ -339,7 +323,7 @@ const AllUsers = () => {
                 setFilters={setFilters}
               />
             </TabPanel>
-            <TabPanel value={value} index={6}>
+            <TabPanel value={value} index={5}>
               <div
                 style={{
                   display: "flex",
@@ -391,13 +375,19 @@ const AllUsers = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
+          <Button
+            sx={{ width: "fit-content" }}
+            variant="contained"
+            onClick={handleClose}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
 
       <div className="users-main-box">
-        <div className="user-nav-bar">
-          {width < 770 ? (
+        {width < 770 && (
+          <div className="user-nav-bar">
             <div style={{ display: "flex", alignItems: "center" }}>
               <button className="nav-bar-buttons" onClick={handleClickOpen}>
                 <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
@@ -428,10 +418,8 @@ const AllUsers = () => {
                 variant="standard"
               />
             </div>
-          ) : (
-            ""
-          )}
-        </div>
+          </div>
+        )}
         <div className="usersWrapper">
           {width > 770 && (
             <div className="filterContainer">
