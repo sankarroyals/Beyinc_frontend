@@ -1080,7 +1080,16 @@ const Editprofile = () => {
                   <label className="update-form-label">Bio</label>
                 </div>
                 <div>
-                  <TextField
+                  <textarea onChange={(e) => {
+                    const inputText = e.target.value;
+                    if (inputText.length <= 500) {
+                      setBio(inputText);
+                    } else {
+                      setBio(inputText.slice(0, 500));
+                    }
+                  }} style={{ resize: 'none', border: 'none' }} id="" cols="20" rows="2" name="message"
+                    value={bio} placeholder="Enter your bio"></textarea>
+                  {/* <TextField
                     style={{ padding: "0px" }}
                     id="outlined-multiline-flexible"
                     name="bio"
@@ -1096,7 +1105,7 @@ const Editprofile = () => {
                     multiline
                     placeholder="Enter Your Bio"
                     maxRows={4}
-                  />
+                  /> */}
                   <p>{500-bio.length}/500 characters left</p>
                 </div>
               </div>

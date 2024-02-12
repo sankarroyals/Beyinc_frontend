@@ -195,16 +195,17 @@
   right: 20px; */
 }
 .downGoing {
-  padding: 13px 4px;
+  padding: 5px 12px;
   background: rgba(207, 203, 203, 0.566);
   position: sticky;
 
   /* left: 0px; */
 
-  top: 20px !important;
-  width: 50px;
+  top: -0px !important;
+  width: 10px;
   border-radius: 50%;
   /* bottom: 150px; */
+  margin-left: -80px;
   z-index: 999;
   display: flex;
   align-items: center;
@@ -218,7 +219,8 @@
   background: rgb(207, 203, 203);
 }
 .downGoing i {
-  margin-left: 4px;
+  /* margin-left: -94px; */
+  font-size: 12px;
 }
 
 .uploadingFileIcon:hover {
@@ -268,12 +270,20 @@
 
 @media (max-width: 768px) {
   .downGoing {
+  padding: 5px 12px;
+    background: rgba(207, 203, 203, 0.566);
     position: fixed;
     top: 90% !important;
     right: 42% !important;
     bottom: 20px !important;
     height: 20px;
     background: rgba(207, 203, 203) !important;
+  }
+  .downGoing:hover {
+    background: rgb(207, 203, 203);
+  }
+  .downGoing i {
+    /* margin-left: 4px !important; */
   }
   .messageContainer {
     border-radius: 0px !important;
