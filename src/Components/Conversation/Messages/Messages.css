@@ -200,7 +200,7 @@
   position: sticky;
 
   /* left: 0px; */
- 
+
   top: 20px !important;
   width: 50px;
   border-radius: 50%;
@@ -269,8 +269,10 @@
 @media (max-width: 768px) {
   .downGoing {
     position: fixed;
+    top: 90% !important;
     right: 42% !important;
     bottom: 20px !important;
+    height: 20px;
     background: rgba(207, 203, 203) !important;
   }
   .messageContainer {

@@ -9,12 +9,14 @@ import Button from "@mui/material/Button";
 
 import Typography from "@mui/material/Typography";
 import AddPitch from "../Common/AddPitch";
+import { setReceiverId } from "../../redux/Conversationreducer/ConversationReducer";
 
-const SingleUserDetails = ({ d }) => {
+const SingleUserDetails = ({ d, connectStatus }) => {
+  console.log(d);
   const { email } = useSelector((state) => state.auth.loginDetails);
   const dispatch = useDispatch();
   const [receiverRole, setreceiverRole] = useState("");
-  const [pitchSendTo, setPitchSendTo] = useState('');
+  const [pitchSendTo, setPitchSendTo] = useState("");
   const [averagereview, setAverageReview] = useState(0);
   const navigate = useNavigate();
 
@@ -32,7 +34,12 @@ const SingleUserDetails = ({ d }) => {
   const openUser = () => navigate(`/user/${d.email}`);
 
   const isCurrentUser = email === d.email;
-
+  const openChat = async (e) => {
+    // await ApiServices.getProfile({ email: a.members.filter((f) => f.email !== email)[0].email }).then((res) => {
+    dispatch(setReceiverId(d));
+    // })
+    navigate(`/conversations/${connectStatus[d.email]?.id}`);
+  };
   return (
     <>
       <div
@@ -100,16 +107,29 @@ const SingleUserDetails = ({ d }) => {
             </span>
           </div>
 
-          {!isCurrentUser && ( 
-            <button onClick={() => {
-              setPitchSendTo(d.email)
-              setreceiverRole(d.role)
-            }}>Connect</button>
-          )}
-          
+          {!isCurrentUser &&
+            (connectStatus[d.email]?.status === "pending" ? (
+              <button className="pending-colour">Pending</button>
+            ) : connectStatus[d.email]?.status === "approved" ? (
+              <button className="approved-colour" onClick={openChat}>
+                Chat
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setPitchSendTo(d.email);
+                  setreceiverRole(d.role);
+                }}
+              >
+                Connect
+              </button>
+            ))}
         </div>
-        <AddPitch receiverMail={pitchSendTo} setReceivermail={setPitchSendTo} receiverRole={receiverRole} />
-
+        <AddPitch
+          receiverMail={pitchSendTo}
+          setReceivermail={setPitchSendTo}
+          receiverRole={receiverRole}
+        />
       </div>
     </>
   );

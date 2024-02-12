@@ -28,6 +28,7 @@ import {
 } from "@mui/material";
 import useWindowDimensions from "../Common/WindowSize";
 import { FilterPanel } from "../AllUsers/FilterPanel";
+import { FilterCheckBoxes } from "../AllUsers/FilterCheckBox";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -398,12 +399,195 @@ const LivePitches = () => {
       </Dialog>
 
       <div className="livePitchesContainer">
-        <div className="livePitchesWrapper">
-          <div className="user-nav-bar" style={{ margin: 0 }}>
-            <button className="nav-bar-buttons" onClick={handleClickOpen}>
-              <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
-            </button>
-          </div>
+        <div
+          className="livePitchesWrapper"
+          style={{ flexWrap: width < 1100 ? "wrap" : "nowrap" }}
+        >
+          {width < 1100 ? (
+            <div className="user-nav-bar" style={{ margin: 0 }}>
+              <button className="nav-bar-buttons" onClick={handleClickOpen}>
+                <i style={{ marginRight: 3 }} class="fa fa-filter" /> Filter
+              </button>
+            </div>
+          ) : (
+            <div className="filterContainer">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div className="filterHeader">Filter By:</div>
+                <div title="Reset filters">
+                  <CachedIcon
+                    style={{ cursor: "pointer" }}
+                    className={isSpinning ? "spin" : ""}
+                    onClick={() => {
+                      handleReloadClick();
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Poistion</b>
+                </div>
+
+                <FilterCheckBoxes
+                  showSearch={true}
+                  dataKey={"hiringPositions"}
+                  rawData={itPositions}
+                  setFilters={setFilters}
+                  filters={filters}
+                  isFlat={true}
+                />
+              </div>
+              <hr />
+              {/* Domain */}
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Domain</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  dataKey={"industry1"}
+                  rawData={Object.keys(domain_subdomain)}
+                  isFlat={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Skills</b>
+                </div>
+                <FilterCheckBoxes
+                  rawData={filters.industry1?.reduce(
+                    (prev, cur) => [...prev, ...domain_subdomain[cur]],
+                    []
+                  )}
+                  showSearch={true}
+                  dataKey={"industry2"}
+                  isFlat={true}
+                  filters={filters}
+                  setFilters={setFilters}
+                />
+              </div>
+              <hr />
+              {/* country */}
+              <div className="tagFilter">
+                <div className="filter-header">
+                  <b>Country</b>
+                </div>
+                <FilterCheckBoxes
+                  showSearch={true}
+                  rawData={Country?.getAllCountries()}
+                  isCountry={true}
+                  setFilters={setFilters}
+                  filters={filters}
+                />
+              </div>
+              <hr />
+              {/* Rating */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  fontSize: 14,
+                }}
+              >
+                <div style={{ marginLeft: 8 }} className="filter-rating-label">
+                  <b> Rating:</b>
+                </div>
+                <div className="inputTag" style={{ marginLeft: 20 }}>
+                  <AddReviewStars
+                    filledStars={filledStars}
+                    setFilledStars={setFilledStars}
+                  />
+                </div>
+              </div>
+              <div className="intrestedFilter">
+                <div
+                  className="filter-options-label"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{ marginLeft: 8, fontSize: 14 }}
+                    className="filter-rating-label"
+                  >
+                    <b>Intrested:</b>
+                  </div>
+                  <input
+                    type="checkbox"
+                    style={{ width: "20px", marginLeft: 20, marginBottom: 0 }}
+                    checked={filters.intrested}
+                    onChange={() => {
+                      setFilters((prev) => ({
+                        ...prev,
+                        intrested: !filters.intrested,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="tagFilter">
+                <div
+                  style={{ marginLeft: 8, fontSize: 14 }}
+                  className="filter-rating-label"
+                >
+                  <b>Tags:</b>
+                </div>
+                {filters.tags?.length > 0 && (
+                  <div className="listedTeam">
+                    {filters.tags.map((t, i) => (
+                      <div className="singleMember">
+                        <div>{t}</div>
+                        <div
+                          onClick={(e) => {
+                            setFilters((prev) => ({
+                              ...prev,
+                              tags: [...filters.tags.filter((f, j) => i !== j)],
+                            }));
+                          }}
+                        >
+                          <CloseIcon className="deleteMember" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="inputTag">
+                  <div>
+                    <input
+                      type="text"
+                      value={tag}
+                      onChange={(e) => settag(e.target.value)}
+                    />
+                  </div>
+                  <div
+                    onClick={() => {
+                      if (tag !== "" && !filters.tags.includes(tag)) {
+                        setFilters((prev) => ({
+                          ...prev,
+                          tags: [...filters.tags, tag],
+                        }));
+                        settag("");
+                      }
+                    }}
+                  >
+                    <i className="fas fa-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="pitchcontainer">
             {filteredData.length > 0 ? (
               filteredData?.map((d) => <SinglePitchetails d={d} />)
