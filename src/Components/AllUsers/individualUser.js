@@ -27,6 +27,30 @@ const IndividualUser = () => {
   const [comment, setComment] = useState("");
   const [tabValue, setTabValue] = useState(0);
 
+  const onLike = (commentId, isLike) => {
+    ApiServices.likeComment({ comment_id: commentId, comment_owner: user._id })
+      .then((res) => {
+        dispatch(
+          setToast({
+            message: isLike ? "Comment Liked" : "Comment Disliked",
+            bgColor: ToastColors.success,
+            visible: "yes",
+          })
+        );
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "Error Occurred",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      });
+  };
+
+  useEffect(() => console.log(user), [user]);
+
   useEffect(() => {
     if (email) {
       dispatch(setLoading({ visible: "yes" }));
@@ -286,7 +310,6 @@ const IndividualUser = () => {
                       color: "white",
                       padding: "10px",
                       borderRadius: "10px",
-                     
                     }}
                   >
                     <i
@@ -317,21 +340,21 @@ const IndividualUser = () => {
                 </div>
               ) : (
                 <div
-                    style={{
-                      textAlign: "left",
-                      background: "#ff4d4d",
-                      color: "white",
-                      padding: "10px",
-                      borderRadius: "10px",
-                      width: '143px'
-                    }}
-                  >
-                    <i
-                      className="fas fa-info-circle"
-                      style={{ marginRight: "10px" }}
-                    ></i>
-                    <span>Skills not added</span>
-                  </div>
+                  style={{
+                    textAlign: "left",
+                    background: "#ff4d4d",
+                    color: "white",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    width: "143px",
+                  }}
+                >
+                  <i
+                    className="fas fa-info-circle"
+                    style={{ marginRight: "10px" }}
+                  ></i>
+                  <span>Skills not added</span>
+                </div>
               )}
             </TabPanel>
             <TabPanel value={tabValue} index={2}>
@@ -367,21 +390,21 @@ const IndividualUser = () => {
                 </div>
               ) : (
                 <div
-                    style={{
-                      textAlign: "left",
-                      background: "#ff4d4d",
-                      color: "white",
-                      padding: "10px",
-                      borderRadius: "10px",
-                      width: '230px'
-                    }}
-                  >
-                    <i
-                      className="fas fa-info-circle"
-                      style={{ marginRight: "10px" }}
-                    ></i>
-                    <span>Education details not added</span>
-                  </div>
+                  style={{
+                    textAlign: "left",
+                    background: "#ff4d4d",
+                    color: "white",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    width: "230px",
+                  }}
+                >
+                  <i
+                    className="fas fa-info-circle"
+                    style={{ marginRight: "10px" }}
+                  ></i>
+                  <span>Education details not added</span>
+                </div>
               )}
             </TabPanel>
             <TabPanel value={tabValue} index={3}>
@@ -420,21 +443,21 @@ const IndividualUser = () => {
                 </div>
               ) : (
                 <div
-                    style={{
-                      textAlign: "left",
-                      background: "#ff4d4d",
-                      color: "white",
-                      padding: "10px",
-                      borderRadius: "10px",
-                      width: '240px'
-                    }}
-                  >
-                    <i
-                      className="fas fa-info-circle"
-                      style={{ marginRight: "10px" }}
-                    ></i>
-                    <span>Experience details not added</span>
-                  </div>
+                  style={{
+                    textAlign: "left",
+                    background: "#ff4d4d",
+                    color: "white",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    width: "240px",
+                  }}
+                >
+                  <i
+                    className="fas fa-info-circle"
+                    style={{ marginRight: "10px" }}
+                  ></i>
+                  <span>Experience details not added</span>
+                </div>
               )}
             </TabPanel>
           </div>
@@ -546,6 +569,7 @@ const IndividualUser = () => {
             {user?.comments?.length > 0 &&
               user.comments?.map((c, index) => (
                 <IndividualUserReview
+                  onLike={onLike}
                   key={index}
                   c={c}
                   deleteComment={deleteComment}
