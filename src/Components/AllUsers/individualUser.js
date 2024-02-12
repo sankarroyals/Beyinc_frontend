@@ -30,13 +30,13 @@ const IndividualUser = () => {
   const onLike = (commentId, isLike) => {
     ApiServices.likeComment({ comment_id: commentId, comment_owner: user._id })
       .then((res) => {
-        dispatch(
-          setToast({
-            message: isLike ? "Comment Liked" : "Comment Disliked",
-            bgColor: ToastColors.success,
-            visible: "yes",
-          })
-        );
+        // dispatch(
+        //   setToast({
+        //     message: isLike ? "Comment Liked" : "Comment Disliked",
+        //     bgColor: ToastColors.success,
+        //     visible: "yes",
+        //   })
+        // );
       })
       .catch((err) => {
         dispatch(
