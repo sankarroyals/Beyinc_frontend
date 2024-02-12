@@ -39,6 +39,7 @@ import {
 import { Drawer, Tab, Tabs, Typography } from "@mui/material";
 import MessageRequest from "../Conversation/Notification/MessageRequest";
 import { format } from "timeago.js";
+import useWindowDimensions from "../Common/WindowSize";
 
 function a11yProps(index) {
   return {
@@ -157,7 +158,7 @@ const Navbar = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {isMobile && (
+        {width < 770 && (
           <>
             <ListItem button key="home" onClick={() => navigate("/home")}>
               <ListItemIcon>
@@ -178,7 +179,7 @@ const Navbar = () => {
           </>
         )}
 
-        {isMobile && <>
+        {width < 770 && <>
           <ListItem
             button
             key="searchUsers"
@@ -503,6 +504,8 @@ const Navbar = () => {
     }
   }, [window.location.pathname]);
 
+  const { height, width } = useWindowDimensions();
+
   return (
     <div
       className="navbar"
@@ -519,7 +522,7 @@ const Navbar = () => {
       </div>
 
       <div className="menuIcons">
-        {isMobile || (
+        {width > 770 && (
           <>
             <div title="Home">
               <HomeOutlinedIcon
@@ -581,7 +584,7 @@ const Navbar = () => {
             </Drawer>
           </>
         )}
-        {isMobile && (
+        {width < 770 && (
           <div id="notifications" className="icon">
             <i
               className="far fa-bell"
