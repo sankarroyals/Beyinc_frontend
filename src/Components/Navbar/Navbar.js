@@ -185,10 +185,7 @@ const Navbar = () => {
             onClick={() => navigate("/searchusers")}
           >
             <ListItemIcon>
-              <SearchOutlinedIcon
-                id="searchusers"
-                className="icon"
-              ></SearchOutlinedIcon>
+            <i className="fas fa-search"></i>
             </ListItemIcon>
             <ListItemText primary="Search Users" />
           </ListItem>
@@ -199,10 +196,7 @@ const Navbar = () => {
             onClick={() => navigate("/livePitches")}
           >
             <ListItemIcon>
-              <QuestionAnswerOutlinedIcon
-                id="livePitches"
-                className="icon"
-              ></QuestionAnswerOutlinedIcon>
+            <i className="fas fa-comment-dots"></i>
             </ListItemIcon>
             <ListItemText primary="Live Pitches" />
           </ListItem>
