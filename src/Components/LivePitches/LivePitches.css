@@ -198,6 +198,11 @@ input[type="checkbox"] {
   display: flex;
   gap: 8px;
 }
+.IndicommentsSectionDetailscomment{
+  word-wrap: break-word;
+  max-width: 750px;
+  width: auto;
+}
 
 .IndicommentsSectionDetails {
   flex: 1 0 auto;
@@ -273,6 +278,13 @@ input[type="checkbox"] {
   .Top-Notch {
     align-self: flex-start;
   }
+
+  .IndicommentsSectionDetailscomment{
+  word-wrap: break-word;
+  max-width: 150px;
+  width: auto;
+}
+
 
   .individualPitchContainer .commentsContainer {
     width: 300.9px !important;
