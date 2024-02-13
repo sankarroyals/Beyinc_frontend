@@ -22,9 +22,7 @@ body {
   align-items: center;
 }
 
-.Top-Notch {
-  align-self: flex-start;
-}
+
 
 .Top-Notch span {
   background: #6a73fa;
@@ -270,10 +268,7 @@ input[type="checkbox"] {
   .individualPitchContainer {
     width: 330px !important;
   }
-  .Top-Notch {
-    align-self: flex-start;
-  }
-
+ 
   .individualPitchContainer .commentsContainer {
     width: 300.9px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

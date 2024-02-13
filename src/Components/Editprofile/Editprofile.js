@@ -1082,12 +1082,12 @@ const Editprofile = () => {
                 <div>
                   <textarea onChange={(e) => {
                     const inputText = e.target.value;
-                    if (inputText.length <= 500) {
+                    if (inputText.length <= 1000) {
                       setBio(inputText);
                     } else {
-                      setBio(inputText.slice(0, 500));
+                      setBio(inputText.slice(0, 1000));
                     }
-                  }} style={{ resize: 'none', border: 'none' }} id="" cols="20" rows="2" name="message"
+                  }} style={{ resize: 'none', border: 'none', textAlign: 'justify' }} id="" cols="20" rows="2" name="message"
                     value={bio} placeholder="Enter your bio"></textarea>
                   {/* <TextField
                     style={{ padding: "0px" }}
@@ -1106,7 +1106,7 @@ const Editprofile = () => {
                     placeholder="Enter Your Bio"
                     maxRows={4}
                   /> */}
-                  <p>{500-bio.length}/500 characters left</p>
+                  <p>{1000-bio.length}/1000 characters left</p>
                 </div>
               </div>
 

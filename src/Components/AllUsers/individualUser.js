@@ -4,15 +4,15 @@ import { ApiServices } from "../../Services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
-import SendIcon from "@mui/icons-material/Send";
-import "../LivePitches/LivePitches.css";
+// import "../LivePitches/LivePitches.css";
+import "./individualUser.css";
 import ReviewStars from "../LivePitches/ReviewStars";
 import AddReviewStars from "../LivePitches/AddReviewStars";
 import { jwtDecode } from "jwt-decode";
 import IndividualPitchComment from "../LivePitches/IndividualPitchComment";
 import { convertToDate, formatedDate } from "../../Utils";
 import IndividualUserReview from "./IndividualUserReview";
-import { TextField, Tab, Tabs, Box, Typography } from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 const IndividualUser = () => {
   const { image, userName } = useSelector((state) => state.auth.loginDetails);
@@ -177,266 +177,180 @@ const IndividualUser = () => {
   ) : (
     <div className="profile-Container">
       <div className="individualUserContainer">
-        <div className="Top-Notch">
-          <i
-            className="fas fa-users"
-            onClick={() => {
-              navigate(-1);
-            }}
-          ></i>
-        </div>
-
         <div className="indiUserDetailsContainer">
           <div className="indiUserDetails">
-            <div className="User-Top-Details">
-              <img
-                className="profile"
-                src={
-                  user?.image?.url !== undefined
-                    ? user?.image?.url
-                    : "/profile.jpeg"
-                }
-                alt=""
-                srcSet=""
-              />
-              <div className="indiUserHeading">
-                <div style={{ marginTop: "38px" }}>
-                  {user?.userName}{" "}
-                  {user.verification === "approved" && (
-                    <img
-                      title="verified"
-                      src="/verify.png"
-                      alt=""
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        marginLeft: "5px",
-                      }}
-                    />
-                  )}
-                  <div className="location-info">
-                    {user?.country && <div>{user.country}</div>}
-                    {user?.state && user.country && <div>,</div>}
-                    {user?.state && <div>{user.state}</div>}
-                    {user?.town && (user.country || user.state) && <div>,</div>}
-                    {user?.town && <div>{user.town}</div>}
-                  </div>
-                  <div className="indiPitchId">
-                    {user?.role}
-                  </div>
-                  <div className="reviewInterestContainer">
-                    {averagereview !== 0 && <ReviewStars avg={averagereview} />}
-                  </div>
-                  <div className="indiPitchDate">
-                    Profile Created on <b>{formatedDate(user?.createdAt)}</b>
-                  </div>
-                  {user.languagesKnown?.length > 0 && (
-                    <>
-                      <div className="texts">
-                        <div className="listedTeam">
-                          {user.languagesKnown.map((t, i) => (
-                            <div
-                              className="singleMember indiPitchHiringPositions"
-                              key={i}
-                            >
-                              <div>{t}</div>
+            <div className="left-container">
+              <div>
+                <img
+                  className="profile"
+                  src={
+                    user?.image?.url !== undefined
+                      ? user?.image?.url
+                      : "/profile.jpeg"
+                  }
+                  alt=""
+                  srcset=""
+                />
+              </div>
+
+              {user.educationDetails?.length > 0 && (
+                <div className="" style={{ flexDirection: "column" }}>
+                  <h4 className="Headings">Educational Details</h4>
+                  {user.educationDetails?.length > 0 &&
+                    user.educationDetails?.map((te, i) => (
+                      <div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <div className="company indiPitchHiringPositions">
+                              {te.college}
                             </div>
-                          ))}
+                            <div style={{ marginLeft: "10px" }}>
+                              <div className="profession indiPitchHiringPositions">
+                                {te.grade}
+                              </div>
+                              <div className="timeline indiPitchHiringPositions">
+                                {convertToDate(te.Edstart)}
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </>
+                    ))}
+                </div>
+              )}
+
+              {user.experienceDetails?.length > 0 && (
+                <div className="" style={{ flexDirection: "column" }}>
+                  <h4 className="Headings">Experience Details</h4>
+                  {user.experienceDetails?.length > 0 &&
+                    user.experienceDetails?.map((te, i) => (
+                      <div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <div className="company indiPitchHiringPositions">
+                              {te.company}
+                            </div>
+                            <div style={{ marginLeft: "10px" }}>
+                              <div className="profession indiPitchHiringPositions">
+                                {te.profession}
+                              </div>
+                              <div className="timeline indiPitchHiringPositions">
+                                {convertToDate(te.start)}-
+                                {te.end == ""
+                                  ? "Present"
+                                  : convertToDate(te.end)}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              )}
+              <div>
+                <div className="texts">
+                  {user.skills?.length > 0 && (
+                    <div className="profile_skills ">
+                      <h4 className="Headings">Skills</h4>
+                      {user.skills?.map((t, i) => (
+                        <div className="skill indiPitchHiringPositions" key={i}>
+                          <div>{t}</div>
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
               </div>
             </div>
 
-            <Tabs
+            <div className="right-container">
+              <div className="User-Top-Details">
+                <div className="indiUserHeading">
+                  <div style={{ marginTop: "40px" }}>
+                    <div className="profile-name">
+                      {" "}
+                      {user?.userName}{" "}
+                      {user.verification == "approved" && (
+                        <img
+                          title="verified"
+                          src="/verify.png"
+                          alt=""
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            marginLeft: "5px",
+                          }}
+                        />
+                      )}
+                    </div>
+                    <div className="profile-role">{user?.role}</div>
 
-              value={tabValue}
-              onChange={handleTabChange}
-              aria-label="Profile Tabs"
-            >
-              <Tab label="About" />
-              <Tab label="Skills" />
-              <Tab label="Education" />
-              <Tab label="Experience" />
-            </Tabs>
-            <TabPanel value={tabValue} index={0}>
-              <div className="aboutme">
-                {user?.bio ? (
-                  <TextField
-                    sx={{
-                      "& fieldset": { border: "none" },
-                      width: "100%",
-                      height: "auto",
-                      textAlign: "justify",
-                    }}
-                    id="outlined-multiline-flexible"
-                    name="bio"
-                    value={user.bio}
-                    multiline
-                    maxRows={10}
-                    placeholder="Enter Your Bio"
-                  />
-                ) : (
-                  <div
-                    style={{
-                      textAlign: "left",
-                      background: "#ff4d4d",
-                      color: "white",
-                      padding: "10px",
-                      borderRadius: "10px",
-                     
-                    }}
-                  >
-                    <i
-                      className="fas fa-info-circle"
-                      style={{ marginRight: "10px" }}
-                    ></i>
-                    <span>About not added</span>
+                    <div className="location-info">
+                      {user?.country !== "" && <div>{user?.country},</div>}
+                      {user?.state !== "" && <div>{user?.state},</div>}
+                      {user?.town !== "" && <div>{user?.town}</div>}
+                    </div>
+                    <div className="indiPitchDate">
+                      Profile Created on <b>{formatedDate(user?.createdAt)}</b>
+                    </div>
+                    <div>
+                      {user.languagesKnown?.length > 0 && (
+                        <div className="listedTeam">
+                          {user.languagesKnown?.map((t, i) => (
+                            <div className="singleMember indiPitchHiringPositions">
+                              <div>{t}</div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
-            </TabPanel>
-            <TabPanel value={tabValue} index={1}>
-              {user.skills?.length > 0 ? (
+
+              <div className="aboutme">
                 <div>
-                  {/* <label className="indiPitchHiringPositions">Skills</label> */}
-                  <div className="texts">
-                    <div className="listedTeam">
-                      {user.skills.map((t, i) => (
-                        <div
-                          className="singleMember indiPitchHiringPositions"
-                          key={i}
-                        >
-                          <div>{t}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <h4 className="Headings">About</h4>
                 </div>
-              ) : (
-                <div
-                    style={{
-                      textAlign: "left",
-                      background: "#ff4d4d",
-                      color: "white",
-                      padding: "10px",
-                      borderRadius: "10px",
-                      width: '143px'
-                    }}
-                  >
-                    <i
-                      className="fas fa-info-circle"
-                      style={{ marginRight: "10px" }}
-                    ></i>
-                    <span>Skills not added</span>
-                  </div>
-              )}
-            </TabPanel>
-            <TabPanel value={tabValue} index={2}>
-              {user.educationDetails?.length > 0 ? (
-                <div className="" style={{ flexDirection: "column" }}>
-                  {user.educationDetails.map((te, i) => (
-                    <div style={{ marginLeft: "20px" }} key={i}>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: "10px",
-                        }}
-                      >
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
-                          <div className="company indiPitchHiringPositions">
-                            {te.college}
-                          </div>
-                          <div style={{ marginLeft: "10px" }}>
-                            <div className="profession indiPitchHiringPositions">
-                              {te.grade}
-                            </div>
-                            <div className="timeline indiPitchHiringPositions">
-                              {convertToDate(te.Edstart)}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div
-                    style={{
-                      textAlign: "left",
-                      background: "#ff4d4d",
-                      color: "white",
-                      padding: "10px",
-                      borderRadius: "10px",
-                      width: '230px'
-                    }}
-                  >
-                    <i
-                      className="fas fa-info-circle"
-                      style={{ marginRight: "10px" }}
-                    ></i>
-                    <span>Education details not added</span>
-                  </div>
-              )}
-            </TabPanel>
-            <TabPanel value={tabValue} index={3}>
-              {user.experienceDetails?.length > 0 ? (
-                <div className="" style={{ flexDirection: "column" }}>
-                  {user.experienceDetails.map((te, i) => (
-                    <div style={{ marginLeft: "20px" }} key={i}>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: "10px",
-                        }}
-                      >
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
-                          <div className="company indiPitchHiringPositions">
-                            {te.company}
-                          </div>
-                          <div style={{ marginLeft: "10px" }}>
-                            <div className="profession indiPitchHiringPositions">
-                              {te.profession}
-                            </div>
-                            <div className="timeline indiPitchHiringPositions">
-                              {convertToDate(te.start)}-
-                              {te.end === ""
-                                ? "Present"
-                                : convertToDate(te.end)}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div
-                    style={{
-                      textAlign: "left",
-                      background: "#ff4d4d",
-                      color: "white",
-                      padding: "10px",
-                      borderRadius: "10px",
-                      width: '240px'
-                    }}
-                  >
-                    <i
-                      className="fas fa-info-circle"
-                      style={{ marginRight: "10px" }}
-                    ></i>
-                    <span>Experience details not added</span>
-                  </div>
-              )}
-            </TabPanel>
+                <textarea
+                  style={{
+                    resize: "none",
+                    width: "100%",
+                    border: "none",
+                    textAlign: "justify",
+                    outline: '0',
+                    fontFamily: 'Roboto, sans-serif' }}
+                 
+                  id="outlined-multiline-flexible"
+                  name="bio"
+                  value={user.bio}
+                  cols="16"
+                  rows="16"
+                />
+              </div>
+            </div>
+            <div className="review-container">
+              <div className="reviewInterestContainer">
+                <h5>Overall Rating</h5>
+                <ReviewStars avg={averagereview} />
+              </div>
+            </div>
           </div>
         </div>
         <div className="commentsContainer">
@@ -559,23 +473,3 @@ const IndividualUser = () => {
 };
 
 export default IndividualUser;
-// Custom TabPanel component
-const TabPanel = (props) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-};

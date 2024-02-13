@@ -1,0 +1,220 @@
+.profile-Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.individualUserContainer {
+  width: 1450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.indiUserDetailsContainer {
+  width: 100%;
+  background: white;
+  margin-top: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  /* display: flex; */
+}
+
+.indiUserDetails {
+  border: 1px solid rgba(128, 128, 128, 0.473);
+  padding: 15px;
+  border-radius: 10px;
+  height: 86vh !important;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.left-container {
+  margin-left: 50px;
+}
+.User-Top-Details {
+  display: flex;
+  gap: 0px;
+}
+.profile {
+  width: 250px;
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.profile-name {
+  background: linear-gradient(90deg, #e800fe 3.31%, #191fff 76.1%);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 28px;
+}
+.profile-role {
+  font-size: 24px;
+}
+
+.indiUserHeading {
+  font-size: 28px;
+  font-weight: 600;
+  width: 700px;
+  margin-left: 30px;
+}
+
+.location-info {
+}
+.location-info div {
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 14px;
+  font-weight: 100 !important;
+}
+
+.indiPitchDate,
+.indiPitchId {
+  padding: 10px 0px;
+  font-size: 14px;
+}
+.indiPitchDate {
+  font-weight: 400;
+}
+
+.reviewInterestContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.indiPitchDesc .about {
+  border: none;
+  padding: 0px 20px;
+  font-size: 14px;
+  width: 92% !important;
+  text-align: justify;
+  margin: auto;
+}
+.indiPitchHiringPositions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12px;
+  margin: 5px 0px;
+  margin-left: 15px;
+}
+.listedTeam {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.Headings {
+
+  color: #6a73fa;
+  font-size: 12px;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+.profile_skills {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.skill {
+  font-size: 12px;
+}
+
+.right-container {
+  margin-left: 50px;
+}
+
+.singleMember {
+  background: #6a74fa80;
+  padding: 10px;
+  gap: 5px;
+  border-radius: 5px;
+  margin: 5px 0px;
+}
+
+.individualUserContainer .commentsContainer {
+  width: 97%;
+  background: white;
+  margin-top: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  /* border: none; */
+}
+.sendIcon {
+  cursor: pointer;
+  font-size: 13px;
+  width: auto !important;
+  padding: 3px 3px !important;
+}
+.aboutme {
+  margin-left: 20px;
+}
+
+.reviewInterestContainer {
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #6a74faae;
+}
+.divider{
+  color: red;
+  height: 2px;
+  width: 30px;
+}
+
+@media (max-width: 760px) {
+  .individualUserContainer {
+    width: 350px !important;
+  }
+  .indiUserDetails {
+    flex-direction: column;
+    height: 120vh !important;
+  }
+  .User-Top-Details {
+    display: flex;
+    flex-direction: column;
+  }
+  .User-Top-Details .profile {
+    width: 250px !important;
+    height: 250px !important;
+    align-self: center;
+  }
+  .indiUserHeading {
+    width: 300px !important;
+    margin-left: 0px !important;
+    font-size: 16px;
+    font-weight: 600;
+    width: 400px;
+    margin-top: -40px;
+    margin-left: 10px;
+  }
+  .reviewInterestContainer {
+    font-size: 12px;
+  }
+  .individualUserContainer .commentsContainer {
+    width: 315.9px !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .writing-review .sendIcon {
+    width: 262px !important;
+    margin-right: 0px !important;
+    transform: translateY(-20px) !important;
+  }
+  .sendIcon {
+    margin-top: 0px;
+    margin-right: 50px;
+    width: 50px !important;
+  }
+  .writing-review {
+    margin-top: 15px !important;
+    flex-direction: column;
+    align-self: flex-start !important;
+  }
+  .writing-review .textarea {
+    width: 250px !important;
+  }
+}

@@ -243,7 +243,7 @@ const IndividualPitch = () => {
   return (
     <div className="profile-Container">
       <div className="individualPitchContainer">
-        <div className="Top-Notch">
+        {/* <div className="Top-Notch">
           <i
             className="fas fa-users"
             onClick={() => {
@@ -251,7 +251,7 @@ const IndividualPitch = () => {
             }}
           ></i>
           <span>{pitch?.userInfo?.userName}'s Pitch</span>
-        </div>
+        </div> */}
         <div className="indiPitchDetailsContainer">
           <div className="indiPitchDetails">
             <div style={{ display: "flex", justifyContent: "space-between" }}>

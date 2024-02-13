@@ -2,103 +2,25 @@
   background: #f6f8fc !important;
 } */
 
-.profile-Container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
 
-.individualUserContainer {
-  width: 1100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.Top-Notch {
-  align-self: flex-start;
-}
 
-.Top-Notch span {
-  background: #6a73fa;
-  color: white;
-  padding: 8px;
-  border-radius: 5px;
-  margin-top: 5px;
-}
 
-.Top-Notch .fas.fa-users {
-  background: #cccccc;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 5px;
-}
-
-.Top-Notch .fas.fa-users:hover {
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.indiUserDetailsContainer {
-  width: 100%;
-  background: white;
-  margin-top: 5px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  position: relative;
-  /* display: flex; */
-}
-
-.location-info div {
-  display: inline-block;
-  margin-right: 5px;
-  font-size: 14px;
-  font-weight: 100 !important;
-}
 
 .indiPitchDesc h2 {
   margin-top: 10px;
   text-align: center;
 }
 
-.aboutme {
-  display: flex;
-  justify-content: left;
-  align-items: flex-start;
-  text-align: justify;
-}
 
-.indiPitchDesc .about {
-  border: none;
-  padding: 0px 20px;
-  font-size: 14px;
-  width: 92% !important;
-  text-align: justify;
-  margin: auto;
-}
 
-.individualUserContainer .commentsContainer {
-  width: 97%;
-  background: white;
-  margin-top: 20px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  position: relative;
-  /* border: none; */
-}
 
-.User-Top-Details {
-  display: flex;
-  gap: 0px;
-}
 
-.profile {
-  width: 200px !important;
-  height: 200px !important;
-  margin-top: 10px;
-  padding: 30px;
-}
+
+
+
+
+
 
 /* profile tabs sections */
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
@@ -177,12 +99,7 @@
   color: red;
   transform: scale(1.2);
 }
-.indiUserDetails {
-  border: 1px solid rgba(128, 128, 128, 0.473);
-  padding: 15px;
-  border-radius: 10px;
-  height: 78vh !important;
-}
+
 
 @media (max-width: 760px) {
   .usersWrapper {
@@ -194,14 +111,8 @@
   .users-main-box {
     margin: auto;
   }
-  .indiUserDetails {
-    height: 120vh !important;
-  }
-  .aboutme {
-    width: 320px;
-    margin-left: -14px !important;
-    margin-top: -10px;
-  }
+
+
   .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
     width: 76px !important;
     font-size: 10px !important;
@@ -218,38 +129,14 @@
   color: goldenrod;
 }
 
-.indiUserHeading {
-  font-size: 28px;
-  font-weight: 600;
-  width: 700px;
-  margin-left: 30px;
-}
 
-.sendIcon {
-  cursor: pointer;
-  font-size: 13px;
-  width: auto !important;
-  padding: 3px 3px !important;
-}
+
 
 @media (max-width: 760px) {
-  .individualUserContainer {
-    width: 350px !important;
-  }
-  .Top-Notch {
-    align-self: flex-start;
-  }
 
-  .User-Top-Details .profile {
-    width: 250px !important;
-    height: 250px !important;
-    align-self: center;
-  }
 
-  .indiUserHeading {
-    width: 300px !important;
-    margin-left: 0px !important;
-  }
+
+  
   .Top-Notch span {
     padding: 5px;
     border-radius: 5px;
@@ -262,11 +149,7 @@
     margin-top: 5px;
   }
 
-  .User-Top-Details {
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-  }
+ 
 
   .usersWrapper {
     display: flex;
@@ -278,48 +161,19 @@
     margin: auto;
   }
 
-  .individualUserContainer .commentsContainer {
-    width: 315.9px !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+ 
 
-  .indiUserHeading {
-    font-size: 16px;
-    font-weight: 600;
-    width: 400px;
-    margin-top: -40px;
-    margin-left: 10px;
-  }
 
   .indiUserHeading img {
     width: 10px !important;
     height: 10px !important;
     margin-top: 10px;
   }
-  .reviewInterestContainer {
-    margin-bottom: -10px;
-    margin-top: -10px;
-    font-size: 12px;
-  }
 
-  .writing-review {
-    margin-top: 15px !important;
-    flex-direction: column;
-    align-self: flex-start !important;
-  }
-  .writing-review .textarea {
-    width: 250px !important;
-  }
-  .writing-review .sendIcon {
-    width: 262px !important;
-    margin-right: 0px !important;
-    transform: translateY(-20px) !important;
-  }
-  .sendIcon {
-    margin-top: 0px;
-    margin-right: 50px;
-    width: 50px !important;
-  }
+
+ 
+ 
+  
   .user-card-main-container {
     display: flex;
     flex-direction: row;
