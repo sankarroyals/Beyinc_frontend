@@ -505,10 +505,14 @@ export const userColor = {
 
 
 const heirarchy = {
-    Admin: 0,
-    Investor: 1,
-    Mentor: 2,
-    Entrepreneur: 3,
+
+
+    Investor: 0,
+    Incubation_Cell: 1,
+    Accelerator: 2,
+    Mentor: 3,
+    Entrepreneur: 4,
+    Technology_Partner: 5,
 
 };
 
@@ -519,7 +523,7 @@ export function isParent(givenRole, childRole) {
     if (heirarchy[givenRole] <= heirarchy[childRole]) {
         return true
     }
-    
+
     return false
 }
 

@@ -105,7 +105,7 @@ const IndividualUser = () => {
   const sendReview = async () => {
     await ApiServices.addUserReview({
       userId: user._id,
-      review: { email: JSON.parse(localStorage.getItem('user').accessToken).email, review: filledStars },
+      review: { email: JSON.parse(localStorage.getItem('user')).accessToken.email, review: filledStars },
     })
       .then((res) => {
         dispatch(
