@@ -72,7 +72,7 @@ const SingleUserDetails = ({ d, connectStatus }) => {
               </div>
               <div className="rating-content">
                 <i className="far fa-star"></i>
-                <span style={{ marginLeft: "3px" }}>{averagereview}</span>
+                <span style={{ marginLeft: "3px" }}>{averagereview.toFixed(1).split(".")[1]!= "0"?averagereview.toFixed(1):averagereview.toFixed(0)}</span>
               </div>
             </div>
           </div>

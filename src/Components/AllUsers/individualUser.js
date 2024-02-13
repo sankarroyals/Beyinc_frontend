@@ -107,7 +107,10 @@ const IndividualUser = () => {
     await ApiServices.addUserReview({
       userId: user._id,
       review: {
-        email: jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken).email, review: filledStars },
+        email: jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
+          .email,
+        review: filledStars,
+      },
     })
       .then((res) => {
         dispatch(
@@ -397,7 +400,7 @@ const IndividualUser = () => {
             <div className="right-container">
               <div className="User-Top-Details">
                 <div className="indiUserHeading">
-                  <div >
+                  <div>
                     <div className="profile-name">
                       {" "}
                       {user?.userName}{" "}
@@ -462,7 +465,18 @@ const IndividualUser = () => {
             </div>
             <div className="review-container">
               <div className="reviewInterestContainer">
-                <ReviewStars avg={averagereview}/>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: '5px'
+                  }}
+                >
+                  <b>{user.review?.length}</b> <span> Global Ratings</span>
+                </div>
+                <ReviewStars avg={averagereview} />
+                <span></span>
               </div>
               <div>
                 <div className="texts">
