@@ -209,7 +209,7 @@ const IndividualUser = () => {
         <div className="indiUserDetailsContainer">
           <div className="indiUserDetails">
             <div className="left-container">
-              <div>
+              <div className="user-image">
                 <img
                   className="profile"
                   src={
@@ -222,7 +222,8 @@ const IndividualUser = () => {
                 />
               </div>
 
-              {user.educationDetails?.length > 0 && (
+             <div className="ed-ex-container">
+             {user.educationDetails?.length > 0 && (
                 <div className="" style={{ flexDirection: "column" }}>
                   <h4 className="Headings">Educational Details</h4>
                   <div>
@@ -395,12 +396,14 @@ const IndividualUser = () => {
                   )}
                 </div>
               )}
+             </div>
+
             </div>
 
             <div className="right-container">
               <div className="User-Top-Details">
                 <div className="indiUserHeading">
-                  <div>
+                  <div className="profile-details">
                     <div className="profile-name">
                       {" "}
                       {user?.userName}{" "}
@@ -427,7 +430,7 @@ const IndividualUser = () => {
                     <div className="indiPitchDate">
                       Profile Created on <b>{formatedDate(user?.createdAt)}</b>
                     </div>
-                    <div>
+                    <div className="language">
                       {user.languagesKnown?.length > 0 && (
                         <div className="listedTeam">
                           {user.languagesKnown?.map((t, i) => (
@@ -464,7 +467,7 @@ const IndividualUser = () => {
               </div>
             </div>
             <div className="review-container">
-              <div className="reviewInterestContainer">
+              <div className="reviewContainer">
                 <div
                   style={{
                     display: "flex",

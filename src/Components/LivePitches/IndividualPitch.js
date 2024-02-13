@@ -13,6 +13,7 @@ import AddReviewStars from "./AddReviewStars";
 import { io } from "socket.io-client";
 import { socket_io } from "../../Utils";
 import moment from "moment";
+import "./IndividualPitch.css";
 
 const IndividualPitch = () => {
   const [pitch, setpitch] = useState("");
@@ -243,112 +244,107 @@ const IndividualPitch = () => {
   return (
     <div className="profile-Container">
       <div className="individualPitchContainer">
-        {/* <div className="Top-Notch">
-          <i
-            className="fas fa-users"
-            onClick={() => {
-              navigate(-1);
-            }}
-          ></i>
-          <span>{pitch?.userInfo?.userName}'s Pitch</span>
-        </div> */}
         <div className="indiPitchDetailsContainer">
           <div className="indiPitchDetails">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div className="indiPitchHeading">
-                {pitch?.heading}
-                <i
-                  className="fas fa-eye"
-                  title="View Pitch"
-                  style={{ fontSize: "16px", marginLeft: "20px" }}
-                  onClick={() => {
-                    setOpen(true);
-                  }}
-                ></i>
-                <div className="reviewIntrestContainer">
-                  <div className="">
-                    <ReviewStars avg={averagereview} />
-                  </div>
-                  {email !== pitch?.email && (
-                    <div
-                      className={`intrestButton ${pitch?.intrest?.length > 0 &&
-                          pitch?.intrest.filter((p) => p.email === email).length >
-                          0
-                          ? "removeIntrest"
-                          : "addIntrest"
-                        }`}
-                    >
-                      {pitch?.intrest?.length > 0 &&
-                        pitch?.intrest.filter((p) => p.email === email).length >
-                        0 ? (
-                        <span onClick={removeFromIntrest}>
-                          Remove From interest
-                        </span>
-                      ) : (
-                        <span onClick={addToIntrest}>Add To interest</span>
-                      )}
-                    </div>
-                  )}
+            <div className="main-container">
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div className="indiPitchHeading">
+                  {pitch?.heading}
+                  <i
+                    className="fas fa-eye"
+                    title="View Pitch"
+                    style={{ fontSize: "16px", marginLeft: "20px" }}
+                    onClick={() => {
+                      setOpen(true);
+                    }}
+                  ></i>
                 </div>
               </div>
+              <div>
+                <div className="indiPitchDate">
+                  Posted about{" "}
+                  <b>{moment(pitch?.createdAt).format("MMM Do YY")}</b> by{" "}
+                  <b>{pitch?.userInfo?.userName}</b>
+                </div>
+              </div>
+              <div className="indiPitchDesc">
+                <textarea
+                  style={{
+                    resize: "none",
+                    width: "100%",
+                    border: "none",
+                    textAlign: "justify",
+                    outline: "0",
+                    fontFamily: "'Google Sans Text', sans- serif",
+                  }}
+                  disabled
+                  rows={13}
+                  value={pitch?.description}
+                ></textarea>
+              </div>
+
+              {pitch?.hiringPositions?.length > 0 && (
+                <div className="indiPitchHiringPositions">
+                  <b className="side-headings"> People Needed:</b>
+                  {pitch?.hiringPositions?.map((h) => (
+                    <div className="hp">{h}</div>
+                  ))}
+                </div>
+              )}
+              {pitch?.industry1 !== "" && (
+                <div className="indiPitchHiringPositions">
+                  <b className="side-headings"> Domain:</b>
+                  <div className="hp">{pitch?.industry1}</div>
+                </div>
+              )}
+              {pitch?.industry2 !== "" && (
+                <div className="indiPitchHiringPositions">
+                  <b className="side-headings"> Tech:</b>
+
+                  <div className="hp">{pitch?.industry2}</div>
+                </div>
+              )}
+
+              <PitchDetailsReadOnly
+                open={open}
+                setOpen={setOpen}
+                value={value}
+                setValue={setValue}
+                pitchDetails={pitch}
+              />
             </div>
-            <div>
-              <div className="indiPitchDate">
-                Posted about {moment(pitch?.createdAt).format('MMM Do YY')} by{" "}
-                <b>{pitch?.userInfo?.userName}</b>
+            <div className="rating-container">
+              <div className="reviewInterestContainer">
+                <h4>{pitch.review?.length} Global Ratings</h4>
+                <div className="">
+                  <ReviewStars avg={averagereview} />
+                </div>
+                {email !== pitch?.email && (
+                  <div
+                    className={`intrestButton ${
+                      pitch?.intrest?.length > 0 &&
+                      pitch?.intrest.filter((p) => p.email === email).length > 0
+                        ? "removeIntrest"
+                        : "addIntrest"
+                    }`}
+                  >
+                    {pitch?.intrest?.length > 0 &&
+                    pitch?.intrest.filter((p) => p.email === email).length >
+                      0 ? (
+                      <span onClick={removeFromIntrest}>
+                        Remove from interest
+                      </span>
+                    ) : (
+                      <span onClick={addToIntrest}>Add to interest</span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
-            <div className="indiPitchDesc">
-              <textarea
-                style={{
-                  width: "100%",
-                  border: "none",
-                  fontFamily: "'Google Sans Text', sans- serif",
-                }}
-                disabled
-                rows={13}
-                value={pitch?.description}
-              ></textarea>
-            </div>
-            <div className="indiPitchId">
-              <b>Pitch ID:</b> {pitch?._id}
-            </div>
-
-            {pitch?.hiringPositions?.length > 0 && (
-              <div className="indiPitchHiringPositions">
-                <b> People Needed:</b>
-                {pitch?.hiringPositions?.map((h) => (
-                  <div className="hp">{h}</div>
-                ))}
-              </div>
-            )}
-            {pitch?.industry1 !== "" && (
-              <div className="indiPitchHiringPositions">
-                <b> Domain:</b>
-
-                <div className="hp">{pitch?.industry1}</div>
-              </div>
-            )}
-            {pitch?.industry2 !== "" && (
-              <div className="indiPitchHiringPositions">
-                <b> Tech:</b>
-
-                <div className="hp">{pitch?.industry2}</div>
-              </div>
-            )}
-            <div></div>
-
-            <PitchDetailsReadOnly
-              open={open}
-              setOpen={setOpen}
-              value={value}
-              setValue={setValue}
-              pitchDetails={pitch}
-            />
           </div>
         </div>
         <div className="commentsContainer">
-          <h2>Ratings & Discussion</h2>
+          <h2 className="Rating-heading">Ratings & Discussion</h2>
           <div>
             <div style={{ display: "flex", gap: "10px" }}>
               <img src={image} />
@@ -373,16 +369,7 @@ const IndividualPitch = () => {
                   filledStars={filledStars}
                   setFilledStars={setFilledStars}
                 />{" "}
-                <button
-                  className="sendIcon"
-                  style={{
-                    cursor: "pointer",
-                    fontSize: "13px",
-                    width: "auto",
-                    padding: "3px 4px",
-                  }}
-                  onClick={sendReview}
-                >
+                <button className="sendIcon" onClick={sendReview}>
                   Post
                 </button>
               </div>
@@ -444,8 +431,6 @@ const IndividualPitch = () => {
             ))}
         </div>
       </div>
-
-      
     </div>
   );
 };

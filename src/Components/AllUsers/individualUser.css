@@ -78,7 +78,7 @@
   font-weight: 400;
 }
 
-.reviewInterestContainer {
+.reviewContainer {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -121,8 +121,8 @@
 .Headings::after {
   content: "";
   flex: 1;
-  border-bottom: 1px solid lightgray; /* Change the color as needed */
-  margin-left: 10px; /* Adjust the distance between the heading and the line */
+  border-bottom: 1px solid lightgray;
+  margin-left: 10px;
 }
 .profile_skills {
   display: flex;
@@ -131,7 +131,7 @@
 }
 .skill {
   font-size: 12px;
-  background: #ccc;
+  background: #e6f2ff;
   padding: 10px;
   gap: 5px;
   border-radius: 5px;
@@ -145,7 +145,7 @@
 }
 
 .singleMember {
-  background: #ccc;
+  background: #e6f2ff;
   padding: 10px;
   gap: 5px;
   border-radius: 5px;
@@ -164,14 +164,15 @@
 .sendIcon {
   cursor: pointer;
   font-size: 13px;
-  width: auto !important;
-  padding: 3px 3px !important;
+  width: auto;
+  height: auto;
+  padding: 10px;
 }
 .aboutme {
   margin-left: 20px;
 }
 
-.reviewInterestContainer {
+.reviewContainer {
   margin-top: 10px;
   padding: 10px;
   border-radius: 10px;
@@ -216,16 +217,56 @@
   }
   .indiUserDetails {
     flex-direction: column;
-    height: 120vh !important;
+    height: auto !important;
   }
-  .User-Top-Details {
+
+  .left-container {
+    margin-left: 0;
+  }
+
+  .right-container {
+    margin-left: 0;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  .ed-ex-container {
+    display: none;
+  }
+
+  .aboutme {
+    margin-left: 0;
+  }
+
+  .user-image {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
   }
-  .User-Top-Details .profile {
-    width: 250px !important;
-    height: 250px !important;
+  .user-image .profile {
+    width: 200px;
+    height: 200px;
     align-self: center;
+  }
+  .profile-details {
+    text-align: center;
+  }
+  .profile-name {
+    font-size: 20px;
+  }
+  .profile-role {
+    font-size: 18px;
+  }
+  .language {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .review-container {
+    margin-left: 0px;
+    margin-top: 0px;
   }
   .indiUserHeading {
     width: 300px !important;
@@ -236,7 +277,7 @@
     margin-top: -40px;
     margin-left: 10px;
   }
-  .reviewInterestContainer {
+  .reviewContainer {
     font-size: 12px;
   }
   .individualUserContainer .commentsContainer {
