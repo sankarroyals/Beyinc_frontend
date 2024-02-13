@@ -16,7 +16,7 @@ import moment from "moment";
 
 const IndividualPitch = () => {
   const [pitch, setpitch] = useState("");
-  const { email, image, userName } = useSelector(
+  const { email, image, userName, user_id } = useSelector(
     (state) => state.auth.loginDetails
   );
   const [isWritingReview, setIsWritingReview] = useState(false);
@@ -28,6 +28,8 @@ const IndividualPitch = () => {
   const [pitchTrigger, setPitchTrigger] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [allComments, setAllComments] = useState([])
 
   const socket = useRef();
   useEffect(() => {
@@ -89,11 +91,7 @@ const IndividualPitch = () => {
           console.log(res.data);
           setpitch({
             ...res.data,
-            comments: [
-              ...res.data.comments.sort(
-                (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-              ),
-            ],
+            
           });
           if (res.data.review !== undefined && res.data.review?.length > 0) {
             let avgR = 0;
@@ -115,13 +113,36 @@ const IndividualPitch = () => {
     }
   }, [pitchId, pitchTrigger]);
 
+
+  useEffect(() => {
+    if (pitchId) {
+      ApiServices.getPitchComments({ pitchId: pitchId })
+        .then((res) => {
+          console.log(res.data);
+          setAllComments(res.data.sort(
+                (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+              ),
+          );
+        })
+        .catch((err) => {
+          dispatch(
+            setToast({
+              message: "Error Occured",
+              bgColor: ToastColors.failure,
+              visible: "yes",
+            })
+          );
+        });
+    }
+  }, [pitchId, pitchTrigger]);
+
   const sendText = async () => {
     await ApiServices.addPitchComment({
       pitchId: pitchId,
-      comment: { email: email, comment: comment },
+      commentBy: user_id, comment: comment, parentCommentId:undefined,
     })
       .then((res) => {
-        // setPitchTrigger(!pitchTrigger)
+        setPitchTrigger(!pitchTrigger)
         setpitch((prev) => ({
           ...prev,
           comments: [
@@ -407,11 +428,13 @@ const IndividualPitch = () => {
                     <div>
                       <textarea
                         className="textarea"
-                        rows={4}
+                        rows={2}
                         cols={50}
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         placeholder="Describe Your Experience"
+                        style={{ resize: 'none' }}
+
                       />
                     </div>
                     <div>
@@ -433,14 +456,15 @@ const IndividualPitch = () => {
             </div>
           </div>
 
-          {pitch?.comments?.length > 0 && (
+          {allComments.length > 0 && (
             <div>
               <b>Discussions:</b>
             </div>
           )}
-          {pitch?.comments?.length > 0 &&
-            pitch.comments?.map((c) => (
-              <IndividualPitchComment c={c} deleteComment={deleteComment} />
+          {allComments.length > 0 &&
+            allComments?.map((c) => (
+              c.parentCommentId == undefined && <IndividualPitchComment c={c} deleteComment={deleteComment} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} />
+
             ))}
         </div>
       </div>

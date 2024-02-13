@@ -28,6 +28,7 @@ import useWindowDimensions from "../Common/WindowSize";
 import { FilterCheckBoxes } from "./FilterCheckBox";
 import { Search } from "@mui/icons-material";
 import { getAllHistoricalConversations } from "../../redux/Conversationreducer/ConversationReducer";
+import AddPitch from "../Common/AddPitch";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -79,6 +80,8 @@ const AllUsers = () => {
   const { email } = useSelector((state) => state.auth.loginDetails);
   const [filledStars, setFilledStars] = useState(0);
   const [search, setSearch] = useState("");
+  const [receiverRole, setreceiverRole] = useState("");
+  const [pitchSendTo, setPitchSendTo] = useState("");
   const [filters, setFilters] = useState({
     role: [],
     languagesKnown: [],
@@ -597,7 +600,7 @@ const AllUsers = () => {
             <div className="userscontainer">
               {filteredData.length > 0 ? (
                 filteredData?.map((d) => (
-                  <SingleUserDetails d={d} connectStatus={connectStatus} />
+                  <SingleUserDetails d={d} connectStatus={connectStatus} setPitchSendTo={setPitchSendTo } pitchSendTo={pitchSendTo} receiverRole={receiverRole} setreceiverRole={setreceiverRole} />
                 ))
               ) : (
                 <div
@@ -615,6 +618,11 @@ const AllUsers = () => {
             </div>
           </div>
         </div>
+        <AddPitch
+          receiverMail={pitchSendTo}
+          setReceivermail={setPitchSendTo}
+          receiverRole={receiverRole}
+        />
       </div>
     </>
   );

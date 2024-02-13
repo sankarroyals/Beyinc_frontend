@@ -6,12 +6,22 @@ import { useParams } from "react-router";
 import { setToast } from "../../redux/AuthReducers/AuthReducer";
 import moment from "moment";
 
-const IndividualUserReview = ({ c, deleteComment, onLike }) => {
+const IndividualUserReview = ({ c, deleteComment, onLike, onDisLike }) => {
   const { email, user_id } = useSelector((state) => state.auth.loginDetails);
   const { pitchId } = useParams();
   const dispatch = useDispatch();
-  const [liked, setLiked] = useState(c.likes?.includes(user_id));
+  const [liked, setLiked] = useState(false);
+
+  const [disliked, setdisLiked] = useState(false);
+
+  useEffect(() => {
+    setLiked(c.likes?.includes(user_id))
+    setdisLiked(c.Dislikes?.includes(user_id))
+  }, [c, user_id])
+
   const [count, setCount] = useState(c.likes?.length);
+  const [dislikecount, setdislikecount] = useState(c.Dislikes?.length);
+
 
   const handleLike = (id) => {
     if (liked) {
@@ -20,8 +30,28 @@ const IndividualUserReview = ({ c, deleteComment, onLike }) => {
     } else {
       setLiked(true);
       setCount((prev) => prev + 1);
+      setdislikecount((prev) => prev - 1);
+      setdisLiked(false);
+
+
     }
     onLike(id, !c.likes?.includes(user_id));
+  };
+
+
+  const handleDisLike = (id) => {
+    if (disliked) {
+      setdisLiked(false);
+      setdislikecount((prev) => prev - 1);
+    } else {
+      setdisLiked(true);
+      setLiked(false);
+
+      setdislikecount((prev) => prev + 1);
+      setCount((prev) => prev - 1);
+
+    }
+    onDisLike(id, !c.Dislikes?.includes(user_id));
   };
 
   return (
@@ -37,6 +67,12 @@ const IndividualUserReview = ({ c, deleteComment, onLike }) => {
           <div title={c?.email || c?.commentBy?.email}>
             {c?.userName || c?.commentBy?.userName}
           </div>
+          <div style={{ fontWeight: '200' }}
+            title={c?.email || c?.commentBy?.email}
+            className="IndicommentsSectionDetailsdate"
+          >
+            {moment(c.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+          </div>
           {/* <div title={"Delete Comment"} onClick={() => deleteComment(c._id)}>
             {(c?.email || c?.commentBy?.email) == email && (
               <i className="fas fa-trash"></i>
@@ -49,29 +85,44 @@ const IndividualUserReview = ({ c, deleteComment, onLike }) => {
         >
           {c?.comment}
         </div>
-        <div
-          title={c?.email || c?.commentBy?.email}
-          className="IndicommentsSectionDetailsdate"
-        >
-          {moment(c.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+        <div className="IndicommentsSectionActions">
+          <div style={{display: 'flex', gap: '3px', alignItems: 'center'}}>
+            {count > 0 && <div>{count}</div>}
+            {liked ? (
+              <i
+                class="fa fa-thumbs-up icon-blue"
+                aria-hidden="true"
+                onClick={() => handleLike(c._id)}
+              />
+            ) : (
+              <i
+                class="far fa-thumbs-up"
+                aria-hidden="true"
+                onClick={() => handleLike(c._id)}
+              />
+            )}
+          </div>
+
+
+          <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
+            {dislikecount > 0 && <div>{dislikecount}</div>}
+            {disliked ? (
+              <i
+                class="fa fa-thumbs-down icon-blue"
+                aria-hidden="true"
+                onClick={() => handleDisLike(c._id)}
+              />
+            ) : (
+              <i
+                class="far fa-thumbs-down"
+                aria-hidden="true"
+                onClick={() => handleDisLike(c._id)}
+              />
+            )}
+         </div>
         </div>
       </div>
-      <div className="IndicommentsSectionActions">
-        {count > 0 && <span>{count}</span>}
-        {liked ? (
-          <i
-            class="fa fa-thumbs-up icon-blue"
-            aria-hidden="true"
-            onClick={() => handleLike(c._id)}
-          />
-        ) : (
-          <i
-            class="far fa-thumbs-up"
-            aria-hidden="true"
-            onClick={() => handleLike(c._id)}
-          />
-        )}
-      </div>
+    
     </div>
   );
 };
