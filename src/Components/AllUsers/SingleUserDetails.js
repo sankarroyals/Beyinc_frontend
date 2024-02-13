@@ -11,12 +11,11 @@ import Typography from "@mui/material/Typography";
 import AddPitch from "../Common/AddPitch";
 import { setReceiverId } from "../../redux/Conversationreducer/ConversationReducer";
 
-const SingleUserDetails = ({ d, connectStatus }) => {
-  console.log(d);
+const SingleUserDetails = ({ d, connectStatus, setPitchSendTo , pitchSendTo , receiverRole ,setreceiverRole }) => {
+  // console.log(d);
   const { email } = useSelector((state) => state.auth.loginDetails);
   const dispatch = useDispatch();
-  const [receiverRole, setreceiverRole] = useState("");
-  const [pitchSendTo, setPitchSendTo] = useState("");
+
   const [averagereview, setAverageReview] = useState(0);
   const navigate = useNavigate();
 
@@ -125,11 +124,7 @@ const SingleUserDetails = ({ d, connectStatus }) => {
               </button>
             ))}
         </div>
-        <AddPitch
-          receiverMail={pitchSendTo}
-          setReceivermail={setPitchSendTo}
-          receiverRole={receiverRole}
-        />
+       
       </div>
     </>
   );

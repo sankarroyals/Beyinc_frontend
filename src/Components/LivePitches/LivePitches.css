@@ -132,8 +132,35 @@ input[type="checkbox"] {
   font-size: 16px;
   font-weight: 600;
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
   align-items: center;
+}
+.totalSubComments{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  color: #007fed;
+  width: 150px;
+  cursor: pointer;
+}
+
+.totalSubComments:hover{
+
+  background: #50a6f1;
+  color: white;
+}
+.replyTag{
+  font-size: 13px;
+  cursor: pointer;
+    padding: 5px;
+margin-bottom: 15px !important;
+}
+.replyTag:hover{
+  background: #ccc;
+  padding: 5px;
+  border-radius: 10px;
 }
 .IndicommentsSectionDetailsUserName i {
   font-size: 14px;

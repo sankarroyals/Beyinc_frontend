@@ -352,6 +352,19 @@ export const ApiServices = {
     });
   },
 
+  addPitchSubComment: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .post(`/pitch/addPitchSubComment`, obj)
+        .then((res) => {
+          if (res) {
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+
   addUserComment: (obj) => {
     return new Promise((resolve, reject) => {
       axiosInstance
@@ -571,4 +584,50 @@ export const ApiServices = {
         .catch((err) => reject(err));
     });
   },
+
+
+  getuserComments: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .post(`/userDetails/getUserComment`, obj)
+        .then((res) => {
+          if (res) {
+            console.log(res);
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+
+
+  
+  dislikeComment: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .patch(`/userDetails/dislikeComment`, obj)
+        .then((res) => {
+          if (res) {
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+
+
+
+  getPitchComments: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .post(`/pitch/getPitchComment`, obj)
+        .then((res) => {
+          if (res) {
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+
 };

@@ -15,7 +15,7 @@ import IndividualUserReview from "./IndividualUserReview";
 import TextField from "@mui/material/TextField";
 
 const IndividualUser = () => {
-  const { image, userName } = useSelector((state) => state.auth.loginDetails);
+  const { image, userName, user_id } = useSelector((state) => state.auth.loginDetails);
   const [isWritingReview, setIsWritingReview] = useState(false);
   const { visible } = useSelector((state) => state.auth.LoadingDetails);
   const [user, setuser] = useState("");
@@ -28,6 +28,7 @@ const IndividualUser = () => {
   const [tabValue, setTabValue] = useState(0);
   const [showOldEducation, setShowOldEducation] = useState(false);
   const [showOldExperience, setShowOldExperience] = useState(false);
+  const [allComments, setAllComments] = useState([])
   const onLike = (commentId, isLike) => {
     ApiServices.likeComment({ comment_id: commentId, comment_owner: user._id })
       .then((res) => {
@@ -50,20 +51,31 @@ const IndividualUser = () => {
       });
   };
 
+  const onDisLike = (commentId, isLike) => {
+    ApiServices.dislikeComment({ comment_id: commentId, comment_owner: user._id })
+      .then((res) => {
+        
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "Error Occurred",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      });
+  };
+
   useEffect(() => console.log(user), [user]);
 
   useEffect(() => {
-    if (email) {
+    if (email!==undefined) {
       dispatch(setLoading({ visible: "yes" }));
       ApiServices.getProfile({ email: email })
         .then((res) => {
           setuser({
-            ...res.data,
-            comments: [
-              ...res.data.comments.sort(
-                (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-              ),
-            ],
+            ...res.data
           });
 
           if (res.data.review !== undefined && res.data.review?.length > 0) {
@@ -86,7 +98,33 @@ const IndividualUser = () => {
           navigate("/searchusers");
         });
     }
+  }, [email]);
+
+
+
+  useEffect(() => {
+    if (email!==undefined) {
+      // dispatch(setLoading({ visible: "yes" }));
+      ApiServices.getuserComments({ userId: email })
+        .then((res) => {
+          setAllComments(res.data.sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt)
+          }));
+        })
+        .catch((err) => {
+          dispatch(
+            setToast({
+              message: "Error Occurred",
+              bgColor: ToastColors.failure,
+              visible: "yes",
+            })
+          );
+          console.log(err);
+          // navigate("/searchusers");
+        });
+    }
   }, [email, emailTrigger]);
+
 
   const [filledStars, setFilledStars] = useState(0);
   const handleTabChange = (event, newValue) => {
@@ -143,43 +181,42 @@ const IndividualUser = () => {
   };
 
   const sendText = async () => {
-    await ApiServices.addUserComment({
-      userEmail: email,
-      comment: {
-        email: jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
-          .email,
+    setComment("");
+    if (comment !== '') {
+      await ApiServices.addUserComment({
+        userId: email,
         comment: comment,
-      },
-    })
-      .then((res) => {
-        // setPitchTrigger(!pitchTrigger)
-        setuser((prev) => ({
-          ...prev,
-          comments: [
-            {
-              email: jwtDecode(
-                JSON.parse(localStorage.getItem("user")).accessToken
-              ).email,
-              profile_pic: image,
-              userName: userName,
-              comment: comment,
-              createdAt: new Date(),
-            },
-            ...user.comments,
-          ],
-        }));
-        setComment("");
+        commentBy: user_id
       })
-      .catch((err) => {
-        // navigate("/searchusers");
-        dispatch(
-          setToast({
-            visible: "yes",
-            message: "Error Occurred while adding comment",
-            bgColor: ToastColors.failure,
-          })
-        );
-      });
+        .then((res) => {
+          setemailTrigger(!emailTrigger)
+          setuser((prev) => ({
+            ...prev,
+            comments: [
+              {
+                email: jwtDecode(
+                  JSON.parse(localStorage.getItem("user")).accessToken
+                ).email,
+                profile_pic: image,
+                userName: userName,
+                comment: comment,
+                createdAt: new Date(),
+              },
+              ...user.comments,
+            ],
+          }));
+        })
+        .catch((err) => {
+          // navigate("/searchusers");
+          dispatch(
+            setToast({
+              visible: "yes",
+              message: "Error Occurred while adding comment",
+              bgColor: ToastColors.failure,
+            })
+          );
+        });
+    }
   };
 
   const deleteComment = async (id) => {
@@ -561,9 +598,10 @@ const IndividualUser = () => {
                       <div>
                         <textarea
                           className="textarea"
-                          rows={4}
+                          rows={2}
                           cols={50}
-                          value={comment}
+                            value={comment}
+                            style={{ resize: 'none' }}
                           onChange={(e) => setComment(e.target.value)}
                           placeholder="Describe Your Experience"
                         />
@@ -588,7 +626,7 @@ const IndividualUser = () => {
             </div>
           )}
 
-          {user?.comments?.length > 0 && (
+          {allComments.length > 0 && (
             <div>
               <b>Reviews:</b>
             </div>
@@ -602,13 +640,13 @@ const IndividualUser = () => {
               gap: "5px",
             }}
           >
-            {user?.comments?.length > 0 &&
-              user.comments?.map((c, index) => (
+            {allComments.length > 0 &&
+                allComments.map((c, index) => (
                 <IndividualUserReview
                   onLike={onLike}
                   key={index}
                   c={c}
-                  deleteComment={deleteComment}
+                  deleteComment={deleteComment} onDisLike={onDisLike}
                 />
               ))}
           </div>
