@@ -14,14 +14,16 @@ const IndividualUserReview = ({ c, deleteComment, onLike, onDisLike }) => {
 
   const [disliked, setdisLiked] = useState(false);
 
+
+  const [count, setCount] = useState(0);
+  const [dislikecount, setdislikecount] = useState(0);
+
   useEffect(() => {
     setLiked(c.likes?.includes(user_id))
     setdisLiked(c.Dislikes?.includes(user_id))
+    setCount(c.likes?.length)
+    setdislikecount(c.Dislikes?.length)
   }, [c, user_id])
-
-  const [count, setCount] = useState(c.likes?.length);
-  const [dislikecount, setdislikecount] = useState(c.Dislikes?.length);
-
 
   const handleLike = (id) => {
     if (liked) {
