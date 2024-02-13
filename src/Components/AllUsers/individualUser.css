@@ -6,7 +6,7 @@
 }
 
 .individualUserContainer {
-  width: 1450px;
+  width: 1390px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +40,7 @@
 .profile {
   width: 250px;
   height: 250px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .profile-name {
@@ -99,7 +99,6 @@
   align-items: center;
   font-size: 12px;
   margin: 5px 0px;
-  margin-left: 15px;
 }
 .listedTeam {
   display: flex;
@@ -108,11 +107,22 @@
 }
 
 .Headings {
+  background: linear-gradient(35deg, #656fff 0%, #ff6824 40%);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 18px;
+  margin-top: 10px;
+}
+.Headings {
+  display: flex;
+  align-items: center;
+}
 
-  color: #6a73fa;
-  font-size: 12px;
-  margin-top: 20px;
-  margin-left: 5px;
+.Headings::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid lightgray; /* Change the color as needed */
+  margin-left: 10px; /* Adjust the distance between the heading and the line */
 }
 .profile_skills {
   display: flex;
@@ -121,14 +131,21 @@
 }
 .skill {
   font-size: 12px;
+  background: #ccc;
+  padding: 10px;
+  gap: 5px;
+  border-radius: 5px;
+  margin: 5px 0px;
+  font-weight: 600;
 }
 
 .right-container {
-  margin-left: 50px;
+  margin-left: 30px;
+  margin-top: 35px;
 }
 
 .singleMember {
-  background: #6a74fa80;
+  background: #ccc;
   padding: 10px;
   gap: 5px;
   border-radius: 5px;
@@ -155,15 +172,42 @@
 }
 
 .reviewInterestContainer {
-  margin-top: 30px;
+  margin-top: 10px;
   padding: 10px;
   border-radius: 10px;
-  background-color: #6a74faae;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
-.divider{
+.divider {
   color: red;
   height: 2px;
   width: 30px;
+}
+.review-container {
+  margin-left: 50px;
+  margin-top: 20px;
+}
+.fas.fa-chevron-down {
+  color: grey;
+  font-size: 10px;
+}
+.fas.fa-chevron-up {
+  color: grey;
+  font-size: 10px;
+}
+.fas.fa-chevron-down:hover {
+  color: black;
+  font-size: 12px;
+  rotate: -90deg;
+}
+.fas.fa-chevron-up:hover {
+  color: black;
+  font-size: 12px;
+}
+
+.old-education,
+.old-experience {
+  margin-left: 25px;
+  margin-top: -20px;
 }
 
 @media (max-width: 760px) {

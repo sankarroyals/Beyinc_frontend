@@ -26,7 +26,8 @@ const IndividualUser = () => {
   const navigate = useNavigate();
   const [comment, setComment] = useState("");
   const [tabValue, setTabValue] = useState(0);
-
+  const [showOldEducation, setShowOldEducation] = useState(false);
+  const [showOldExperience, setShowOldExperience] = useState(false);
   const onLike = (commentId, isLike) => {
     ApiServices.likeComment({ comment_id: commentId, comment_owner: user._id })
       .then((res) => {
@@ -220,93 +221,182 @@ const IndividualUser = () => {
               {user.educationDetails?.length > 0 && (
                 <div className="" style={{ flexDirection: "column" }}>
                   <h4 className="Headings">Educational Details</h4>
-                  {user.educationDetails?.length > 0 &&
-                    user.educationDetails?.map((te, i) => (
-                      <div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "10px",
-                          }}
-                        >
-                          <div
-                            style={{ display: "flex", flexDirection: "column" }}
-                          >
-                            <div className="company indiPitchHiringPositions">
-                              {te.college}
-                            </div>
-                            <div style={{ marginLeft: "10px" }}>
-                              <div className="profession indiPitchHiringPositions">
-                                {te.grade}
-                              </div>
-                              <div className="timeline indiPitchHiringPositions">
-                                {convertToDate(te.Edstart)}
-                              </div>
-                            </div>
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "10px",
+                      }}
+                    >
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div className="company indiPitchHiringPositions">
+                          {user.educationDetails[0].college}
+                        </div>
+                        <div>
+                          <div className="profession indiPitchHiringPositions">
+                            {user.educationDetails[0].grade}
+                          </div>
+                          <div className="timeline indiPitchHiringPositions">
+                            {convertToDate(user.educationDetails[0].Edstart)}
                           </div>
                         </div>
                       </div>
-                    ))}
+                    </div>
+                  </div>
+                  {user.educationDetails.length > 1 && (
+                    <div>
+                      <div
+                        onClick={() => setShowOldEducation(!showOldEducation)}
+                      >
+                        {showOldEducation ? (
+                          <i
+                            title="close"
+                            className="fas fa-chevron-up"
+                            onClick={() => setShowOldEducation(false)}
+                          ></i>
+                        ) : (
+                          <i
+                            title="show previous education"
+                            className="fas fa-chevron-down"
+                            onClick={() => setShowOldEducation(true)}
+                          ></i>
+                        )}
+                      </div>
+                      {showOldEducation && (
+                        <div className="old-education">
+                          {user.educationDetails.slice(1).map((te, i) => (
+                            <div key={i}>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: "10px",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                  }}
+                                >
+                                  <div className="company indiPitchHiringPositions">
+                                    {te.college}
+                                  </div>
+                                  <div>
+                                    <div className="profession indiPitchHiringPositions">
+                                      {te.grade}
+                                    </div>
+                                    <div className="timeline indiPitchHiringPositions">
+                                      {convertToDate(te.Edstart)}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
 
               {user.experienceDetails?.length > 0 && (
                 <div className="" style={{ flexDirection: "column" }}>
                   <h4 className="Headings">Experience Details</h4>
-                  {user.experienceDetails?.length > 0 &&
-                    user.experienceDetails?.map((te, i) => (
-                      <div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "10px",
-                          }}
-                        >
-                          <div
-                            style={{ display: "flex", flexDirection: "column" }}
-                          >
-                            <div className="company indiPitchHiringPositions">
-                              {te.company}
-                            </div>
-                            <div style={{ marginLeft: "10px" }}>
-                              <div className="profession indiPitchHiringPositions">
-                                {te.profession}
-                              </div>
-                              <div className="timeline indiPitchHiringPositions">
-                                {convertToDate(te.start)}-
-                                {te.end == ""
-                                  ? "Present"
-                                  : convertToDate(te.end)}
-                              </div>
-                            </div>
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "10px",
+                      }}
+                    >
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div className="company indiPitchHiringPositions">
+                          {user.experienceDetails[0].company}
+                        </div>
+                        <div>
+                          <div className="profession indiPitchHiringPositions">
+                            {user.experienceDetails[0].profession}
+                          </div>
+                          <div className="timeline indiPitchHiringPositions">
+                            {convertToDate(user.experienceDetails[0].start)} -{" "}
+                            {user.experienceDetails[0].end === ""
+                              ? "Present"
+                              : convertToDate(user.experienceDetails[0].end)}
                           </div>
                         </div>
                       </div>
-                    ))}
-                </div>
-              )}
-              <div>
-                <div className="texts">
-                  {user.skills?.length > 0 && (
-                    <div className="profile_skills ">
-                      <h4 className="Headings">Skills</h4>
-                      {user.skills?.map((t, i) => (
-                        <div className="skill indiPitchHiringPositions" key={i}>
-                          <div>{t}</div>
+                    </div>
+                  </div>
+                  {user.experienceDetails.length > 1 && (
+                    <div>
+                      <div
+                        onClick={() => setShowOldExperience(!showOldExperience)}
+                      >
+                        {showOldExperience ? (
+                          <i
+                            title="close"
+                            className="fas fa-chevron-up"
+                            onClick={() => setShowOldExperience(false)}
+                          ></i>
+                        ) : (
+                          <i
+                            title="show previous experience"
+                            className="fas fa-chevron-down"
+                            onClick={() => setShowOldExperience(true)}
+                          ></i>
+                        )}
+                      </div>
+                      {showOldExperience && (
+                        <div className="old-experience">
+                          {user.experienceDetails.slice(1).map((te, i) => (
+                            <div key={i}>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: "10px",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                  }}
+                                >
+                                  <div className="company indiPitchHiringPositions">
+                                    {te.company}
+                                  </div>
+                                  <div>
+                                    <div className="profession indiPitchHiringPositions">
+                                      {te.profession}
+                                    </div>
+                                    <div className="timeline indiPitchHiringPositions">
+                                      {convertToDate(te.start)} -{" "}
+                                      {te.end === ""
+                                        ? "Present"
+                                        : convertToDate(te.end)}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      )}
                     </div>
                   )}
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="right-container">
               <div className="User-Top-Details">
                 <div className="indiUserHeading">
-                  <div style={{ marginTop: "40px" }}>
+                  <div >
                     <div className="profile-name">
                       {" "}
                       {user?.userName}{" "}
@@ -326,8 +416,8 @@ const IndividualUser = () => {
                     <div className="profile-role">{user?.role}</div>
 
                     <div className="location-info">
-                      {user?.country !== "" && <div>{user?.country},</div>}
-                      {user?.state !== "" && <div>{user?.state},</div>}
+                      {user?.country !== "" && <div>{user?.country}</div>}
+                      {user?.state !== "" && <div>{user?.state}</div>}
                       {user?.town !== "" && <div>{user?.town}</div>}
                     </div>
                     <div className="indiPitchDate">
@@ -358,21 +448,34 @@ const IndividualUser = () => {
                     width: "100%",
                     border: "none",
                     textAlign: "justify",
-                    outline: '0',
-                    fontFamily: 'Roboto, sans-serif' }}
-                 
+                    outline: "0",
+                    fontFamily: "Roboto, sans-serif",
+                  }}
                   id="outlined-multiline-flexible"
                   name="bio"
                   value={user.bio}
-                  cols="16"
-                  rows="16"
+                  cols="20"
+                  rows="20"
                 />
               </div>
             </div>
             <div className="review-container">
               <div className="reviewInterestContainer">
-                <h5>Overall Rating</h5>
-                <ReviewStars avg={averagereview} />
+                <ReviewStars avg={averagereview}/>
+              </div>
+              <div>
+                <div className="texts">
+                  {user.skills?.length > 0 && (
+                    <div className="profile_skills ">
+                      <h4 className="Headings">Skills</h4>
+                      {user.skills?.map((t, i) => (
+                        <div className="skill indiPitchHiringPositions" key={i}>
+                          <div>{t}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

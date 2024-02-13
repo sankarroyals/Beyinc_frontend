@@ -159,12 +159,13 @@ input[type="checkbox"] {
 
 .star-rating {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 5px;
 }
 
 .star {
-  font-size: 24px;
+  font-size: 34px;
   color: #ffd700;
   margin-right: 5px;
 }
