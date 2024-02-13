@@ -27,6 +27,30 @@ const IndividualUser = () => {
   const [comment, setComment] = useState("");
   const [tabValue, setTabValue] = useState(0);
 
+  const onLike = (commentId, isLike) => {
+    ApiServices.likeComment({ comment_id: commentId, comment_owner: user._id })
+      .then((res) => {
+        // dispatch(
+        //   setToast({
+        //     message: isLike ? "Comment Liked" : "Comment Disliked",
+        //     bgColor: ToastColors.success,
+        //     visible: "yes",
+        //   })
+        // );
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "Error Occurred",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      });
+  };
+
+  useEffect(() => console.log(user), [user]);
+
   useEffect(() => {
     if (email) {
       dispatch(setLoading({ visible: "yes" }));
@@ -460,6 +484,7 @@ const IndividualUser = () => {
             {user?.comments?.length > 0 &&
               user.comments?.map((c, index) => (
                 <IndividualUserReview
+                  onLike={onLike}
                   key={index}
                   c={c}
                   deleteComment={deleteComment}

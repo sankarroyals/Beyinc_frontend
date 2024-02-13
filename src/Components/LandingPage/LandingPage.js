@@ -15,7 +15,7 @@ const LandingPage = () => {
       {/* section -1 */}
       <div
         className="Beyinc-logo"
-        style={{ display: email == undefined ? "flex" : "none" }}
+        style={{ display: localStorage.getItem('user')==undefined ? "flex" : "none" }}
       >
         <div>
           <img src="/Landing-logo.png" alt="logo" />

@@ -194,7 +194,12 @@ input[type="checkbox"] {
 
 .IndicommentsSection {
   display: flex;
-  gap: 20px;
+  gap: 8px;
+}
+.IndicommentsSectionDetailscomment{
+  word-wrap: break-word;
+  max-width: 750px;
+  width: auto;
 }
 
 .IndicommentsSectionDetails {
@@ -268,7 +273,17 @@ input[type="checkbox"] {
   .individualPitchContainer {
     width: 330px !important;
   }
- 
+  .Top-Notch {
+    align-self: flex-start;
+  }
+
+  .IndicommentsSectionDetailscomment{
+  word-wrap: break-word;
+  max-width: 150px;
+  width: auto;
+}
+
+
   .individualPitchContainer .commentsContainer {
     width: 300.9px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
