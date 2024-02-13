@@ -104,7 +104,19 @@ input[type="checkbox"] {
   mask: linear-gradient(to left, #ffd700 50%, transparent 50%);
   color: #ccc;
 }
+.subcommentsContainer {
+  width: 97%;
+  margin: auto;
+  background: white;
 
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 0px;
+  /* border-left: 1px solid gray; */
+  margin-left: 50px;
+  /* margin-bottom: 30px !important; */
+}
 .average-rating {
   margin-left: 10px;
   font-weight: bold;
