@@ -194,7 +194,14 @@ margin-bottom: 15px !important;
     max-width: 150px;
     width: auto;
   }
-
+.IndicommentsSectionDetailsUserName{
+  word-wrap: break-word;
+  flex-direction: column;
+  max-width: 300px;
+  align-items: flex-start;
+  gap: 0px;
+  width: auto;
+}
   .indiPitchDate {
     font-size: 10px;
   }

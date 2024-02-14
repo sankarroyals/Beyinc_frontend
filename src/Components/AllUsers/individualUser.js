@@ -98,7 +98,7 @@ const IndividualUser = () => {
           navigate("/searchusers");
         });
     }
-  }, [email]);
+  }, [email, emailTrigger]);
 
 
 
