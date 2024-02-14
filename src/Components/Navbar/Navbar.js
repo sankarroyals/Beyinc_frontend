@@ -23,6 +23,7 @@ import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
 import ThreePOutlinedIcon from "@mui/icons-material/ThreePOutlined";
 import PersonSearchOutlinedIcon from "@mui/icons-material/PersonSearchOutlined";
 import PlagiarismOutlinedIcon from "@mui/icons-material/PlagiarismOutlined";
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { io } from "socket.io-client";
 
 import Box from "@mui/material/Box";
@@ -163,9 +164,9 @@ const Navbar = () => {
       <List>
         {width < 770 && (
           <>
-            <ListItem button key="home" onClick={() => navigate("/home")}>
+            <ListItem button key="home"  onClick={() => navigate("/home")}>
               <ListItemIcon>
-                <DashboardOutlinedIcon />
+                <DashboardOutlinedIcon  className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
@@ -175,7 +176,7 @@ const Navbar = () => {
               onClick={() => navigate("/conversations")}
             >
               <ListItemIcon>
-                <MessageOutlinedIcon />
+                <MessageOutlinedIcon  className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="Conversations" />
             </ListItem>
@@ -190,7 +191,7 @@ const Navbar = () => {
               onClick={() => navigate("/searchusers")}
             >
               <ListItemIcon>
-                <SearchOutlinedIcon />
+                <SearchOutlinedIcon  className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="Search Users" />
             </ListItem>
@@ -201,7 +202,7 @@ const Navbar = () => {
               onClick={() => navigate("/livePitches")}
             >
               <ListItemIcon>
-                <BallotOutlinedIcon />
+                <BallotOutlinedIcon  className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="Live Pitches" />
             </ListItem>
@@ -212,7 +213,7 @@ const Navbar = () => {
               onClick={() => navigate("/userPitches")}
             >
               <ListItemIcon>
-                <ThreePOutlinedIcon />
+                <ThreePOutlinedIcon className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="User Pitch" />
             </ListItem>
@@ -227,14 +228,14 @@ const Navbar = () => {
               onClick={() => navigate("/profileRequests")}
             >
               <ListItemIcon>
-                <PersonSearchOutlinedIcon />
+                <PersonSearchOutlinedIcon className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="Profile Requests" />
             </ListItem>
 
             <ListItem button key="pitches" onClick={() => navigate("/pitches")}>
               <ListItemIcon>
-                <PlagiarismOutlinedIcon />
+                <PlagiarismOutlinedIcon className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="Pitch Request" />
             </ListItem>
@@ -546,8 +547,8 @@ const Navbar = () => {
           id="logoImage"
           src={
             localStorage.getItem("theme") == "light"
-              ? "/Footer-Logo.png"
-              : "/Footer-Logo.png"
+              ? "/logo.png"
+              : "/logo.png"
           }
           alt="logo"
         />
@@ -727,8 +728,8 @@ const Navbar = () => {
         </div>
         {width < 770 && (
           <>
-            <div onClick={toggleDrawer("right", true)}>
-              <i className="fas fa-bars" title="Menu"></i>
+            <div  className="icon" onClick={toggleDrawer("right", true)}>
+              <MenuRoundedIcon/>
             </div>
             <Drawer
               anchor="right"

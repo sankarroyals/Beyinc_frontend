@@ -38,14 +38,14 @@
   cursor: pointer !important;
   transition: color 0.3s ease, transform 0.3s ease !important;
 }
-.icon{
+.icon {
   border: 1px solid var(--nav-head-icons-border);
   border-radius: 10px;
   padding: 5px;
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
-.icon:hover{
-  background: var( --nav-head-icons-hover);
+.icon:hover {
+  background: var(--nav-head-icons-hover);
   color: var(--nav-head-icons-border);
 }
 .navSelected {
@@ -56,9 +56,15 @@
   color: var(--nav-head-icons-border);
 }
 
-/* .icon:hover {
-  transform: scale(1.2) !important;
-} */
+.menu-icon {
+  border: 1px solid var(--nav-head-icons-border);
+  border-radius: 10px;
+  padding: 5px;
+  background: var(--nav-head-icons-hover);
+  color: var(--nav-head-icons-border);
+}
+
+
 #plus {
   font-size: 10px;
   position: absolute;
@@ -397,8 +403,6 @@ h1 {
   justify-content: center;
 }
 
-
-
 .highletNavImg {
   background: #eaf1fb;
 }
@@ -499,5 +503,12 @@ h1 {
   .fa-file,
   .fa-comment-alt {
     color: rgba(32, 30, 30, 0.955);
+  }
+  .userDetails {
+    height: 370px;
+    width: 370px;
+    top: 80px;
+    right: 0px;
+   
   }
 }
