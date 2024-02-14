@@ -15,7 +15,9 @@ import IndividualUserReview from "./IndividualUserReview";
 import TextField from "@mui/material/TextField";
 
 const IndividualUser = () => {
-  const { image, userName, user_id } = useSelector((state) => state.auth.loginDetails);
+  const { image, userName, user_id } = useSelector(
+    (state) => state.auth.loginDetails
+  );
   const [isWritingReview, setIsWritingReview] = useState(false);
   const { visible } = useSelector((state) => state.auth.LoadingDetails);
   const [user, setuser] = useState("");
@@ -28,7 +30,7 @@ const IndividualUser = () => {
   const [tabValue, setTabValue] = useState(0);
   const [showOldEducation, setShowOldEducation] = useState(false);
   const [showOldExperience, setShowOldExperience] = useState(false);
-  const [allComments, setAllComments] = useState([])
+  const [allComments, setAllComments] = useState([]);
   const onLike = (commentId, isLike) => {
     ApiServices.likeComment({ comment_id: commentId, comment_owner: user._id })
       .then((res) => {
@@ -52,10 +54,11 @@ const IndividualUser = () => {
   };
 
   const onDisLike = (commentId, isLike) => {
-    ApiServices.dislikeComment({ comment_id: commentId, comment_owner: user._id })
-      .then((res) => {
-        
-      })
+    ApiServices.dislikeComment({
+      comment_id: commentId,
+      comment_owner: user._id,
+    })
+      .then((res) => {})
       .catch((err) => {
         dispatch(
           setToast({
@@ -70,12 +73,12 @@ const IndividualUser = () => {
   useEffect(() => console.log(user), [user]);
 
   useEffect(() => {
-    if (email!==undefined) {
+    if (email !== undefined) {
       dispatch(setLoading({ visible: "yes" }));
       ApiServices.getProfile({ email: email })
         .then((res) => {
           setuser({
-            ...res.data
+            ...res.data,
           });
 
           if (res.data.review !== undefined && res.data.review?.length > 0) {
@@ -100,16 +103,16 @@ const IndividualUser = () => {
     }
   }, [email]);
 
-
-
   useEffect(() => {
-    if (email!==undefined) {
+    if (email !== undefined) {
       // dispatch(setLoading({ visible: "yes" }));
       ApiServices.getuserComments({ userId: email })
         .then((res) => {
-          setAllComments(res.data.sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt)
-          }));
+          setAllComments(
+            res.data.sort((a, b) => {
+              return new Date(b.createdAt) - new Date(a.createdAt);
+            })
+          );
         })
         .catch((err) => {
           dispatch(
@@ -124,7 +127,6 @@ const IndividualUser = () => {
         });
     }
   }, [email, emailTrigger]);
-
 
   const [filledStars, setFilledStars] = useState(0);
   const handleTabChange = (event, newValue) => {
@@ -182,14 +184,14 @@ const IndividualUser = () => {
 
   const sendText = async () => {
     setComment("");
-    if (comment !== '') {
+    if (comment !== "") {
       await ApiServices.addUserComment({
         userId: email,
         comment: comment,
-        commentBy: user_id
+        commentBy: user_id,
       })
         .then((res) => {
-          setemailTrigger(!emailTrigger)
+          setemailTrigger(!emailTrigger);
           setuser((prev) => ({
             ...prev,
             comments: [
@@ -259,182 +261,187 @@ const IndividualUser = () => {
                 />
               </div>
 
-             <div className="ed-ex-container">
-             {user.educationDetails?.length > 0 && (
-                <div className="" style={{ flexDirection: "column" }}>
-                  <h4 className="Headings">Educational Details</h4>
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "10px",
-                      }}
-                    >
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div className="company indiPitchHiringPositions">
-                          {user.educationDetails[0].college}
-                        </div>
-                        <div>
-                          <div className="profession indiPitchHiringPositions">
-                            {user.educationDetails[0].grade}
+              <div className="ed-ex-container">
+                {user.educationDetails?.length > 0 && (
+                  <div className="" style={{ flexDirection: "column" }}>
+                    <h4 className="Headings">Educational Details</h4>
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "10px",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <div className="company indiPitchHiringPositions">
+                            {user.educationDetails[0].college}
                           </div>
-                          <div className="timeline indiPitchHiringPositions">
-                            {convertToDate(user.educationDetails[0].Edstart)}
+                          <div>
+                            <div className="profession indiPitchHiringPositions">
+                              {user.educationDetails[0].grade}
+                            </div>
+                            <div className="timeline indiPitchHiringPositions">
+                              {convertToDate(user.educationDetails[0].Edstart)}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  {user.educationDetails.length > 1 && (
-                    <div>
-                      <div
-                        onClick={() => setShowOldEducation(!showOldEducation)}
-                      >
-                        {showOldEducation ? (
-                          <i
-                            title="close"
-                            className="fas fa-chevron-up"
-                            onClick={() => setShowOldEducation(false)}
-                          ></i>
-                        ) : (
-                          <i
-                            title="show previous education"
-                            className="fas fa-chevron-down"
-                            onClick={() => setShowOldEducation(true)}
-                          ></i>
-                        )}
-                      </div>
-                      {showOldEducation && (
-                        <div className="old-education">
-                          {user.educationDetails.slice(1).map((te, i) => (
-                            <div key={i}>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexWrap: "wrap",
-                                  gap: "10px",
-                                }}
-                              >
+                    {user.educationDetails.length > 1 && (
+                      <div>
+                        <div
+                          onClick={() => setShowOldEducation(!showOldEducation)}
+                        >
+                          {showOldEducation ? (
+                            <i
+                              title="close"
+                              className="fas fa-chevron-up"
+                              onClick={() => setShowOldEducation(false)}
+                            ></i>
+                          ) : (
+                            <i
+                              title="show previous education"
+                              className="fas fa-chevron-down"
+                              onClick={() => setShowOldEducation(true)}
+                            ></i>
+                          )}
+                        </div>
+                        {showOldEducation && (
+                          <div className="old-education">
+                            {user.educationDetails.slice(1).map((te, i) => (
+                              <div key={i}>
                                 <div
                                   style={{
                                     display: "flex",
-                                    flexDirection: "column",
+                                    flexWrap: "wrap",
+                                    gap: "10px",
                                   }}
                                 >
-                                  <div className="company indiPitchHiringPositions">
-                                    {te.college}
-                                  </div>
-                                  <div>
-                                    <div className="profession indiPitchHiringPositions">
-                                      {te.grade}
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <div className="company indiPitchHiringPositions">
+                                      {te.college}
                                     </div>
-                                    <div className="timeline indiPitchHiringPositions">
-                                      {convertToDate(te.Edstart)}
+                                    <div>
+                                      <div className="profession indiPitchHiringPositions">
+                                        {te.grade}
+                                      </div>
+                                      <div className="timeline indiPitchHiringPositions">
+                                        {convertToDate(te.Edstart)}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {user.experienceDetails?.length > 0 && (
-                <div className="" style={{ flexDirection: "column" }}>
-                  <h4 className="Headings">Experience Details</h4>
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "10px",
-                      }}
-                    >
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div className="company indiPitchHiringPositions">
-                          {user.experienceDetails[0].company}
-                        </div>
-                        <div>
-                          <div className="profession indiPitchHiringPositions">
-                            {user.experienceDetails[0].profession}
+                            ))}
                           </div>
-                          <div className="timeline indiPitchHiringPositions">
-                            {convertToDate(user.experienceDetails[0].start)} -{" "}
-                            {user.experienceDetails[0].end === ""
-                              ? "Present"
-                              : convertToDate(user.experienceDetails[0].end)}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {user.experienceDetails.length > 1 && (
-                    <div>
-                      <div
-                        onClick={() => setShowOldExperience(!showOldExperience)}
-                      >
-                        {showOldExperience ? (
-                          <i
-                            title="close"
-                            className="fas fa-chevron-up"
-                            onClick={() => setShowOldExperience(false)}
-                          ></i>
-                        ) : (
-                          <i
-                            title="show previous experience"
-                            className="fas fa-chevron-down"
-                            onClick={() => setShowOldExperience(true)}
-                          ></i>
                         )}
                       </div>
-                      {showOldExperience && (
-                        <div className="old-experience">
-                          {user.experienceDetails.slice(1).map((te, i) => (
-                            <div key={i}>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexWrap: "wrap",
-                                  gap: "10px",
-                                }}
-                              >
+                    )}
+                  </div>
+                )}
+
+                {user.experienceDetails?.length > 0 && (
+                  <div className="" style={{ flexDirection: "column" }}>
+                    <h4 className="Headings">Experience Details</h4>
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "10px",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <div className="company indiPitchHiringPositions">
+                            {user.experienceDetails[0].company}
+                          </div>
+                          <div>
+                            <div className="profession indiPitchHiringPositions">
+                              {user.experienceDetails[0].profession}
+                            </div>
+                            <div className="timeline indiPitchHiringPositions">
+                              {convertToDate(user.experienceDetails[0].start)} -{" "}
+                              {user.experienceDetails[0].end === ""
+                                ? "Present"
+                                : convertToDate(user.experienceDetails[0].end)}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {user.experienceDetails.length > 1 && (
+                      <div>
+                        <div
+                          onClick={() =>
+                            setShowOldExperience(!showOldExperience)
+                          }
+                        >
+                          {showOldExperience ? (
+                            <i
+                              title="close"
+                              className="fas fa-chevron-up"
+                              onClick={() => setShowOldExperience(false)}
+                            ></i>
+                          ) : (
+                            <i
+                              title="show previous experience"
+                              className="fas fa-chevron-down"
+                              onClick={() => setShowOldExperience(true)}
+                            ></i>
+                          )}
+                        </div>
+                        {showOldExperience && (
+                          <div className="old-experience">
+                            {user.experienceDetails.slice(1).map((te, i) => (
+                              <div key={i}>
                                 <div
                                   style={{
                                     display: "flex",
-                                    flexDirection: "column",
+                                    flexWrap: "wrap",
+                                    gap: "10px",
                                   }}
                                 >
-                                  <div className="company indiPitchHiringPositions">
-                                    {te.company}
-                                  </div>
-                                  <div>
-                                    <div className="profession indiPitchHiringPositions">
-                                      {te.profession}
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <div className="company indiPitchHiringPositions">
+                                      {te.company}
                                     </div>
-                                    <div className="timeline indiPitchHiringPositions">
-                                      {convertToDate(te.start)} -{" "}
-                                      {te.end === ""
-                                        ? "Present"
-                                        : convertToDate(te.end)}
+                                    <div>
+                                      <div className="profession indiPitchHiringPositions">
+                                        {te.profession}
+                                      </div>
+                                      <div className="timeline indiPitchHiringPositions">
+                                        {convertToDate(te.start)} -{" "}
+                                        {te.end === ""
+                                          ? "Present"
+                                          : convertToDate(te.end)}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-             </div>
-
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="right-container">
@@ -458,15 +465,28 @@ const IndividualUser = () => {
                       )}
                     </div>
                     <div className="profile-role">{user?.role}</div>
-
-                    <div className="location-info">
-                      {user?.country !== "" && <div>{user?.country}</div>}
-                      {user?.state !== "" && <div>{user?.state}</div>}
-                      {user?.town !== "" && <div>{user?.town}</div>}
-                    </div>
                     <div className="indiPitchDate">
                       Profile Created on <b>{formatedDate(user?.createdAt)}</b>
                     </div>
+                    <div className="location-info">
+                    {user?.town && <div>{user.town}</div>}
+                      {user?.state && (
+                        <>
+                          {user.country && (
+                            <div style={{ margin: "0 5px" }}>|</div>
+                          )}
+                          <div>{user.state}</div>
+                          {user.town && (
+                            <div style={{ margin: "0 5px" }}>|</div>
+                          )}
+                        </>
+                      )}
+                   
+                      {user?.country && (
+                          <div>{user.country}</div>
+                      )}
+                    </div>
+
                     <div className="language">
                       {user.languagesKnown?.length > 0 && (
                         <div className="listedTeam">
@@ -483,24 +503,210 @@ const IndividualUser = () => {
               </div>
 
               <div className="aboutme">
-                <div>
-                  <h4 className="Headings">About</h4>
-                </div>
-                <textarea
-                  style={{
-                    resize: "none",
-                    width: "100%",
-                    border: "none",
-                    textAlign: "justify",
-                    outline: "0",
-                    fontFamily: "Roboto, sans-serif",
-                  }}
-                  id="outlined-multiline-flexible"
-                  name="bio"
-                  value={user.bio}
-                  cols="20"
-                  rows="20"
-                />
+                {user.bio && (
+                  <div>
+                    <h4 className="Headings">About</h4>
+                  </div>
+                )}
+                {user.bio && (
+                  <textarea
+                    style={{
+                      resize: "none",
+                      width: "100%",
+                      border: "none",
+                      textAlign: "justify",
+                      outline: "0",
+                      fontFamily: "Roboto, sans-serif",
+                    }}
+                    id="outlined-multiline-flexible"
+                    name="bio"
+                    value={user.bio}
+                    cols="20"
+                    rows="20"
+                  />
+                )}
+              </div>
+
+              <div className="ed-ex-container-dummy">
+                {user.educationDetails?.length > 0 && (
+                  <div className="" style={{ flexDirection: "column" }}>
+                    <h4 className="Headings">Educational Details</h4>
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "10px",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <div className="company indiPitchHiringPositions">
+                            {user.educationDetails[0].college}
+                          </div>
+                          <div>
+                            <div className="profession indiPitchHiringPositions">
+                              {user.educationDetails[0].grade}
+                            </div>
+                            <div className="timeline indiPitchHiringPositions">
+                              {convertToDate(user.educationDetails[0].Edstart)}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {user.educationDetails.length > 1 && (
+                      <div>
+                        <div
+                          onClick={() => setShowOldEducation(!showOldEducation)}
+                        >
+                          {showOldEducation ? (
+                            <i
+                              title="close"
+                              className="fas fa-chevron-up"
+                              onClick={() => setShowOldEducation(false)}
+                            ></i>
+                          ) : (
+                            <i
+                              title="show previous education"
+                              className="fas fa-chevron-down"
+                              onClick={() => setShowOldEducation(true)}
+                            ></i>
+                          )}
+                        </div>
+                        {showOldEducation && (
+                          <div className="old-education">
+                            {user.educationDetails.slice(1).map((te, i) => (
+                              <div key={i}>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: "10px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <div className="company indiPitchHiringPositions">
+                                      {te.college}
+                                    </div>
+                                    <div>
+                                      <div className="profession indiPitchHiringPositions">
+                                        {te.grade}
+                                      </div>
+                                      <div className="timeline indiPitchHiringPositions">
+                                        {convertToDate(te.Edstart)}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {user.experienceDetails?.length > 0 && (
+                  <div className="" style={{ flexDirection: "column" }}>
+                    <h4 className="Headings">Experience Details</h4>
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "10px",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <div className="company indiPitchHiringPositions">
+                            {user.experienceDetails[0].company}
+                          </div>
+                          <div>
+                            <div className="profession indiPitchHiringPositions">
+                              {user.experienceDetails[0].profession}
+                            </div>
+                            <div className="timeline indiPitchHiringPositions">
+                              {convertToDate(user.experienceDetails[0].start)} -{" "}
+                              {user.experienceDetails[0].end === ""
+                                ? "Present"
+                                : convertToDate(user.experienceDetails[0].end)}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {user.experienceDetails.length > 1 && (
+                      <div>
+                        <div
+                          onClick={() =>
+                            setShowOldExperience(!showOldExperience)
+                          }
+                        >
+                          {showOldExperience ? (
+                            <i
+                              title="close"
+                              className="fas fa-chevron-up"
+                              onClick={() => setShowOldExperience(false)}
+                            ></i>
+                          ) : (
+                            <i
+                              title="show previous experience"
+                              className="fas fa-chevron-down"
+                              onClick={() => setShowOldExperience(true)}
+                            ></i>
+                          )}
+                        </div>
+                        {showOldExperience && (
+                          <div className="old-experience">
+                            {user.experienceDetails.slice(1).map((te, i) => (
+                              <div key={i}>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: "10px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <div className="company indiPitchHiringPositions">
+                                      {te.company}
+                                    </div>
+                                    <div>
+                                      <div className="profession indiPitchHiringPositions">
+                                        {te.profession}
+                                      </div>
+                                      <div className="timeline indiPitchHiringPositions">
+                                        {convertToDate(te.start)} -{" "}
+                                        {te.end === ""
+                                          ? "Present"
+                                          : convertToDate(te.end)}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
             <div className="review-container">
@@ -510,7 +716,7 @@ const IndividualUser = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    gap: '5px'
+                    gap: "5px",
                   }}
                 >
                   <b>{user.review?.length}</b> <span> Global Ratings</span>
@@ -536,7 +742,7 @@ const IndividualUser = () => {
           </div>
         </div>
         <div className="commentsContainer">
-          <h2>Ratings & Reviews</h2>
+          <h2 className="Rating-heading">Ratings & Reviews</h2>
           {email !==
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
               .email && (
@@ -565,12 +771,10 @@ const IndividualUser = () => {
                     setFilledStars={setFilledStars}
                   />{" "}
                   <button
-                    className="sendIcon"
                     style={{
                       cursor: "pointer",
                       fontSize: "13px",
                       width: "auto",
-                      padding: "3px 4px",
                     }}
                     onClick={sendReview}
                   >
@@ -600,8 +804,8 @@ const IndividualUser = () => {
                           className="textarea"
                           rows={2}
                           cols={50}
-                            value={comment}
-                            style={{ resize: 'none' }}
+                          value={comment}
+                          style={{ resize: "none" }}
                           onChange={(e) => setComment(e.target.value)}
                           placeholder="Describe Your Experience"
                         />
@@ -641,12 +845,13 @@ const IndividualUser = () => {
             }}
           >
             {allComments.length > 0 &&
-                allComments.map((c, index) => (
+              allComments.map((c, index) => (
                 <IndividualUserReview
                   onLike={onLike}
                   key={index}
                   c={c}
-                  deleteComment={deleteComment} onDisLike={onDisLike}
+                  deleteComment={deleteComment}
+                  onDisLike={onDisLike}
                 />
               ))}
           </div>

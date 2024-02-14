@@ -61,12 +61,13 @@
 }
 
 .location-info {
-}
-.location-info div {
-  display: inline-block;
-  margin-right: 5px;
+  display: flex;
   font-size: 14px;
-  font-weight: 100 !important;
+  font-weight: normal;
+}
+
+.ed-ex-container-dummy {
+  display: none;
 }
 
 .indiPitchDate,
@@ -153,9 +154,9 @@
 }
 
 .individualUserContainer .commentsContainer {
-  width: 97%;
+  width: 98%;
   background: white;
-  margin-top: 20px;
+  margin-top: 5px;
   border-radius: 10px;
   margin-bottom: 10px;
   position: relative;
@@ -219,7 +220,6 @@
     flex-direction: column;
     height: auto !important;
   }
-
   .left-container {
     margin-left: 0;
   }
@@ -236,6 +236,9 @@
 
   .aboutme {
     margin-left: 0;
+  }
+  .ed-ex-container-dummy {
+    display: block;
   }
 
   .user-image {
@@ -281,7 +284,7 @@
     font-size: 12px;
   }
   .individualUserContainer .commentsContainer {
-    width: 315.9px !important;
+    width: 320px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   .writing-review .sendIcon {

@@ -15,11 +15,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import BallotRoundedIcon from "@mui/icons-material/BallotRounded";
+import ThreePRoundedIcon from "@mui/icons-material/ThreePRounded";
+import PersonSearchRoundedIcon from "@mui/icons-material/PersonSearchRounded";
+import PlagiarismRoundedIcon from "@mui/icons-material/PlagiarismRounded";
 import { io } from "socket.io-client";
 
 import Box from "@mui/material/Box";
@@ -98,6 +101,7 @@ const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   const notificationAlert = useSelector(
     (state) => state.conv.notificationAlert
   );
@@ -124,7 +128,6 @@ const Navbar = () => {
 
   const [drawerState, setDrawerState] = useState({
     right: false,
-    // Add other anchors if needed (left, top, bottom)
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -162,7 +165,7 @@ const Navbar = () => {
           <>
             <ListItem button key="home" onClick={() => navigate("/home")}>
               <ListItemIcon>
-                <i className="fas fa-home"></i>
+                <DashboardRoundedIcon />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
@@ -172,36 +175,49 @@ const Navbar = () => {
               onClick={() => navigate("/conversations")}
             >
               <ListItemIcon>
-                <i className="far fa-comment-alt"></i>
+                <MessageRoundedIcon />
               </ListItemIcon>
               <ListItemText primary="Conversations" />
             </ListItem>
           </>
         )}
 
-        {width < 770 && <>
-          <ListItem
-            button
-            key="searchUsers"
-            onClick={() => navigate("/searchusers")}
-          >
-            <ListItemIcon>
-            <i className="fas fa-search"></i>
-            </ListItemIcon>
-            <ListItemText primary="Search Users" />
-          </ListItem>
+        {width < 770 && (
+          <>
+            <ListItem
+              button
+              key="searchUsers"
+              onClick={() => navigate("/searchusers")}
+            >
+              <ListItemIcon>
+                <SearchRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Search Users" />
+            </ListItem>
 
-          <ListItem
-            button
-            key="livePitches"
-            onClick={() => navigate("/livePitches")}
-          >
-            <ListItemIcon>
-            <i className="fas fa-comment-dots"></i>
-            </ListItemIcon>
-            <ListItemText primary="Live Pitches" />
-          </ListItem>
-        </>}
+            <ListItem
+              button
+              key="livePitches"
+              onClick={() => navigate("/livePitches")}
+            >
+              <ListItemIcon>
+                <BallotRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Live Pitches" />
+            </ListItem>
+
+            <ListItem
+              button
+              key="userPitches"
+              onClick={() => navigate("/userPitches")}
+            >
+              <ListItemIcon>
+                <ThreePRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary="User Pitch" />
+            </ListItem>
+          </>
+        )}
 
         {role === "Admin" && (
           <>
@@ -211,32 +227,18 @@ const Navbar = () => {
               onClick={() => navigate("/profileRequests")}
             >
               <ListItemIcon>
-                <i className="fas fa-users"></i>
+                <PersonSearchRoundedIcon />
               </ListItemIcon>
               <ListItemText primary="Profile Requests" />
             </ListItem>
 
             <ListItem button key="pitches" onClick={() => navigate("/pitches")}>
               <ListItemIcon>
-                <i className="far fa-file"></i>
+                <PlagiarismRoundedIcon />
               </ListItemIcon>
               <ListItemText primary="Pitch Request" />
-              {role === "Admin" && <i className="fas fa-plus" id="plus"></i>}
             </ListItem>
           </>
-        )}
-
-        {role !== "Admin" && (
-          <ListItem
-            button
-            key="userPitches"
-            onClick={() => navigate("/userPitches")}
-          >
-            <ListItemIcon>
-              <i className="far fa-file"></i>
-            </ListItemIcon>
-            <ListItemText primary="User Pitch" />
-          </ListItem>
         )}
       </List>
     </Box>
@@ -245,7 +247,7 @@ const Navbar = () => {
     <Box
       sx={{
         width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
-        overFlowX: "hidden", 
+        overFlowX: "hidden",
       }}
       role="presentation"
     >
@@ -509,7 +511,9 @@ const Navbar = () => {
   return (
     <div
       className="navbar"
-      style={{ display: localStorage.getItem('user') == undefined ? "none" : "flex" }}
+      style={{
+        display: localStorage.getItem("user") == undefined ? "none" : "flex",
+      }}
     >
       <div
         className="logo"
@@ -518,30 +522,38 @@ const Navbar = () => {
           navigate("/");
         }}
       >
-        <img id="logoImage" src={localStorage.getItem('theme') == 'light' ? "/Footer-Logo.png" : "/Footer-Logo.png"} alt="logo" />
+        <img
+          id="logoImage"
+          src={
+            localStorage.getItem("theme") == "light"
+              ? "/Footer-Logo.png"
+              : "/Footer-Logo.png"
+          }
+          alt="logo"
+        />
       </div>
 
       <div className="menuIcons">
         {width > 770 && (
           <>
             <div title="Home">
-              <HomeOutlinedIcon
+              <DashboardRoundedIcon
                 id="home"
                 className="icon"
                 onClick={() => {
                   navigate("/home");
                 }}
-              ></HomeOutlinedIcon>
+              ></DashboardRoundedIcon>
             </div>
             <div style={{ position: "relative" }} title="Conversations">
               {" "}
-              <ChatBubbleOutlineOutlinedIcon
+              <MessageRoundedIcon
                 id="conversations"
                 className="icon"
                 onClick={() => {
                   navigate("/conversations");
                 }}
-              ></ChatBubbleOutlineOutlinedIcon>
+              ></MessageRoundedIcon>
               <div
                 className="Conversations-count"
                 title="unread conversations"
@@ -549,20 +561,47 @@ const Navbar = () => {
             </div>
 
             <div title="Search Users">
-              <SearchOutlinedIcon
+              <SearchRoundedIcon
                 id="searchusers"
                 className="icon"
                 onClick={() => navigate("/searchusers")}
-              ></SearchOutlinedIcon>
+              ></SearchRoundedIcon>
             </div>
 
             <div title="Live Pitches">
-              <QuestionAnswerOutlinedIcon
+              <BallotRoundedIcon
                 id="livePitches"
                 className="icon"
                 onClick={() => navigate("/livePitches")}
-              ></QuestionAnswerOutlinedIcon>
+              ></BallotRoundedIcon>
             </div>
+
+            <div title="User Pitches">
+              <ThreePRoundedIcon
+                id="userPitches"
+                className="icon"
+                onClick={() => navigate("/userPitches")}
+              ></ThreePRoundedIcon>
+            </div>
+
+            {role === "Admin" && (
+              <>
+                <div title="Profile Requests">
+                  <PersonSearchRoundedIcon
+                    id="profileRequests"
+                    className="icon"
+                    onClick={() => navigate("/profileRequests")}
+                  ></PersonSearchRoundedIcon>
+                </div>
+                <div title="Pitch Request">
+                  <PlagiarismRoundedIcon
+                    id="pitches"
+                    className="icon"
+                    onClick={() => navigate("/pitches")}
+                  ></PlagiarismRoundedIcon>
+                </div>
+              </>
+            )}
 
             <div title="Notifications">
               <NotificationsNoneIcon
@@ -584,6 +623,7 @@ const Navbar = () => {
             </Drawer>
           </>
         )}
+
         {width < 770 && (
           <div id="notifications" className="icon">
             <i
@@ -666,7 +706,23 @@ const Navbar = () => {
             </abbr>
           )}
         </div>
-
+        {width < 770 && (
+          <>
+            <div onClick={toggleDrawer("right", true)}>
+              <i className="fas fa-bars" title="Menu"></i>
+            </div>
+            <Drawer
+              anchor="right"
+              open={drawerState["right"]}
+              onClose={toggleDrawer("right", false)}
+              onOpen={toggleDrawer("right", true)}
+              disableBackdropTransition={!isMobile}
+              disableDiscovery={!isMobile}
+            >
+              {list("right")}
+            </Drawer>
+          </>
+        )}
         <div className="userDetails" ref={userDetailsRef}>
           <span className="line-loader"></span>
           <div
@@ -831,21 +887,6 @@ const Navbar = () => {
             </DialogContentText>
           </DialogContent>
         </Dialog>
-
-        {/* Button to open the right drawer */}
-        <div onClick={toggleDrawer("right", true)}>
-          <i className="fas fa-bars" title="Menu"></i>
-        </div>
-
-        {/* Swipeable Drawer for right anchor */}
-        <Drawer
-          anchor="right"
-          open={drawerState["right"]}
-          onClose={toggleDrawer("right", false)}
-          onOpen={toggleDrawer("right", true)}
-        >
-          {list("right")}
-        </Drawer>
       </div>
     </div>
   );

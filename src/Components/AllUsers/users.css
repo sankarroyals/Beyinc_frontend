@@ -2,25 +2,10 @@
   background: #f6f8fc !important;
 } */
 
-
-
-
-
-
 .indiPitchDesc h2 {
   margin-top: 10px;
   text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
 
 /* profile tabs sections */
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
@@ -100,7 +85,6 @@
   transform: scale(1.2);
 }
 
-
 @media (max-width: 760px) {
   .usersWrapper {
     display: flex;
@@ -111,7 +95,6 @@
   .users-main-box {
     margin: auto;
   }
-
 
   .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
     width: 76px !important;
@@ -129,14 +112,7 @@
   color: goldenrod;
 }
 
-
-
-
 @media (max-width: 760px) {
-
-
-
-  
   .Top-Notch span {
     padding: 5px;
     border-radius: 5px;
@@ -149,8 +125,6 @@
     margin-top: 5px;
   }
 
- 
-
   .usersWrapper {
     display: flex;
     flex-direction: column;
@@ -161,19 +135,12 @@
     margin: auto;
   }
 
- 
-
-
   .indiUserHeading img {
     width: 10px !important;
     height: 10px !important;
     margin-top: 10px;
   }
 
-
- 
- 
-  
   .user-card-main-container {
     display: flex;
     flex-direction: row;
@@ -462,7 +429,7 @@
   flex-direction: row;
   align-items: center;
   gap: 10px;
-   margin: 5px;
+  margin: 5px;
 }
 .IndicommentsSectionActions span {
   margin-right: 10px;
