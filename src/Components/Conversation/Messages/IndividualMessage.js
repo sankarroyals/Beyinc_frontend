@@ -314,7 +314,7 @@ const IndividualMessage = () => {
     <div className="messageContainer">
       <div className="messageNavbar">
 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
           <div style={{ cursor: 'pointer' }} onClick={() => {
             navigate(`/user/${receiverId?.user?.email}`)
           }}>
