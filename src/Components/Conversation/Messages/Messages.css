@@ -17,6 +17,7 @@
   height: 100%;
   margin-top: -12px;
   width: 100%;
+  /* padding: 12px; */
   border-radius: 20px;
   /* border-left: 1px solid rgb(189, 193, 189); */
 }
@@ -240,8 +241,8 @@
 
   /* border-bottom: var(--messageNavbar-border); */
   position: relative;
-  position: sticky;
-  top: 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
   background: var(--messageNavbar-bg) !important;
   color: var(--messageNavbar-text) !important;
   /* border-top-right-radius: 20px; */
@@ -270,7 +271,7 @@
 
 @media (max-width: 768px) {
   .downGoing {
-  padding: 5px 12px;
+    padding: 5px 12px;
     background: rgba(207, 203, 203, 0.566);
     position: fixed;
     top: 90% !important;
@@ -332,6 +333,8 @@
   .messageNavbar {
     z-index: 999 !important;
     padding: 10px 30px !important;
+    position: sticky;
+    top: 0px;
   }
   .specificDay {
     position: sticky;
