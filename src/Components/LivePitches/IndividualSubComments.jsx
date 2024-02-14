@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router'
 import { setToast } from '../../redux/AuthReducers/AuthReducer'
 import { ToastColors } from '../Toast/ToastColors'
 
-const IndividualSubComments = ({ c, onLike, onDisLike, setReplyBox, replyBox }) => {
+const IndividualSubComments = ({ c, onLike, onDisLike, setReplyBox, replyBox, scrollRef }) => {
     const { email, user_id } = useSelector(state => state.auth.loginDetails)
     const { pitchId } = useParams()
 
@@ -116,7 +116,11 @@ const IndividualSubComments = ({ c, onLike, onDisLike, setReplyBox, replyBox }) 
                         </div>
 
                         <div>
-                            <span className='replyTag' onClick={() => { setReplyBox(!replyBox) }}>Reply</span>
+                            <span className='replyTag' onClick={() => {
+                                scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+
+                                setReplyBox(true)
+                            }}>Reply</span>
                         </div>
                     </div>
                 </div>

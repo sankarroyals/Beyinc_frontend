@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ApiServices } from '../../Services/ApiServices'
 import { format } from 'timeago.js'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,6 +10,7 @@ import IndividualSubComments from './IndividualSubComments'
 const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigger, parentCommentId, onLike, onDisLike }) => {
   const { email, user_id } = useSelector(state => state.auth.loginDetails)
   const { pitchId } = useParams()
+  const scrollRef = useRef()
   const [comment, setComment] = useState('')
   const [replyBox, setReplyBox] = useState(false)
   const [subCommentOpen, setSubCommentOpen] = useState(false)
@@ -32,7 +33,7 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
   }, [c, user_id])
 
   const addSubComment = async () => {
-    setReplyBox(!replyBox)
+    setReplyBox(false)
     setComment('')
     await ApiServices.addPitchComment({
       pitchId: pitchId,
@@ -135,7 +136,12 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
           </div>
 
           <div>
-            <span className='replyTag' onClick={() => { setReplyBox(!replyBox) }}>Reply</span>
+            <span className='replyTag' onClick={() => {
+              scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+              setReplyBox(true)
+
+              // setReplyBox(!replyBox)
+            }}>Reply</span>
           </div>
         </div>
 
@@ -160,9 +166,10 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
           c.subComments.sort(
             (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
           )?.map(cs => (
-            <IndividualSubComments c={cs}  setReplyBox={setReplyBox} replyBox={replyBox} onLike={onLike} onDisLike={onDisLike}/>
+            <IndividualSubComments c={cs} scrollRef={scrollRef}  setReplyBox={setReplyBox} replyBox={replyBox} onLike={onLike} onDisLike={onDisLike}/>
           ))}
       </div>
+      <div ref={scrollRef}></div>
       {replyBox && <div
         className="writing-review"
         style={{
