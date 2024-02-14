@@ -47,7 +47,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
     const deletePendingRequest = async () => {
         await ApiServices.deleteConversation({ conversationId: a._id }).then((res) => {
             dispatch(getAllHistoricalConversations(email))
-
+handleClose()
         })
         socket.current.emit("sendNotification", {
             senderId: email,
