@@ -138,26 +138,14 @@ const IndividualPitch = () => {
   }, [pitchId, pitchTrigger]);
 
   const sendText = async () => {
+    setComment("");
     await ApiServices.addPitchComment({
       pitchId: pitchId,
       commentBy: user_id, comment: comment, parentCommentId:undefined,
     })
       .then((res) => {
         setPitchTrigger(!pitchTrigger)
-        setpitch((prev) => ({
-          ...prev,
-          comments: [
-            {
-              email: email,
-              profile_pic: image,
-              userName: userName,
-              comment: comment,
-              createdAt: new Date(),
-            },
-            ...pitch.comments,
-          ],
-        }));
-        setComment("");
+        
       })
       .catch((err) => {
         navigate("/livePitches");

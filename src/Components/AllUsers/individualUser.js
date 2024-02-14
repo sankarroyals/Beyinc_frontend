@@ -190,21 +190,7 @@ const IndividualUser = () => {
       })
         .then((res) => {
           setemailTrigger(!emailTrigger)
-          setuser((prev) => ({
-            ...prev,
-            comments: [
-              {
-                email: jwtDecode(
-                  JSON.parse(localStorage.getItem("user")).accessToken
-                ).email,
-                profile_pic: image,
-                userName: userName,
-                comment: comment,
-                createdAt: new Date(),
-              },
-              ...user.comments,
-            ],
-          }));
+          
         })
         .catch((err) => {
           // navigate("/searchusers");
