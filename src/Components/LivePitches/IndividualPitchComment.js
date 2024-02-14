@@ -169,7 +169,7 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
             <IndividualSubComments c={cs} scrollRef={scrollRef}  setReplyBox={setReplyBox} replyBox={replyBox} onLike={onLike} onDisLike={onDisLike}/>
           ))}
       </div>
-      <div ref={scrollRef}></div>
+      <div ref={scrollRef}>
       {replyBox && <div
         className="writing-review"
         style={{
@@ -200,7 +200,8 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
             Post Review
           </button>
         </div>
-      </div>}
+        </div>}
+      </div>
     </>
 
   )
