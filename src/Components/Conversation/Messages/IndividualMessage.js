@@ -109,7 +109,7 @@ const IndividualMessage = () => {
       ApiServices.getConversationById({ conversationId: conversationId }).then((res) => {
         if (res.data.chatBlocked?.blockedBy !== undefined || res.data.chatBlocked?.blockedBy !== '') {
           setUserChatBlocked(true)
-          setUserChatBlockedBy(res.data.chatBlocked.blockedBy)
+          setUserChatBlockedBy(res.data.chatBlocked?.blockedBy)
         } else {
           setUserChatBlocked(false)
           setUserChatBlockedBy('')

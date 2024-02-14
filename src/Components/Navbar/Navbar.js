@@ -15,14 +15,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-import BallotRoundedIcon from "@mui/icons-material/BallotRounded";
-import ThreePRoundedIcon from "@mui/icons-material/ThreePRounded";
-import PersonSearchRoundedIcon from "@mui/icons-material/PersonSearchRounded";
-import PlagiarismRoundedIcon from "@mui/icons-material/PlagiarismRounded";
+import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
+import ThreePOutlinedIcon from "@mui/icons-material/ThreePOutlined";
+import PersonSearchOutlinedIcon from "@mui/icons-material/PersonSearchOutlined";
+import PlagiarismOutlinedIcon from "@mui/icons-material/PlagiarismOutlined";
 import { io } from "socket.io-client";
 
 import Box from "@mui/material/Box";
@@ -165,7 +165,7 @@ const Navbar = () => {
           <>
             <ListItem button key="home" onClick={() => navigate("/home")}>
               <ListItemIcon>
-                <DashboardRoundedIcon />
+                <DashboardOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
@@ -175,7 +175,7 @@ const Navbar = () => {
               onClick={() => navigate("/conversations")}
             >
               <ListItemIcon>
-                <MessageRoundedIcon />
+                <MessageOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Conversations" />
             </ListItem>
@@ -190,7 +190,7 @@ const Navbar = () => {
               onClick={() => navigate("/searchusers")}
             >
               <ListItemIcon>
-                <SearchRoundedIcon />
+                <SearchOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Search Users" />
             </ListItem>
@@ -201,7 +201,7 @@ const Navbar = () => {
               onClick={() => navigate("/livePitches")}
             >
               <ListItemIcon>
-                <BallotRoundedIcon />
+                <BallotOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Live Pitches" />
             </ListItem>
@@ -212,7 +212,7 @@ const Navbar = () => {
               onClick={() => navigate("/userPitches")}
             >
               <ListItemIcon>
-                <ThreePRoundedIcon />
+                <ThreePOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="User Pitch" />
             </ListItem>
@@ -227,14 +227,14 @@ const Navbar = () => {
               onClick={() => navigate("/profileRequests")}
             >
               <ListItemIcon>
-                <PersonSearchRoundedIcon />
+                <PersonSearchOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Profile Requests" />
             </ListItem>
 
             <ListItem button key="pitches" onClick={() => navigate("/pitches")}>
               <ListItemIcon>
-                <PlagiarismRoundedIcon />
+                <PlagiarismOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Pitch Request" />
             </ListItem>
@@ -499,6 +499,26 @@ const Navbar = () => {
       document
         .getElementById(window.location.pathname.slice(1))
         ?.classList.add("navSelected");
+      if (window.location.pathname.slice(1).split("/")[0] === "conversations") {
+        document
+          .getElementById("conversations")
+
+          ?.classList.add("navSelected");
+      }
+
+      if (window.location.pathname.slice(1).split("/")[0] === "user") {
+        document
+          .getElementById("searchusers")
+
+          ?.classList.add("navSelected");
+      }
+
+      if (window.location.pathname.slice(1).split("/")[0] === "livePitches") {
+        document
+          .getElementById("livePitches")
+
+          ?.classList.add("navSelected");
+      }
     } else {
       document
         .getElementById(window.location.pathname.slice(1))
@@ -537,23 +557,23 @@ const Navbar = () => {
         {width > 770 && (
           <>
             <div title="Home">
-              <DashboardRoundedIcon
+              <DashboardOutlinedIcon
                 id="home"
                 className="icon"
                 onClick={() => {
                   navigate("/home");
                 }}
-              ></DashboardRoundedIcon>
+              ></DashboardOutlinedIcon>
             </div>
             <div style={{ position: "relative" }} title="Conversations">
               {" "}
-              <MessageRoundedIcon
+              <MessageOutlinedIcon
                 id="conversations"
                 className="icon"
                 onClick={() => {
                   navigate("/conversations");
                 }}
-              ></MessageRoundedIcon>
+              ></MessageOutlinedIcon>
               <div
                 className="Conversations-count"
                 title="unread conversations"
@@ -561,56 +581,56 @@ const Navbar = () => {
             </div>
 
             <div title="Search Users">
-              <SearchRoundedIcon
+              <SearchOutlinedIcon
                 id="searchusers"
                 className="icon"
                 onClick={() => navigate("/searchusers")}
-              ></SearchRoundedIcon>
+              ></SearchOutlinedIcon>
             </div>
 
             <div title="Live Pitches">
-              <BallotRoundedIcon
+              <BallotOutlinedIcon
                 id="livePitches"
                 className="icon"
                 onClick={() => navigate("/livePitches")}
-              ></BallotRoundedIcon>
+              ></BallotOutlinedIcon>
             </div>
 
             <div title="User Pitches">
-              <ThreePRoundedIcon
+              <ThreePOutlinedIcon
                 id="userPitches"
                 className="icon"
                 onClick={() => navigate("/userPitches")}
-              ></ThreePRoundedIcon>
+              ></ThreePOutlinedIcon>
             </div>
 
             {role === "Admin" && (
               <>
                 <div title="Profile Requests">
-                  <PersonSearchRoundedIcon
+                  <PersonSearchOutlinedIcon
                     id="profileRequests"
                     className="icon"
                     onClick={() => navigate("/profileRequests")}
-                  ></PersonSearchRoundedIcon>
+                  ></PersonSearchOutlinedIcon>
                 </div>
                 <div title="Pitch Request">
-                  <PlagiarismRoundedIcon
+                  <PlagiarismOutlinedIcon
                     id="pitches"
                     className="icon"
                     onClick={() => navigate("/pitches")}
-                  ></PlagiarismRoundedIcon>
+                  ></PlagiarismOutlinedIcon>
                 </div>
               </>
             )}
 
             <div title="Notifications">
-              <NotificationsNoneIcon
+              <NotificationsOutlinedIcon
                 id="notifications"
                 className="icon"
                 onClick={toggleNotificationDrawer("right", true)}
               >
                 {notificationAlert && <div className="blinkBall"> </div>}
-              </NotificationsNoneIcon>
+              </NotificationsOutlinedIcon>
             </div>
 
             <Drawer
@@ -626,13 +646,12 @@ const Navbar = () => {
 
         {width < 770 && (
           <div id="notifications" className="icon">
-            <i
-              className="far fa-bell"
+            <NotificationsOutlinedIcon
               title="notifications"
               onClick={() => {
                 navigate("/notifications");
               }}
-            ></i>
+            ></NotificationsOutlinedIcon>
             {notificationAlert && <div className="blinkBall"> </div>}
           </div>
         )}
