@@ -152,6 +152,45 @@ const IndividualPitch = () => {
       });
   };
 
+
+  const onLike = (commentId, isLike) => {
+    ApiServices.likePitchComment({ comment_id: commentId, comment_owner: pitch._id })
+      .then((res) => {
+        // dispatch(
+        //   setToast({
+        //     message: isLike ? "Comment Liked" : "Comment Disliked",
+        //     bgColor: ToastColors.success,
+        //     visible: "yes",
+        //   })
+        // );
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "Error Occurred",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      });
+  };
+
+  const onDisLike = (commentId, isLike) => {
+    ApiServices.dislikePitchComment({ comment_id: commentId, comment_owner: pitch._id })
+      .then((res) => {
+
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "Error Occurred",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      });
+  };
+
   const deleteComment = async (id) => {
     await ApiServices.removePitchComment({ pitchId: pitchId, commentId: id })
       .then((res) => {
@@ -438,7 +477,7 @@ const IndividualPitch = () => {
           )}
           {allComments.length > 0 &&
             allComments?.map((c) => (
-              c.parentCommentId == undefined && <IndividualPitchComment c={c} deleteComment={deleteComment} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} />
+              c.parentCommentId == undefined && <IndividualPitchComment c={c} deleteComment={deleteComment} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} onLike={onLike} onDisLike={onDisLike} />
 
             ))}
         </div>

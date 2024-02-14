@@ -226,3 +226,19 @@ input[type="checkbox"] {
   /* margin-bottom: 30px !important; */
 }
 }
+
+.IndicommentsSectionActions {
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+   margin: 5px;
+}
+.IndicommentsSectionActions span {
+  margin-right: 10px;
+  height: 16px;
+}
+.IndicommentsSectionActions .icon-blue {
+  color: #6a73fa;
+}

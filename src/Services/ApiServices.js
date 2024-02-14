@@ -585,6 +585,31 @@ export const ApiServices = {
     });
   },
 
+  likePitchComment: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .patch(`/pitch/likePitchComment`, obj)
+        .then((res) => {
+          if (res) {
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+  dislikePitchComment: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .patch(`/pitch/dispitchlikeComment`, obj)
+        .then((res) => {
+          if (res) {
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+
 
   getuserComments: (obj) => {
     return new Promise((resolve, reject) => {
