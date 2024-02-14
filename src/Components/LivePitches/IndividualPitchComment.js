@@ -1,22 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ApiServices } from '../../Services/ApiServices'
 import { format } from 'timeago.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router'
 import { setToast } from '../../redux/AuthReducers/AuthReducer'
 import { ToastColors } from '../Toast/ToastColors'
+import IndividualSubComments from './IndividualSubComments'
 
-const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigger, parentCommentId }) => {
+const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigger, parentCommentId, onLike, onDisLike }) => {
   const { email, user_id } = useSelector(state => state.auth.loginDetails)
   const { pitchId } = useParams()
+  const scrollRef = useRef()
   const [comment, setComment] = useState('')
   const [replyBox, setReplyBox] = useState(false)
   const [subCommentOpen, setSubCommentOpen] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const [liked, setLiked] = useState(false);
+
+  const [disliked, setdisLiked] = useState(false);
+
+
+  const [count, setCount] = useState(0);
+  const [dislikecount, setdislikecount] = useState(0);
+
+  useEffect(() => {
+    setLiked(c.likes?.includes(user_id))
+    setdisLiked(c.Dislikes?.includes(user_id))
+    setCount(c.likes?.length)
+    setdislikecount(c.Dislikes?.length)
+  }, [c, user_id])
+
   const addSubComment = async () => {
-    setReplyBox(!replyBox)
+    setReplyBox(false)
     setComment('')
     await ApiServices.addPitchComment({
       pitchId: pitchId,
@@ -29,6 +46,37 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
       .catch((err) => {
         navigate("/livePitches");
       });
+  };
+
+   const handleLike = (id) => {
+    if (liked) {
+      setLiked(false);
+      setCount((prev) => prev - 1);
+    } else {
+      setLiked(true);
+      setCount((prev) => prev + 1);
+      setdislikecount((prev) => prev - 1);
+      setdisLiked(false);
+
+
+    }
+    onLike(id, !c.likes?.includes(user_id));
+  };
+
+
+  const handleDisLike = (id) => {
+    if (disliked) {
+      setdisLiked(false);
+      setdislikecount((prev) => prev - 1);
+    } else {
+      setdisLiked(true);
+      setLiked(false);
+
+      setdislikecount((prev) => prev + 1);
+      setCount((prev) => prev - 1);
+
+    }
+    onDisLike(id, !c.Dislikes?.includes(user_id));
   };
 
   return (
@@ -50,19 +98,50 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
           {c?.comment}
         </div>
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center', margin: '5px' }}>
-          <div>
-            <i
-              class="far fa-thumbs-up"
-              aria-hidden="true" />
-          </div>
-          <div>
-            <i
-              class="far fa-thumbs-down"
-              aria-hidden="true" />
+          <div className="IndicommentsSectionActions">
+            <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
+              {count > 0 && <div>{count}</div>}
+              {liked ? (
+                <i
+                  class="fa fa-thumbs-up icon-blue"
+                  aria-hidden="true"
+                  onClick={() => handleLike(c._id)}
+                />
+              ) : (
+                <i
+                  class="far fa-thumbs-up"
+                  aria-hidden="true"
+                  onClick={() => handleLike(c._id)}
+                />
+              )}
+            </div>
+
+
+            <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
+              {dislikecount > 0 && <div>{dislikecount}</div>}
+              {disliked ? (
+                <i
+                  class="fa fa-thumbs-down icon-blue"
+                  aria-hidden="true"
+                  onClick={() => handleDisLike(c._id)}
+                />
+              ) : (
+                <i
+                  class="far fa-thumbs-down"
+                  aria-hidden="true"
+                  onClick={() => handleDisLike(c._id)}
+                />
+              )}
+            </div>
           </div>
 
           <div>
-            <span className='replyTag' onClick={() => { setReplyBox(!replyBox) }}>Reply</span>
+            <span className='replyTag' onClick={() => {
+              scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+              setReplyBox(true)
+
+              // setReplyBox(!replyBox)
+            }}>Reply</span>
           </div>
         </div>
 
@@ -84,47 +163,13 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
       <div className="subcommentsContainer">
 
         {subCommentOpen && c.subComments?.length > 0 &&
-          c.subComments?.map(cs => (
-            <div className='IndicommentsSection'>
-              <div className='IndicommentsSectionImage'>
-                <img src={(cs?.profile_pic || cs?.commentBy?.image?.url) || '/profile.jpeg'} alt="" />
-              </div>
-              <div className='IndicommentsSectionDetails'>
-                <div className='IndicommentsSectionDetailsUserName'>
-                  <div title={(cs?.email || cs?.commentBy?.email)}>{(cs?.userName || cs?.commentBy?.userName)}
-
-                  </div>
-                  <div style={{ fontWeight: '200' }} title={(cs?.email || cs?.commentBy?.email)} className='IndicommentsSectionDetailsdate'>
-                    {format(cs?.createdAt)}
-                  </div>
-                  {/* <div title={'Delete Comment'} onClick={()=>deleteComment(c._id)}>{(cs?.email || cs?.commentBy?.email) == email && <i className='fas fa-trash'></i>}</div> */}
-                </div>
-                <div title={(cs?.email || cs?.commentBy?.email)} className='IndicommentsSectionDetailscomment'>
-                  {cs?.comment}
-                </div>
-
-                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', margin: '5px' }}>
-                  <div>
-                    <i
-                      class="far fa-thumbs-up"
-                      aria-hidden="true" />
-                  </div>
-                  <div>
-                    <i
-                      class="far fa-thumbs-down"
-                      aria-hidden="true" />
-                  </div>
-
-                  <div>
-                    <span className='replyTag' onClick={() => { setReplyBox(!replyBox) }}>Reply</span>
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
+          c.subComments.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          )?.map(cs => (
+            <IndividualSubComments c={cs} scrollRef={scrollRef}  setReplyBox={setReplyBox} replyBox={replyBox} onLike={onLike} onDisLike={onDisLike}/>
           ))}
       </div>
+      <div ref={scrollRef}>
       {replyBox && <div
         className="writing-review"
         style={{
@@ -155,7 +200,8 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
             Post Review
           </button>
         </div>
-      </div>}
+        </div>}
+      </div>
     </>
 
   )

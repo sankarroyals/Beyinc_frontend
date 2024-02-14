@@ -287,6 +287,15 @@
     width: 320px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+  .indiPitchHiringPositions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12px;
+  width: 300px;
+  margin: 5px 0px;
+}
   .writing-review .sendIcon {
     width: 262px !important;
     margin-right: 0px !important;

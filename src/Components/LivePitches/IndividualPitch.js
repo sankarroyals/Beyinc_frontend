@@ -138,29 +138,56 @@ const IndividualPitch = () => {
   }, [pitchId, pitchTrigger]);
 
   const sendText = async () => {
+    setComment("");
     await ApiServices.addPitchComment({
       pitchId: pitchId,
       commentBy: user_id, comment: comment, parentCommentId:undefined,
     })
       .then((res) => {
         setPitchTrigger(!pitchTrigger)
-        setpitch((prev) => ({
-          ...prev,
-          comments: [
-            {
-              email: email,
-              profile_pic: image,
-              userName: userName,
-              comment: comment,
-              createdAt: new Date(),
-            },
-            ...pitch.comments,
-          ],
-        }));
-        setComment("");
+        
       })
       .catch((err) => {
         navigate("/livePitches");
+      });
+  };
+
+
+  const onLike = (commentId, isLike) => {
+    ApiServices.likePitchComment({ comment_id: commentId, comment_owner: pitch._id })
+      .then((res) => {
+        // dispatch(
+        //   setToast({
+        //     message: isLike ? "Comment Liked" : "Comment Disliked",
+        //     bgColor: ToastColors.success,
+        //     visible: "yes",
+        //   })
+        // );
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "Error Occurred",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      });
+  };
+
+  const onDisLike = (commentId, isLike) => {
+    ApiServices.dislikePitchComment({ comment_id: commentId, comment_owner: pitch._id })
+      .then((res) => {
+
+      })
+      .catch((err) => {
+        dispatch(
+          setToast({
+            message: "Error Occurred",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
       });
   };
 
@@ -450,7 +477,7 @@ const IndividualPitch = () => {
           )}
           {allComments.length > 0 &&
             allComments?.map((c) => (
-              c.parentCommentId == undefined && <IndividualPitchComment c={c} deleteComment={deleteComment} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} />
+              c.parentCommentId == undefined && <IndividualPitchComment c={c} deleteComment={deleteComment} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} onLike={onLike} onDisLike={onDisLike} />
 
             ))}
         </div>

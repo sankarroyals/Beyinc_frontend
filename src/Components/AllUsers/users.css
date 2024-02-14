@@ -422,7 +422,14 @@
   color: #1c955c;
   border-color: #198754;
 }
-
+.IndicommentsSectionDetailsUserName{
+  word-wrap: break-word;
+  flex-direction: column;
+  max-width: 300px;
+  align-items: flex-start;
+  gap: 0px;
+  width: auto;
+}
 .IndicommentsSectionActions {
   margin-right: 10px;
   display: flex;

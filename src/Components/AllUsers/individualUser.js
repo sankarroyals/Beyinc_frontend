@@ -101,7 +101,7 @@ const IndividualUser = () => {
           navigate("/searchusers");
         });
     }
-  }, [email]);
+  }, [email, emailTrigger]);
 
   useEffect(() => {
     if (email !== undefined) {
@@ -191,22 +191,8 @@ const IndividualUser = () => {
         commentBy: user_id,
       })
         .then((res) => {
-          setemailTrigger(!emailTrigger);
-          setuser((prev) => ({
-            ...prev,
-            comments: [
-              {
-                email: jwtDecode(
-                  JSON.parse(localStorage.getItem("user")).accessToken
-                ).email,
-                profile_pic: image,
-                userName: userName,
-                comment: comment,
-                createdAt: new Date(),
-              },
-              ...user.comments,
-            ],
-          }));
+          setemailTrigger(!emailTrigger)
+          
         })
         .catch((err) => {
           // navigate("/searchusers");
