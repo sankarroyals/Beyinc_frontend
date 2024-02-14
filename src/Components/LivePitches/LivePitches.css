@@ -1,4 +1,3 @@
-
 .livePitchesContainer {
   background: #f0f0f0;
   padding: 10px;
@@ -147,7 +146,7 @@ input[type="checkbox"] {
   gap: 10px;
   align-items: center;
 }
-.totalSubComments{
+.totalSubComments {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -158,18 +157,17 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-.totalSubComments:hover{
-
+.totalSubComments:hover {
   background: #50a6f1;
   color: white;
 }
-.replyTag{
+.replyTag {
   font-size: 13px;
   cursor: pointer;
-    padding: 5px;
-margin-bottom: 15px !important;
+  padding: 5px;
+  margin-bottom: 15px !important;
 }
-.replyTag:hover{
+.replyTag:hover {
   background: #ccc;
   padding: 5px;
   border-radius: 10px;
@@ -187,30 +185,44 @@ margin-bottom: 15px !important;
   justify-content: space-between;
 }
 
-
 @media (max-width: 768px) {
   .IndicommentsSectionDetailscomment {
     word-wrap: break-word;
-    max-width: 150px;
+    max-width: 250px;
     width: auto;
   }
-.IndicommentsSectionDetailsUserName{
-  word-wrap: break-word;
-  flex-direction: column;
-  max-width: 300px;
-  align-items: flex-start;
-  gap: 0px;
-  width: auto;
-}
+  .indiPitchHeading{
+    word-wrap: break-word;
+    max-width: 320px;
+    width: auto;
+  }
+  .IndicommentsSectionDetailsUserName {
+    word-wrap: break-word;
+    flex-direction: column;
+    max-width: 300px;
+    align-items: flex-start;
+    gap: 0px;
+    width: auto;
+  }
   .indiPitchDate {
     font-size: 10px;
+    word-wrap: break-word;
+    max-width: 350px;
+    width: auto;
   }
 
   .commentsContainer img {
     margin-left: 0px;
   }
+  .main-container, .indiPitchDesc{
+    width: 300px !important;
+  }
 
+
+  .subcommentsContainer .IndicommentsSection .IndicommentsSectionDetails{
+  word-wrap: break-word;
  
-
-
+  max-width: 200px;
+  /* margin-bottom: 30px !important; */
+}
 }
