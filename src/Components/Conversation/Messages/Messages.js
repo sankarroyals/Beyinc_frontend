@@ -17,10 +17,11 @@ const Messages = () => {
             <h6 style={{ fontSize: '16px', marginLeft: '120px' }}>Start a conversation</h6>
           </div>
         </div>
-      ) : (
-        <div>
+      ) :
+        (
+        <>
           <IndividualMessage />
-        </div>
+        </>
       )}
     </div>
   );

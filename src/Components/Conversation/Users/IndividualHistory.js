@@ -83,7 +83,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
                     </div>}
 
                 </div>
-                <div className='message-count' title='unread messages'></div>
+                {status !== 'pending' && <div className='message-count' title='unread messages'></div>}
             </div>
 
             <Dialog
