@@ -145,8 +145,16 @@
 
 @media (max-width: 768px) {
   .individualPitchContainer {
-    width: 330px !important;
+    width: 100% !important;
   }
+.indiPitchDetails {
+  border-radius: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+    border: none;
+
+}
   .indiPitchHeading .fas.fa-eye {
     margin-left: 5px !important;
     border-radius: 50%;
@@ -179,8 +187,13 @@
     margin-top: 5px;
   }
   .individualPitchContainer .commentsContainer {
-    width: 300.9px !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 98% !important;
+    margin-top: 0px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    border: none;
+      padding: 10px;
+      padding-right: 0px;
+
   }
   .writing-review .sendIcon {
     width: 262px !important;
