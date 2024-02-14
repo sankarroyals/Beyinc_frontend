@@ -8,6 +8,7 @@ import { setAllUsers, setLiveMessage, setOnlineUsers, setReceiverId } from '../.
 import SearchBox from './Users/SearchBox'
 import { io } from 'socket.io-client'
 import { useParams } from 'react-router'
+import useWindowDimensions from '../Common/WindowSize'
 const Conversations = () => {
   const { email } = useSelector(
     (store) => store.auth.loginDetails
@@ -78,15 +79,17 @@ const Conversations = () => {
       })
     }
   }, [conversationId])
+  
+  const { height, width } = useWindowDimensions();
 
 
   return (
     <div className='conversationContainer'>
-      <div className='users' style={{ display: (isMobile && conversationId !== undefined) && 'none'  }}>
+      <div className='users' style={{ display: (width < 770 && conversationId !== undefined) && 'none'  }}>
         <SearchBox />
         <HistoryChats />
       </div>
-      <div className='chatContainer' style={{ display: (isMobile && conversationId == undefined) && 'none'}}>
+      <div className='chatContainer' style={{ display: (width < 770 && conversationId == undefined) && 'none'}}>
         <Messages />
       </div>
     </div>
