@@ -358,11 +358,11 @@ const IndividualMessage = () => {
         </div>
         {receiverId?.user?.role !== 'Admin' && ((userchatBlockedBy !== '') ?
           userchatBlockedBy == email &&
-          <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={() => blockChat('')}>
+          <button style={{ cursor: 'pointer' }} className="blockUnblock" onClick={() => blockChat('')}>
             Open Chat
-          </div> : <div style={{ cursor: 'pointer' }} className="blockUnblock" onClick={() => blockChat(email)}>
+          </button> : <button style={{ cursor: 'pointer' }} className="blockUnblock" onClick={() => blockChat(email)}>
             Close Chat
-          </div>)}
+          </button>)}
       </div>
 
       <div className="messageBox" style={{ position: 'relative' }}>
