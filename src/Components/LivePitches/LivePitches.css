@@ -217,7 +217,9 @@ input[type="checkbox"] {
   .main-container, .indiPitchDesc{
     width: 300px !important;
   }
-
+ .subcommentsContainer{
+  width: 250px;
+ }
 
   .subcommentsContainer .IndicommentsSection .IndicommentsSectionDetails{
   word-wrap: break-word;
