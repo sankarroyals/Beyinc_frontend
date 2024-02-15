@@ -229,7 +229,7 @@ const LivePitches = () => {
             }}
           />
         </DialogTitle>
-        <DialogContent style={{ padding: 0 }}>
+        <DialogContent sx={{ overflow: "hidden" }} style={{ padding: 0 }}>
           <Box
             sx={{
               display: "flex",
@@ -237,6 +237,7 @@ const LivePitches = () => {
               flexGrow: 1,
               bgcolor: "background.paper",
               height: width <= 400 ? "100%" : 400,
+              overflowY: "scroll",
             }}
           >
             <Tabs
@@ -248,6 +249,9 @@ const LivePitches = () => {
               sx={{
                 borderRight: 1,
                 borderColor: "divider",
+                position: "sticky",
+                top: 0,
+                left: 0,
               }}
             >
               {tabs.map((v, i) => (
