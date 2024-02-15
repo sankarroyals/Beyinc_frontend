@@ -8,7 +8,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastColors } from '../Toast/ToastColors';
 import { setToast } from '../../redux/AuthReducers/AuthReducer';
 import PitchDetailsReadOnly from '../Common/PitchDetailsReadOnly';
@@ -19,14 +19,10 @@ export default function LoggedInPitchCard({ d }) {
     const [pitchDetails, setPitchdetails] = useState(null)
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(0)
-    const [image, setImage] = React.useState('')
+    // const [image, setImage] = React.useState('')
     const [status, setStatus] = useState('')
     const dispatch = useDispatch()
-    React.useEffect(() => {
-        ApiServices.getProfile({ email: d.email }).then(res => {
-            setImage(res.data.image.url)
-        })
-    }, [d])
+    const {image} = useSelector(state=>state.auth.loginDetails)
 
     const update = async (e) => {
         if (status == '') {
