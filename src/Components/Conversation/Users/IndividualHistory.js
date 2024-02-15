@@ -16,6 +16,8 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
     const handleClose = () => {
         setOpen(false);
     };
+    const messageCount = useSelector((state) => state.conv.messageCount);
+    const [showMessageDot, setShowMessageDot] = useState(false);
     const [friend, setFriend] = useState({})
     const { email } = useSelector(state => state.auth.loginDetails)
     const navigate = useNavigate()
@@ -55,6 +57,14 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
         });
     }
 
+
+    useEffect(() => {
+        if (messageCount.map(m => m.email).includes(a.members.filter((f) => f.email !== email)[0].email)) {
+            setShowMessageDot(true)
+        } else {
+            setShowMessageDot(false)
+        }
+    }, [messageCount, a])
     return (
         <div className={`individuals ${conversationId == a._id && 'selected'}`} onClick={storingDetails} style={{ display: (a.requestedTo === email && status == 'pending') && 'none' }}>
             <div><img src={friend.image?.url === undefined ? '/profile.jpeg' : friend.image.url} alt="" srcset="" /></div>
@@ -83,7 +93,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
                     </div>}
 
                 </div>
-                {status !== 'pending' && <div className='message-count' title='unread messages'></div>}
+                {status !== 'pending' &&showMessageDot&&<div className='message-count' title='unread messages'></div>}
             </div>
 
             <Dialog
