@@ -9,7 +9,7 @@ import { ApiServices } from "./Services/ApiServices";
 import UserRequests from "./Components/Admin/UserRequests/UserRequests";
 import { SingleRequestProfile } from "./Components/Admin/UserRequests/SingleProfile";
 import { Socket, io } from "socket.io-client";
-import { setLastMessageRead, setLiveMessage, setNotification, setOnlineUsers } from "./redux/Conversationreducer/ConversationReducer";
+import { setLastMessageRead, setLiveMessage, setMessageAlert, setMessageCount, setNotification, setOnlineUsers } from "./redux/Conversationreducer/ConversationReducer";
 import LivePitches from "./Components/LivePitches/LivePitches";
 import IndividualPitch from "./Components/LivePitches/IndividualPitch";
 import LoadingData from "./Components/Toast/Loading";
@@ -34,6 +34,8 @@ const LoggedInPitches = React.lazy(() => wait(1000).then(() => import('./Compone
 const ENV = process.env;
 
 const App = () => {
+  const messageAlert = useSelector((state) => state.conv.messageAlert);
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(apicallloginDetails());
@@ -43,7 +45,7 @@ const App = () => {
 
   // intialize socket io
   const socket = useRef()
-  const { email } = useSelector(
+  const { email, user_id } = useSelector(
     (store) => store.auth.loginDetails
   );
 
@@ -70,6 +72,8 @@ const App = () => {
         fileSent: data.fileSent,
         conversationId: data.conversationId
       }))
+      dispatch(setMessageAlert(new Date().toString()))
+      
       // setMessages(prev => [...prev, data])
     })
   }, [])
@@ -99,7 +103,14 @@ socket.current.on('sendseenMessage', data => {
     })
   }, [])
   
-
+  useEffect(() => {
+    if (user_id !== undefined) {
+      ApiServices.getTotalMessagesCount({ receiverId: user_id, checkingUser: email }).then(res => {
+        console.log(res.data);
+        dispatch(setMessageCount(res.data.map(a => a.members.filter((f) => f.email !== email)[0])))
+      })
+    }
+  }, [messageAlert, user_id])
 
 
   useEffect(() => {
