@@ -17,8 +17,14 @@ const LoadingData = () => {
       style={{ display: visible == "yes" ? "block" : "none" }}
     >
       <div className="Loading">
-        <img src="/Loader.gif" />
-      </div>{" "}
+            <div class="loader">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
     </div>
   );
 };

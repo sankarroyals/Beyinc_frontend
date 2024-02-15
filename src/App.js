@@ -20,6 +20,8 @@ import { Socket, io } from "socket.io-client";
 import {
   setLastMessageRead,
   setLiveMessage,
+  setMessageAlert,
+  setMessageCount,
   setNotification,
   setOnlineUsers,
 } from "./redux/Conversationreducer/ConversationReducer";
@@ -62,6 +64,8 @@ const LoggedInPitches = React.lazy(() =>
 const ENV = process.env;
 
 const App = () => {
+  const messageAlert = useSelector((state) => state.conv.messageAlert);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(apicallloginDetails());
@@ -69,7 +73,7 @@ const App = () => {
 
   // intialize socket io
   const socket = useRef();
-  const { email } = useSelector((store) => store.auth.loginDetails);
+  const { email, user_id } = useSelector((store) => store.auth.loginDetails);
 
   useEffect(() => {
     socket.current = io(socket_io);
@@ -96,6 +100,8 @@ const App = () => {
           conversationId: data.conversationId,
         })
       );
+      dispatch(setMessageAlert(new Date().toString()));
+
       // setMessages(prev => [...prev, data])
     });
   }, []);
@@ -129,6 +135,22 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    if (user_id !== undefined) {
+      ApiServices.getTotalMessagesCount({
+        receiverId: user_id,
+        checkingUser: email,
+      }).then((res) => {
+        console.log(res.data);
+        dispatch(
+          setMessageCount(
+            res.data.map((a) => a.members.filter((f) => f.email !== email)[0])
+          )
+        );
+      });
+    }
+  }, [messageAlert, user_id]);
+
+  useEffect(() => {
     socket.current.on("getNotification", (data) => {
       console.log(data);
       dispatch(setNotification(true));
@@ -146,7 +168,13 @@ const App = () => {
       <Suspense
         fallback={
           <div className="Loading">
-            <img src="/Loader.gif" />
+            <div class="loader">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
           </div>
         }
       >

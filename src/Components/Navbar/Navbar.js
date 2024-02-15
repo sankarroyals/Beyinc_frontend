@@ -38,6 +38,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import {
   getAllNotifications,
+  setMessageAlert,
   setNotification,
 } from "../../redux/Conversationreducer/ConversationReducer";
 import { Drawer, Tab, Tabs, Typography } from "@mui/material";
@@ -77,8 +78,14 @@ const Navbar = () => {
   const { email, role, userName, image, verification } = useSelector(
     (store) => store.auth.loginDetails
   );
+  const messageAlert = useSelector((state) => state.conv.messageAlert);
+  const messageCount = useSelector((state) => state.conv.messageCount);
 
-  const sound = new Howl({
+  const notificationSound = new Howl({
+    src: ["/send.mp3"],
+  });
+
+  const messageSound = new Howl({
     src: ["/send.mp3"],
   });
 
@@ -108,9 +115,12 @@ const Navbar = () => {
   );
   useEffect(() => {
     if (notificationAlert) {
-      sound.play();
+      notificationSound.play();
     }
-  }, [notificationAlert]);
+    if (messageAlert) {
+      messageSound.play()
+    }
+  }, [notificationAlert, messageAlert]);
   const [notificationDrawerState, setNotificationDrawerState] = useState({
     right: false,
   });
@@ -573,12 +583,15 @@ const Navbar = () => {
                 className="icon"
                 onClick={() => {
                   navigate("/conversations");
+                  dispatch(setMessageAlert(false))
                 }}
               ></MessageOutlinedIcon>
-              <div
+              {messageCount.length > 0 && <div
                 className="Conversations-count"
                 title="unread conversations"
-              ></div>
+              >
+                {messageCount.length}
+              </div>}
             </div>
 
             <div title="Search Users">

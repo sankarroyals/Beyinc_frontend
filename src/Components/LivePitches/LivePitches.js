@@ -15,6 +15,7 @@ import { CheckBox } from "@mui/icons-material";
 import { domain_subdomain, fetchRating, itPositions } from "../../Utils";
 import { Country, State } from "country-state-city";
 import AddReviewStars from "./AddReviewStars";
+import { setLoading } from "../../redux/AuthReducers/AuthReducer";
 import {
   Box,
   Button,
@@ -88,10 +89,12 @@ const LivePitches = () => {
   const [tag, settag] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(setLoading({ visible: "yes" }));
     ApiServices.livePitches()
       .then((res) => {
         console.log(res.data);
         setData(res.data);
+        dispatch(setLoading({ visible: "no" }));
       })
       .catch((err) => {
         dispatch(
@@ -394,7 +397,13 @@ const LivePitches = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
+          <Button
+            sx={{ width: "fit-content" }}
+            variant="contained"
+            onClick={handleClose}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
 
@@ -502,7 +511,7 @@ const LivePitches = () => {
                 <div style={{ marginLeft: 8 }} className="filter-rating-label">
                   <b> Rating:</b>
                 </div>
-                <div className="inputTag" style={{ marginLeft: 20 }}>
+                <div className="inputTag" style={{ marginLeft: 7 }}>
                   <AddReviewStars
                     filledStars={filledStars}
                     setFilledStars={setFilledStars}

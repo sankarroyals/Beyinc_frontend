@@ -10,6 +10,7 @@ import {
   setConversationId,
   setLastMessageRead,
   setLiveMessage,
+  setMessageCount,
   setOnlineUsers,
 } from "../../../redux/Conversationreducer/ConversationReducer";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -48,7 +49,7 @@ const IndividualMessage = () => {
   const scrollRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const messageCount = useSelector((state) => state.conv.messageCount);
   const [isSending, setIsSending] = useState(false);
   const sound = new Howl({
     src: ["/send.mp3"],
@@ -75,7 +76,7 @@ const IndividualMessage = () => {
 
   useEffect(() => {
     if (conversationId !== "" && receiverId !== undefined && receiverId !== '') {
-      // to make seen for other users this api is works
+      // to make seen for other users this api is works thats why we changing  senderId: receiverId.email, receiverId: email
       ApiServices.changeStatusMessage({ senderId: receiverId.email, receiverId: email }).then(res => {
         console.log('changed status')
         socket.current.emit("seenMessage", {
@@ -83,6 +84,7 @@ const IndividualMessage = () => {
           receiverId: receiverId.email,
           conversationId: conversationId,
         });
+        dispatch(setMessageCount(messageCount.filter(f => f.email !== receiverId.email)))
       }).catch(err => {
         console.log(err)
       })

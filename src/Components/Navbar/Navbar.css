@@ -415,8 +415,8 @@ h1 {
   color: white;
   padding: 2px 2px;
   border-radius: 50%;
-  width: 1px;
-  height: 1px;
+  width: 10px;
+  height: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -430,15 +430,15 @@ h1 {
 .Conversations-count::before {
   content: "";
   position: absolute;
-  height: 4px;
-  width: 4px;
+  height: 14px;
+  width: 14px;
   top: 0px;
   right: 0px;
   z-index: -1;
   border-radius: 50%;
   background: rgb(120, 120, 255);
   transform: scale(0);
-  animation: blink 3s ease-in-out infinite forwards;
+  animation: blink 1s ease-in-out infinite forwards;
 }
 
 @keyframes blink {
