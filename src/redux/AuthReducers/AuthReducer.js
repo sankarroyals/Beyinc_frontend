@@ -44,11 +44,13 @@ export const apicallloginDetails = () => async (dispatch) => {
   }
   
   if (localStorage.getItem('user')) {
+    dispatch(setLoading({visible: 'yes'}))
     await ApiServices.verifyAccessToken({ accessToken: JSON.parse(localStorage.getItem('user')).accessToken }).then((res) => {
       localStorage.setItem('user', JSON.stringify(res.data))
       dispatch(setLoginData(jwtDecode(JSON.parse(localStorage.getItem('user')).accessToken)))
       axiosInstance.customFnAddTokenInHeader(JSON.parse(localStorage.getItem('user')).accessToken);
     }).catch(async (err) => {
+      
       await ApiServices.refreshToken({ refreshToken: JSON.parse(localStorage.getItem('user')).refreshToken }).then((res) => {
         localStorage.setItem('user', JSON.stringify(res.data))
         dispatch(setLoginData(jwtDecode(res.data.accessToken)))
@@ -59,7 +61,7 @@ export const apicallloginDetails = () => async (dispatch) => {
       })
 
     })
-
+    dispatch(setLoading({visible: 'no'}))
   }
 }
 
