@@ -15,6 +15,7 @@ import { CheckBox } from "@mui/icons-material";
 import { domain_subdomain, fetchRating, itPositions } from "../../Utils";
 import { Country, State } from "country-state-city";
 import AddReviewStars from "./AddReviewStars";
+import { setLoading } from "../../redux/AuthReducers/AuthReducer";
 import {
   Box,
   Button,
@@ -88,10 +89,12 @@ const LivePitches = () => {
   const [tag, settag] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(setLoading({ visible: "yes" }));
     ApiServices.livePitches()
       .then((res) => {
         console.log(res.data);
         setData(res.data);
+        dispatch(setLoading({ visible: "no" }));
       })
       .catch((err) => {
         dispatch(
@@ -599,14 +602,16 @@ const LivePitches = () => {
               filteredData?.map((d) => <SinglePitchetails d={d} />)
             ) : (
               <div
+              className="No-users"
                 style={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "100%",
+                  flexDirection: 'column',
                 }}
               >
-                No Pitches Available
+                <img src="/Search.gif"/>
+                 <div>No pitches available</div>
               </div>
             )}
           </div>

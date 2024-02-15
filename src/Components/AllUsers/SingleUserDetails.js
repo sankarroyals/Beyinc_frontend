@@ -7,11 +7,19 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 
+
 import Typography from "@mui/material/Typography";
 import AddPitch from "../Common/AddPitch";
 import { setReceiverId } from "../../redux/Conversationreducer/ConversationReducer";
 
-const SingleUserDetails = ({ d, connectStatus, setPitchSendTo , pitchSendTo , receiverRole ,setreceiverRole }) => {
+const SingleUserDetails = ({
+  d,
+  connectStatus,
+  setPitchSendTo,
+  pitchSendTo,
+  receiverRole,
+  setreceiverRole,
+}) => {
   // console.log(d);
   const { email } = useSelector((state) => state.auth.loginDetails);
   const dispatch = useDispatch();
@@ -71,7 +79,11 @@ const SingleUserDetails = ({ d, connectStatus, setPitchSendTo , pitchSendTo , re
               </div>
               <div className="rating-content">
                 <i className="far fa-star"></i>
-                <span style={{ marginLeft: "3px" }}>{averagereview.toFixed(1).split(".")[1]!= "0"?averagereview.toFixed(1):averagereview.toFixed(0)}</span>
+                <span style={{ marginLeft: "3px" }}>
+                  {averagereview.toFixed(1).split(".")[1] != "0"
+                    ? averagereview.toFixed(1)
+                    : averagereview.toFixed(0)}
+                </span>
               </div>
             </div>
           </div>
@@ -94,13 +106,13 @@ const SingleUserDetails = ({ d, connectStatus, setPitchSendTo , pitchSendTo , re
               justifyContent: "space-between",
             }}
           >
-            <span>{d.role}</span>
+            <span style={{ fontWeight: "600" }}>{d.role}</span>
             <span>
               {d.verification === "approved" && (
                 <img
                   src="/verify.png"
                   alt=""
-                  style={{ width: "15px", height: "15px", marginLeft: "5px" }}
+                  style={{ width: "15px", height: "15px" }}
                 />
               )}
             </span>
@@ -108,13 +120,14 @@ const SingleUserDetails = ({ d, connectStatus, setPitchSendTo , pitchSendTo , re
 
           {!isCurrentUser &&
             (connectStatus[d.email]?.status === "pending" ? (
-              <button className="pending-colour">Pending</button>
+              <button className="pending-color">Pending</button>
             ) : connectStatus[d.email]?.status === "approved" ? (
-              <button className="approved-colour" onClick={openChat}>
+              <button className="approved-color" onClick={openChat}>
                 Chat
               </button>
             ) : (
               <button
+                className="connect-color"
                 onClick={() => {
                   setPitchSendTo(d.email);
                   setreceiverRole(d.role);
@@ -124,7 +137,6 @@ const SingleUserDetails = ({ d, connectStatus, setPitchSendTo , pitchSendTo , re
               </button>
             ))}
         </div>
-       
       </div>
     </>
   );
