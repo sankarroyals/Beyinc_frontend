@@ -70,7 +70,7 @@ handleClose()
             <div><img src={friend.image?.url === undefined ? '/profile.jpeg' : friend.image.url} alt="" srcset="" /></div>
             <div className='onlineHolder'>
                 <abbr title={friend?.email} style={{ textDecoration: 'none' }}>
-                    <div className='userName' style={{textAlign:'start'}}>{friend.userName}</div></abbr>
+                    <div className='userName'>{friend.userName}</div></abbr>
 
                 {status === 'pending' ? <><abbr title='pending'>
 
@@ -88,8 +88,8 @@ handleClose()
                 }
                 <div className='deleteConv'>
                     <div>
-                        <div className='role' style={{ fontWeight: showMessageDot ? '600' : 'normal', textAlign:'start' }}>{a.lastMessageText}</div>
-                        <div className='role'>{friend.role}</div>
+                        <div className='role lastMsg' style={{ fontWeight: showMessageDot ? '600' : 'normal' }}>{a.lastMessageText}</div>
+                        <div className='role' style={{ textAlign: 'start' }}>{friend.role}</div>
                     </div>
                     {status == 'pending' && <div className=''>
                         <i className='fas fa-trash' onClick={() => setOpen(true)}></i>

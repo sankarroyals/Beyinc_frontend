@@ -289,8 +289,48 @@ textarea {
   height: 5px;
   position: absolute;
   top: 16px;
-  left: 0;
+  /* left: 0; */
+  right: 0;
   margin-left: 200px;
   font-size: 12px;
   font-weight: bold;
 }
+.userName, .lastMsg
+  {
+  text-align: start;
+  text-overflow: ellipsis;
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.lastMsg{
+  width: 200px !important;
+}
+
+@media (max-width: 768px){
+.userName,.lastMsg
+  {
+  text-align: start;
+  text-overflow: ellipsis;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.message-count {
+  background: #0b57d0b9;
+  color: white;
+  padding: 2px 2px;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  top: 16px;
+  /* left: 0; */
+  right: -30px;
+  margin-left: 200px;
+  font-size: 12px;
+  font-weight: bold;
+}
+}
+
+
