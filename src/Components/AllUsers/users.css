@@ -445,3 +445,7 @@
 .IndicommentsSectionActions .icon-blue {
   color: #6a73fa;
 }
+
+.filter-checkbox-label {
+  text-wrap: wrap;
+}

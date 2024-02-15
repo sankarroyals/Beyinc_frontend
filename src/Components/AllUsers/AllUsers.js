@@ -526,9 +526,9 @@ const AllUsers = () => {
                 }}
               >
                 <div style={{ marginLeft: 8 }} className="filter-rating-label">
-                  <b> Rating</b>
+                  <b> Rating:</b>
                 </div>
-                <div className="inputTag" style={{ marginLeft: 20 }}>
+                <div className="inputTag" style={{ marginLeft: 10 }}>
                   <AddReviewStars
                     filledStars={filledStars}
                     setFilledStars={setFilledStars}
@@ -547,7 +547,7 @@ const AllUsers = () => {
                     marginLeft: 8,
                   }}
                 >
-                  <b> Verified</b>
+                  <b> Verified:</b>
                   <input
                     type="checkbox"
                     style={{ width: "20px", marginLeft: 20, marginBottom: 0 }}
@@ -600,7 +600,14 @@ const AllUsers = () => {
             <div className="userscontainer">
               {filteredData.length > 0 ? (
                 filteredData?.map((d) => (
-                  <SingleUserDetails d={d} connectStatus={connectStatus} setPitchSendTo={setPitchSendTo } pitchSendTo={pitchSendTo} receiverRole={receiverRole} setreceiverRole={setreceiverRole} />
+                  <SingleUserDetails
+                    d={d}
+                    connectStatus={connectStatus}
+                    setPitchSendTo={setPitchSendTo}
+                    pitchSendTo={pitchSendTo}
+                    receiverRole={receiverRole}
+                    setreceiverRole={setreceiverRole}
+                  />
                 ))
               ) : (
                 <div
