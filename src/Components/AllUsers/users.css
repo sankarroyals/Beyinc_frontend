@@ -165,6 +165,9 @@
   margin-bottom: 0;
   font-weight: 500;
 }
+.user-card-image{
+  position: relative;
+}
 .user-card-image img {
   cursor: pointer;
   width: 70px;
@@ -280,7 +283,7 @@
 }
 .user-card-actions {
   align-items: flex-end;
-  margin-left: 3px;
+  /* margin-left: 3px; */
   font-size: 13px;
   display: flex;
   flex-direction: column;
@@ -320,9 +323,13 @@
   .user-nav-bar {
     width: 100%;
   }
+  .user-card-actions{
+  align-items: flex-end;
+  }
 
   .user-card-actions button {
     width: 80px;
+    /* align-items: normal; */
   }
   .user-card-details-text {
     width: 135px;

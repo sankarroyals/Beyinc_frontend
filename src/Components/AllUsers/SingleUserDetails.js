@@ -71,6 +71,13 @@ const SingleUserDetails = ({
                 }
                 title={d.email}
               />
+              {d.verification === "approved" && (
+                <img
+                  src="/verify.png"
+                  alt=""
+                  style={{ width: "15px", height: "15px", position: 'absolute', right: '0' }}
+                />
+              )}
             </div>
             <div className="user-card-rating">
               <div className="rating-content">
@@ -108,13 +115,7 @@ const SingleUserDetails = ({
           >
             <span style={{ fontWeight: "600" }}>{d.role}</span>
             <span>
-              {d.verification === "approved" && (
-                <img
-                  src="/verify.png"
-                  alt=""
-                  style={{ width: "15px", height: "15px" }}
-                />
-              )}
+              
             </span>
           </div>
 
