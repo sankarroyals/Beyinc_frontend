@@ -394,7 +394,13 @@ const LivePitches = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
+          <Button
+            sx={{ width: "fit-content" }}
+            variant="contained"
+            onClick={handleClose}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
 
@@ -502,7 +508,7 @@ const LivePitches = () => {
                 <div style={{ marginLeft: 8 }} className="filter-rating-label">
                   <b> Rating:</b>
                 </div>
-                <div className="inputTag" style={{ marginLeft: 20 }}>
+                <div className="inputTag" style={{ marginLeft: 7 }}>
                   <AddReviewStars
                     filledStars={filledStars}
                     setFilledStars={setFilledStars}

@@ -333,7 +333,7 @@
   .filter-options-label {
     font-size: 12px;
     width: 160px;
-    overflow: scroll;
+    text-wrap: wrap;
   }
   .filter-rating-label {
     display: none;
@@ -422,7 +422,7 @@
   color: #1c955c;
   border-color: #198754;
 }
-.IndicommentsSectionDetailsUserName{
+.IndicommentsSectionDetailsUserName {
   word-wrap: break-word;
   flex-direction: column;
   max-width: 300px;
