@@ -87,7 +87,10 @@ handleClose()
                     </abbr>
                 }
                 <div className='deleteConv'>
-                    <div className='role'>{friend.role}</div>
+                    <div>
+                        <div className='role' style={{ fontWeight: showMessageDot ? '600' : 'normal', textAlign:'start' }}>{a.lastMessageText}</div>
+                        <div className='role'>{friend.role}</div>
+                    </div>
                     {status == 'pending' && <div className=''>
                         <i className='fas fa-trash' onClick={() => setOpen(true)}></i>
                     </div>}
