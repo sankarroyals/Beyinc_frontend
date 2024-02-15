@@ -186,9 +186,16 @@ const Navbar = () => {
               onClick={() => navigate("/conversations")}
             >
               <ListItemIcon>
-                <MessageOutlinedIcon  className="menu-icon" />
+                <MessageOutlinedIcon className="menu-icon" />
+                {messageCount.length > 0 && <div
+                  className="Conversations-count mobile"
+                  title="unread conversations"
+                >
+                  {messageCount.length}
+                </div>}
               </ListItemIcon>
               <ListItemText primary="Conversations" />
+             
             </ListItem>
           </>
         )}
