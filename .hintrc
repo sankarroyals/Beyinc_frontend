@@ -10,7 +10,8 @@
           "line-break",
           "position: sticky",
           "height: fit-content",
-          "user-select"
+          "user-select",
+          "backdrop-filter"
         ]
       }
     ]

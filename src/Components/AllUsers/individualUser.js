@@ -4,7 +4,6 @@ import { ApiServices } from "../../Services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
-// import "../LivePitches/LivePitches.css";
 import "./individualUser.css";
 import ReviewStars from "../LivePitches/ReviewStars";
 import AddReviewStars from "../LivePitches/AddReviewStars";
@@ -12,7 +11,7 @@ import { jwtDecode } from "jwt-decode";
 import IndividualPitchComment from "../LivePitches/IndividualPitchComment";
 import { convertToDate, formatedDate } from "../../Utils";
 import IndividualUserReview from "./IndividualUserReview";
-import TextField from "@mui/material/TextField";
+
 
 const IndividualUser = () => {
   const { image, userName, user_id } = useSelector(
@@ -502,7 +501,7 @@ const IndividualUser = () => {
                       border: "none",
                       textAlign: "justify",
                       outline: "0",
-                      fontFamily: "Roboto, sans-serif",
+                      fontFamily: 'Poppins',
                     }}
                     id="outlined-multiline-flexible"
                     name="bio"

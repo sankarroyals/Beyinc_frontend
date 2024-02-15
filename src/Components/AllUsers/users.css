@@ -1,6 +1,4 @@
-/* body {
-  background: #f6f8fc !important;
-} */
+
 
 .indiPitchDesc h2 {
   margin-top: 10px;
@@ -152,9 +150,9 @@
 
 .user-card-actions button {
   padding: 5px 9px;
-  color: #135985;
+  color: var(--button);
   background-color: #fff;
-  border: 1px solid #135985;
+  border: 1px solid var(--button);
   font-size: 16px;
   display: block;
   border-radius: 8px;
@@ -179,6 +177,7 @@
   display: inline-block;
   width: 185px;
   font-weight: 600;
+  color: var(--primary);
 }
 
 .user-nav-bar .nav-bar-buttons {
@@ -306,6 +305,10 @@
   align-items: center;
   margin-top: 10px;
 }
+.no-users img{
+  width: 100%;
+  height: auto;
+}
 
 @media only screen and (max-width: 450px) {
   .user-nav-bar {
@@ -406,21 +409,40 @@
   width: 100%;
 }
 
-/* @media only screen and (max-width: 1050px) and (min-width: 450px) {
-  .user-cards-panel {
-    width: 50%;
-  }
-} */
+
 .user-cards-panel {
   width: 90%;
 }
-.user-card-actions .pending-colour {
-  color: #666;
-  border-color: #666;
+.user-card-actions .connect-color{
+  color:var(--white-text);
+  background: var(--button);
+  border-color: var(--primary);
+  transition: box-shadow 0.3s, transform 0.3s;
 }
-.user-card-actions .approved-colour {
-  color: #1c955c;
+.user-card-actions .connect-color:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transform: scale(1.02);
+  background: var(--button-hover);
+}
+.user-card-actions .pending-color {
+  color: white;
+ background: orange;
+ border-color: orange;
+ transition: box-shadow 0.3s, transform 0.3s;
+}
+.user-card-actions .pending-color:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transform: scale(1.02);
+}
+.user-card-actions .approved-color {
+  color: white;
   border-color: #198754;
+  background: #198754;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.user-card-actions .approved-color:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transform: scale(1.02);
 }
 .IndicommentsSectionDetailsUserName{
   word-wrap: break-word;

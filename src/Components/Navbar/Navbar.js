@@ -777,7 +777,7 @@ const Navbar = () => {
           </div>
 
           <div className="username">Hi, {userName}!</div>
-          <div className="manage">{role}</div>
+          <div className="manage" >{role}</div>
           <div>
             <div>
               <div>

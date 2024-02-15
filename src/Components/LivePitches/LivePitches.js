@@ -593,14 +593,16 @@ const LivePitches = () => {
               filteredData?.map((d) => <SinglePitchetails d={d} />)
             ) : (
               <div
+              className="No-users"
                 style={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "100%",
+                  flexDirection: 'column',
                 }}
               >
-                No Pitches Available
+                <img src="/Search.gif"/>
+                 <div>No pitches available</div>
               </div>
             )}
           </div>

@@ -603,16 +603,17 @@ const AllUsers = () => {
                   <SingleUserDetails d={d} connectStatus={connectStatus} setPitchSendTo={setPitchSendTo } pitchSendTo={pitchSendTo} receiverRole={receiverRole} setreceiverRole={setreceiverRole} />
                 ))
               ) : (
-                <div
+                <div className="no-users"
                   style={{
                     display: "flex",
                     justifyContent: "center",
+                    flexDirection: 'column',
                     alignItems: "center",
-                    height: "100%",
-                    width: "100%",
+                   
                   }}
                 >
-                  No Users Available
+                <img src="/Search.gif"/>
+                 <div>No users available</div>
                 </div>
               )}
             </div>
