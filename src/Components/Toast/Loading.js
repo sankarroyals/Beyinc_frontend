@@ -6,6 +6,10 @@ const LoadingData = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (visible == "yes") {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' 
+      });
       document.getElementsByTagName("body")[0].style.overflowY = "hidden";
     } else {
       document.getElementsByTagName("body")[0].style.overflowY = "scroll";
