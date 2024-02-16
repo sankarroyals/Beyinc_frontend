@@ -156,8 +156,8 @@ label {
 
 @media only screen and (max-width: 760px) {
   .messageRequests {
- width: 300px;
- padding-left: 25px;
+ width: 350px;
+ /* padding-left: 25px; */
 }
   .noSelected {
     font-size: 16px;
