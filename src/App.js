@@ -31,8 +31,9 @@ import LoadingData from "./Components/Toast/Loading";
 import AllUsers from "./Components/AllUsers/AllUsers";
 import IndividualUser from "./Components/AllUsers/individualUser";
 import { socket_io } from "./Utils";
-import LandingPage from "./Components/LandingPage/LandingPage";
 
+
+const  LandingPage = React.lazy(() => import('./Components/LandingPage/LandingPage'));
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
 const Login = React.lazy(() => import("./Components/Login/Login"));
 const ForgotPassword = React.lazy(() =>
@@ -186,6 +187,7 @@ const App = () => {
           <Route path="/login" Component={LoginAuth(Login)} />
           <Route path="/forgotpassword" Component={LoginAuth(ForgotPassword)} />
           <Route path="/" element={<LandingPage />} />
+
 
           <Route path="/home" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
