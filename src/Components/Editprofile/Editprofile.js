@@ -32,9 +32,12 @@ const Editprofile = () => {
   const [showPreviousFile, setShowPreviousFile] = useState(false);
   const [universities, setUniversities] = useState([]);
   useEffect(() => {
-    axios.get("http://universities.hipolabs.com/search").then((res) => {
-      setUniversities(res.data);
-    });
+    const uni = async () => {
+      await axios.get("http://universities.hipolabs.com/search").then((res) => {
+        setUniversities(res.data);
+      });
+    }
+    uni()
   }, []);
 
   const [inputs, setInputs] = useState({
