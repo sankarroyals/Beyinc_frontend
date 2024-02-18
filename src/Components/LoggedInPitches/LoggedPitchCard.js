@@ -22,7 +22,7 @@ export default function LoggedInPitchCard({ d }) {
     // const [image, setImage] = React.useState('')
     const [status, setStatus] = useState('')
     const dispatch = useDispatch()
-    const {image} = useSelector(state=>state.auth.loginDetails)
+    const { image } = useSelector(state => state.auth.loginDetails)
 
     const update = async (e) => {
         if (status == '') {
@@ -70,13 +70,13 @@ export default function LoggedInPitchCard({ d }) {
         })
     }, [d])
     return (
-        <Card sx={{ maxWidth: 280,  boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)'}}>
+        <Card sx={{ maxWidth: 280, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)' }}>
             <div style={{ display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px' }}>
                 <img className='userCardImage'
-                    src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+                    src={image !== undefined && image !== "" ? image : "/profile.png"}
                     title={d.email}
                 />
-                <div style={{fontWeight: '600', marginTop: '40px', marginLeft: '30px'}}>{d.role}
+                <div style={{ fontWeight: '600', marginTop: '40px', marginLeft: '30px' }}>{d.role}
                     <div title={d.status}>
                         <span style={{
                             fontSize: '14px', marginLeft: '5px', color: d.status == 'approved' ? 'green' : (d.status == 'pending' ? 'orange' : 'red'),
@@ -88,7 +88,7 @@ export default function LoggedInPitchCard({ d }) {
 
             </div>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Typography gutterBottom variant="h5" component="div" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {d?.userInfo?.userName}
                 </Typography>
             </CardContent>

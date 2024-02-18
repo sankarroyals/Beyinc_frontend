@@ -492,19 +492,19 @@ const Editprofile = () => {
 
   const [isFormValid, setIsFormValid] = useState(
     mobileVerified &&
-      (isNameValid ||
-        oldDocs.resume !== "" ||
-        oldDocs.expertise !== "" ||
-        oldDocs.acheivements !== "" ||
-        oldDocs.working !== "" ||
-        oldDocs.degree !== "" ||
-        changeResume.resume !== "" ||
-        changeResume.expertise !== "" ||
-        changeResume.acheivements !== "" ||
-        changeResume.working !== "" ||
-        changeResume.degree !== "") &&
-      totalEducationData.length > 0 &&
-      totalExperienceData.length > 0
+    (isNameValid ||
+      oldDocs.resume !== "" ||
+      oldDocs.expertise !== "" ||
+      oldDocs.acheivements !== "" ||
+      oldDocs.working !== "" ||
+      oldDocs.degree !== "" ||
+      changeResume.resume !== "" ||
+      changeResume.expertise !== "" ||
+      changeResume.acheivements !== "" ||
+      changeResume.working !== "" ||
+      changeResume.degree !== "") &&
+    totalEducationData.length > 0 &&
+    totalExperienceData.length > 0
   );
 
   const handleChangeRadio = (e) => {
@@ -523,7 +523,7 @@ const Editprofile = () => {
           <div>
             <img
               src={
-                image !== undefined && image !== "" ? image : "/profile.jpeg"
+                image !== undefined && image !== "" ? image : "/profile.png"
               }
               style={{
                 width: "150px",
@@ -910,7 +910,7 @@ const Editprofile = () => {
                 </div>
                 <div>
                   {EducationDetails.grade == "SSC" ||
-                  EducationDetails.grade == "" ? (
+                    EducationDetails.grade == "" ? (
                     <input
                       type="text"
                       name="college"
@@ -1106,7 +1106,7 @@ const Editprofile = () => {
                     placeholder="Enter Your Bio"
                     maxRows={4}
                   /> */}
-                  <p>{1000-bio.length}/1000 characters left</p>
+                  <p>{1000 - bio.length}/1000 characters left</p>
                 </div>
               </div>
 

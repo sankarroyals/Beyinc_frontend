@@ -211,7 +211,7 @@ export const SingleRequestProfile = () => {
                 <div className="heading">
                     <div>
                         <img
-                            src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+                            src={image !== undefined && image !== "" ? image : "/profile.png"}
                             style={{
                                 width: "150px",
                                 height: "150px",
@@ -588,9 +588,9 @@ export const SingleRequestProfile = () => {
                                 marginTop: "15px",
                             }}
                         >
-                        <button type="button" className="back-button" onClick={() => navigate(-1)}>Back</button>
+                            <button type="button" className="back-button" onClick={() => navigate(-1)}>Back</button>
 
-                            <button type="submit" className="reject-button" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled = {inputs.status === "rejected"}>
+                            <button type="submit" className="reject-button" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "rejected"}>
                                 {/* {isLoading ? (
                                     <>
                                         <img

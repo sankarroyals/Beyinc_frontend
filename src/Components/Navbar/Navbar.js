@@ -328,7 +328,7 @@ const Navbar = () => {
                     }}
                     src={
                       n.senderInfo?.image?.url == undefined
-                        ? "/profile.jpeg"
+                        ? "/profile.png"
                         : n.senderInfo?.image?.url
                     }
                     alt=""
@@ -726,7 +726,7 @@ const Navbar = () => {
             title={`${userName} \n ${email}`}
             id="Profile-img"
             className="Profile-img"
-            src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+            src={image !== undefined && image !== "" ? image : "/profile.png"}
             alt=""
           />
           {verification === "approved" && (
@@ -786,7 +786,7 @@ const Navbar = () => {
                   display: 'block'
                 }}
                 src={
-                  image !== undefined && image !== "" ? image : "/profile.jpeg"
+                  image !== undefined && image !== "" ? image : "/profile.png"
                 }
                 alt="Profile"
               />
@@ -859,7 +859,7 @@ const Navbar = () => {
                   src={
                     image !== undefined && image !== ""
                       ? image
-                      : "/profile.jpeg"
+                      : "/profile.png"
                   }
                   alt="Profile"
                 />

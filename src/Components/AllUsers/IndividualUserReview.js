@@ -60,7 +60,7 @@ const IndividualUserReview = ({ c, deleteComment, onLike, onDisLike }) => {
     <div className="IndicommentsSection">
       <div className="IndicommentsSectionImage">
         <img
-          src={c?.profile_pic || c?.commentBy?.image?.url || "/profile.jpeg"}
+          src={c?.profile_pic || c?.commentBy?.image?.url || "/profile.png"}
           alt=""
         />
       </div>
@@ -88,7 +88,7 @@ const IndividualUserReview = ({ c, deleteComment, onLike, onDisLike }) => {
           {c?.comment}
         </div>
         <div className="IndicommentsSectionActions">
-          <div style={{display: 'flex', gap: '3px', alignItems: 'center'}}>
+          <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
             {count > 0 && <div>{count}</div>}
             {liked ? (
               <i
@@ -121,10 +121,10 @@ const IndividualUserReview = ({ c, deleteComment, onLike, onDisLike }) => {
                 onClick={() => handleDisLike(c._id)}
               />
             )}
-         </div>
+          </div>
         </div>
       </div>
-    
+
     </div>
   );
 };

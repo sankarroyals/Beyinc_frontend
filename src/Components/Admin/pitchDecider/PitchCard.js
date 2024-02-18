@@ -92,7 +92,7 @@ export default function PitchCard({ d }) {
         <><Card sx={{ maxWidth: 340, minWidth: 250, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1)' }}>
             <div style={{ display: 'flex', fontSize: '24px', flexWrap: 'wrap', gap: '5px' }}>
                 <img className='userCardImage'
-                    src={d.userInfo?.image?.url !== undefined && d.userInfo?.image?.url !== "" ? d.userInfo?.image?.url : "/profile.jpeg"}
+                    src={d.userInfo?.image?.url !== undefined && d.userInfo?.image?.url !== "" ? d.userInfo?.image?.url : "/profile.png"}
                     title={d.email} />
                 <div style={{ fontWeight: '600', marginTop: '40px', marginLeft: '30px' }}>{d.userInfo?.role}
                     <div title={d.status}>
@@ -118,13 +118,13 @@ export default function PitchCard({ d }) {
             </CardActions>
         </Card>
             <Dialog
-            open={reasonPop}
-            onClose={() => setReasonPop(false)}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            maxWidth='xl'
-            sx={gridCSS.tabContainer}
-        >
+                open={reasonPop}
+                onClose={() => setReasonPop(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                maxWidth='xl'
+                sx={gridCSS.tabContainer}
+            >
 
 
                 <DialogContent style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
@@ -135,7 +135,7 @@ export default function PitchCard({ d }) {
                     </Box>
                     <button type="submit" disabled={reason == ''} onClick={(e) => {
                         update(e, 'rejected');
-                    } }>
+                    }}>
                         Ok
                     </button>
 

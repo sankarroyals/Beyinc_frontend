@@ -111,7 +111,7 @@ const IndividualMessage = () => {
       ApiServices.getConversationById({ conversationId: conversationId }).then((res) => {
         if (res.data.chatBlocked?.blockedBy !== undefined || res.data.chatBlocked?.blockedBy !== '') {
           setUserChatBlocked(true)
-          setUserChatBlockedBy(res.data.chatBlocked.blockedBy||'')
+          setUserChatBlockedBy(res.data.chatBlocked.blockedBy || '')
         } else {
           setUserChatBlocked(false)
           setUserChatBlockedBy('')
@@ -326,7 +326,7 @@ const IndividualMessage = () => {
                 receiverId?.user?.image?.url !== undefined &&
                   receiverId?.user?.image?.url !== ""
                   ? receiverId.user?.image?.url
-                  : "/profile.jpeg"
+                  : "/profile.png"
               }
               alt=""
               srcset=""
@@ -402,7 +402,7 @@ const IndividualMessage = () => {
                           receiverId?.user?.image?.url !== "" &&
                           m.senderId !== email
                           ? receiverId.user?.image?.url
-                          : "/profile.jpeg"
+                          : "/profile.png"
                     }
                     alt=""
                     srcset=""

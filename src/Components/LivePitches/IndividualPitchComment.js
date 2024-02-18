@@ -48,7 +48,7 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
       });
   };
 
-   const handleLike = (id) => {
+  const handleLike = (id) => {
     if (liked) {
       setLiked(false);
       setCount((prev) => prev - 1);
@@ -82,7 +82,7 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
   return (
     <><div className='IndicommentsSection'>
       <div className='IndicommentsSectionImage'>
-        <img src={(c?.profile_pic || c?.commentBy?.image?.url) || '/profile.jpeg'} alt="" />
+        <img src={(c?.profile_pic || c?.commentBy?.image?.url) || '/profile.png'} alt="" />
       </div>
       <div className='IndicommentsSectionDetails'>
         <div className='IndicommentsSectionDetailsUserName'>
@@ -145,13 +145,13 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
           </div>
         </div>
 
-        
+
 
 
         {c.subComments?.length > 0 &&
           <div className='totalSubComments' onClick={() => setSubCommentOpen(!subCommentOpen)}>
             <div>
-              <i class={`fas ${subCommentOpen ? 'fa-caret-down' :'fa-caret-right'}`}></i>
+              <i class={`fas ${subCommentOpen ? 'fa-caret-down' : 'fa-caret-right'}`}></i>
             </div>
             <div>{c.subComments?.length} replies</div>
           </div>}
@@ -166,40 +166,40 @@ const IndividualPitchComment = ({ c, deleteComment, setPitchTrigger, pitchTrigge
           c.subComments.sort(
             (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
           )?.map(cs => (
-            <IndividualSubComments c={cs} scrollRef={scrollRef}  setReplyBox={setReplyBox} replyBox={replyBox} onLike={onLike} onDisLike={onDisLike}/>
+            <IndividualSubComments c={cs} scrollRef={scrollRef} setReplyBox={setReplyBox} replyBox={replyBox} onLike={onLike} onDisLike={onDisLike} />
           ))}
       </div>
       <div ref={scrollRef}>
-      {replyBox && <div
-        className="writing-review"
-        style={{
-          display: "flex",
-          gap: "20px",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <textarea
-            className="textarea"
-            rows={2}
-            cols={50}
-            value={comment} onChange={(e) => { setComment(e.target.value) }}
-            placeholder="Describe Your Experience"
-            style={{ resize: 'none' }} />
-        </div>
-        <div>
-          <button
-            onClick={addSubComment}
-            className="sendIcon"
-            style={{
-              cursor: comment == "" ? "not-allowed" : "pointer",
-              fontSize: "13px",
-              padding: "10px",
-            }}
-          >
-            Post Review
-          </button>
-        </div>
+        {replyBox && <div
+          className="writing-review"
+          style={{
+            display: "flex",
+            gap: "20px",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <textarea
+              className="textarea"
+              rows={2}
+              cols={50}
+              value={comment} onChange={(e) => { setComment(e.target.value) }}
+              placeholder="Describe Your Experience"
+              style={{ resize: 'none' }} />
+          </div>
+          <div>
+            <button
+              onClick={addSubComment}
+              className="sendIcon"
+              style={{
+                cursor: comment == "" ? "not-allowed" : "pointer",
+                fontSize: "13px",
+                padding: "10px",
+              }}
+            >
+              Post Review
+            </button>
+          </div>
         </div>}
       </div>
     </>

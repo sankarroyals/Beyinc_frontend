@@ -55,8 +55,8 @@ const SingleUserDetails = ({
           (d.role === "Entrepreneur"
             ? "margin-entrepreneur"
             : d.role === "Mentor"
-            ? "margin-mentor"
-            : "")
+              ? "margin-mentor"
+              : "")
         }
       >
         <div className="user-card-details">
@@ -67,7 +67,7 @@ const SingleUserDetails = ({
                 src={
                   d.image !== undefined && d.image.url !== ""
                     ? d.image.url
-                    : "/profile.jpeg"
+                    : "/profile.png"
                 }
                 title={d.email}
               />
@@ -115,7 +115,7 @@ const SingleUserDetails = ({
           >
             <span style={{ fontWeight: "600" }}>{d.role}</span>
             <span>
-              
+
             </span>
           </div>
 
