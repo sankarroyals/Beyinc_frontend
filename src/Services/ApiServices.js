@@ -222,6 +222,19 @@ export const ApiServices = {
     });
   },
 
+  checkConvBtwTwo: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .post(`/chat/checkConversation`, obj)
+        .then((res) => {
+          if (res) {
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+
   getMessages: (obj) => {
     return new Promise((resolve, reject) => {
       axiosInstance

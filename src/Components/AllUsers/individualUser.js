@@ -30,6 +30,16 @@ const IndividualUser = () => {
   const [showOldEducation, setShowOldEducation] = useState(false);
   const [showOldExperience, setShowOldExperience] = useState(false);
   const [allComments, setAllComments] = useState([]);
+  const [convExits, setConvExists] = useState(false)
+  useEffect(() => {
+    if (user !== '') {
+      ApiServices.checkConvBtwTwo({ senderId: user_id, receiverId: user._id }).then(res => {
+        setConvExists(true)
+      }).catch(err => {
+        setConvExists(false)
+      })
+    }
+  }, [user, user_id])
   const onLike = (commentId, isLike) => {
     ApiServices.likeComment({ comment_id: commentId, comment_owner: user._id })
       .then((res) => {
@@ -728,9 +738,9 @@ const IndividualUser = () => {
         </div>
         <div className="commentsContainer">
           <h2 className="Rating-heading">Ratings & Reviews</h2>
-          {email !==
+            {convExits ? (email !==
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
-              .email && (
+                .email && (
               <div>
                 <div style={{ display: "flex", gap: "10px" }}>
                   <img src={image} />
@@ -813,7 +823,11 @@ const IndividualUser = () => {
                   </div>
                 </div>
               </div>
-            )}
+              )) : <>
+                <div style={{ fontSize: "20px", marginBottom: "20px" }}>
+                  Conversation with this user should exist to add reviews
+                </div>
+            </>}
 
           {allComments.length > 0 && (
             <div>
