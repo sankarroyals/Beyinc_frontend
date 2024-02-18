@@ -73,11 +73,11 @@ const LandingPage = () => {
           <div className="logos">
             <i class="fas fa-user-tie"></i>Find a Mentor
           </div>
-          <div style={{whiteSpace: 'nowrap'}}>
+          <div>
             <i class="fas fa-users section-2-users"></i>Find a co-founder or
             technology partner
           </div>
-          <div style={{ whiteSpace: 'nowrap' }}>
+          <div>
             <i class="fas fa-lightbulb"></i>Validate the ideas with crowd
             opinion
           </div>

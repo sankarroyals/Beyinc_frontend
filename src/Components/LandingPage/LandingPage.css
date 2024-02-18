@@ -327,6 +327,10 @@ body {
 
 @media (max-width: 768px) {
   /* navbar */
+  .landingPage-container {
+    width: 100%;
+    overflow-x: hidden;
+  }
   .signin-button {
     font-size: 10px;
     width: auto;
@@ -341,6 +345,7 @@ body {
   /* section-1 */
   .section-1 {
     flex-direction: column;
+    align-items: center;
   }
   .content-1 h1 {
     font-size: 1.5rem;
@@ -363,8 +368,11 @@ body {
   /* section-2 */
   .section-2 {
     flex-direction: column;
-    width: 290px;
+    width: 100%;
     padding-left: 10px;
+  }
+  .content-2 {
+    font-size: 14px;
   }
   .image-2 img {
     width: 300px;
@@ -549,16 +557,16 @@ body {
   .section-6 {
     flex-direction: column;
     width: 100%;
-    min-height: 1250px;
+    min-height: 1100px;
     justify-content: flex-start;
-
   }
 
   .steps-list {
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
-    flex-direction: column;
+    align-items: center;
+    margin-left: -75px;
   }
   .content-6 h2 {
     font-size: 1.5rem;
@@ -566,8 +574,7 @@ body {
   .step {
     /* width: 80%; */
     /* margin-left: 20px; */
-      /* margin-left: 0px; */
-
+    /* margin-left: 0px; */
   }
 
   .step h3 {
