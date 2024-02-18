@@ -141,38 +141,48 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                     setReceivermail('')
                 });
         } else if (isParent(role, receiverRole)) {
-            await ApiServices.directConversationCreation({
-                email: email,
-                receiverId: receiverMail,
-                senderId: email,
-                status: 'pending'
-            })
-                .then((res) => {
-                    dispatch(getAllHistoricalConversations(email));
-                    dispatch(
-                        setToast({
-                            message: res.data,
-                            bgColor: ToastColors.success,
-                            visible: "yes",
-                        })
-                    );
-                    setOpen(false);
-                    setdefaultTrigger(!defaultTrigger);
-                    setReceivermail('')
-                    document
-                        .getElementsByClassName("newConversation")[0]?.classList?.remove("show");
+            if (verification == 'approved'){
+                await ApiServices.directConversationCreation({
+                    email: email,
+                    receiverId: receiverMail,
+                    senderId: email,
+                    status: 'pending'
                 })
-                .catch((err) => {
-                    console.log(err);
-                    dispatch(
-                        setToast({
-                            message: `Error Occured`,
-                            bgColor: ToastColors.failure,
-                            visible: "yes",
-                        })
-                    );
-                    setReceivermail('')
-                });
+                    .then((res) => {
+                        dispatch(getAllHistoricalConversations(email));
+                        dispatch(
+                            setToast({
+                                message: res.data,
+                                bgColor: ToastColors.success,
+                                visible: "yes",
+                            })
+                        );
+                        setOpen(false);
+                        setdefaultTrigger(!defaultTrigger);
+                        setReceivermail('')
+                        document
+                            .getElementsByClassName("newConversation")[0]?.classList?.remove("show");
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        dispatch(
+                            setToast({
+                                message: `Error Occured`,
+                                bgColor: ToastColors.failure,
+                                visible: "yes",
+                            })
+                        );
+                        setReceivermail('')
+                    });
+            } else {
+                dispatch(
+                    setToast({
+                        message: `Please Verify Yourself first to create conversation`,
+                        bgColor: ToastColors.failure,
+                        visible: "yes",
+                    })
+                );
+            }
         } else {
             if (verification == 'approved' && receiverMail !== process.env.REACT_APP_ADMIN_MAIL) {
                 setOpen(true);
