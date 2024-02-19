@@ -586,7 +586,7 @@ const Editprofile = () => {
             <div
               style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
             >
-              <div
+              <div className="detailOf"
                 style={{
                   fontSize: "16px",
                   color: "#474D6A",
@@ -759,7 +759,7 @@ const Editprofile = () => {
                 </div>
 
                 <div style={{ marginTop: "21px" }}>
-                  <button
+                  <button className="full-width-button"
                     onClick={addExperience}
                     disabled={
                       experienceDetails.start == "" ||
@@ -906,7 +906,7 @@ const Editprofile = () => {
               </div>
 
               <div style={{ marginTop: "21px" }}>
-                <button
+                <button className="full-width-button"
                   onClick={addEducation}
                   disabled={
                     EducationDetails.Edstart == "" ||

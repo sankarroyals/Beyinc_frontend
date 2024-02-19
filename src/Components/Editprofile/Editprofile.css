@@ -198,6 +198,7 @@
 .timeline {
   font-size: 14px;
 }
+
 .profession,
 .timeline {
   margin-left: 20px;
@@ -205,8 +206,70 @@
 .personal-container {
   display: flex;
 }
+.singleMember {
+  background: rgb(242, 240, 240);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  border-radius: 10px;
+  margin: 5px 0px;
+}
 
+.deleteMember {
+  position: absolute;
+  top: -5px;
+  right: -3px;
+  cursor: pointer;
+  font-size: 15px !important;
+  background: rgba(255, 0, 0, 0.662);
+  color: white;
+  border-radius: 50%;
+}
+
+.listedTeam {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
 @media (max-width: 768px) {
+  .update-container{
+    font-size: 14px;
+  }
+  .company{
+    font-size: 14px;
+  }
+  .profession, .timeline, .created, .detailOf{
+    font-size: 12px !important;
+  }
+
+  .singleMember {
+  background: rgb(242, 240, 240);
+  padding: 10px !important;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  border-radius: 10px;
+  margin: 2px 0px !important;
+}
+
+.deleteMember {
+  position: absolute;
+  top: -5px;
+  right: -3px;
+  cursor: pointer;
+  font-size: 12px !important;
+  background: rgba(255, 0, 0, 0.662);
+  color: white;
+  border-radius: 50%;
+}
+
+
+  .full-width-button {
+    width: 310px !important;
+  }
   .heading {
     width: 20rem;
     height: auto;
@@ -226,6 +289,9 @@
     width: 80% !important;
     height: 2px !important;
   }
+  .name-container{
+    font-size: 16px !important;
+  }
   .name-container,
   .created {
     display: flex;
@@ -236,7 +302,12 @@
     top: 30%;
     right: 14%;
   }
-
+  .update-form input {
+    width: 280px !important;
+  }
+  .update-form select {
+    width: 310px !important;
+  }
   .update-form-container {
     width: 20rem !important;
     flex-direction: column;
@@ -265,7 +336,6 @@
   }
   .update-heading {
     display: flex;
-   
   }
   .form-container {
     width: 80%;
