@@ -203,7 +203,7 @@ button:disabled {
 }
 
 button {
-  width: 360px;
+  width: auto !important;
   padding: 15px;
   background-color: var(--button);
   font-weight: 600;
@@ -436,4 +436,8 @@ input[type="radio"] + label {
     margin-top: 50%;
     margin-left: 38%;
   }
+
+input,select {
+  width: 300px !important;
+}
 }

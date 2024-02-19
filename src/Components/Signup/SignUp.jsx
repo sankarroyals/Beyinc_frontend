@@ -315,7 +315,7 @@ const SignUp = () => {
                     navigate("/");
                   }}
                 />
-                <p>Sign up to turn your dreams into reality!</p>
+                {/* <p>Sign up to turn your dreams into reality!</p> */}
                 {/* <button>
                 <i class="fab fa-google"></i> Log in with Google
               </button> */}
@@ -521,7 +521,7 @@ const SignUp = () => {
             <i class="fab fa-google-play"></i> Google Play
           </button>
         </div> */}
-        <div class="signup-footer">
+        {/* <div class="signup-footer">
           <ul class="signup-footer-flex">
             <li>
               <a href="">ABOUT</a>
@@ -549,7 +549,7 @@ const SignUp = () => {
             </li>
           </ul>
           <p>© 2024 BeyInc</p>
-        </div>
+        </div> */}
       </main>
     </>
   );

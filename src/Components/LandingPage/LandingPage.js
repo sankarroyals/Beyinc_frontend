@@ -29,7 +29,7 @@ const LandingPage = () => {
         }}
       >
         <div className="Beyinc-logo">
-          <img src="/Landing-logo.png" alt="logo" />
+          <img src="/logo.png" alt="logo" />
         </div>
 
         <div className="button-container">

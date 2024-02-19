@@ -170,9 +170,7 @@ body[data-theme="dark"] .tabs {
   flex-direction: column !important;
   flex-wrap: wrap;
 }
-select {
-  min-width: 360px !important;
-}
+
 
 .addTeamMembers {
   border: 1px solid grey;
