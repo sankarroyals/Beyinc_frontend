@@ -12,6 +12,8 @@ import { ApiServices } from "../../../Services/ApiServices";
 import MultipleSelectCheckmarks from "./FIlterExample";
 import { FilterCheckBoxes } from "../../LoggedInPitches/Filters";
 import CachedIcon from "@mui/icons-material/Cached";
+import useWindowDimensions from "../../Common/WindowSize";
+import FilterDialog from "../../Filters/FilterDialog";
 export default function UserRequests() {
   const [roles, setRoles] = useState([]);
   const [emails, setEmails] = useState([]);
@@ -76,67 +78,95 @@ export default function UserRequests() {
   useEffect(() => {
     filterUsers();
   }, [filters]);
+
+  const { height, width } = useWindowDimensions();
+
   return (
     <>
+      <FilterDialog
+        filters={filters}
+        handleReloadClick={handleReloadClick}
+        isSpinning={isSpinning}
+        setFilters={setFilters}
+        tabs={[
+          {
+            name: "Verification",
+            dataKey: "verification",
+            data: ["pending", "approved", "rejected"],
+          },
+
+          {
+            name: "Roles",
+            dataKey: "role",
+            data: roles,
+          },
+          {
+            name: "Email",
+            dataKey: "email",
+            data: emails,
+          },
+        ]}
+      />
       <div className="usersWrapper">
-        <div style={{ height: "83vh" }} className="filterContainer">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div className="filterHeader">Filter By:</div>
-            <div title="Reset filters">
-              <CachedIcon
-                style={{ cursor: "pointer" }}
-                className={isSpinning ? "spin" : ""}
-                onClick={handleReloadClick}
+        {width > 770 && (
+          <div style={{ height: "83vh" }} className="filterContainer">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <div className="filterHeader">Filter By:</div>
+              <div title="Reset filters">
+                <CachedIcon
+                  style={{ cursor: "pointer" }}
+                  className={isSpinning ? "spin" : ""}
+                  onClick={handleReloadClick}
+                />
+              </div>
+            </div>
+            <div className="tagFilter">
+              <div className="filter-header">
+                <b>Verification</b>
+              </div>
+
+              <FilterCheckBoxes
+                rawData={["pending", "approved", "rejected"]}
+                dataKey="verification"
+                filters={filters}
+                setFilters={setFilters}
+              />
+            </div>
+            <hr />
+            <div className="tagFilter">
+              <div className="filter-header">
+                <b>Role</b>
+              </div>
+
+              <FilterCheckBoxes
+                setFilters={setFilters}
+                filters={filters}
+                rawData={roles}
+                dataKey="role"
+              />
+            </div>
+            <hr />
+            <div className="tagFilter">
+              <div className="filter-header">
+                <b>Email</b>
+              </div>
+
+              <FilterCheckBoxes
+                setFilters={setFilters}
+                filters={filters}
+                showSearch={true}
+                rawData={emails}
+                dataKey="email"
               />
             </div>
           </div>
-          <div className="tagFilter">
-            <div className="filter-header">
-              <b>Verification</b>
-            </div>
-
-            <FilterCheckBoxes
-              rawData={["pending", "approved", "rejected"]}
-              dataKey="verification"
-              filters={filters}
-              setFilters={setFilters}
-            />
-          </div>
-          <hr />
-          <div className="tagFilter">
-            <div className="filter-header">
-              <b>Role</b>
-            </div>
-
-            <FilterCheckBoxes
-              setFilters={setFilters}
-              filters={filters}
-              rawData={roles}
-              dataKey="role"
-            />
-          </div>
-          <hr />
-          <div className="tagFilter">
-            <div className="filter-header">
-              <b>Email</b>
-            </div>
-
-            <FilterCheckBoxes
-              setFilters={setFilters}
-              filters={filters}
-              showSearch={true}
-              rawData={emails}
-              dataKey="email"
-            />
-          </div>
-        </div>
-
+        )}
         <div className="filteredUsers">
           {filteredData?.length > 0 ? (
             filteredData?.map((d) => <UserRequestCard d={d} />)
