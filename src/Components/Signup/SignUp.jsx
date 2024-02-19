@@ -242,7 +242,7 @@ const SignUp = () => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
-      phone: `+91${mobile}`,
+      phone: `+91${mobile}`, type: ''
     })
       .then((res) => {
         dispatch(
@@ -376,7 +376,7 @@ const SignUp = () => {
                   {!isEmailOtpSent && isEmailValid && (
                     <button
                       type="button"
-                      className="otp_button"
+                      className="otp_button full-width-button"
                       onClick={sendEmailOtp}
                     >
                       Get OTP
@@ -432,7 +432,7 @@ const SignUp = () => {
                   {!isMobileOtpSent && isMobileValid && (
                     <button
                       type="button"
-                      className="otp_button"
+                      className="otp_button full-width-button"
                       onClick={sendMobileOtpF}
                     >
                       Get OTP
@@ -478,6 +478,7 @@ const SignUp = () => {
                   />
                   <button
                     type="submit"
+                    className="full-width-button"
                     disabled={!isFormValid}
                     onClick={signup}
                   >

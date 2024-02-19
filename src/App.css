@@ -419,7 +419,7 @@ input[type="radio"] + label {
   input[type="password"],
   input[type="text"],
   input[type="number"] {
-    /* width: 280px !important; */
+    width: 238px !important;
   }
 
   .Loading {

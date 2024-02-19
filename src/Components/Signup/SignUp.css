@@ -199,12 +199,15 @@ signup-page .signup-container form .invalid {
 }
 
 /* Mobile Styles */
-
+.full-width-button {
+    width: 100% !important;
+  }
 @media only screen and (max-width: 635px) {
   .signup-otherapps button {
     margin-bottom: 5px;
   }
 
+  
   .signup-otherapps button:after-of-type {
     margin-bottom: none;
   }

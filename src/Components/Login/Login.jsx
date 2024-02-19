@@ -97,7 +97,7 @@ const Login = () => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
-      phone: `+91${mobile}`,
+      phone: `+91${mobile}`, type: 'login'
     })
       .then((res) => {
         dispatch(
