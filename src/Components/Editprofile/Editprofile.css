@@ -6,13 +6,9 @@
   background-color: #f0f0f0;
 }
 
-
 .update-heading {
-  /* margin-top: -10px; */
-  /* margin-bottom: 10px; */
-  color: #6a73fa;
+  color: var(--primary);
 }
-
 
 .heading {
   display: flex;
@@ -20,7 +16,7 @@
   align-items: center;
   background-color: #fff;
   border-radius: 10px;
-  width: 1200px;
+  width: 1350px;
   height: 220px;
   margin: auto;
   padding: 20px;
@@ -28,6 +24,21 @@
   gap: 20px;
   font-weight: 600;
   font-size: 18px;
+}
+
+.heading-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+.exp-container,
+.edu-container,
+.personal-container,
+.upload-files-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .mobile-verification {
@@ -45,23 +56,21 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-
 .Cross {
-    margin-left: 210px;
-    margin-top: 2px;
-    padding: 10px 12px;
-  }
-  
-  .Cross:hover {
-    background-color: rgba(198, 203, 208, 0.5);
-    border-radius: 50% !important; 
+  margin-left: 210px;
+  margin-top: 2px;
+  padding: 10px 12px;
+}
 
-  }
+.Cross:hover {
+  background-color: rgba(198, 203, 208, 0.5);
+  border-radius: 50% !important;
+}
 
 .otp_Button {
   width: 30%;
   padding: 5px;
-  background-color: #3b82f6;
+  background-color: var(--button);
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -98,17 +107,17 @@
   border: 1px solid green;
 }
 
-.addtags{
-    background: #3b82f6;
-    padding: 10px 5px 10px 10px;
-    border-radius: 50%;
-    color: white;
-    font-size: 12px;
-    margin-top: -10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+.addtags {
+  background: #3b82f6;
+  padding: 10px 5px 10px 10px;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  margin-top: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .resume {
@@ -124,10 +133,10 @@
   width: 300px;
   color: gray;
 }
-.resume:hover{
+.resume:hover {
   color: #0b57d0;
 }
-.fileName{
+.fileName {
   white-space: wrap !important;
   margin-left: 3px;
 }
@@ -140,15 +149,17 @@
   display: flex;
   /* justify-content: center;
   align-items: center; */
-  width: 1200px;
+  width: 1350px;
   margin-top: 20px;
   padding: 20px;
   background-color: white;
   border-radius: 10px;
+  flex-direction: column;
   /* margin-bottom: 30px; */
 }
-
-
+/* .update-form{
+  display: flex;
+} */
 
 .update-form-label {
   margin-top: 5px;
@@ -177,24 +188,84 @@
   margin-left: 290px;
 }
 
-.company{
+.company {
   font-size: 16px;
   font-weight: 600;
 }
-.profession{
+.profession {
   font-size: 16px;
 }
-.timeline{
-    font-size: 14px;
-
+.timeline {
+  font-size: 14px;
 }
-.profession, .timeline{
+.profession,
+.timeline {
   margin-left: 20px;
+}
+.personal-container {
+  display: flex;
 }
 
 @media (max-width: 768px) {
-  .update-heading {
+  .heading {
+    width: 20rem;
+    height: auto;
+    font-size: 12px;
+    flex-direction: column;
     margin-top: 0px;
+  }
+  .profile-content {
+    width: 20rem !important;
+  }
+  .heading-image img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .name {
+    width: 80% !important;
+    height: 2px !important;
+  }
+  .name-container,
+  .created {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobile-verification {
+    top: 30%;
+    right: 14%;
+  }
+
+  .update-form-container {
+    width: 20rem !important;
+    flex-direction: column;
+  }
+  .update-form {
+    display: flex;
+    justify-content: left;
+  }
+  .exp-container,
+  .edu-container {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  /* ,
+ ,
+  .upload-files-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  } */
+
+  .personal-container {
+    display: flex;
+    justify-content: left;
+  }
+  .update-heading {
+    display: flex;
+   
   }
   .form-container {
     width: 80%;
@@ -204,7 +275,7 @@
     gap: -10px;
     width: 100%;
   }
-  
+
   .successIcons {
     position: absolute;
     right: 50px;
@@ -212,16 +283,4 @@
     height: 20px;
     width: 20px;
   }
-
-  .update-form-container {
-    width: 82%;
-    margin-top: 10px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 10px;
-  }
 }
-
-

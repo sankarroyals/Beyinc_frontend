@@ -281,7 +281,7 @@ const Login = () => {
                     navigate("/");
                   }}
                 />
-                <p>Login in to turn your dreams into reality!</p>
+                {/* <p>Login in to turn your dreams into reality!</p> */}
                 {/* <button>
               <i class="fab fa-google"></i> Log in with Google
             </button> */}
@@ -425,7 +425,7 @@ const Login = () => {
           <i class="fab fa-google-play"></i> Google Play
         </button>
       </div> */}
-        <div class="login-footer">
+        {/* <div class="login-footer">
           <ul class="login-footer-flex">
             <li>
               <a href="">ABOUT</a>
@@ -453,7 +453,7 @@ const Login = () => {
             </li>
           </ul>
           <p>© 2024 BeyInc</p>
-        </div>
+        </div> */}
       </main>
     </>
   );
