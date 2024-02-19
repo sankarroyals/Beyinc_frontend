@@ -27,6 +27,7 @@ import {
   itPositions,
 } from "../../Utils";
 import { TextField } from "@mui/material";
+import useWindowDimensions from "../Common/WindowSize";
 
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
@@ -78,6 +79,7 @@ const Editprofile = () => {
   } = inputs;
 
   const [nameChanger, setNameChanger] = useState(false);
+  const { height, width } = useWindowDimensions();
 
   const [roles, setRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -1079,7 +1081,7 @@ const Editprofile = () => {
                     }}
                     id=""
                     cols="50"
-                    rows="5"
+                    rows="5" 
                     name="message"
                     value={bio}
                     placeholder="Enter your bio"
