@@ -12,7 +12,6 @@
   height: auto;
   width: 150px;
   margin-left: -10px;
-  
 }
 
 .Profile-img {
@@ -63,7 +62,6 @@
   background: var(--nav-head-icons-hover);
   color: var(--nav-head-icons-border);
 }
-
 
 #plus {
   font-size: 10px;
@@ -167,7 +165,7 @@
   width: 8px !important;
   color: var(--primary) !important;
 }
-.closeIcon{
+.closeIcon {
   text-align: end;
 }
 .cross {
@@ -248,7 +246,6 @@ img {
 
 /* notification bar title */
 
-
 .line-loader {
   width: 91%;
   height: 5px;
@@ -297,7 +294,8 @@ img {
   margin-top: 25px;
   cursor: pointer;
 }
-.email, .popupImg {
+.email,
+.popupImg {
   font-weight: 600;
   font-size: 15px;
   display: flex;
@@ -344,26 +342,25 @@ img {
   border-radius: 20px;
   width: 65%;
   margin-left: auto;
-    margin-right: auto;
+  margin-right: auto;
 
   cursor: pointer;
   font-weight: bold;
 }
 .manage:hover {
   background-color: var(--light-transparent);
-  
 }
 
-.editPopupActions{
+.editPopupActions {
   display: flex;
-   gap: 10px;
-   margin-top: 31px;
-   align-items: center;
+  gap: 10px;
+  margin-top: 31px;
+  align-items: center;
 }
 
 .Account {
   color: #fff;
-  background-color:var(--button);
+  background-color: var(--button);
   padding: 20px;
   border-radius: 28px 5px 5px 28px;
   /* margin-top: 31px; */
@@ -379,7 +376,7 @@ img {
 
 .logout {
   color: #fff;
-  background-color:var(--button);
+  background-color: var(--button);
   padding: 20px;
   border-radius: 5px 28px 28px 5px;
   /* margin-top: -63px; */
@@ -438,9 +435,9 @@ img {
   font-weight: bold;
   cursor: pointer;
 }
-.Conversations-count.mobile{
-   left: 43px;
-    top: 3px;
+.Conversations-count.mobile {
+  left: 43px;
+  top: 3px;
 }
 .Conversations-count::before {
   content: "";
@@ -455,29 +452,30 @@ img {
   transform: scale(0);
   animation: blink 3s ease-in-out infinite forwards;
 }
-.SideNotificationHeader{
+.SideNotificationHeader {
   /* padding: 5px; */
   display: flex;
   justify-content: space-around;
   position: sticky;
   top: 0;
 }
-.sideNavIcons{
+.sideNavIcons {
   cursor: pointer;
-    background-color: #fff;
+  background-color: #fff;
   width: 100%;
   padding: 10px;
   text-align: center;
 }
-.sideNavIcons.sideselected{
-  border-bottom: 2px solid green;
+.sideNavIcons.sideselected {
+  background: var(--primary);
+
   color: #fff;
   transition: all ease 0.3s;
-  background: #6a73fa;
 }
-.sideNavIcons:not(.sideselected):hover{
-  background: #ccc;
+.sideNavIcons:not(.sideselected):hover {
+  background: var(--tab-hover);
 
+  /* color: #fff; */
 }
 @keyframes blink {
   0% {
@@ -525,12 +523,12 @@ img {
   /* margin-top: -5px; */
 }
 
-.popupImg{
+.popupImg {
   /* width: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
- text-align: center;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -541,7 +539,6 @@ img {
     margin-left: 0 !important;
     width: auto !important;
   }
-
 
   .fa-search,
   .fa-comment-dots,
@@ -554,15 +551,15 @@ img {
     width: 335px;
     top: 65px;
     right: 6px;
-   
   }
-  .Account, .logout {
-  color: #fff;
-  background-color:var(--button);
-  padding: 10px 15px;
-  
-  /* margin-left: 20px; */
-  white-space: nowrap;
-  font-weight: 400;
-}
+  .Account,
+  .logout {
+    color: #fff;
+    background-color: var(--button);
+    padding: 10px 15px;
+
+    /* margin-left: 20px; */
+    white-space: nowrap;
+    font-weight: 400;
+  }
 }

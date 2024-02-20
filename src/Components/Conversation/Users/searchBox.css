@@ -162,7 +162,32 @@ body[data-theme="dark"] .tabs {
   max-height: 55vh;
   overflow-y: scroll;
 }
+.historicalTabHeader {
+  /* padding: 5px; */
+  display: flex;
+  justify-content: space-around;
+  position: sticky;
+  top: 0;
+  width: 300px;
+}
+.historicalTabIcons {
+  cursor: pointer;
+  background-color: #fff;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+}
+.historicalTabIcons.historicalTabIconsselected {
+  background: var(--primary);
 
+  color: #fff;
+  transition: all ease 0.3s;
+}
+.historicalTabIcons:not(.historicalTabIconsselected):hover {
+  background: var(--tab-hover);
+
+  /* color: #fff; */
+}
 .pitchTabs {
   display: flex !important;
   flex-direction: column !important;

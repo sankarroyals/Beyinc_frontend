@@ -39,6 +39,8 @@ body[data-theme="light"] {
   --secondary: #4449ad;
   --button: #4e54c7;
   --button-hover: #4449ad;
+    --tab-hover: #bec0e48a;
+
   --white-text: #fff;
   --light-transparent: #4e54c748;
 
