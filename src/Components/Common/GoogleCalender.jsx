@@ -115,7 +115,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         if (!(accessToken && expiresIn)) {
             // Prompt the user to select a Google Account and ask for consent to share their data
             // when establishing a new session.
-            console.log(tokenClient);
+            // console.log(tokenClient);
             tokenClient?.requestAccessToken({ prompt: "consent" });
         } else {
             // Skip display of account chooser and consent dialog for an existing session.
@@ -147,7 +147,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
             };
             response = await gapi.client.calendar.events.list(request);
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             localStorage.removeItem('access_token')
             localStorage.removeItem("expires_in")
             setAccessToken('')
@@ -220,8 +220,8 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         });
         request.execute(
             (event) => {
-                console.log(event);
-                console.log(`https://meet.google.com/${event.conferenceData.conferenceId}`);
+                // console.log(event);
+                // console.log(`https://meet.google.com/${event.conferenceData.conferenceId}`);
                 e.target.disabled = false
                 setGmeetLinkOpen(false)
                 dispatch(setToast({
