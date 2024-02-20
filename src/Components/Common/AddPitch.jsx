@@ -11,6 +11,8 @@ import { gridCSS } from '../CommonStyles';
 import CloseIcon from "@mui/icons-material/Close";
 import { Country, State, City } from 'country-state-city';
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import useWindowDimensions from './WindowSize';
+import './AddPitch.css'
 
 function TabPanel(props) {
     const { className, children, value, index, ...other } = props;
@@ -47,7 +49,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
     useEffect(() => {
         socket.current = io(socket_io);
     }, []);
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(1);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -462,9 +464,11 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+    const { height, width } = useWindowDimensions();
+
     return (
         <div>
-            <Dialog
+            <Dialog fullScreen
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
@@ -487,6 +491,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             top: "5px",
                             right: "10px",
                             cursor: "pointer",
+                            zIndex: '999'
                         }}
                         onClick={() => {
                             setOpen(false)
@@ -495,280 +500,184 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                     >
                         <CloseIcon />
                     </Box>
-                    <Box
-                        sx={{
-                            borderBottom: 1,
-                            borderColor: "divider",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            marginTop: "20px",
-                            height: "22px",
-                            marginBottom: "7.5px",
-                            border: "none",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Tabs
-                            value={value}
-                            className="pitchTabs"
-                            textColor="primary"
-                            indicatorColor="secondary"
-                            onChange={handleChange}
-                            aria-label="basic tabs example"
-                        >
-                            <Tab
-                                className="tabs"
-                                sx={{
-                                    width: "200px",
-                                    background: "none",
-                                    textTransform: "capitalize",
-                                    padding: "0px",
-                                    fontSize: "13px",
-                                    fontWeight: 600,
-                                }}
-                                label="Company Info"
-                                {...a11yProps(0)}
-                            />
-                            <Tab
-                                className="tabs"
-                                sx={{
-                                    width: "200px",
-                                    background: "none",
-                                    textTransform: "capitalize",
-                                    padding: "0px",
-                                    fontSize: "13px",
-                                    fontWeight: 600,
-                                }}
-                                label="Pitch & Deal"
-                                {...a11yProps(1)}
-                            />
-                            <Tab
-                                className="tabs"
-                                sx={{
-                                    width: "200px",
-                                    background: "none",
-                                    textTransform: "capitalize",
-                                    padding: "0px",
-                                    fontSize: "13px",
-                                    fontWeight: 600,
-                                }}
-                                label="Team"
-                                {...a11yProps(2)}
-                            />
-                            <Tab
-                                className="tabs"
-                                sx={{
-                                    width: "200px",
-                                    background: "none",
-                                    textTransform: "capitalize",
-                                    padding: "0px",
-                                    fontSize: "13px",
-                                    fontWeight: 600,
-                                }}
-                                label="Image & videos"
-                                {...a11yProps(3)}
-                            />
-                            <Tab
-                                className="tabs"
-                                sx={{
-                                    width: "200px",
-                                    background: "none",
-                                    textTransform: "capitalize",
-                                    padding: "0px",
-                                    fontSize: "13px",
-                                    fontWeight: 600,
-                                }}
-                                label="Documents"
-                                {...a11yProps(5)}
-                            />
-                            <Tab
-                                className="tabs"
-                                sx={{
-                                    width: "200px",
-                                    background: "none",
-                                    textTransform: "capitalize",
-                                    padding: "0px",
-                                    fontSize: "13px",
-                                    fontWeight: 600,
-                                }}
-                                label="Requirements"
-                                {...a11yProps(6)}
-                            />
-                        </Tabs>
-                    </Box>
-                    <TabPanel
-                        style={{ padding: 0 }}
-                        className="forecast-container"
-                        value={value}
-                        index={0}
-                    >
-                        <div className="pitchForm">
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Pitch title*</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="text"
-                                        name="title"
-                                        value={form?.title}
-                                        onChange={handleChanges}
-                                        placeholder="Enter title for pitch"
-                                    />
-                                </div>
-                            </div>
+                   
+                        
+                        <div className="addPitchHeader">
+                            <div className={`addPitchIcons ${value == 1 && 'addPitchIconsselected'}`} onClick={() => setValue(1)}>Company Info</div>
+                            <div className={`addPitchIcons ${value == 2 && 'addPitchIconsselected'}`} onClick={() => setValue(2)}>Pitch & Deal</div>
+                            <div className={`addPitchIcons ${value == 3 && 'addPitchIconsselected'}`} onClick={() => setValue(3)}>Team</div>
+                            <div className={`addPitchIcons ${value == 4 && 'addPitchIconsselected'}`} onClick={() => setValue(4)}>Image & videos</div>
+                            <div className={`addPitchIcons ${value == 5 && 'addPitchIconsselected'}`} onClick={() => setValue(5)}>Documents</div>
+                            <div className={`addPitchIcons ${value == 6 && 'addPitchIconsselected'}`} onClick={() => setValue(6)}>Requirements</div>
 
+                        </div> 
+                    {value == 1 && <div className="pitchForm">
+                        <div className="pitchformFields">
                             <div>
-                                <div>
-                                    <label>Website</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="text"
-                                        name="website"
-                                        value={form?.website}
-                                        onChange={handleChanges}
-                                        placeholder="Enter your website with https:// or http://"
-                                    />
-                                </div>
+                                <label>Pitch title*</label>
                             </div>
-
                             <div>
-                                <div>
-                                    <label>Where is management located ?</label>
-                                </div>
-                                <div>
-                                    <select
-                                        name="memberscountry"
-                                        value={form?.memberscountry}
-                                        onChange={handleChanges}
-                                    >
-                                        <option value="">Select</option>
-                                        {Country?.getAllCountries().length > 0 && Country?.getAllCountries().map(c => (
-                                            <option value={c.name}>{c.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={form?.title}
+                                    onChange={handleChanges}
+                                    placeholder="Enter title for pitch"
+                                />
                             </div>
+                        </div>
 
+                        <div>
                             <div>
-                                <div>
-                                    <label>Domain</label>
-                                </div>
-                                <div>
-                                    <select
-                                        name="industry1"
-                                        value={form?.industry1}
-                                        onChange={handleChanges}
-                                    >
-                                        <option value="">Select</option>
-                                        {Object.keys(domain_subdomain).map(d => (
-                                            <option value={d}>{d}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                                <label>Website</label>
                             </div>
-
-
                             <div>
-                                <div>
-                                    <label>Sub domain</label>
-                                </div>
-                                <div>
-                                    <select
-                                        name="industry2"
-                                        value={form?.industry2}
-                                        onChange={handleChanges}
-                                    >
-                                        <option value="">Select</option>
-                                        {domain_subdomain[form?.industry1]?.map(d => (
-                                            <option value={d}>{d}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                                <input
+                                    type="text"
+                                    name="website"
+                                    value={form?.website}
+                                    onChange={handleChanges}
+                                    placeholder="Enter your website with https:// or http://"
+                                />
                             </div>
+                        </div>
 
+                        <div>
                             <div>
-                                <div>
-                                    <label>Stage</label>
-                                </div>
-                                <div>
-                                    <select
-                                        name="stage"
-                                        value={form?.stage}
-                                        onChange={handleChanges}
-                                    >
-                                        <option value="">Select</option>
-                                        {stages.map(d => (
-                                            <option value={d}>{d}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                                <label>Where is management located ?</label>
                             </div>
-
                             <div>
-                                <div><label>User Type</label></div>
-                                <div>
-                                    <select name="userType" value={form?.userType} onChange={handleChanges}
-                                    >
-                                        <option value="">Select</option>
-
-                                        {totalRoles.map(d => (
-                                            <option value={d.role}>{d.role}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                                <select
+                                    name="memberscountry"
+                                    value={form?.memberscountry}
+                                    onChange={handleChanges}
+                                >
+                                    <option value="">Select</option>
+                                    {Country?.getAllCountries().length > 0 && Country?.getAllCountries().map(c => (
+                                        <option value={c.name}>{c.name}</option>
+                                    ))}
+                                </select>
                             </div>
+                        </div>
 
+                        <div>
                             <div>
-                                <div>
-                                    <label>Ideal User Role</label>
-                                </div>
-                                <div>
-                                    <select
-                                        name="idealInvestor"
-                                        value={form?.idealInvestor}
-                                        onChange={handleChanges}
-                                    >
-                                        <option value="">Select</option>
-                                        {idealUserRole.map(d => (
-                                            <option value={d}>{d}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                                <label>Domain</label>
                             </div>
-
                             <div>
-                                <div>
-                                    <label>  How much in total have you raised till now?</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="number"
-                                        name="previousRoundRaise"
-                                        value={form?.previousRoundRaise}
-                                        onChange={handleChanges}
-                                        placeholder="Enter how much did you raise in previous? *"
-                                    />
-                                </div>
+                                <select
+                                    name="industry1"
+                                    value={form?.industry1}
+                                    onChange={handleChanges}
+                                >
+                                    <option value="">Select</option>
+                                    {Object.keys(domain_subdomain).map(d => (
+                                        <option value={d}>{d}</option>
+                                    ))}
+                                </select>
                             </div>
+                        </div>
 
+
+                        <div>
                             <div>
-                                <div>
-                                    <label style={{ width: '300px', whiteSpace: 'wrap' }}>How much total equity in % is diluted for raising above amount?</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="number"
-                                        name="raising"
-                                        value={form?.raising}
-                                        onChange={handleChanges}
-                                        placeholder="Enter How much total equity in % is diluted for raising above amount?"
-                                    />
-                                </div>
+                                <label>Sub domain</label>
                             </div>
+                            <div>
+                                <select
+                                    name="industry2"
+                                    value={form?.industry2}
+                                    onChange={handleChanges}
+                                >
+                                    <option value="">Select</option>
+                                    {domain_subdomain[form?.industry1]?.map(d => (
+                                        <option value={d}>{d}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
 
-                            {/* <div>
+                        <div>
+                            <div>
+                                <label>Stage</label>
+                            </div>
+                            <div>
+                                <select
+                                    name="stage"
+                                    value={form?.stage}
+                                    onChange={handleChanges}
+                                >
+                                    <option value="">Select</option>
+                                    {stages.map(d => (
+                                        <option value={d}>{d}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div><label>User Type</label></div>
+                            <div>
+                                <select name="userType" value={form?.userType} onChange={handleChanges}
+                                >
+                                    <option value="">Select</option>
+
+                                    {totalRoles.map(d => (
+                                        <option value={d.role}>{d.role}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <label>Ideal User Role</label>
+                            </div>
+                            <div>
+                                <select
+                                    name="idealInvestor"
+                                    value={form?.idealInvestor}
+                                    onChange={handleChanges}
+                                >
+                                    <option value="">Select</option>
+                                    {idealUserRole.map(d => (
+                                        <option value={d}>{d}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <label>How much in total have you raised till now?</label>
+                            </div>
+                            <div>
+                                <input
+                                    type="number"
+                                    name="previousRoundRaise"
+                                    value={form?.previousRoundRaise}
+                                    onChange={handleChanges}
+                                    placeholder="Enter how much did you raise in previous? *"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <label style={{ width: '300px', whiteSpace: 'wrap' }}>How much total equity in % is diluted for raising above amount?</label>
+                            </div>
+                            <div>
+                                <input
+                                    type="number"
+                                    name="raising"
+                                    value={form?.raising}
+                                    onChange={handleChanges}
+                                    placeholder="Enter How much total equity in % is diluted for raising above amount?"
+                                />
+                            </div>
+                        </div>
+
+                        {/* <div>
                 <div>
                   <label>How much of this total you have raised?</label>
                 </div>
@@ -783,185 +692,560 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                 </div>
               </div> */}
 
+                        <div>
                             <div>
-                                <div>
-                                    <label style={{ width: '650px', whiteSpace: 'wrap' }}>What and estimated amount you are offering to User (Entrepreneur/Mentor/Investor) who
-                                        accept this Pitch? Like: Equity , Cash etc.</label>
+                                <label style={{ width: '650px', whiteSpace: 'wrap' }}>What and estimated amount you are offering to User (Entrepreneur/Mentor/Investor) who
+                                    accept this Pitch? Like: Equity , Cash etc.</label>
+                            </div>
+                            <div>
+                                <input
+                                    type="number"
+                                    name="minimumInvestment"
+                                    value={form?.minimumInvestment}
+                                    onChange={handleChanges}
+                                    placeholder="Enter the minimum investment per investor?"
+                                />
+                            </div>
+                        </div>
+                    </div>}
+                  
+                    {value == 2 && <div className="pitchForm">
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Overview of Startup</label>
+                            </div>
+                            <div>
+                                <textarea
+                                    type="text"
+                                    name="overViewOfStartup"
+                                    value={form?.overViewOfStartup}
+                                    onChange={handleChanges}
+                                    rows={10}
+                                    cols={50}
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Business Model</label>
+                            </div>
+                            <div>
+                                <textarea
+                                    type="text"
+                                    name="businessModel"
+                                    value={form?.businessModel}
+                                    onChange={handleChanges}
+                                    rows={10}
+                                    cols={80}
+                                ></textarea>
+                            </div>
+                        </div>
+
+
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Revenue Model</label>
+                            </div>
+                            <div>
+                                <textarea
+                                    type="text"
+                                    name="revenueModel"
+                                    value={form?.revenueModel}
+                                    onChange={handleChanges}
+                                    rows={10}
+                                    cols={80}
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Target Market</label>
+                            </div>
+                            <div>
+                                <textarea
+                                    type="text"
+                                    name="targetMarket"
+                                    value={form?.targetMarket}
+                                    onChange={handleChanges}
+                                    rows={10}
+                                    cols={50}
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Target Users</label>
+                            </div>
+                            <div>
+                                <textarea
+                                    type="text"
+                                    name="targetUsers"
+                                    value={form?.targetUsers}
+                                    onChange={handleChanges}
+                                    rows={10}
+                                    cols={50}
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div className="pitchformFields">
+                            <div>
+                                <label>usp</label>
+                            </div>
+                            <div>
+                                <textarea
+                                    type="text"
+                                    name="usp"
+                                    value={form?.usp}
+                                    onChange={handleChanges}
+                                    rows={10}
+                                    cols={50}
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Competitor Analysis</label>
+                            </div>
+                            <div>
+                                <textarea
+                                    type="text"
+                                    name="competitorAnalysis"
+                                    value={form?.competitorAnalysis}
+                                    onChange={handleChanges}
+                                    rows={10}
+                                    cols={50}
+                                ></textarea>
+                            </div>
+                        </div>
+
+
+                    </div>}
+                    {value == 3 && <div className="pitchForm">
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Team Overview</label>
+                            </div>
+                            <div>
+                                <textarea
+                                    type="text"
+                                    name="teamOverview"
+                                    value={form?.teamOverview}
+                                    onChange={handleChanges}
+                                    rows={10}
+                                    cols={70}
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Team Members</label>
+                            </div>
+                            {teamMembers.length > 0 && (
+                                <div className="listedTeam">
+                                    {teamMembers.map((t, i) => (
+                                        <div className="singleMember">
+                                            {t?.memberPic?.secure_url !== undefined && (
+                                                <div>
+                                                    <img src={t.memberPic?.secure_url} alt="" />
+                                                </div>
+                                            )}
+                                            <div>{t.name}</div>
+                                            <div
+                                                onClick={(e) => {
+                                                    setTeamMembers(
+                                                        teamMembers.filter((f, j) => i !== j)
+                                                    );
+                                                    setForm((prev) => ({
+                                                        ...prev,
+                                                        changeStatus: "change",
+                                                    }));
+                                                }}
+                                            >
+                                                <CloseIcon className="deleteMember" />
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                                <div>
-                                    <input
-                                        type="number"
-                                        name="minimumInvestment"
-                                        value={form?.minimumInvestment}
-                                        onChange={handleChanges}
-                                        placeholder="Enter the minimum investment per investor?"
-                                    />
+                            )}
+                            <div className="addTeamMembers">
+                                <div className="teamInputs">
+                                    <div>
+                                        <div>
+                                            <label>Photo*</label>
+                                            <label htmlFor="photo" className="file">
+                                                <CloudUploadIcon />
+                                                <span className="fileName">{Teampic}</span>
+                                            </label>
+                                        </div>
+                                        <input
+                                            className="file"
+                                            type="file"
+                                            accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+                                            name="name"
+                                            id="photo"
+                                            onChange={handleTeamMemberPic}
+                                            style={{ display: "none" }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label>Name*</label>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder="Name"
+                                            value={singleTeamMember?.name}
+                                            onChange={(e) => {
+                                                setSingleTeamMember((prev) => ({
+                                                    ...prev,
+                                                    name: e.target.value,
+                                                }));
+                                                setForm((prev) => ({
+                                                    ...prev,
+                                                    changeStatus: "change",
+                                                }));
+                                            }}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <div>
+                                            <label>Bio</label>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            name="bio"
+                                            placeholder="Bio"
+                                            value={singleTeamMember?.bio}
+                                            onChange={(e) => {
+                                                setSingleTeamMember((prev) => ({
+                                                    ...prev,
+                                                    bio: e.target.value,
+                                                }));
+                                                setForm((prev) => ({
+                                                    ...prev,
+                                                    changeStatus: "change",
+                                                }));
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label>Social Link</label>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            name="socialLink"
+                                            placeholder="Social Links"
+                                            value={singleTeamMember?.socialLink}
+                                            onChange={(e) => {
+                                                setSingleTeamMember((prev) => ({
+                                                    ...prev,
+                                                    socialLink: e.target.value,
+                                                }));
+                                                setForm((prev) => ({
+                                                    ...prev,
+                                                    changeStatus: "change",
+                                                }));
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label>Position</label>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            name="position"
+                                            placeholder="position"
+                                            value={singleTeamMember?.position}
+                                            onChange={(e) => {
+                                                setSingleTeamMember((prev) => ({
+                                                    ...prev,
+                                                    position: e.target.value,
+                                                }));
+                                                setForm((prev) => ({
+                                                    ...prev,
+                                                    changeStatus: "change",
+                                                }));
+                                            }}
+                                        />
+                                    </div>
+                                    <div style={{ marginBottom: "-20px" }}>
+                                        <button
+                                            onClick={saveSingleMember}
+                                            disabled={
+                                                singleTeamMember.name == "" ||
+                                                singleTeamMember.memberPic == ""
+                                            }
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </TabPanel>
-                    <TabPanel
-                        style={{ padding: 0 }}
-                        className="forecast-container"
-                        value={value}
-                        index={1}
-                    >
-                        <div className="pitchForm">
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Overview of Startup</label>
-                                </div>
-                                <div>
-                                    <textarea
-                                        type="text"
-                                        name="overViewOfStartup"
-                                        value={form?.overViewOfStartup}
-                                        onChange={handleChanges}
-                                        rows={10}
-                                        cols={50}
-                                    ></textarea>
-                                </div>
-                            </div>
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Business Model</label>
-                                </div>
-                                <div>
-                                    <textarea
-                                        type="text"
-                                        name="businessModel"
-                                        value={form?.businessModel}
-                                        onChange={handleChanges}
-                                        rows={10}
-                                        cols={80}
-                                    ></textarea>
-                                </div>
-                            </div>
+                    </div>}
 
-
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Revenue Model</label>
-                                </div>
-                                <div>
-                                    <textarea
-                                        type="text"
-                                        name="revenueModel"
-                                        value={form?.revenueModel}
-                                        onChange={handleChanges}
-                                        rows={10}
-                                        cols={80}
-                                    ></textarea>
-                                </div>
+                    {value == 4 && <div className="pitchForm">
+                        <div>
+                            <div
+                                style={{ display: "flex", alignItems: "center", justifyContent:'space-between' }}
+                            >
+                                <label>Logo*</label>
+                                {form?.logo?.secure_url !== undefined &&
+                                    form?.logo?.secure_url !== "" && (
+                                        <a target='_blank'
+                                            href={form?.logo.secure_url}
+                                            style={{ display: "inline-block" }}
+                                        >
+                                            <img title='view Previous Logo'
+                                                style={{
+                                                    height: "30px",
+                                                    width: "30px",
+                                                    // marginLeft: '270px'
+                                                }}
+                                                src="/view.png"
+                                                onMouseEnter={() => setShowPreviousFile(true)}
+                                                onMouseLeave={() => setShowPreviousFile(false)}
+                                            />
+                                        </a>
+                                    )}
                             </div>
+                            <div>
+                                <label htmlFor="logo" className="file">
+                                    <CloudUploadIcon />
+                                    <span className="fileName">{Logo}</span>
+                                </label>
+                                <input
+                                    className="file"
+                                    type="file"
+                                    accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Target Market</label>
-                                </div>
-                                <div>
-                                    <textarea
-                                        type="text"
-                                        name="targetMarket"
-                                        value={form?.targetMarket}
-                                        onChange={handleChanges}
-                                        rows={10}
-                                        cols={50}
-                                    ></textarea>
-                                </div>
+                                    name="name"
+                                    id="logo"
+                                    onChange={handlePitchLogo}
+                                    style={{ display: "none" }}
+                                />
                             </div>
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Target Users</label>
-                                </div>
-                                <div>
-                                    <textarea
-                                        type="text"
-                                        name="targetUsers"
-                                        value={form?.targetUsers}
-                                        onChange={handleChanges}
-                                        rows={10}
-                                        cols={50}
-                                    ></textarea>
-                                </div>
-                            </div>
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>usp</label>
-                                </div>
-                                <div>
-                                    <textarea
-                                        type="text"
-                                        name="usp"
-                                        value={form?.usp}
-                                        onChange={handleChanges}
-                                        rows={10}
-                                        cols={50}
-                                    ></textarea>
-                                </div>
-                            </div>
-
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Competitor Analysis</label>
-                                </div>
-                                <div>
-                                    <textarea
-                                        type="text"
-                                        name="competitorAnalysis"
-                                        value={form?.competitorAnalysis}
-                                        onChange={handleChanges}
-                                        rows={10}
-                                        cols={50}
-                                    ></textarea>
-                                </div>
-                            </div>
-
-
                         </div>
-                    </TabPanel>
 
-                    <TabPanel
-                        style={{ padding: 0 }}
-                        className="forecast-container"
-                        value={value}
-                        index={2}
-                    >
-                        <div className="pitchForm">
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Team Overview</label>
-                                </div>
-                                <div>
-                                    <textarea
-                                        type="text"
-                                        name="teamOverview"
-                                        value={form?.teamOverview}
-                                        onChange={handleChanges}
-                                        rows={10}
-                                        cols={70}
-                                    ></textarea>
-                                </div>
+                        <div>
+                            <div
+                                style={{ display: "flex", alignItems: "center", justifyContent: 'space-between' }}
+                            >
+                                <label>Banner Image</label>
+                                {form?.banner?.secure_url !== undefined &&
+                                    form?.banner?.secure_url !== "" && (
+                                        <a target='_blank'
+                                            href={form?.banner.secure_url}
+                                            style={{ display: "inline-block" }}
+                                        >
+                                            <img title='view Previous Banner Image'
+                                                style={{
+                                                    height: "30px",
+                                                    width: "30px",
+                                                }}
+                                                src="/view.png"
+                                                onMouseEnter={() => setShowPreviousFile(true)}
+                                                onMouseLeave={() => setShowPreviousFile(false)}
+                                            />
+                                        </a>
+                                    )}
                             </div>
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Team Members</label>
-                                </div>
-                                {teamMembers.length > 0 && (
+                            <div>
+                                <label htmlFor="Banner" className="file">
+                                    <CloudUploadIcon />
+                                    <span className="fileName">{Banner}</span>
+                                </label>
+                                <input
+                                    className="file"
+                                    id="Banner"
+                                    type="file"
+                                    accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+                                    name="name"
+                                    onChange={handleBannerPic}
+                                    style={{ display: "none" }}
+                                />
+                            </div>
+                        </div>
+                    </div>}
+
+                    {value == 5 && <div className="pitchForm">
+                        <div>
+                            <div
+                                style={{ display: "flex", alignItems: "center", justifyContent: 'space-between' }}
+                            >
+                                <label>Pitch Docs/Business Plan*</label>
+                                {form?.pitch?.secure_url !== undefined &&
+                                    form?.pitch?.secure_url !== "" && (
+                                        <a target='_blank'
+                                            href={form?.pitch.secure_url}
+                                            style={{ display: "inline-block" }}
+                                        >
+                                            <img title='view Previous Business Plan'
+                                                style={{
+                                                    height: "30px",
+                                                    width: "30px",
+                                                }}
+                                                src="/view.png"
+                                                onMouseEnter={() => setShowPreviousFile(true)}
+                                                onMouseLeave={() => setShowPreviousFile(false)}
+                                            />
+                                        </a>
+                                    )}
+                            </div>
+                            <div>
+                                <label htmlFor="Business" className="file">
+                                    <CloudUploadIcon />
+                                    <span className="fileName">{Business}</span>
+                                </label>
+                                <input
+                                    className="file"
+                                    id="Business"
+                                    type="file"
+                                    accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+                                    name="name"
+                                    onChange={handlePitchBusiness}
+                                    style={{ display: 'none' }}
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <div
+                                style={{ display: "flex", alignItems: "center", justifyContent: 'space-between' }}
+                            >
+                                <label>Financials*</label>
+                                {form?.financials?.secure_url !== undefined &&
+                                    form?.financials?.secure_url !== "" && (
+                                        <a target='_blank'
+                                            href={form?.financials.secure_url}
+                                            style={{ display: "inline-block" }}
+                                        >
+                                            <img title='view Previous Financials'
+                                                style={{
+                                                    height: "30px",
+                                                    width: "30px",
+                                                }}
+                                                src="/view.png"
+                                                onMouseEnter={() => setShowPreviousFile(true)}
+                                                onMouseLeave={() => setShowPreviousFile(false)}
+                                            />
+                                        </a>
+                                    )}
+                            </div>
+                            <div>
+                                <label htmlFor="Financials" className="file">
+                                    <CloudUploadIcon />
+                                    <span className="fileName">{Financial}</span>
+                                </label>
+                                <input
+                                    className="file"
+                                    id='Financials'
+                                    type="file"
+                                    accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+                                    name="name"
+                                    onChange={handlePitchFinancials}
+                                    style={{ display: 'none' }}
+                                />
+                            </div>
+                        </div>
+                    </div>}
+                    {value == 6 && <div className="pitchForm">
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Heading*</label>
+                            </div>
+                            <div>
+                                <input
+                                    type="text"
+                                    name="heading"
+                                    value={form?.heading}
+                                    onChange={handleChanges}
+                                    placeholder="Enter heading to show pitch"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <label>People needed ?</label>
+                                {form.hiringPositions.length > 0 && (
                                     <div className="listedTeam">
-                                        {teamMembers.map((t, i) => (
+                                        {form.hiringPositions.map((t, i) => (
                                             <div className="singleMember">
-                                                {t?.memberPic?.secure_url !== undefined && (
-                                                    <div>
-                                                        <img src={t.memberPic?.secure_url} alt="" />
-                                                    </div>
-                                                )}
-                                                <div>{t.name}</div>
+
+                                                <div>{t}</div>
                                                 <div
                                                     onClick={(e) => {
-                                                        setTeamMembers(
-                                                            teamMembers.filter((f, j) => i !== j)
-                                                        );
+
+                                                        setForm((prev) => ({
+                                                            ...prev, hiringPositions: form.hiringPositions.filter((f, j) => i !== j),
+                                                            changeStatus: "change",
+                                                        }));
+                                                    }}
+                                                >
+                                                    <CloseIcon className="deleteMember" />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            <div>
+                                <select
+                                    name="hiringPositions"
+                                    // value={form?.hiringPositions}
+                                    onChange={(e) => {
+                                        if (!form.hiringPositions.includes(e.target.value)) {
+                                            setForm(prev => ({ ...form, hiringPositions: [...form.hiringPositions, e.target.value], changeStatus: 'change' }))
+                                        }
+                                    }}
+                                >
+                                    <option value="">Select</option>
+                                    {itPositions.map(h => (
+                                        <option value={h}>{h}</option>
+                                    ))}
+
+                                </select>
+                            </div>
+                        </div>
+                        <div className="pitchformFields">
+                            <div>
+                                <label>Description*</label>
+                            </div>
+                            <div>
+                                <textarea
+                                    type="text"
+                                    name="description"
+                                    value={form?.description}
+                                    onChange={handleChanges}
+                                    rows={10}
+                                    cols={80}
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label>Tags*</label>
+                            </div>
+                            <div>
+                                {tags.length > 0 && (
+                                    <div className="listedTeam">
+                                        {tags.map((t, i) => (
+                                            <div className="singleMember">
+                                                <div>{t}</div>
+                                                <div
+                                                    onClick={(e) => {
+                                                        setTags(tags.filter((f, j) => i !== j));
                                                         setForm((prev) => ({
                                                             ...prev,
                                                             changeStatus: "change",
@@ -974,450 +1258,36 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                                         ))}
                                     </div>
                                 )}
-                                <div className="addTeamMembers">
-                                    <div className="teamInputs">
-                                        <div>
-                                            <div>
-                                                <label>Photo*</label>
-                                                <label htmlFor="photo" className="file">
-                                                    <CloudUploadIcon />
-                                                    <span className="fileName">{Teampic}</span>
-                                                </label>
-                                            </div>
-                                            <input
-                                                className="file"
-                                                type="file"
-                                                accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-
-                                                name="name"
-                                                id="photo"
-                                                onChange={handleTeamMemberPic}
-                                                style={{ display: "none" }}
-                                            />
-                                        </div>
-                                        <div>
-                                            <div>
-                                                <label>Name*</label>
-                                            </div>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                placeholder="Name"
-                                                value={singleTeamMember?.name}
-                                                onChange={(e) => {
-                                                    setSingleTeamMember((prev) => ({
-                                                        ...prev,
-                                                        name: e.target.value,
-                                                    }));
-                                                    setForm((prev) => ({
-                                                        ...prev,
-                                                        changeStatus: "change",
-                                                    }));
-                                                }}
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <div>
-                                                <label>Bio</label>
-                                            </div>
-                                            <input
-                                                type="text"
-                                                name="bio"
-                                                placeholder="Bio"
-                                                value={singleTeamMember?.bio}
-                                                onChange={(e) => {
-                                                    setSingleTeamMember((prev) => ({
-                                                        ...prev,
-                                                        bio: e.target.value,
-                                                    }));
-                                                    setForm((prev) => ({
-                                                        ...prev,
-                                                        changeStatus: "change",
-                                                    }));
-                                                }}
-                                            />
-                                        </div>
-                                        <div>
-                                            <div>
-                                                <label>Social Link</label>
-                                            </div>
-                                            <input
-                                                type="text"
-                                                name="socialLink"
-                                                placeholder="Social Links"
-                                                value={singleTeamMember?.socialLink}
-                                                onChange={(e) => {
-                                                    setSingleTeamMember((prev) => ({
-                                                        ...prev,
-                                                        socialLink: e.target.value,
-                                                    }));
-                                                    setForm((prev) => ({
-                                                        ...prev,
-                                                        changeStatus: "change",
-                                                    }));
-                                                }}
-                                            />
-                                        </div>
-                                        <div>
-                                            <div>
-                                                <label>Position</label>
-                                            </div>
-                                            <input
-                                                type="text"
-                                                name="position"
-                                                placeholder="position"
-                                                value={singleTeamMember?.position}
-                                                onChange={(e) => {
-                                                    setSingleTeamMember((prev) => ({
-                                                        ...prev,
-                                                        position: e.target.value,
-                                                    }));
-                                                    setForm((prev) => ({
-                                                        ...prev,
-                                                        changeStatus: "change",
-                                                    }));
-                                                }}
-                                            />
-                                        </div>
-                                        <div style={{ marginBottom: "-20px" }}>
-                                            <button
-                                                onClick={saveSingleMember}
-                                                disabled={
-                                                    singleTeamMember.name == "" ||
-                                                    singleTeamMember.memberPic == ""
-                                                }
-                                            >
-                                                Save
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </TabPanel>
-
-                    <TabPanel
-                        style={{ padding: 0 }}
-                        className="forecast-container"
-                        value={value}
-                        index={3}
-                    >
-                        <div className="pitchForm">
-                            <div>
-                                <div
-                                    style={{ display: "flex", alignItems: "center", gap: "10px" }}
-                                >
-                                    <label>Logo*</label>
-                                    {form?.logo?.secure_url !== undefined &&
-                                        form?.logo?.secure_url !== "" && (
-                                            <a target='_blank'
-                                                href={form?.logo.secure_url}
-                                                style={{ display: "inline-block" }}
-                                            >
-                                                <img title='view Previous Logo'
-                                                    style={{
-                                                        height: "30px",
-                                                        width: "30px",
-                                                        marginLeft: '270px'
-                                                    }}
-                                                    src="/view.png"
-                                                    onMouseEnter={() => setShowPreviousFile(true)}
-                                                    onMouseLeave={() => setShowPreviousFile(false)}
-                                                />
-                                            </a>
-                                        )}
-                                </div>
-                                <div>
-                                    <label htmlFor="logo" className="file">
-                                        <CloudUploadIcon />
-                                        <span className="fileName">{Logo}</span>
-                                    </label>
-                                    <input
-                                        className="file"
-                                        type="file"
-                                        accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-
-                                        name="name"
-                                        id="logo"
-                                        onChange={handlePitchLogo}
-                                        style={{ display: "none" }}
-                                    />
-                                </div>
                             </div>
 
-                            <div>
-                                <div
-                                    style={{ display: "flex", alignItems: "center", gap: "10px" }}
-                                >
-                                    <label>Banner Image</label>
-                                    {form?.banner?.secure_url !== undefined &&
-                                        form?.banner?.secure_url !== "" && (
-                                            <a target='_blank'
-                                                href={form?.banner.secure_url}
-                                                style={{ display: "inline-block" }}
-                                            >
-                                                <img title='view Previous Banner Image'
-                                                    style={{
-                                                        height: "30px",
-                                                        width: "30px",
-                                                        marginLeft: '210px',
-                                                    }}
-                                                    src="/view.png"
-                                                    onMouseEnter={() => setShowPreviousFile(true)}
-                                                    onMouseLeave={() => setShowPreviousFile(false)}
-                                                />
-                                            </a>
-                                        )}
-                                </div>
-                                <div>
-                                    <label htmlFor="Banner" className="file">
-                                        <CloudUploadIcon />
-                                        <span className="fileName">{Banner}</span>
-                                    </label>
-                                    <input
-                                        className="file"
-                                        id="Banner"
-                                        type="file"
-                                        accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-
-                                        name="name"
-                                        onChange={handleBannerPic}
-                                        style={{ display: "none" }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </TabPanel>
-
-                    <TabPanel
-                        style={{ padding: 0 }}
-                        className="forecast-container"
-                        value={value}
-                        index={4}
-                    >
-                        <div className="pitchForm">
-                            <div>
-                                <div
-                                    style={{ display: "flex", alignItems: "center", gap: "10px" }}
-                                >
-                                    <label>Pitch Docs/Business Plan*</label>
-                                    {form?.pitch?.secure_url !== undefined &&
-                                        form?.pitch?.secure_url !== "" && (
-                                            <a target='_blank'
-                                                href={form?.pitch.secure_url}
-                                                style={{ display: "inline-block" }}
-                                            >
-                                                <img title='view Previous Business Plan'
-                                                    style={{
-                                                        height: "30px",
-                                                        width: "30px",
-                                                        marginLeft: '110px'
-                                                    }}
-                                                    src="/view.png"
-                                                    onMouseEnter={() => setShowPreviousFile(true)}
-                                                    onMouseLeave={() => setShowPreviousFile(false)}
-                                                />
-                                            </a>
-                                        )}
-                                </div>
-                                <div>
-                                    <label htmlFor="Business" className="file">
-                                        <CloudUploadIcon />
-                                        <span className="fileName">{Business}</span>
-                                    </label>
-                                    <input
-                                        className="file"
-                                        id="Business"
-                                        type="file"
-                                        accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-
-                                        name="name"
-                                        onChange={handlePitchBusiness}
-                                        style={{ display: 'none' }}
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <div
-                                    style={{ display: "flex", alignItems: "center", gap: "10px" }}
-                                >
-                                    <label>Financials*</label>
-                                    {form?.financials?.secure_url !== undefined &&
-                                        form?.financials?.secure_url !== "" && (
-                                            <a target='_blank'
-                                                href={form?.financials.secure_url}
-                                                style={{ display: "inline-block" }}
-                                            >
-                                                <img title='view Previous Financials'
-                                                    style={{
-                                                        height: "30px",
-                                                        width: "30px",
-                                                        marginLeft: '230px'
-                                                    }}
-                                                    src="/view.png"
-                                                    onMouseEnter={() => setShowPreviousFile(true)}
-                                                    onMouseLeave={() => setShowPreviousFile(false)}
-                                                />
-                                            </a>
-                                        )}
-                                </div>
-                                <div>
-                                    <label htmlFor="Financials" className="file">
-                                        <CloudUploadIcon />
-                                        <span className="fileName">{Financial}</span>
-                                    </label>
-                                    <input
-                                        className="file"
-                                        id='Financials'
-                                        type="file"
-                                        accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-
-                                        name="name"
-                                        onChange={handlePitchFinancials}
-                                        style={{ display: 'none' }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </TabPanel>
-
-                    <TabPanel
-                        style={{ padding: 0 }}
-                        className="forecast-container"
-                        value={value}
-                        index={5}
-                    >
-                        <div className="pitchForm">
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Heading*</label>
-                                </div>
+                            <div className="tags">
                                 <div>
                                     <input
                                         type="text"
-                                        name="heading"
-                                        value={form?.heading}
+                                        name="tags"
+                                        value={form?.tags}
                                         onChange={handleChanges}
-                                        placeholder="Enter heading to show pitch"
+                                        placeholder="Enter tags for pitch *"
                                     />
                                 </div>
-                            </div>
-
-                            <div>
-                                <div>
-                                    <label>People needed ?</label>
-                                    {form.hiringPositions.length > 0 && (
-                                        <div className="listedTeam">
-                                            {form.hiringPositions.map((t, i) => (
-                                                <div className="singleMember">
-
-                                                    <div>{t}</div>
-                                                    <div
-                                                        onClick={(e) => {
-
-                                                            setForm((prev) => ({
-                                                                ...prev, hiringPositions: form.hiringPositions.filter((f, j) => i !== j),
-                                                                changeStatus: "change",
-                                                            }));
-                                                        }}
-                                                    >
-                                                        <CloseIcon className="deleteMember" />
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                                <div>
-                                    <select
-                                        name="hiringPositions"
-                                        // value={form?.hiringPositions}
-                                        onChange={(e) => {
-                                            if (!form.hiringPositions.includes(e.target.value)) {
-                                                setForm(prev => ({ ...form, hiringPositions: [...form.hiringPositions, e.target.value], changeStatus: 'change' }))
-                                            }
-                                        }}
-                                    >
-                                        <option value="">Select</option>
-                                        {itPositions.map(h => (
-                                            <option value={h}>{h}</option>
-                                        ))}
-
-                                    </select>
+                                <div
+                                    className="addtags"
+                                    onClick={() => {
+                                        if (form.tags !== "") {
+                                            setTags((prev) => [...prev, form.tags]);
+                                            setForm((prev) => ({
+                                                ...prev,
+                                                changeStatus: "change",
+                                                tags: "",
+                                            }));
+                                        }
+                                    }}
+                                >
+                                    <i className="fas fa-plus"></i>
                                 </div>
                             </div>
-                            <div className="pitchformFields">
-                                <div>
-                                    <label>Description*</label>
-                                </div>
-                                <div>
-                                    <textarea
-                                        type="text"
-                                        name="description"
-                                        value={form?.description}
-                                        onChange={handleChanges}
-                                        rows={10}
-                                        cols={80}
-                                    ></textarea>
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <label>Tags*</label>
-                                </div>
-                                <div>
-                                    {tags.length > 0 && (
-                                        <div className="listedTeam">
-                                            {tags.map((t, i) => (
-                                                <div className="singleMember">
-                                                    <div>{t}</div>
-                                                    <div
-                                                        onClick={(e) => {
-                                                            setTags(tags.filter((f, j) => i !== j));
-                                                            setForm((prev) => ({
-                                                                ...prev,
-                                                                changeStatus: "change",
-                                                            }));
-                                                        }}
-                                                    >
-                                                        <CloseIcon className="deleteMember" />
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="tags">
-                                    <div>
-                                        <input
-                                            type="text"
-                                            name="tags"
-                                            value={form?.tags}
-                                            onChange={handleChanges}
-                                            placeholder="Enter tags for pitch *"
-                                        />
-                                    </div>
-                                    <div
-                                        className="addtags"
-                                        onClick={() => {
-                                            if (form.tags !== "") {
-                                                setTags((prev) => [...prev, form.tags]);
-                                                setForm((prev) => ({
-                                                    ...prev,
-                                                    changeStatus: "change",
-                                                    tags: "",
-                                                }));
-                                            }
-                                        }}
-                                    >
-                                        <i className="fas fa-plus"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* <div>
+                        </div>
+                        {/* <div>
                 <div>
                   <label>Do you want pich hide/show after pitch go live?</label>
                 </div>
@@ -1433,10 +1303,10 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                   </select>
                 </div>
               </div> */}
-                        </div>
-                    </TabPanel>
+                    </div>}
 
-                    {value == 5 ? (
+
+                    {value == 6 ? (
                         <div className="pitchSubmit">
                             <button type="submit" onClick={addconversation}>
                                 Send request
@@ -1447,7 +1317,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             <button
                                 type="submit"
                                 onClick={() => {
-                                    if (value < 5) {
+                                    if (value < 6) {
                                         setValue((prev) => prev + 1);
                                     }
                                 }}
