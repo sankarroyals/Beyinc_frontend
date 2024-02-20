@@ -35,7 +35,7 @@ const ResetPassword = () => {
     if (e.target.name === "email") {
       setInputs((prev) => ({
         ...prev,
-        isEmailValid: /[a-zA-Z0-9]+@gmail.com/.test(e.target.value),
+        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(e.target.value),
       }));
     }
     if (e.target.name === "newPassword") {
@@ -221,7 +221,7 @@ const ResetPassword = () => {
     e.preventDefault();
     await ApiServices.verifyOtp({
       email: loginType == 'email' ? email : `+91${mobile}`,
-      otp: loginType == 'email' ? otp: mobileOtp,
+      otp: loginType == 'email' ? otp : mobileOtp,
     })
       .then((res) => {
         dispatch(
@@ -231,7 +231,7 @@ const ResetPassword = () => {
             visible: "yes",
           })
         );
-        
+
         if (loginType == 'email') {
           document.getElementById("emailVerify").style.display = "none";
           setemailVerified(true);
@@ -556,31 +556,31 @@ const ResetPassword = () => {
                         Get OTP
                       </button>
                     )}
-                     {otpVisible && mobileVerified !== true && (
-                        <>
-                          <input
-                            type="text"
-                            value={mobileOtp}
-                            className={
-                              mobileOtp !== null &&
-                              (mobileOtp.length === 6 ? "valid" : "invalid")
-                            }
-                            placeholder="Enter OTP"
-                            name="mobileOtp"
-                            onChange={handleChanges}
-                          />
-                          {mobileOtp !== null && mobileOtp.length === 6 && (
-                            <button
-                              type="button"
-                              id="mobileVerify"
-                              onClick={verifyOtp}
-                              style={{ whiteSpace: "noWrap" }}
-                            >
-                              Verify OTP
-                            </button>
-                          )}
-                        </>
-                      )}
+                    {otpVisible && mobileVerified !== true && (
+                      <>
+                        <input
+                          type="text"
+                          value={mobileOtp}
+                          className={
+                            mobileOtp !== null &&
+                            (mobileOtp.length === 6 ? "valid" : "invalid")
+                          }
+                          placeholder="Enter OTP"
+                          name="mobileOtp"
+                          onChange={handleChanges}
+                        />
+                        {mobileOtp !== null && mobileOtp.length === 6 && (
+                          <button
+                            type="button"
+                            id="mobileVerify"
+                            onClick={verifyOtp}
+                            style={{ whiteSpace: "noWrap" }}
+                          >
+                            Verify OTP
+                          </button>
+                        )}
+                      </>
+                    )}
                   </>
                 )}
                 {(emailVerified || mobileVerified) && (
