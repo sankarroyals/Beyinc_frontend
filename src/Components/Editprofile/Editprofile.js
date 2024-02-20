@@ -287,7 +287,9 @@ const Editprofile = () => {
     if (e.target.name === "email") {
       setInputs((prev) => ({
         ...prev,
-        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(e.target.value),
+        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(
+          e.target.value
+        ),
       }));
     }
     if (e.target.name === "mobile") {
@@ -310,7 +312,8 @@ const Editprofile = () => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
-      phone: `+91${mobile}`, type: ''
+      phone: `+91${mobile}`,
+      type: "",
     })
       .then((res) => {
         dispatch(
@@ -502,19 +505,19 @@ const Editprofile = () => {
 
   const [isFormValid, setIsFormValid] = useState(
     mobileVerified &&
-    (isNameValid ||
-      oldDocs.resume !== "" ||
-      oldDocs.expertise !== "" ||
-      oldDocs.acheivements !== "" ||
-      oldDocs.working !== "" ||
-      oldDocs.degree !== "" ||
-      changeResume.resume !== "" ||
-      changeResume.expertise !== "" ||
-      changeResume.acheivements !== "" ||
-      changeResume.working !== "" ||
-      changeResume.degree !== "") &&
-    totalEducationData.length > 0 &&
-    totalExperienceData.length > 0
+      (isNameValid ||
+        oldDocs.resume !== "" ||
+        oldDocs.expertise !== "" ||
+        oldDocs.acheivements !== "" ||
+        oldDocs.working !== "" ||
+        oldDocs.degree !== "" ||
+        changeResume.resume !== "" ||
+        changeResume.expertise !== "" ||
+        changeResume.acheivements !== "" ||
+        changeResume.working !== "" ||
+        changeResume.degree !== "") &&
+      totalEducationData.length > 0 &&
+      totalExperienceData.length > 0
   );
 
   const handleChangeRadio = (e) => {
@@ -588,7 +591,8 @@ const Editprofile = () => {
             <div
               style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
             >
-              <div className="detailOf"
+              <div
+                className="detailOf"
                 style={{
                   fontSize: "16px",
                   color: "#474D6A",
@@ -761,7 +765,8 @@ const Editprofile = () => {
                 </div>
 
                 <div style={{ marginTop: "21px" }}>
-                  <button className="full-width-button"
+                  <button
+                    className="full-width-button"
                     onClick={addExperience}
                     disabled={
                       experienceDetails.start == "" ||
@@ -821,9 +826,7 @@ const Editprofile = () => {
           className="update-form-container"
           style={{ flexDirection: "column" }}
         >
-          <h3 className="update-heading">
-            Education Details*
-          </h3>
+          <h3 className="update-heading">Education Details*</h3>
           <form className="update-form">
             <div className="edu-container">
               <div style={{ display: "flex", flexDirection: "column" }}>
@@ -882,7 +885,7 @@ const Editprofile = () => {
                 </div>
                 <div>
                   {EducationDetails.grade == "SSC" ||
-                    EducationDetails.grade == "" ? (
+                  EducationDetails.grade == "" ? (
                     <input
                       type="text"
                       name="college"
@@ -908,7 +911,8 @@ const Editprofile = () => {
               </div>
 
               <div style={{ marginTop: "21px" }}>
-                <button className="full-width-button"
+                <button
+                  className="full-width-button"
                   onClick={addEducation}
                   disabled={
                     EducationDetails.Edstart == "" ||
@@ -967,7 +971,6 @@ const Editprofile = () => {
           <h3 className="update-heading">Personal / Fee Negotiation*</h3>
           <form className="update-form">
             <div className="personal-container">
-
               <div>
                 <div>
                   <label className="update-form-label">Country*</label>
@@ -1133,10 +1136,7 @@ const Editprofile = () => {
                   <div
                     className="addtags"
                     onClick={() => {
-                      if (
-                        singleSkill !== "" &&
-                        !skills.includes(singleSkill)
-                      ) {
+                      if (singleSkill !== "" && !skills.includes(singleSkill)) {
                         setSkills((prev) => [...prev, singleSkill]);
                       }
                     }}
@@ -1181,9 +1181,7 @@ const Editprofile = () => {
                     <select
                       name="languagesKnown"
                       id=""
-                      onChange={(e) =>
-                        setSinglelanguagesKnown(e.target.value)
-                      }
+                      onChange={(e) => setSinglelanguagesKnown(e.target.value)}
                     >
                       <option value="">Select</option>
                       {allLanguages.map((d) => (
@@ -1212,9 +1210,6 @@ const Editprofile = () => {
                   </div>
                 </div>
               </div>
-
-
-
             </div>
           </form>
         </div>
@@ -1222,7 +1217,6 @@ const Editprofile = () => {
           <h3 className="update-heading">Upload files</h3>
           <form className="update-form">
             <div className="upload-files-container">
-
               <div>
                 <div
                   style={{
