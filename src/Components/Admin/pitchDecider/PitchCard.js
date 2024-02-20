@@ -116,10 +116,17 @@ export default function PitchCard({ d }) {
                   d.userInfo?.image?.url !== undefined &&
                     d.userInfo?.image?.url !== ""
                     ? d.userInfo?.image?.url
-                    : "/profile.jpeg"
+                    : "/profile.png"
                 }
                 title={d.email}
               />
+              {d.userInfo.verification === "approved" && (
+                <img
+                  src="/verify.png"
+                  alt=""
+                  style={{ width: "15px", height: "15px", position: 'absolute', right: '0' }}
+                />
+              )}
             </div>
           </div>
           <div className="user-card-details-text">
@@ -163,15 +170,7 @@ export default function PitchCard({ d }) {
             }}
           >
             <span>{d?.userInfo.role}</span>
-            <span>
-              {d?.userInfo.verification === "approved" && (
-                <img
-                  src="/verify.png"
-                  alt=""
-                  style={{ width: "15px", height: "15px", marginLeft: "5px" }}
-                />
-              )}
-            </span>
+           
           </div>
           <button onClick={() => setOpen(true)}>View</button>
           {open && (

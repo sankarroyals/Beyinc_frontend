@@ -19,6 +19,7 @@ import { ToastColors } from "../../Toast/ToastColors";
 import { convertToDate, socket_io } from "../../../Utils";
 import { Box, Dialog, DialogContent } from "@mui/material";
 import { gridCSS } from "../../CommonStyles";
+import useWindowDimensions from "../../Common/WindowSize";
 
 export const SingleRequestProfile = () => {
     const { visible } = useSelector(state => state.auth.LoadingDetails);
@@ -86,6 +87,7 @@ export const SingleRequestProfile = () => {
 
 
     const navigate = useNavigate()
+    const { height, width } = useWindowDimensions();
 
 
     useEffect(() => {
@@ -205,38 +207,35 @@ export const SingleRequestProfile = () => {
 
     return (
         visible === "no" &&
-        <div className="update-container" style={{ minHeight: '80vh' }}>
+        <div className="update-container">
             <div className="updateContainerWrapper">
-
                 <div className="heading">
                     <div>
                         <img
+                            className="heading-image"
                             src={image !== undefined && image !== "" ? image : "/profile.png"}
-                            style={{
-                                width: "150px",
-                                height: "150px",
-                                borderRadius: "50%",
-                            }}
                         />
                     </div>
 
                     <div className="profile-content">
-                        <div style={{ fontSize: "24px" }}>
+                        <div className="name-container">
+
                             {name}
+
                         </div>
                         <div
-                            style={{ fontSize: "12px", color: "#717B9E", marginBottom: "40px" }}
+                            className="created"
+                            style={{
+                                fontSize: "12px",
+                                color: "#717B9E",
+                                marginBottom: "40px",
+                            }}
                         >
-                            Profile requested -{" "}
+                            Profile last updated -{" "}
                             <span style={{ color: "black" }}>
-                                <i class="fas fa-clock" style={{ marginRight: '5px' }}></i>
+                                <i class="fas fa-clock" style={{ marginRight: "5px" }}></i>
                                 {format(updatedAt)}
                             </span>
-                            <span style={{
-                                marginLeft: '5px', color: inputs.status == 'approved' ? 'green' : (inputs.status == 'pending' ? 'orange' : 'red'),
-                                border: `1px dotted ${inputs.status == 'approved' ? 'green' : (inputs.status == 'pending' ? 'orange' : 'red')}`,
-                                padding: '5px'
-                            }}>{inputs.status}</span>
                         </div>
                         <div
                             style={{
@@ -251,7 +250,12 @@ export const SingleRequestProfile = () => {
                             style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
                         >
                             <div
-                                style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
+                                className="detailOf"
+                                style={{
+                                    fontSize: "16px",
+                                    color: "#474D6A",
+                                    lineHeight: "1.5",
+                                }}
                             >
                                 <i class="fas fa-user"></i> {role}
                                 <br />
@@ -269,329 +273,216 @@ export const SingleRequestProfile = () => {
                                     />
                                 )}
 
+                                <div className="mobile-verification">
+                                    <div
+                                        className="closeIcon"
+                                        onClick={() => {
+                                            document
+                                                .getElementsByClassName("mobile-verification")[0]
+                                                .classList.remove("showMobileVerification");
+                                        }}
+                                    >
+                                        <i className="fas fa-times Cross"></i>
+                                    </div>
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <>
-                    {totalExperienceData.length > 0 && <div className="update-form-container" style={{ flexDirection: 'column' }}>
-
-                        <h3 className="update-heading">Work Experience</h3>
+                    <div className="update-form-container">
+                        <h3 className="update-heading">Work Experience*</h3>
 
                         {totalExperienceData.length > 0 &&
                             totalExperienceData.map((te, i) => (
                                 <div>
-
-                                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                                        <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            flexWrap: "wrap",
+                                            alignItems: "center",
+                                            gap: "10px",
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                padding: "20px",
+                                            }}
+                                        >
                                             <div className="company">
-                                                {te.company}
+                                                {te.company}{" "}
+
                                             </div>
-                                            <div className="profession">
-                                                {te.profession}
-                                            </div>
+                                            <div className="profession">{te.profession}</div>
                                             <div className="timeline">
-                                                {convertToDate(te.start)}-{te.end == '' ? 'Present' : convertToDate(te.end)}
+                                                {convertToDate(te.start)}-
+                                                {te.end == "" ? "Present" : convertToDate(te.end)}
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </div>
-                            ))
-                        }
-                    </div>}
+                            ))}
+                    </div>
                 </>
-                {totalEducationData.length > 0 && <div className="update-form-container" style={{ flexDirection: 'column' }}>
-                    <form className="update-form">
-                        <h3 className="update-heading">Educational Details</h3>
-
-                    </form>
+                <div
+                    className="update-form-container"
+                    style={{ flexDirection: "column" }}
+                >
+                    <h3 className="update-heading">Education Details*</h3>
 
                     {totalEducationData.length > 0 &&
                         totalEducationData.map((te, i) => (
                             <div>
-
-                                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        alignItems: "center",
+                                        gap: "10px",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            padding: "20px",
+                                        }}
+                                    >
                                         <div className="company">
-                                            {te.college}
+                                            {te.college}{" "}
+
                                         </div>
-                                        <div className="profession">
-                                            {te.grade}
-                                        </div>
+                                        <div className="profession">{te.grade}</div>
                                         <div className="timeline">
-                                            {convertToDate(te.Edstart)}
+                                            {convertToDate(te.Edstart)}-
+                                            {te.Edend == "" ? "Present" : convertToDate(te.Edend)}
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
-                        ))
-                    }
-
-                </div>}
-
-                <div className="update-form-container">
-                    <form className="update-form">
-                        <h3 className="update-heading">Personal / Fee Negotiation</h3>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-                            <div>
+                        ))}
+                    </div>
+                    <div className="update-form-container">
+                        <h3 className="update-heading">Personal Info*</h3>
+                        <form className="update-form">
+                            <div className="personal-container">
                                 <div>
-                                    <label className="update-form-label">Country</label>
-                                </div>
-                                <div>
+                                    <div>
+                                        <label className="update-form-label">Country*</label>
+                                    </div>
                                     <input type="text" value={country} disabled />
                                 </div>
-                            </div>
-
-                            <div>
                                 <div>
-                                    <label className="update-form-label">State</label>
-                                </div>
-                                <div>
+                                    <div>
+                                        <label className="update-form-label">State*</label>
+                                    </div>
                                     <input type="text" value={state} disabled />
                                 </div>
 
-                            </div>
-
-                            <div>
                                 <div>
-                                    <label className="update-form-label">Town/city</label>
-                                </div>
-                                <div>
+                                    <div>
+                                        <label className="update-form-label">Town/city*</label>
+                                    </div>
                                     <input type="text" value={town} disabled />
                                 </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <label className="update-form-label">Bio</label>
-                                </div>
-                                <div>
-                                    <textarea name="bio" cols={45} value={bio} id="" disabled placeholder="Enter your bio" />
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <label className="update-form-label">Skills</label>
-                                </div>
-                                <div>
-                                    {skills?.length > 0 && (
-                                        <div className="listedTeam">
-                                            {skills?.map((t, i) => (
-                                                <div className="singleMember">
-                                                    <div>{t}</div>
-
-                                                </div>
-                                            ))}
+                                {role == "Mentor" && (
+                                    <div>
+                                        <div>
+                                            <label className="update-form-label">Fee request</label>
                                         </div>
-                                    )}
-                                </div>
-
-                            </div>
-
-                            <div>
-                                <div>
-                                    <label className="update-form-label">Languages Known</label>
-                                </div>
-                                <div>
-                                    {languagesKnown?.length > 0 && (
-                                        <div className="listedTeam">
-                                            {languagesKnown?.map((t, i) => (
-                                                <div className="singleMember">
-                                                    <div>{t}</div>
-
-                                                </div>
-                                            ))}
+                                        <div>
+                                            <input
+                                                type="range"
+                                                min={1}
+                                                max={50}
+                                                name="fee"
+                                                id=""
+                                                disabled
+                                            />{" "}
+                                            &#8377; {fee} / per min
                                         </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            {role == 'Mentor' && <div>
-                                <div>
-                                    <label className="update-form-label">Fee request</label>
-                                </div>
-                                <div>
-                                    <input type="range" min={1} max={50} name="fee" value={fee} id="" disabled placeholder="Enter Fee request per minute" /> &#8377; {fee} / per min
-                                </div>
-                            </div>}
-                        </div>
-
-                    </form>
-                </div>
-                <div className="update-form-container" >
-                    <form className="update-form" >
-                        <h3 className="update-heading">Requested files</h3>
-
-
-
-                        <div
-                            style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
-                        >
-                            <div>
-                                <div
-                                    style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
-                                >
-                                    <label className="update-form-label">Resume</label>
-                                    {oldDocs.resume !== "" &&
-                                        oldDocs.resume !== undefined &&
-                                        Object.keys(oldDocs.resume).length !== 0 && (
-                                            <attr title="view previous resume">
-                                                <a
-                                                    href={oldDocs.resume?.secure_url}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                >
-                                                    <img
-                                                        style={{
-                                                            height: "30px",
-                                                            width: "30px",
-                                                        }}
-                                                        src="/view.png"
-
-                                                    />
-                                                </a>
-                                            </attr>
-                                        )}
-                                </div>
-
-                            </div>
-
-                            <div>
-                                <div>
-                                    <div
-                                        style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
-                                    >
-                                        <label className="update-form-label">Acheivements</label>
-                                        {oldDocs.acheivements !== "" &&
-                                            oldDocs.acheivements !== undefined &&
-                                            Object.keys(oldDocs.acheivements).length !== 0 && (
-                                                <attr title="view previous acheivements">
-                                                    <a
-                                                        href={oldDocs.acheivements?.secure_url}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                    >
-                                                        <img
-                                                            style={{
-                                                                height: "30px",
-                                                                width: "30px",
-                                                            }}
-                                                            src="/view.png"
-
-                                                        />
-                                                    </a>
-                                                </attr>
-                                            )}
                                     </div>
+                                )}
 
+                                <div>
+                                    <div>
+                                        <label className="update-form-label">Bio</label>
+                                    </div>
+                                    <textarea
+                                        style={{
+                                            resize: "none",
+                                            // border: "none",
+                                            textAlign: "justify",
+                                            fontFamily: "poppins",
+                                        }}
+                                        id=""
+                                        cols="50"
+                                        rows="5"
+                                        name="message"
+                                        value={bio}
+                                        placeholder="Enter your bio"
+                                    ></textarea>
+                                    <p>{1000 - bio.length} characters</p>
                                 </div>
-                            </div>
 
-                            <div>
-                                <div
-                                    style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
-                                >
-                                    <label className="update-form-label">Degree</label>
-                                    {oldDocs.degree !== "" &&
-                                        oldDocs.degree !== undefined &&
-                                        Object.keys(oldDocs.degree).length !== 0 && (
-                                            <attr title="view previous degree ">
-                                                <a
-                                                    href={oldDocs.degree?.secure_url}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                >
-                                                    <img
-                                                        style={{
-                                                            height: "30px",
-                                                            width: "30px",
-                                                        }}
-                                                        src="/view.png"
-
-                                                    />
-                                                </a>
-                                            </attr>
+                                <div>
+                                    <div>
+                                        <label className="update-form-label">Skills</label>
+                                    </div>
+                                    <div>
+                                        {skills?.length > 0 && (
+                                            <div className="listedTeam">
+                                                {skills?.map((t, i) => (
+                                                    <div className="singleMember">
+                                                        <div>{t}</div>
+                                                        
+                                                    </div>
+                                                ))}
+                                            </div>
                                         )}
+                                    </div>
+                                    
                                 </div>
-                            </div>
 
-                            <div>
-                                <div
-                                    style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
-                                >
-                                    <label className="update-form-label">Expertise</label>
-                                    {oldDocs.expertise !== "" &&
-                                        oldDocs.expertise !== undefined &&
-                                        Object.keys(oldDocs.expertise).length !== 0 && (
-                                            <attr title="view previous expertise ">
-                                                <a
-                                                    href={oldDocs.expertise?.secure_url}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                >
-                                                    <img
-                                                        style={{
-                                                            height: "30px",
-                                                            width: "30px",
-                                                        }}
-                                                        src="/view.png"
-
-                                                    />
-                                                </a>
-                                            </attr>
+                                <div>
+                                    <div>
+                                        <label className="update-form-label">Languages Known</label>
+                                    </div>
+                                    <div>
+                                        {languagesKnown?.length > 0 && (
+                                            <div className="listedTeam">
+                                                {languagesKnown?.map((t, i) => (
+                                                    <div className="singleMember">
+                                                        <div>{t}</div>
+                                                       
+                                                    </div>
+                                                ))}
+                                            </div>
                                         )}
+                                    </div>
+                                    
                                 </div>
-
                             </div>
+                        </form>
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            width: "25%",
+                            gap: "10px",
+                            marginTop: "15px",
+                        }}
+                    >
+                        <button type="button" className="back-button" onClick={() => navigate(-1)}>Back</button>
 
-                            <div>
-                                <div
-                                    style={{ display: "flex", alignItems: "center", gap: "2px", justifyContent: 'space-between' }}
-                                >
-                                    <label className="update-form-label">Working</label>
-                                    {oldDocs.working !== "" &&
-                                        oldDocs.working !== undefined &&
-                                        Object.keys(oldDocs.working).length !== 0 && (
-                                            <attr title="view previous working ">
-                                                <a
-                                                    href={oldDocs.working?.secure_url}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                >
-                                                    <img
-                                                        style={{
-                                                            height: "30px",
-                                                            width: "30px",
-                                                        }}
-                                                        src="/view.png"
-
-                                                    />
-                                                </a>
-                                            </attr>
-                                        )}
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                width: "25%",
-                                gap: "10px",
-                                marginTop: "15px",
-                            }}
-                        >
-                            <button type="button" className="back-button" onClick={() => navigate(-1)}>Back</button>
-
-                            <button type="submit" className="reject-button" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "rejected"}>
-                                {/* {isLoading ? (
+                        <button type="submit" className="reject-button" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "rejected"}>
+                            {/* {isLoading ? (
                                     <>
                                         <img
                                             src="/loading-button.gif"
@@ -601,34 +492,32 @@ export const SingleRequestProfile = () => {
                                         <span style={{ marginLeft: "12px" }}>Rejecting...</span>
                                     </>
                                 ) : ( */}
-                                <>Reject</>
-                                {/* )} */}
-                            </button>
-                            <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "approved"}>
-                                {isLoading ? (
-                                    <>
-                                        <img
-                                            src="/loading-button.gif"
-                                            style={{ height: "20px", width: "20px", position: 'absolute', left: '-10px', top: '12px' }}
-                                            alt="Loading..."
-                                        />
-                                        <span style={{ marginLeft: "12px" }}>Approving...</span>
-                                    </>
-                                ) : (
-                                    <>Approve</>
-                                )}
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                            <>Reject</>
+                            {/* )} */}
+                        </button>
+                        <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "approved"}>
+                            {isLoading ? (
+                                <>
+                                    <img
+                                        src="/loading-button.gif"
+                                        style={{ height: "20px", width: "20px", position: 'absolute', left: '-10px', top: '12px' }}
+                                        alt="Loading..."
+                                    />
+                                    <span style={{ marginLeft: "12px" }}>Approving...</span>
+                                </>
+                            ) : (
+                                <>Approve</>
+                            )}
+                        </button>
+                    </div>
             </div>
-            <Dialog
+            <Dialog 
                 open={reasonPop}
                 onClose={() => setReasonPop(false)}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                maxWidth='xl'
-                sx={gridCSS.tabContainer}
+                    sx={gridCSS.tabContainer}
+
             // sx={ gridCSS.tabContainer }
             >
 
@@ -636,8 +525,19 @@ export const SingleRequestProfile = () => {
                 <DialogContent style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
                     <Box><b>Enter Reason for rejection</b></Box>
                     <Box sx={{ position: 'absolute', top: '5px', right: '10px', cursor: 'pointer' }} onClick={() => setReasonPop(false)}><CloseIcon /></Box>
-                    <Box>
-                        <input type="text" name="" value={reason} id="" onChange={(e) => setReason(e.target.value)} />
+                        <Box className='singleProfile'>
+                            <textarea
+                                style={{
+                                    resize: "none",
+                                    // border: "none",
+                                    textAlign: "justify",
+                                    fontFamily: "poppins",
+                                }}
+                                id=""
+                                name="message"
+                                value={reason} onChange={(e) => setReason(e.target.value)}
+                                placeholder="Enter your bio"
+                            ></textarea>
                     </Box>
                     <button type="submit" disabled={reason == ''} onClick={(e) => {
                         update(e, 'rejected')
@@ -648,6 +548,7 @@ export const SingleRequestProfile = () => {
                 </DialogContent>
             </Dialog>
         </div>
+
 
     );
 };

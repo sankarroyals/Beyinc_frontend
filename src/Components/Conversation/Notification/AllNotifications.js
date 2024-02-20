@@ -19,7 +19,7 @@ const AllNotifications = ({ n }) => {
         <div>
           <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderInfo?.image?.url == undefined ? '/profile.png' : n.senderInfo?.image?.url} alt="" srcset="" />
         </div>
-        <div>{n.message} </div>
+        <div style={{wordBreak: 'break-word'}}>{n.message} </div>
         <div className=''>
           {/* <div>{format(n.createdAt)}</div> */}
         </div>

@@ -968,7 +968,7 @@ const Editprofile = () => {
             ))}
         </div>
         <div className="update-form-container">
-          <h3 className="update-heading">Personal / Fee Negotiation*</h3>
+          <h3 className="update-heading">Personal Info*</h3>
           <form className="update-form">
             <div className="personal-container">
               <div>

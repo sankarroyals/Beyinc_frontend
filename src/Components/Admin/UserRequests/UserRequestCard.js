@@ -40,11 +40,19 @@ export default function UserRequestCard({ d }) {
               src={
                 d.userInfo?.image !== undefined && d.userInfo?.image !== ""
                   ? d.userInfo?.image.url
-                  : "/profile.jpeg"
+                  : "/profile.png"
               }
               title={d.email}
             />
+            {d.verification === "approved" && (
+              <img
+                src="/verify.png"
+                alt=""
+                style={{ width: "15px", height: "15px", position: 'absolute', right: '0' }}
+              />
+            )}
           </div>
+         
         </div>
         <div className="user-card-details-text">
           <span className="user-name" onClick={openUser}>
@@ -89,15 +97,7 @@ export default function UserRequestCard({ d }) {
           }}
         >
           <span>{d.role}</span>
-          <span>
-            {d.verification === "approved" && (
-              <img
-                src="/verify.png"
-                alt=""
-                style={{ width: "15px", height: "15px", marginLeft: "5px" }}
-              />
-            )}
-          </span>
+          
         </div>
         <button onClick={() => navigate(`/singleProfileRequest/${d.email}`)}>
           View

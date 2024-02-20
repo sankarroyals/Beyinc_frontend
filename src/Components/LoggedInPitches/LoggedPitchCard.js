@@ -90,7 +90,7 @@ export default function LoggedInPitchCard({ d }) {
             <img
               alt="user-pic"
               src={
-                image !== undefined && image !== "" ? image : "/profile.jpeg"
+                image !== undefined && image !== "" ? image : "/profile.png"
               }
               title={d.email}
             />

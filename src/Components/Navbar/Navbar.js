@@ -92,7 +92,7 @@ const Navbar = () => {
   const [messageRequest, setMessageRequest] = useState([]);
 
   const notifications = useSelector((state) => state.conv.notifications);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -269,7 +269,7 @@ const Navbar = () => {
       }}
       role="presentation"
     >
-      <Tabs
+      {/* <Tabs
         value={value}
         className="pitchTabs"
         style={{ width: "500px" }}
@@ -304,16 +304,20 @@ const Navbar = () => {
           label={`Message Requests (${messageRequest?.length})`}
           {...a11yProps(0)}
         />
-      </Tabs>
-      <TabPanel style={{ padding: 0 }} className="" value={value} index={0}>
-        {notifications.map((n) => (
+      </Tabs> */}
+      <div className="SideNotificationHeader">
+        <div className={`sideNavIcons ${value == 1 && 'sideselected'}`} onClick={()=> setValue(1)}>Notifications  ({notifications?.length})</div>
+        <div className={`sideNavIcons ${value == 2 && 'sideselected'}`} onClick={() => setValue(2)}>Message Requests ({messageRequest?.length})</div>
+      </div>
+      {value == 1 && 
+        notifications.map((n) => (
           <>
             <div
               className={`individualrequest`}
               onClick={() => {
                 navigate(`/user/${n.senderInfo?.email}`);
               }}
-              style={{ width: "500px", marginLeft: "15px", textAlign: "start" }}
+              style={{  marginLeft: "15px", textAlign: "start" }}
             >
               <div
                 className="individualrequestWrapper"
@@ -338,24 +342,22 @@ const Navbar = () => {
                 <div>{n.message} </div>
               </div>
             </div>
-            <div className="divider"></div>
+            {/* <div className="divider"></div> */}
           </>
-        ))}
-      </TabPanel>
-      <TabPanel style={{ padding: 0 }} className="" value={value} index={1}>
-        {(messageRequest.length > 0 || notifications.length > 0) && (
-          <>
-            <div>
-              {messageRequest?.map((m) => (
-                <>
-                  <MessageRequest m={m} setMessageRequest={setMessageRequest} />
-                  <div className="divider"></div>
-                </>
-              ))}
-            </div>
-          </>
-        )}
-      </TabPanel>
+        ))
+      }
+      {value == 2 && (messageRequest.length > 0 || notifications.length > 0) && (
+        <>
+          <div>
+            {messageRequest?.map((m) => (
+              <>
+                <MessageRequest m={m} setMessageRequest={setMessageRequest} />
+                <div className="divider"></div>
+              </>
+            ))}
+          </div>
+        </>
+      )}
     </Box>
   );
 
