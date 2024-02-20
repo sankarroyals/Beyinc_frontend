@@ -287,7 +287,7 @@ const Editprofile = () => {
     if (e.target.name === "email") {
       setInputs((prev) => ({
         ...prev,
-        isEmailValid: /[a-zA-Z0-9]+@gmail.com/.test(e.target.value),
+        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(e.target.value),
       }));
     }
     if (e.target.name === "mobile") {
@@ -502,19 +502,19 @@ const Editprofile = () => {
 
   const [isFormValid, setIsFormValid] = useState(
     mobileVerified &&
-      (isNameValid ||
-        oldDocs.resume !== "" ||
-        oldDocs.expertise !== "" ||
-        oldDocs.acheivements !== "" ||
-        oldDocs.working !== "" ||
-        oldDocs.degree !== "" ||
-        changeResume.resume !== "" ||
-        changeResume.expertise !== "" ||
-        changeResume.acheivements !== "" ||
-        changeResume.working !== "" ||
-        changeResume.degree !== "") &&
-      totalEducationData.length > 0 &&
-      totalExperienceData.length > 0
+    (isNameValid ||
+      oldDocs.resume !== "" ||
+      oldDocs.expertise !== "" ||
+      oldDocs.acheivements !== "" ||
+      oldDocs.working !== "" ||
+      oldDocs.degree !== "" ||
+      changeResume.resume !== "" ||
+      changeResume.expertise !== "" ||
+      changeResume.acheivements !== "" ||
+      changeResume.working !== "" ||
+      changeResume.degree !== "") &&
+    totalEducationData.length > 0 &&
+    totalExperienceData.length > 0
   );
 
   const handleChangeRadio = (e) => {
@@ -696,7 +696,7 @@ const Editprofile = () => {
         </div>
         <>
           <div className="update-form-container">
-          <h3 className="update-heading">Work Experience*</h3>
+            <h3 className="update-heading">Work Experience*</h3>
             <form className="update-form">
               <div className="exp-container">
                 <div style={{ display: "flex", flexDirection: "column" }}>
@@ -821,9 +821,9 @@ const Editprofile = () => {
           className="update-form-container"
           style={{ flexDirection: "column" }}
         >
-         <h3 className="update-heading">
-                Education Details*
-              </h3>
+          <h3 className="update-heading">
+            Education Details*
+          </h3>
           <form className="update-form">
             <div className="edu-container">
               <div style={{ display: "flex", flexDirection: "column" }}>
@@ -882,7 +882,7 @@ const Editprofile = () => {
                 </div>
                 <div>
                   {EducationDetails.grade == "SSC" ||
-                  EducationDetails.grade == "" ? (
+                    EducationDetails.grade == "" ? (
                     <input
                       type="text"
                       name="college"
@@ -964,265 +964,265 @@ const Editprofile = () => {
             ))}
         </div>
         <div className="update-form-container">
-        <h3 className="update-heading">Personal / Fee Negotiation*</h3>
+          <h3 className="update-heading">Personal / Fee Negotiation*</h3>
           <form className="update-form">
             <div className="personal-container">
-            
-                <div>
-                  <div>
-                    <label className="update-form-label">Country*</label>
-                  </div>
-                  <select
-                    name="country"
-                    id=""
-                    onChange={(e) => {
-                      setCountry(e.target.value);
-                      setState("");
-                      settown("");
-                      setPlaces((prev) => ({ ...prev, state: [], town: [] }));
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {places.country?.map((op) => (
-                      <option
-                        value={`${op.name}-${op.isoCode}`}
-                        selected={country?.split("-")[0] == op.name}
-                      >
-                        {op.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <div>
-                    <label className="update-form-label">State*</label>
-                  </div>
-                  <select
-                    name="state"
-                    id=""
-                    onChange={(e) => {
-                      setState(e.target.value);
-                      settown("");
-                      setPlaces((prev) => ({ ...prev, town: [] }));
-                    }}
-                  >
-                    <option value="">Select</option>
-                    {places.state?.map((op) => (
-                      <option
-                        value={`${op.name}-${op.isoCode}`}
-                        selected={state?.split("-")[0] == op.name}
-                      >
-                        {op.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
 
+              <div>
                 <div>
-                  <div>
-                    <label className="update-form-label">Town/city*</label>
-                  </div>
-                  <select
-                    name="town"
-                    id=""
-                    value={town}
-                    onChange={(e) => settown(e.target.value)}
-                  >
-                    <option value="">Select</option>
-                    {places.town?.map((op) => (
-                      <option
-                        value={op.name}
-                        selected={town?.split("-")[0] == op.name}
-                      >
-                        {op.name}
-                      </option>
-                    ))}
-                  </select>
+                  <label className="update-form-label">Country*</label>
                 </div>
-                {role == "Mentor" && (
-                  <div>
-                    <div>
-                      <label className="update-form-label">Fee request</label>
-                    </div>
-                    <div>
-                      <input
-                        type="range"
-                        min={1}
-                        max={50}
-                        name="fee"
-                        value={fee}
-                        id=""
-                        onChange={(e) => setFee(e.target.value)}
-                        placeholder="Enter Fee request per minute"
-                      />{" "}
-                      &#8377; {fee} / per min
-                    </div>
-                  </div>
-                )}
-                
+                <select
+                  name="country"
+                  id=""
+                  onChange={(e) => {
+                    setCountry(e.target.value);
+                    setState("");
+                    settown("");
+                    setPlaces((prev) => ({ ...prev, state: [], town: [] }));
+                  }}
+                >
+                  <option value="">Select</option>
+                  {places.country?.map((op) => (
+                    <option
+                      value={`${op.name}-${op.isoCode}`}
+                      selected={country?.split("-")[0] == op.name}
+                    >
+                      {op.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
                 <div>
+                  <label className="update-form-label">State*</label>
+                </div>
+                <select
+                  name="state"
+                  id=""
+                  onChange={(e) => {
+                    setState(e.target.value);
+                    settown("");
+                    setPlaces((prev) => ({ ...prev, town: [] }));
+                  }}
+                >
+                  <option value="">Select</option>
+                  {places.state?.map((op) => (
+                    <option
+                      value={`${op.name}-${op.isoCode}`}
+                      selected={state?.split("-")[0] == op.name}
+                    >
+                      {op.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <div>
+                  <label className="update-form-label">Town/city*</label>
+                </div>
+                <select
+                  name="town"
+                  id=""
+                  value={town}
+                  onChange={(e) => settown(e.target.value)}
+                >
+                  <option value="">Select</option>
+                  {places.town?.map((op) => (
+                    <option
+                      value={op.name}
+                      selected={town?.split("-")[0] == op.name}
+                    >
+                      {op.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {role == "Mentor" && (
+                <div>
+                  <div>
+                    <label className="update-form-label">Fee request</label>
+                  </div>
+                  <div>
+                    <input
+                      type="range"
+                      min={1}
+                      max={50}
+                      name="fee"
+                      value={fee}
+                      id=""
+                      onChange={(e) => setFee(e.target.value)}
+                      placeholder="Enter Fee request per minute"
+                    />{" "}
+                    &#8377; {fee} / per min
+                  </div>
+                </div>
+              )}
+
+              <div>
                 <div>
                   <label className="update-form-label">Bio</label>
                 </div>
-                  <textarea
-                    onChange={(e) => {
-                      const inputText = e.target.value;
-                      if (inputText.length <= 1000) {
-                        setBio(inputText);
-                      } else {
-                        setBio(inputText.slice(0, 1000));
-                      }
-                    }}
-                    style={{
-                      resize: "none",
-                      // border: "none",
-                      textAlign: "justify",
-                      fontFamily: "poppins",
-                    }}
-                    id=""
-                    cols="50"
-                    rows="5" 
-                    name="message"
-                    value={bio}
-                    placeholder="Enter your bio"
-                  ></textarea>
-                  <p>{1000 - bio.length}/1000 characters left</p>
-                </div>
+                <textarea
+                  onChange={(e) => {
+                    const inputText = e.target.value;
+                    if (inputText.length <= 1000) {
+                      setBio(inputText);
+                    } else {
+                      setBio(inputText.slice(0, 1000));
+                    }
+                  }}
+                  style={{
+                    resize: "none",
+                    // border: "none",
+                    textAlign: "justify",
+                    fontFamily: "poppins",
+                  }}
+                  id=""
+                  cols="50"
+                  rows="5"
+                  name="message"
+                  value={bio}
+                  placeholder="Enter your bio"
+                ></textarea>
+                <p>{1000 - bio.length}/1000 characters left</p>
+              </div>
 
+              <div>
                 <div>
-                  <div>
-                    <label className="update-form-label">Skills</label>
-                  </div>
-                  <div>
-                    {skills?.length > 0 && (
-                      <div className="listedTeam">
-                        {skills?.map((t, i) => (
-                          <div className="singleMember">
-                            <div>{t}</div>
-                            <div
-                              onClick={(e) => {
-                                setSkills(skills.filter((f, j) => i !== j));
-                              }}
-                            >
-                              <CloseIcon className="deleteMember" />
-                            </div>
+                  <label className="update-form-label">Skills</label>
+                </div>
+                <div>
+                  {skills?.length > 0 && (
+                    <div className="listedTeam">
+                      {skills?.map((t, i) => (
+                        <div className="singleMember">
+                          <div>{t}</div>
+                          <div
+                            onClick={(e) => {
+                              setSkills(skills.filter((f, j) => i !== j));
+                            }}
+                          >
+                            <CloseIcon className="deleteMember" />
                           </div>
-                        ))}
-                      </div>
-                    )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "5px",
+                    alignItems: "center",
+                  }}
+                >
+                  <div>
+                    <select
+                      name="skill"
+                      id=""
+                      onChange={(e) => setSingleSkill(e.target.value)}
+                    >
+                      <option value="">Select</option>
+                      {allskills.map((d) => (
+                        <option value={d}>{d}</option>
+                      ))}
+                    </select>
                   </div>
                   <div
-                    style={{
-                      display: "flex",
-                      gap: "5px",
-                      alignItems: "center",
+                    className="addtags"
+                    onClick={() => {
+                      if (
+                        singleSkill !== "" &&
+                        !skills.includes(singleSkill)
+                      ) {
+                        setSkills((prev) => [...prev, singleSkill]);
+                      }
+                    }}
+                  >
+                    <i className="fas fa-plus"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div>
+                  <label className="update-form-label">Languages Known</label>
+                </div>
+                <div>
+                  {languagesKnown?.length > 0 && (
+                    <div className="listedTeam">
+                      {languagesKnown?.map((t, i) => (
+                        <div className="singleMember">
+                          <div>{t}</div>
+                          <div
+                            onClick={(e) => {
+                              setlanguagesKnown(
+                                languagesKnown.filter((f, j) => i !== j)
+                              );
+                            }}
+                          >
+                            <CloseIcon className="deleteMember" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "5px",
+                    alignItems: "center",
+                  }}
+                >
+                  <div>
+                    <select
+                      name="languagesKnown"
+                      id=""
+                      onChange={(e) =>
+                        setSinglelanguagesKnown(e.target.value)
+                      }
+                    >
+                      <option value="">Select</option>
+                      {allLanguages.map((d) => (
+                        <option value={d}>{d}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div
+                    className="addtags"
+                    onClick={() => {
+                      if (
+                        singlelanguagesKnown !== "" &&
+                        !languagesKnown.includes(singlelanguagesKnown)
+                      ) {
+                        setlanguagesKnown((prev) => [
+                          ...prev,
+                          singlelanguagesKnown,
+                        ]);
+                      }
                     }}
                   >
                     <div>
-                      <select
-                        name="skill"
-                        id=""
-                        onChange={(e) => setSingleSkill(e.target.value)}
-                      >
-                        <option value="">Select</option>
-                        {allskills.map((d) => (
-                          <option value={d}>{d}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div
-                      className="addtags"
-                      onClick={() => {
-                        if (
-                          singleSkill !== "" &&
-                          !skills.includes(singleSkill)
-                        ) {
-                          setSkills((prev) => [...prev, singleSkill]);
-                        }
-                      }}
-                    >
+                      {" "}
                       <i className="fas fa-plus"></i>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div>
-                  <div>
-                    <label className="update-form-label">Languages Known</label>
-                  </div>
-                  <div>
-                    {languagesKnown?.length > 0 && (
-                      <div className="listedTeam">
-                        {languagesKnown?.map((t, i) => (
-                          <div className="singleMember">
-                            <div>{t}</div>
-                            <div
-                              onClick={(e) => {
-                                setlanguagesKnown(
-                                  languagesKnown.filter((f, j) => i !== j)
-                                );
-                              }}
-                            >
-                              <CloseIcon className="deleteMember" />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "5px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div>
-                      <select
-                        name="languagesKnown"
-                        id=""
-                        onChange={(e) =>
-                          setSinglelanguagesKnown(e.target.value)
-                        }
-                      >
-                        <option value="">Select</option>
-                        {allLanguages.map((d) => (
-                          <option value={d}>{d}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div
-                      className="addtags"
-                      onClick={() => {
-                        if (
-                          singlelanguagesKnown !== "" &&
-                          !languagesKnown.includes(singlelanguagesKnown)
-                        ) {
-                          setlanguagesKnown((prev) => [
-                            ...prev,
-                            singlelanguagesKnown,
-                          ]);
-                        }
-                      }}
-                    >
-                      <div>
-                        {" "}
-                        <i className="fas fa-plus"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
-                
-             
+
             </div>
           </form>
         </div>
         <div className="update-form-container">
-        <h3 className="update-heading">Upload files</h3>
+          <h3 className="update-heading">Upload files</h3>
           <form className="update-form">
             <div className="upload-files-container">
-             
+
               <div>
                 <div
                   style={{
