@@ -12,7 +12,7 @@
   height: auto;
   width: 150px;
   margin-left: -10px;
-  margin-top: 10px;
+  
 }
 
 .Profile-img {
@@ -139,12 +139,10 @@
 .navbar {
   background-color: var(--nav-head-bg);
   height: 4.5vh;
-  
   backdrop-filter: blur(5px);
-  /* color: var(--text-total-color); */
-  color: var(--nabar-text);
-  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
+  /* color: var(--navar-text); */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   padding: 15px;
   font-weight: 600;
   z-index: 999;
@@ -167,11 +165,13 @@
 
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
   width: 8px !important;
-  color: #1976d2;
+  color: var(--primary) !important;
 }
-
+.closeIcon{
+  text-align: end;
+}
 .cross {
-  margin-left: 345px;
+  /* margin-left: 345px; */
   margin-top: 2px;
   padding: 10px 12px;
 }
@@ -188,9 +188,9 @@ img {
   margin-left: 15px;
 }
 
-h1 {
+/* h1 {
   margin-top: 300px;
-}
+} */
 
 .userDetails {
   height: 380px;
@@ -296,11 +296,11 @@ h1 {
   cursor: pointer;
   height: 70px;
   width: 70px;
-  margin-left: 160px;
+  /* margin-left: 160px; */
   margin-top: 25px;
   cursor: pointer;
 }
-.email {
+.email, .popupImg {
   font-weight: 600;
   font-size: 15px;
   display: flex;
@@ -311,11 +311,14 @@ h1 {
 }
 
 .edit-icon {
-  position: absolute;
+  /* position: absolute;
   bottom: 0;
-  right: 0;
-  background-color: #0b57d0;
-  color: white;
+  right: 0; */
+  display: block;
+  align-self: flex-end;
+  margin-left: -10px !important;
+  background-color: var(--primary);
+  color: var(--white-text);
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;
@@ -338,47 +341,57 @@ h1 {
   align-items: center;
   justify-content: center;
   margin-top: 20px;
-  color: #0b57d0;
+  color: var(--primary);
   border: 1px solid grey;
   padding: 8px;
   border-radius: 20px;
   width: 65%;
-  margin-left: 60px;
+  margin-left: auto;
+    margin-right: auto;
+
   cursor: pointer;
   font-weight: bold;
 }
 .manage:hover {
-  background-color: rgb(215, 229, 241);
+  background-color: var(--light-transparent);
+  
+}
+
+.editPopupActions{
+  display: flex;
+   gap: 10px;
+   margin-top: 31px;
+   align-items: center;
 }
 
 .Account {
   color: #fff;
-  background-color: #6a73fa;
+  background-color:var(--button);
   padding: 20px;
   border-radius: 28px 5px 5px 28px;
-  margin-top: 31px;
+  /* margin-top: 31px; */
   width: 35%;
   margin-left: 20px;
   font-weight: 400;
 }
 
 .Account:hover {
-  background-color: #4e54c7;
+  background-color: var(--button-hover);
   cursor: pointer;
 }
 
 .logout {
   color: #fff;
-  background-color: #6a73fa;
+  background-color:var(--button);
   padding: 20px;
   border-radius: 5px 28px 28px 5px;
-  margin-top: -60px;
+  /* margin-top: -63px; */
   width: 35%;
-  margin-left: 194px;
+  /* margin-left: 194px; */
   font-weight: 400;
 }
 .logout:hover {
-  background-color: #4e54c7;
+  background-color: var(--button-hover);
   cursor: pointer;
 }
 
@@ -428,6 +441,10 @@ h1 {
   font-weight: bold;
   cursor: pointer;
 }
+.Conversations-count.mobile{
+   left: 43px;
+    top: 3px;
+}
 .Conversations-count::before {
   content: "";
   position: absolute;
@@ -439,7 +456,7 @@ h1 {
   border-radius: 50%;
   background: rgb(120, 120, 255);
   transform: scale(0);
-  animation: blink 1s ease-in-out infinite forwards;
+  animation: blink 3s ease-in-out infinite forwards;
 }
 
 @keyframes blink {
@@ -488,6 +505,14 @@ h1 {
   /* margin-top: -5px; */
 }
 
+.popupImg{
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ text-align: center;
+}
+
 @media (max-width: 768px) {
   .Individual-Notifications {
     width: 100%;
@@ -496,9 +521,7 @@ h1 {
     margin-left: 0 !important;
     width: auto !important;
   }
-  /* .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
-    width: 70% !important;
-  } */
+
 
   .fa-search,
   .fa-comment-dots,
@@ -508,9 +531,18 @@ h1 {
   }
   .userDetails {
     height: 370px;
-    width: 370px;
-    top: 80px;
-    right: 0px;
+    width: 335px;
+    top: 65px;
+    right: 6px;
    
   }
+  .Account, .logout {
+  color: #fff;
+  background-color:var(--button);
+  padding: 10px 15px;
+  
+  /* margin-left: 20px; */
+  white-space: nowrap;
+  font-weight: 400;
+}
 }

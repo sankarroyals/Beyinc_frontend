@@ -3,7 +3,11 @@ import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setLoginData, setToast } from "../../redux/AuthReducers/AuthReducer";
+import {
+  setLoginData,
+  setToast,
+  setLoading,
+} from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
 import axiosInstance from "../axiosInstance";
 import CloseIcon from "@mui/icons-material/Close";
@@ -23,6 +27,7 @@ import {
   itPositions,
 } from "../../Utils";
 import { TextField } from "@mui/material";
+import useWindowDimensions from "../Common/WindowSize";
 
 const Editprofile = () => {
   const { email, role, userName, image, phone } = useSelector(
@@ -32,9 +37,12 @@ const Editprofile = () => {
   const [showPreviousFile, setShowPreviousFile] = useState(false);
   const [universities, setUniversities] = useState([]);
   useEffect(() => {
-    axios.get("http://universities.hipolabs.com/search").then((res) => {
-      setUniversities(res.data);
-    });
+    const uni = async () => {
+      await axios.get("http://universities.hipolabs.com/search").then((res) => {
+        setUniversities(res.data);
+      });
+    };
+    uni();
   }, []);
 
   const [inputs, setInputs] = useState({
@@ -71,6 +79,7 @@ const Editprofile = () => {
   } = inputs;
 
   const [nameChanger, setNameChanger] = useState(false);
+  const { height, width } = useWindowDimensions();
 
   const [roles, setRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -258,6 +267,7 @@ const Editprofile = () => {
           });
         }
       })
+
       .catch((error) => {
         dispatch(
           setToast({
@@ -300,7 +310,7 @@ const Editprofile = () => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
-      phone: `+91${mobile}`,
+      phone: `+91${mobile}`, type: ''
     })
       .then((res) => {
         dispatch(
@@ -511,8 +521,10 @@ const Editprofile = () => {
     setInputs((prev) => ({ ...prev, role: e.target.value }));
   };
   useEffect(() => {
+    dispatch(setLoading({ visible: "yes" }));
     ApiServices.getAllRoles().then((res) => {
       setRoles(res.data);
+      dispatch(setLoading({ visible: "no" }));
     });
   }, []);
 
@@ -522,19 +534,13 @@ const Editprofile = () => {
         <div className="heading">
           <div>
             <img
-              src={
-                image !== undefined && image !== "" ? image : "/profile.jpeg"
-              }
-              style={{
-                width: "150px",
-                height: "150px",
-                borderRadius: "50%",
-              }}
+              className="heading-image"
+              src={image !== undefined && image !== "" ? image : "/profile.png"}
             />
           </div>
 
           <div className="profile-content">
-            <div style={{ fontSize: "24px" }}>
+            <div className="name-container">
               {nameChanger ? (
                 <input
                   className="name"
@@ -557,6 +563,7 @@ const Editprofile = () => {
               </attr>
             </div>
             <div
+              className="created"
               style={{
                 fontSize: "12px",
                 color: "#717B9E",
@@ -581,7 +588,7 @@ const Editprofile = () => {
             <div
               style={{ fontSize: "16px", color: "#474D6A", lineHeight: "1.5" }}
             >
-              <div
+              <div className="detailOf"
                 style={{
                   fontSize: "16px",
                   color: "#474D6A",
@@ -687,36 +694,11 @@ const Editprofile = () => {
             </div>
           </div>
         </div>
-        {/* {role == 'Mentor' && */}
         <>
-          <div
-            className="update-form-container"
-            style={{ flexDirection: "column" }}
-          >
+          <div className="update-form-container">
+          <h3 className="update-heading">Work Experience*</h3>
             <form className="update-form">
-              <h3 className="update-heading">Work Experience*</h3>
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
-              >
-                {/* <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div>
-                      <label className="update-form-label">Years of experience*</label>
-                    </div>
-                    <div>
-                      <select name="year" id="" value={experienceDetails.year} onChange={handleChange}>
-                        <option value="">Select</option>
-                        <option value="0-2">0-2 years</option>
-                        <option value="2-5">2-5 years</option>
-                        <option value="5-8">5-8 years</option>
-                        <option value="above 8">above 8 years</option>
-                      </select>
-                    </div>
-                  </div> */}
+              <div className="exp-container">
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <div>
                     <label className="update-form-label">Start Date*</label>
@@ -767,7 +749,6 @@ const Editprofile = () => {
                   <div>
                     <select
                       name="profession"
-                      id=""
                       value={experienceDetails.profession}
                       onChange={handleChange}
                     >
@@ -780,7 +761,7 @@ const Editprofile = () => {
                 </div>
 
                 <div style={{ marginTop: "21px" }}>
-                  <button
+                  <button className="full-width-button"
                     onClick={addExperience}
                     disabled={
                       experienceDetails.start == "" ||
@@ -836,23 +817,15 @@ const Editprofile = () => {
               ))}
           </div>
         </>
-        {/* } */}
         <div
           className="update-form-container"
           style={{ flexDirection: "column" }}
         >
+         <h3 className="update-heading">
+                Education Details*
+              </h3>
           <form className="update-form">
-            <h3 className="update-heading">
-              Education Details (Add latest degree at top)*
-            </h3>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
+            <div className="edu-container">
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <div>
                   <label className="update-form-label">Start Date*</label>
@@ -886,7 +859,6 @@ const Editprofile = () => {
                   <label className="update-form-label">Grade*</label>
                 </div>
                 <div>
-                  {/* <input type="text" name="grade" id="" value={EducationDetails.grade} onChange={handleEducationChange} placeholder="Enter Your Profession" /> */}
                   <select
                     name="grade"
                     id=""
@@ -936,7 +908,7 @@ const Editprofile = () => {
               </div>
 
               <div style={{ marginTop: "21px" }}>
-                <button
+                <button className="full-width-button"
                   onClick={addEducation}
                   disabled={
                     EducationDetails.Edstart == "" ||
@@ -992,267 +964,265 @@ const Editprofile = () => {
             ))}
         </div>
         <div className="update-form-container">
+        <h3 className="update-heading">Personal / Fee Negotiation*</h3>
           <form className="update-form">
-            <h3 className="update-heading">Personal / Fee Negotiation*</h3>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
-              <div>
+            <div className="personal-container">
+            
                 <div>
-                  <label className="update-form-label">Country*</label>
+                  <div>
+                    <label className="update-form-label">Country*</label>
+                  </div>
+                  <select
+                    name="country"
+                    id=""
+                    onChange={(e) => {
+                      setCountry(e.target.value);
+                      setState("");
+                      settown("");
+                      setPlaces((prev) => ({ ...prev, state: [], town: [] }));
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {places.country?.map((op) => (
+                      <option
+                        value={`${op.name}-${op.isoCode}`}
+                        selected={country?.split("-")[0] == op.name}
+                      >
+                        {op.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-                <select
-                  name="country"
-                  id=""
-                  onChange={(e) => {
-                    setCountry(e.target.value);
-                    setState("");
-                    settown("");
-                    setPlaces((prev) => ({ ...prev, state: [], town: [] }));
-                  }}
-                >
-                  <option value="">Select</option>
-                  {places.country?.map((op) => (
-                    <option
-                      value={`${op.name}-${op.isoCode}`}
-                      selected={country?.split("-")[0] == op.name}
-                    >
-                      {op.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
                 <div>
-                  <label className="update-form-label">State*</label>
+                  <div>
+                    <label className="update-form-label">State*</label>
+                  </div>
+                  <select
+                    name="state"
+                    id=""
+                    onChange={(e) => {
+                      setState(e.target.value);
+                      settown("");
+                      setPlaces((prev) => ({ ...prev, town: [] }));
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {places.state?.map((op) => (
+                      <option
+                        value={`${op.name}-${op.isoCode}`}
+                        selected={state?.split("-")[0] == op.name}
+                      >
+                        {op.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-                <select
-                  name="state"
-                  id=""
-                  onChange={(e) => {
-                    setState(e.target.value);
-                    settown("");
-                    setPlaces((prev) => ({ ...prev, town: [] }));
-                  }}
-                >
-                  <option value="">Select</option>
-                  {places.state?.map((op) => (
-                    <option
-                      value={`${op.name}-${op.isoCode}`}
-                      selected={state?.split("-")[0] == op.name}
-                    >
-                      {op.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
 
-              <div>
                 <div>
-                  <label className="update-form-label">Town/city*</label>
+                  <div>
+                    <label className="update-form-label">Town/city*</label>
+                  </div>
+                  <select
+                    name="town"
+                    id=""
+                    value={town}
+                    onChange={(e) => settown(e.target.value)}
+                  >
+                    <option value="">Select</option>
+                    {places.town?.map((op) => (
+                      <option
+                        value={op.name}
+                        selected={town?.split("-")[0] == op.name}
+                      >
+                        {op.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-                <select
-                  name="town"
-                  id=""
-                  value={town}
-                  onChange={(e) => settown(e.target.value)}
-                >
-                  <option value="">Select</option>
-                  {places.town?.map((op) => (
-                    <option
-                      value={op.name}
-                      selected={town?.split("-")[0] == op.name}
-                    >
-                      {op.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
+                {role == "Mentor" && (
+                  <div>
+                    <div>
+                      <label className="update-form-label">Fee request</label>
+                    </div>
+                    <div>
+                      <input
+                        type="range"
+                        min={1}
+                        max={50}
+                        name="fee"
+                        value={fee}
+                        id=""
+                        onChange={(e) => setFee(e.target.value)}
+                        placeholder="Enter Fee request per minute"
+                      />{" "}
+                      &#8377; {fee} / per min
+                    </div>
+                  </div>
+                )}
+                
+                <div>
                 <div>
                   <label className="update-form-label">Bio</label>
                 </div>
-                <div>
-                  <textarea onChange={(e) => {
-                    const inputText = e.target.value;
-                    if (inputText.length <= 1000) {
-                      setBio(inputText);
-                    } else {
-                      setBio(inputText.slice(0, 1000));
-                    }
-                  }} style={{ resize: 'none', border: 'none', textAlign: 'justify' }} id="" cols="20" rows="2" name="message"
-                    value={bio} placeholder="Enter your bio"></textarea>
-                  {/* <TextField
-                    style={{ padding: "0px" }}
-                    id="outlined-multiline-flexible"
-                    name="bio"
-                    value={bio}
+                  <textarea
                     onChange={(e) => {
                       const inputText = e.target.value;
-                      if (inputText.length <= 500) {
+                      if (inputText.length <= 1000) {
                         setBio(inputText);
                       } else {
-                        setBio(inputText.slice(0, 500));
+                        setBio(inputText.slice(0, 1000));
                       }
                     }}
-                    multiline
-                    placeholder="Enter Your Bio"
-                    maxRows={4}
-                  /> */}
-                  <p>{1000-bio.length}/1000 characters left</p>
+                    style={{
+                      resize: "none",
+                      // border: "none",
+                      textAlign: "justify",
+                      fontFamily: "poppins",
+                    }}
+                    id=""
+                    cols="50"
+                    rows="5" 
+                    name="message"
+                    value={bio}
+                    placeholder="Enter your bio"
+                  ></textarea>
+                  <p>{1000 - bio.length}/1000 characters left</p>
                 </div>
-              </div>
 
-              <div>
                 <div>
-                  <label className="update-form-label">Skills</label>
-                </div>
-                <div>
-                  {skills?.length > 0 && (
-                    <div className="listedTeam">
-                      {skills?.map((t, i) => (
-                        <div className="singleMember">
-                          <div>{t}</div>
-                          <div
-                            onClick={(e) => {
-                              setSkills(skills.filter((f, j) => i !== j));
-                            }}
-                          >
-                            <CloseIcon className="deleteMember" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div
-                  style={{ display: "flex", gap: "5px", alignItems: "center" }}
-                >
                   <div>
-                    <select
-                      name="skill"
-                      id=""
-                      onChange={(e) => setSingleSkill(e.target.value)}
-                    >
-                      <option value="">Select</option>
-                      {allskills.map((d) => (
-                        <option value={d}>{d}</option>
-                      ))}
-                    </select>
+                    <label className="update-form-label">Skills</label>
+                  </div>
+                  <div>
+                    {skills?.length > 0 && (
+                      <div className="listedTeam">
+                        {skills?.map((t, i) => (
+                          <div className="singleMember">
+                            <div>{t}</div>
+                            <div
+                              onClick={(e) => {
+                                setSkills(skills.filter((f, j) => i !== j));
+                              }}
+                            >
+                              <CloseIcon className="deleteMember" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div
-                    className="addtags"
-                    onClick={() => {
-                      if (singleSkill !== "" && !skills.includes(singleSkill)) {
-                        setSkills((prev) => [...prev, singleSkill]);
-                      }
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      alignItems: "center",
                     }}
                   >
-                    <i className="fas fa-plus"></i>
+                    <div>
+                      <select
+                        name="skill"
+                        id=""
+                        onChange={(e) => setSingleSkill(e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        {allskills.map((d) => (
+                          <option value={d}>{d}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div
+                      className="addtags"
+                      onClick={() => {
+                        if (
+                          singleSkill !== "" &&
+                          !skills.includes(singleSkill)
+                        ) {
+                          setSkills((prev) => [...prev, singleSkill]);
+                        }
+                      }}
+                    >
+                      <i className="fas fa-plus"></i>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div>
                 <div>
-                  <label className="update-form-label">Languages Known</label>
-                </div>
-                <div>
-                  {languagesKnown?.length > 0 && (
-                    <div className="listedTeam">
-                      {languagesKnown?.map((t, i) => (
-                        <div className="singleMember">
-                          <div>{t}</div>
-                          <div
-                            onClick={(e) => {
-                              setlanguagesKnown(
-                                languagesKnown.filter((f, j) => i !== j)
-                              );
-                            }}
-                          >
-                            <CloseIcon className="deleteMember" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div
-                  style={{ display: "flex", gap: "5px", alignItems: "center" }}
-                >
                   <div>
-                    <select
-                      name="languagesKnown"
-                      id=""
-                      onChange={(e) => setSinglelanguagesKnown(e.target.value)}
-                    >
-                      <option value="">Select</option>
-                      {allLanguages.map((d) => (
-                        <option value={d}>{d}</option>
-                      ))}
-                    </select>
+                    <label className="update-form-label">Languages Known</label>
+                  </div>
+                  <div>
+                    {languagesKnown?.length > 0 && (
+                      <div className="listedTeam">
+                        {languagesKnown?.map((t, i) => (
+                          <div className="singleMember">
+                            <div>{t}</div>
+                            <div
+                              onClick={(e) => {
+                                setlanguagesKnown(
+                                  languagesKnown.filter((f, j) => i !== j)
+                                );
+                              }}
+                            >
+                              <CloseIcon className="deleteMember" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div
-                    className="addtags"
-                    onClick={() => {
-                      if (
-                        singlelanguagesKnown !== "" &&
-                        !languagesKnown.includes(singlelanguagesKnown)
-                      ) {
-                        setlanguagesKnown((prev) => [
-                          ...prev,
-                          singlelanguagesKnown,
-                        ]);
-                      }
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      alignItems: "center",
                     }}
                   >
-                    <i className="fas fa-plus"></i>
+                    <div>
+                      <select
+                        name="languagesKnown"
+                        id=""
+                        onChange={(e) =>
+                          setSinglelanguagesKnown(e.target.value)
+                        }
+                      >
+                        <option value="">Select</option>
+                        {allLanguages.map((d) => (
+                          <option value={d}>{d}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div
+                      className="addtags"
+                      onClick={() => {
+                        if (
+                          singlelanguagesKnown !== "" &&
+                          !languagesKnown.includes(singlelanguagesKnown)
+                        ) {
+                          setlanguagesKnown((prev) => [
+                            ...prev,
+                            singlelanguagesKnown,
+                          ]);
+                        }
+                      }}
+                    >
+                      <div>
+                        {" "}
+                        <i className="fas fa-plus"></i>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {role == "Mentor" && (
-                <div>
-                  <div>
-                    <label className="update-form-label">Fee request</label>
-                  </div>
-                  <div>
-                    <input
-                      type="range"
-                      min={1}
-                      max={50}
-                      name="fee"
-                      value={fee}
-                      id=""
-                      onChange={(e) => setFee(e.target.value)}
-                      placeholder="Enter Fee request per minute"
-                    />{" "}
-                    &#8377; {fee} / per min
-                  </div>
-                </div>
-              )}
+                
+             
             </div>
           </form>
         </div>
         <div className="update-form-container">
+        <h3 className="update-heading">Upload files</h3>
           <form className="update-form">
-            <h3 className="update-heading">Upload files</h3>
-
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignItems: "center",
-                gap: "30px",
-              }}
-            >
+            <div className="upload-files-container">
+             
               <div>
                 <div
                   style={{
@@ -1498,64 +1468,61 @@ const Editprofile = () => {
                 />
               </div>
             </div>
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "30%",
-                gap: "10px",
-                marginTop: "15px",
+          </form>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "10px",
+              marginTop: "15px",
+            }}
+          >
+            <button
+              onClick={() => {
+                navigate(`/`);
               }}
             >
-              <button
-                onClick={() => {
-                  navigate(`/`);
-                }}
-              >
-                <i
-                  className="fas fa-arrow-left"
-                  style={{ marginRight: "5px" }}
-                ></i>{" "}
-                Back
-              </button>
-              <button
-                type="submit"
-                disabled={!isFormValid}
-                onClick={update}
-                style={{ whiteSpace: "nowrap", position: "relative" }}
-              >
-                {isLoading ? (
-                  <>
-                    <img
-                      src="/loading-button.gif"
-                      style={{
-                        height: "20px",
-                        width: "20px",
-                        position: "absolute",
-                        left: "-10px",
-                        top: "12px",
-                      }}
-                      alt="Loading..."
-                    />
-                    <span style={{ marginLeft: "12px" }}>
-                      Sending Approval...
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <i
-                      className="fas fa-address-card"
-                      style={{ marginRight: "5px" }}
-                    ></i>
-                    Send for Approval
-                  </>
-                )}
-              </button>
-            </div>
-          </form>
+              <i
+                className="fas fa-arrow-left"
+                style={{ marginRight: "5px" }}
+              ></i>{" "}
+              Back
+            </button>
+            <button
+              type="submit"
+              disabled={!isFormValid}
+              onClick={update}
+              style={{ whiteSpace: "nowrap", position: "relative" }}
+            >
+              {isLoading ? (
+                <>
+                  <img
+                    src="/loading-button.gif"
+                    style={{
+                      height: "20px",
+                      width: "20px",
+                      position: "absolute",
+                      left: "-10px",
+                      top: "12px",
+                    }}
+                    alt="Loading..."
+                  />
+                  <span style={{ marginLeft: "12px" }}>
+                    Sending Approval...
+                  </span>
+                </>
+              ) : (
+                <>
+                  <i
+                    className="fas fa-address-card"
+                    style={{ marginRight: "5px" }}
+                  ></i>
+                  Send for Approval
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>

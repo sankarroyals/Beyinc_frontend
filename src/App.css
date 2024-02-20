@@ -1,6 +1,7 @@
 :root {
   --white: #fff;
 }
+
 body[data-theme="dark"] {
   --body-background: #17171e;
   --nabar-text: #fff;
@@ -31,24 +32,33 @@ body[data-theme="dark"] {
 }
 
 body[data-theme="light"] {
-  --body-background: #f4f4f6;
-  --nabar-text: #fff;
-  --text-total-color: #212529;
-  --navbar-profile-hover: #eaf1fb;
-  /* --nav-head-bg: #f1f1f1; */
+  /* LATEST THEME BASED COLORS */
+  --text: #040316;
+  --background: #fbfbfe;
+  --primary: #4e54c7;
+  --secondary: #4449ad;
+  --button: #4e54c7;
+  --button-hover: #4449ad;
+  --white-text: #fff;
+  --light-transparent: #4e54c748;
+
+  /* Nav bar */
   --nav-head-bg: #ffffffdd;
-  --nav-head-icons: #006cd9;
-  --nav-head-icons-border: rgb(226, 226, 226);
-  --nav-head-selected-icons-border: #006cd9;
-  --nav-head-icons-hover: #006cd9;
+  --nav-head-icons: #4e54c7;
+  --nav-head-icons-border: #dddbff;
+  --nav-head-selected-icons-border: #4e54c7;
+  --nav-head-icons-hover: #4449ad;
+  --navbar-profile-hover: #eaf1fb;
+
+  --body-background: #fbfbfe;
+  --text-total-color: #040316;
   --singleUserCard-bg: #fff;
   --landingPage-working-container-bg: #f1f1f1;
   --user-details-container-bg: #eaf1fb;
-  --menubar-bg: #fff;
+  --menubar-bg: #fbfbfe;
   --menubar-txt: #212130;
   --menubar-hover-txt: #6a73fa;
   --chatcontainer-bg: #fff;
-  --newchat-button: #c2e7ff;
   --searchmenu-bg: #fff;
   --users-bg: #fff;
   --input-box-bg: #fff;
@@ -63,7 +73,6 @@ body[data-theme="light"] {
 }
 
 body {
-  font-family: "Google Sans Text", sans-serif;
   background: var(--body-background);
   color: var(--text-total-color);
 }
@@ -103,7 +112,7 @@ p {
 
 .login-type-toggle span.active {
   text-decoration: underline;
-  color: #3b82f6;
+  color: var(--primary);
   font-size: 18px;
   font-weight: bold;
 }
@@ -117,15 +126,6 @@ p {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-top: 70px;
 }
-
-/* form {
-  display: flex;
-  flex-direction: column;
-  margin-top: -20px;
-  width: 350px;
-  margin: auto;
-  justify-content: center;
-} */
 
 label {
   margin-top: 5px;
@@ -178,7 +178,7 @@ input.invalid {
 .otp_button {
   width: 20%;
   padding: 5px;
-  background-color: #3b82f6;
+  background-color: var(--button);
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -198,14 +198,14 @@ input.invalid {
 }
 
 button:disabled {
-  background-color: #6a73fa !important;
+  background-color: var(--button) !important;
   cursor: not-allowed;
 }
 
 button {
-  width: 360px;
+  width: auto !important;
   padding: 15px;
-  background-color: #6a73fa;
+  background-color: var(--button);
   font-weight: 600;
   transition: background-color 0.3s ease;
   color: #fff;
@@ -215,7 +215,7 @@ button {
 }
 
 button:hover {
-  background-color: #4e54c7;
+  background-color: var(--button-hover);
 }
 
 .invalid input {
@@ -257,6 +257,60 @@ button:hover {
   margin-top: -7%;
 }
 
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  margin-left: 10%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  display: inline-block;
+  animation: slide 1s infinite;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0.1s;
+  background: #3ac;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+  background: #ff6347;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.3s;
+  background: #ffd700;
+}
+
+.dot:nth-child(4) {
+  animation-delay: 0.4s;
+  background: #90ee90;
+}
+
+.dot:nth-child(5) {
+  animation-delay: 0.5s;
+  background: #4682b4;
+}
+
+@keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .loadingSubmit {
   background: rgba(248, 245, 245, 0.47);
   position: absolute;
@@ -278,7 +332,8 @@ button:hover {
   left: 0;
   right: 0;
   z-index: 1400 !important;
-  background: #ece9e990;
+  background: #ffffff75;
+  backdrop-filter: blur(5px);
   overflow-y: hidden !important;
 }
 
@@ -424,7 +479,7 @@ input[type="radio"] + label {
   input[type="password"],
   input[type="text"],
   input[type="number"] {
-    /* width: 280px !important; */
+    width: 238px !important;
   }
 
   .Loading {
@@ -440,5 +495,10 @@ input[type="radio"] + label {
     height: 15%;
     margin-top: 50%;
     margin-left: 38%;
+  }
+
+  input,
+  select {
+    width: 300px !important;
   }
 }

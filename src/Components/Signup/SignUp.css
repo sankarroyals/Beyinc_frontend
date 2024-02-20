@@ -55,7 +55,7 @@
   padding: 10px 20px;
   border-radius: 5px;
   border: none;
-  background-color: #0095f6;
+  background-color: var(--primary);
   color: #ffffff;
 }
 
@@ -121,7 +121,7 @@ signup-page .signup-container form .invalid {
   padding: 7px 20px;
   border-radius: 5px;
   border: none;
-  background-color: #0095f6;
+  background-color: var(--primary);
   color: #ffffff;
 }
 
@@ -145,7 +145,7 @@ signup-page .signup-container form .invalid {
 /* signup-option style */
 .signup-option p > a {
   text-decoration: none;
-  color: #00a0f7;
+  color: var(--primary);
 }
 
 /* signup-otherapps style */
@@ -188,7 +188,7 @@ signup-page .signup-container form .invalid {
 .signup-footer ul li a {
   text-decoration: none;
   font-size: 12px;
-  color: #00376b;
+  color: var(--primary);
 }
 
 .signup-footer p {
@@ -199,12 +199,15 @@ signup-page .signup-container form .invalid {
 }
 
 /* Mobile Styles */
-
+.full-width-button {
+    width: 100% !important;
+  }
 @media only screen and (max-width: 635px) {
   .signup-otherapps button {
     margin-bottom: 5px;
   }
 
+  
   .signup-otherapps button:after-of-type {
     margin-bottom: none;
   }

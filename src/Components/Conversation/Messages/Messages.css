@@ -166,6 +166,7 @@
   white-space: wrap;
   padding: 3px !important;
   width: 550px !important;
+  font-family: poppins;
 }
 
 /* adding multiline input */
@@ -321,6 +322,7 @@
     white-space: wrap;
     padding: 3px !important;
     width: 160px !important;
+    font-family: poppins;
   }
   .senMessageView {
     width: 150px;

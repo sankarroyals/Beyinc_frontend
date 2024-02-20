@@ -174,9 +174,9 @@ const Navbar = () => {
       <List>
         {width < 770 && (
           <>
-            <ListItem button key="home"  onClick={() => navigate("/home")}>
+            <ListItem button key="home" onClick={() => navigate("/home")}>
               <ListItemIcon>
-                <DashboardOutlinedIcon  className="menu-icon" />
+                <DashboardOutlinedIcon className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
@@ -186,9 +186,16 @@ const Navbar = () => {
               onClick={() => navigate("/conversations")}
             >
               <ListItemIcon>
-                <MessageOutlinedIcon  className="menu-icon" />
+                <MessageOutlinedIcon className="menu-icon" />
+                {messageCount.length > 0 && <div
+                  className="Conversations-count mobile"
+                  title="unread conversations"
+                >
+                  {messageCount.length}
+                </div>}
               </ListItemIcon>
               <ListItemText primary="Conversations" />
+
             </ListItem>
           </>
         )}
@@ -201,7 +208,7 @@ const Navbar = () => {
               onClick={() => navigate("/searchusers")}
             >
               <ListItemIcon>
-                <SearchOutlinedIcon  className="menu-icon" />
+                <SearchOutlinedIcon className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="Search Users" />
             </ListItem>
@@ -212,7 +219,7 @@ const Navbar = () => {
               onClick={() => navigate("/livePitches")}
             >
               <ListItemIcon>
-                <BallotOutlinedIcon  className="menu-icon" />
+                <BallotOutlinedIcon className="menu-icon" />
               </ListItemIcon>
               <ListItemText primary="Live Pitches" />
             </ListItem>
@@ -321,7 +328,7 @@ const Navbar = () => {
                     }}
                     src={
                       n.senderInfo?.image?.url == undefined
-                        ? "/profile.jpeg"
+                        ? "/profile.png"
                         : n.senderInfo?.image?.url
                     }
                     alt=""
@@ -719,7 +726,7 @@ const Navbar = () => {
             title={`${userName} \n ${email}`}
             id="Profile-img"
             className="Profile-img"
-            src={image !== undefined && image !== "" ? image : "/profile.jpeg"}
+            src={image !== undefined && image !== "" ? image : "/profile.png"}
             alt=""
           />
           {verification === "approved" && (
@@ -741,8 +748,8 @@ const Navbar = () => {
         </div>
         {width < 770 && (
           <>
-            <div  className="icon" onClick={toggleDrawer("right", true)}>
-              <MenuRoundedIcon/>
+            <div className="icon" onClick={toggleDrawer("right", true)}>
+              <MenuRoundedIcon />
             </div>
             <Drawer
               anchor="right"
@@ -770,15 +777,16 @@ const Navbar = () => {
           </div>
           <div>
             <div className="email">{email}</div>
-            <div style={{ position: "relative", display: "inline-block" }}>
+            <div className="popupImg">
               <img
                 style={{
                   borderRadius: "50%",
                   cursor: "pointer",
                   maxWidth: "100%",
+                  display: 'block'
                 }}
                 src={
-                  image !== undefined && image !== "" ? image : "/profile.jpeg"
+                  image !== undefined && image !== "" ? image : "/profile.png"
                 }
                 alt="Profile"
               />
@@ -790,40 +798,37 @@ const Navbar = () => {
           </div>
 
           <div className="username">Hi, {userName}!</div>
-          <div className="manage">{role}</div>
-          <div>
-            <div>
-              <div>
-                <div
-                  className="Account"
-                  onClick={() => {
-                    document
-                      .getElementsByClassName("userDetails")[0]
-                      .classList.remove("showUserDetails");
-                    navigate(`/editProfile`);
-                  }}
-                >
-                  <i
-                    className="fas fa-user-edit"
-                    style={{ marginRight: "5px" }}
-                  ></i>{" "}
-                  Edit Profile
-                </div>
-                <div
-                  className="logout"
-                  onClick={() => {
-                    localStorage.removeItem("user");
-                    localStorage.clear();
-                    window.location.href = "/login";
-                  }}
-                >
-                  <i
-                    className="fas fa-sign-out-alt"
-                    style={{ marginRight: "5px" }}
-                  ></i>{" "}
-                  Logout
-                </div>
-              </div>
+          <div className="manage" >{role}</div>
+
+          <div className="editPopupActions">
+            <div
+              className="Account"
+              onClick={() => {
+                document
+                  .getElementsByClassName("userDetails")[0]
+                  .classList.remove("showUserDetails");
+                navigate(`/editProfile`);
+              }}
+            >
+              <i
+                className="fas fa-user-edit"
+                style={{ marginRight: "5px" }}
+              ></i>{" "}
+              Edit Profile
+            </div>
+            <div
+              className="logout"
+              onClick={() => {
+                localStorage.removeItem("user");
+                localStorage.clear();
+                window.location.href = "/login";
+              }}
+            >
+              <i
+                className="fas fa-sign-out-alt"
+                style={{ marginRight: "5px" }}
+              ></i>{" "}
+              Logout
             </div>
           </div>
         </div>
@@ -854,7 +859,7 @@ const Navbar = () => {
                   src={
                     image !== undefined && image !== ""
                       ? image
-                      : "/profile.jpeg"
+                      : "/profile.png"
                   }
                   alt="Profile"
                 />

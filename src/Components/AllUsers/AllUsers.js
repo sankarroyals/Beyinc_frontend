@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ApiServices } from "../../Services/ApiServices";
-// import "../LivePitches/LivePitches.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Country } from "country-state-city";
 import CachedIcon from "@mui/icons-material/Cached";
@@ -14,6 +13,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { setLoading } from "../../redux/AuthReducers/AuthReducer";
+
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Checkbox,
@@ -104,9 +105,11 @@ const AllUsers = () => {
   //     })
   // }, [])
   useEffect(() => {
+    dispatch(setLoading({ visible: "yes" }));
     ApiServices.getAllUsers({ type: "" }).then((res) => {
       console.log(res.data);
       setData(res.data);
+      dispatch(setLoading({ visible: "no" }));
     });
   }, []);
 
@@ -180,6 +183,7 @@ const AllUsers = () => {
               });
             }
           }
+         
         }
       });
     }
@@ -614,16 +618,17 @@ const AllUsers = () => {
                   />
                 ))
               ) : (
-                <div
+                <div className="no-users"
                   style={{
                     display: "flex",
                     justifyContent: "center",
+                    flexDirection: 'column',
                     alignItems: "center",
-                    height: "100%",
-                    width: "100%",
+                   
                   }}
                 >
-                  No Users Available
+                <img src="/Search.gif"/>
+                 <div>No users available</div>
                 </div>
               )}
             </div>

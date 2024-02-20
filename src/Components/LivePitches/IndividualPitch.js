@@ -14,6 +14,7 @@ import { io } from "socket.io-client";
 import { socket_io } from "../../Utils";
 import moment from "moment";
 import "./IndividualPitch.css";
+import { setLoading } from "../../redux/AuthReducers/AuthReducer";
 
 const IndividualPitch = () => {
   const [pitch, setpitch] = useState("");
@@ -30,7 +31,7 @@ const IndividualPitch = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [allComments, setAllComments] = useState([])
+  const [allComments, setAllComments] = useState([]);
 
   const socket = useRef();
   useEffect(() => {
@@ -87,12 +88,12 @@ const IndividualPitch = () => {
   useEffect(() => {
     console.log("object");
     if (pitchId) {
+      dispatch(setLoading({ visible: "yes" }));
       ApiServices.fetchSinglePitch({ pitchId: pitchId })
         .then((res) => {
           console.log(res.data);
           setpitch({
             ...res.data,
-            
           });
           if (res.data.review !== undefined && res.data.review?.length > 0) {
             let avgR = 0;
@@ -101,6 +102,7 @@ const IndividualPitch = () => {
             });
             setAverageReview(avgR / res.data.review.length);
           }
+          dispatch(setLoading({ visible: "no" }));
         })
         .catch((err) => {
           dispatch(
@@ -114,15 +116,15 @@ const IndividualPitch = () => {
     }
   }, [pitchId, pitchTrigger]);
 
-
   useEffect(() => {
     if (pitchId) {
       ApiServices.getPitchComments({ pitchId: pitchId })
         .then((res) => {
           console.log(res.data);
-          setAllComments(res.data.sort(
-                (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-              ),
+          setAllComments(
+            res.data.sort(
+              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            )
           );
         })
         .catch((err) => {
@@ -141,20 +143,23 @@ const IndividualPitch = () => {
     setComment("");
     await ApiServices.addPitchComment({
       pitchId: pitchId,
-      commentBy: user_id, comment: comment, parentCommentId:undefined,
+      commentBy: user_id,
+      comment: comment,
+      parentCommentId: undefined,
     })
       .then((res) => {
-        setPitchTrigger(!pitchTrigger)
-        
+        setPitchTrigger(!pitchTrigger);
       })
       .catch((err) => {
         navigate("/livePitches");
       });
   };
 
-
   const onLike = (commentId, isLike) => {
-    ApiServices.likePitchComment({ comment_id: commentId, comment_owner: pitch._id })
+    ApiServices.likePitchComment({
+      comment_id: commentId,
+      comment_owner: pitch._id,
+    })
       .then((res) => {
         // dispatch(
         //   setToast({
@@ -176,10 +181,11 @@ const IndividualPitch = () => {
   };
 
   const onDisLike = (commentId, isLike) => {
-    ApiServices.dislikePitchComment({ comment_id: commentId, comment_owner: pitch._id })
-      .then((res) => {
-
-      })
+    ApiServices.dislikePitchComment({
+      comment_id: commentId,
+      comment_owner: pitch._id,
+    })
+      .then((res) => {})
       .catch((err) => {
         dispatch(
           setToast({
@@ -319,14 +325,14 @@ const IndividualPitch = () => {
                 <textarea
                   style={{
                     resize: "none",
-                    width: "100%",
+                    width: "95%",
                     border: "none",
                     textAlign: "justify",
                     outline: "0",
-                    fontFamily: "'Google Sans Text', sans- serif",
+                    fontFamily: "Poppins",
                   }}
                   disabled
-                  rows={13}
+                  rows={16}
                   value={pitch?.description}
                 ></textarea>
               </div>
@@ -447,8 +453,7 @@ const IndividualPitch = () => {
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         placeholder="Describe Your Experience"
-                        style={{ resize: 'none' }}
-
+                        style={{ resize: "none" }}
                       />
                     </div>
                     <div>
@@ -476,10 +481,19 @@ const IndividualPitch = () => {
             </div>
           )}
           {allComments.length > 0 &&
-            allComments?.map((c) => (
-              c.parentCommentId == undefined && <IndividualPitchComment c={c} deleteComment={deleteComment} setPitchTrigger={setPitchTrigger} pitchTrigger={pitchTrigger} onLike={onLike} onDisLike={onDisLike} />
-
-            ))}
+            allComments?.map(
+              (c) =>
+                c.parentCommentId == undefined && (
+                  <IndividualPitchComment
+                    c={c}
+                    deleteComment={deleteComment}
+                    setPitchTrigger={setPitchTrigger}
+                    pitchTrigger={pitchTrigger}
+                    onLike={onLike}
+                    onDisLike={onDisLike}
+                  />
+                )
+            )}
         </div>
       </div>
     </div>

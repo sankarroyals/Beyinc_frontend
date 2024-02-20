@@ -61,7 +61,7 @@ const IndividualSubComments = ({ c, onLike, onDisLike, setReplyBox, replyBox, sc
         <>
             <div className='IndicommentsSection'>
                 <div className='IndicommentsSectionImage'>
-                    <img src={(c?.profile_pic || c?.commentBy?.image?.url) || '/profile.jpeg'} alt="" />
+                    <img src={(c?.profile_pic || c?.commentBy?.image?.url) || '/profile.png'} alt="" />
                 </div>
                 <div className='IndicommentsSectionDetails'>
                     <div className='IndicommentsSectionDetailsUserName'>
@@ -127,7 +127,7 @@ const IndividualSubComments = ({ c, onLike, onDisLike, setReplyBox, replyBox, sc
 
 
             </div>
-          
+
         </>
 
     )

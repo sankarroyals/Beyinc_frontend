@@ -69,8 +69,9 @@
 }
 .newChat {
   padding: 5px 8px;
-  background: var(--newchat-button);
-  /* border: 1px solid rgb(224, 207, 207); */
+  background: var(--button);
+  color: var(--white-text);
+  
 
   display: flex;
   align-items: center;
@@ -88,6 +89,15 @@
 .newChat:hover {
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.3s ease, border 0.3s ease;
+  background: var(--button-hover);
+}
+
+/* tabs */
+.css-1nerts0-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: var(--primary) !important;
+}
+.css-11yukd5-MuiTabs-indicator {
+  background-color: var(--primary) !important;
 }
 
 .historyChats {
@@ -138,7 +148,7 @@ body[data-theme="dark"] .tabs {
 }
 
 .tabs:hover {
-  background: #4e54c7 !important;
+  background: var(--button-hover) !important;
   color: #fff !important;
 }
 
@@ -160,9 +170,7 @@ body[data-theme="dark"] .tabs {
   flex-direction: column !important;
   flex-wrap: wrap;
 }
-select {
-  min-width: 360px !important;
-}
+
 
 .addTeamMembers {
   border: 1px solid grey;
@@ -242,7 +250,7 @@ textarea {
   align-items: center;
 }
 .tags .addtags {
-  background: #3b82f6;
+  background: var(--button);
   padding: 10px 5px 10px 10px;
   border-radius: 50%;
   color: white;
@@ -254,7 +262,7 @@ textarea {
   cursor: pointer;
 }
 .addtags:hover {
-  background: #1e4bb8;
+  background:var(--button-hover);
 }
 
 .file {
@@ -272,7 +280,7 @@ textarea {
   margin-top: -3px;
 }
 .file:hover {
-  color: #0b57d0;
+  color: var(--button-hover);
 }
 
 .fileName {

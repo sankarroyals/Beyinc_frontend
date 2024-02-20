@@ -17,6 +17,11 @@
 .pitchcontainer {
   background: white;
 }
+.No-users img{
+  width: 50%;
+  height: auto;
+}
+
 
 .filterContainer {
   display: flex;

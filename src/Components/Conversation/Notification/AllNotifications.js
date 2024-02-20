@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router'
 
 const AllNotifications = ({ n }) => {
   const navigate = useNavigate()
-  const changeStatus = async() => {
+  const changeStatus = async () => {
     await ApiServices.changeNotification({ notificationId: n._id }).then(res => {
-      
+
     })
   }
   return (
@@ -15,9 +15,9 @@ const AllNotifications = ({ n }) => {
       navigate(`/user/${n.senderInfo?.email}`)
       changeStatus()
     }} >
-      <div className='individualrequestWrapper' style={{gap: '5px', alignItems: 'center'}}>
+      <div className='individualrequestWrapper' style={{ gap: '5px', alignItems: 'center' }}>
         <div>
-          <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderInfo?.image?.url == undefined ? '/profile.jpeg' : n.senderInfo?.image?.url} alt="" srcset="" />
+          <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={n.senderInfo?.image?.url == undefined ? '/profile.png' : n.senderInfo?.image?.url} alt="" srcset="" />
         </div>
         <div>{n.message} </div>
         <div className=''>

@@ -6,7 +6,7 @@
 }
 
 .NotyHeader {
-  padding: 5px 15px;
+  padding: 5px 35px;
   font-size: 20px;
   align-self: flex-start;
   font-weight: 400;
@@ -69,7 +69,7 @@
 .reloadNotification {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   width: 100%;
   /* margin: auto 5px; */
 
@@ -155,6 +155,10 @@ label {
 }
 
 @media only screen and (max-width: 760px) {
+  .messageRequests {
+ width: 350px;
+ /* padding-left: 25px; */
+}
   .noSelected {
     font-size: 16px;
     margin-top: 40px;
