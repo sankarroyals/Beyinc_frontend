@@ -485,21 +485,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                         flexDirection: "column",
                     }}
                 >
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            top: "5px",
-                            right: "10px",
-                            cursor: "pointer",
-                            zIndex: '999'
-                        }}
-                        onClick={() => {
-                            setOpen(false)
-                            setReceivermail('')
-                        }}
-                    >
-                        <CloseIcon />
-                    </Box>
+                    
                    
                         
                         <div className="addPitchHeader">
@@ -509,7 +495,15 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             <div className={`addPitchIcons ${value == 4 && 'addPitchIconsselected'}`} onClick={() => setValue(4)}>Image & videos</div>
                             <div className={`addPitchIcons ${value == 5 && 'addPitchIconsselected'}`} onClick={() => setValue(5)}>Documents</div>
                             <div className={`addPitchIcons ${value == 6 && 'addPitchIconsselected'}`} onClick={() => setValue(6)}>Requirements</div>
-
+                        <div
+                            className={`crossIcon`}
+                            onClick={() => {
+                                setOpen(false)
+                                setReceivermail('')
+                            }}
+                        >
+                            <CloseIcon />
+                        </div>
                         </div> 
                     {value == 1 && <div className="pitchForm">
                         <div className="pitchformFields">
@@ -527,7 +521,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Website</label>
                             </div>
@@ -542,7 +536,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Where is management located ?</label>
                             </div>
@@ -560,7 +554,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Domain</label>
                             </div>
@@ -579,7 +573,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                         </div>
 
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Sub domain</label>
                             </div>
@@ -597,7 +591,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Stage</label>
                             </div>
@@ -615,7 +609,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div><label>User Type</label></div>
                             <div>
                                 <select name="userType" value={form?.userType} onChange={handleChanges}
@@ -629,7 +623,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Ideal User Role</label>
                             </div>
@@ -647,7 +641,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>How much in total have you raised till now?</label>
                             </div>
@@ -662,7 +656,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label style={{ width: '300px', whiteSpace: 'wrap' }}>How much total equity in % is diluted for raising above amount?</label>
                             </div>
@@ -692,7 +686,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                 </div>
               </div> */}
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label style={{ width: '650px', whiteSpace: 'wrap' }}>What and estimated amount you are offering to User (Entrepreneur/Mentor/Investor) who
                                     accept this Pitch? Like: Equity , Cash etc.</label>
@@ -975,7 +969,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                                             }}
                                         />
                                     </div>
-                                    <div style={{ marginBottom: "-20px" }}>
+                                    <div>
                                         <button
                                             onClick={saveSingleMember}
                                             disabled={

@@ -65,20 +65,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                         flexDirection: "column",
                     }}
                 >
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            top: "5px",
-                            right: "10px",
-                            cursor: "pointer",
-                            zIndex: '999'
-                        }}
-                        onClick={() => {
-                            setOpen(false)
-                        }}
-                    >
-                        <CloseIcon />
-                    </Box>
+                    
 
 
                     <div className="addPitchHeader">
@@ -88,7 +75,14 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                         <div className={`addPitchIcons ${value == 4 && 'addPitchIconsselected'}`} onClick={() => setValue(4)}>Image & videos</div>
                         <div className={`addPitchIcons ${value == 5 && 'addPitchIconsselected'}`} onClick={() => setValue(5)}>Documents</div>
                         <div className={`addPitchIcons ${value == 6 && 'addPitchIconsselected'}`} onClick={() => setValue(6)}>Requirements</div>
-
+                        <div
+                          
+                            onClick={() => {
+                                setOpen(false)
+                            }}
+                        >
+                            <CloseIcon />
+                        </div>
                     </div>
                     {value == 1 && <div className="pitchForm">
                         <div className="pitchformFields">
@@ -105,7 +99,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Website</label>
                             </div>
@@ -119,7 +113,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Where is management located ?</label>
                             </div>
@@ -136,7 +130,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Domain</label>
                             </div>
@@ -154,7 +148,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                         </div>
 
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Sub domain</label>
                             </div>
@@ -171,7 +165,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Stage</label>
                             </div>
@@ -188,7 +182,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div><label>User Type</label></div>
                             <div>
                                 <select name="userType" value={pitchDetails?.userType} disabled
@@ -202,7 +196,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>Ideal User Role</label>
                             </div>
@@ -219,7 +213,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label>How much in total have you raised till now?</label>
                             </div>
@@ -233,7 +227,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                             </div>
                         </div>
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label style={{ width: '300px', whiteSpace: 'wrap' }}>How much total equity in % is diluted for raising above amount?</label>
                             </div>
@@ -262,7 +256,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                 </div>
               </div> */}
 
-                        <div>
+                        <div className="pitchformFields">
                             <div>
                                 <label style={{ width: '650px', whiteSpace: 'wrap' }}>What and estimated amount you are offering to User (Entrepreneur/Mentor/Investor) who
                                     accept this Pitch? Like: Equity , Cash etc.</label>

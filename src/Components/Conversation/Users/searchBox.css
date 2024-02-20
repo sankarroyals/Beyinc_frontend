@@ -159,8 +159,8 @@ body[data-theme="dark"] .tabs {
   flex-wrap: wrap;
   column-gap: 20px;
   /* min-height: 62vh; */
-  max-height: 55vh;
-  overflow-y: scroll;
+  /* max-height: 55vh;
+  overflow-y: scroll; */
 }
 .historicalTabHeader {
   /* padding: 5px; */

@@ -3,10 +3,12 @@
   display: flex;
   justify-content: space-between;
   position: sticky;
-  top: 0;
+  align-items: center;
+  top: -20px;
   font-size: 14px;
   white-space: noWrap;
   flex-wrap: wrap;
+  z-index: 999;
 }
 
 .addPitchIcons {
@@ -28,43 +30,69 @@
 
   /* color: #fff; */
 }
+.pitchForm {
+  display: flex;
+  gap: 10px;
+}
+.pitchformFields {
+  flex-basis: 45%;
+}
+.pitchForm input,
+.pitchForm textarea {
+  width: 95%;
+}
+.pitchForm label {
+  white-space: noWrap !important;
+}
+.pitchForm select {
+  width: 100%;
+}
+
+.addTeamMembers .teamInputs{
+      display: flex;
+  column-gap: 50px !important;
+  align-items: center;
+  width: 100%;
+  }
+  
 @media (max-width: 768px) {
-   .addPitchIcons {
-  cursor: pointer;
-  background-color: #fff;
-  flex-basis: auto!important;
-}
-.pitchForm{
+  .addPitchIcons {
+    cursor: pointer;
+    background-color: #fff;
+    flex-basis: auto !important;
+  }
+  .pitchForm {
     width: 280px;
-}
-.pitchForm label{
-font-size: 12px;
-max-width: 220px;
-}
-.pitchForm input{
+  }
+  .pitchForm label {
+    font-size: 12px;
+    max-width: 220px !important;
+    white-space: wrap !important;
+  }
+  .pitchForm input {
     width: 240px !important;
-}
-.pitchForm select{
+  }
+  .pitchForm select {
     width: 270px !important;
-}
-.pitchForm textarea{
-width: 250px;
-}
-.addTeamMembers{
+  }
+  .pitchForm textarea {
+    width: 250px;
+  }
+  .addTeamMembers {
     width: 250px;
     border: none;
-}
-.addTeamMembers input{
+  }
+  .addTeamMembers input {
     width: 220px !important;
-}
-.singleMember{
+  }
+  .singleMember {
     padding: 3px !important;
     font-size: 12px;
-}
-.tags input {
+  }
+  .tags input {
     width: 180px !important;
-}
-.showHide select {
-  width: 250px !important;
-}
+  }
+  .showHide select {
+    width: 250px !important;
+  }
 }
