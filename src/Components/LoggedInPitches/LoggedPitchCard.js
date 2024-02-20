@@ -20,7 +20,7 @@ export default function LoggedInPitchCard({ d }) {
 
   const [pitchDetails, setPitchdetails] = useState(null);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
   // const [image, setImage] = React.useState('')
   const [status, setStatus] = useState("");
   const dispatch = useDispatch();

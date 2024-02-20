@@ -23,7 +23,7 @@ const IndividualPitch = () => {
   );
   const [isWritingReview, setIsWritingReview] = useState(false);
   const [averagereview, setAverageReview] = useState(0);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
   const [open, setOpen] = useState(false);
   const { pitchId } = useParams();
   const [comment, setComment] = useState("");

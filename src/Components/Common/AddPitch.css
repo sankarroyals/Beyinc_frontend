@@ -64,4 +64,7 @@ width: 250px;
 .tags input {
     width: 180px !important;
 }
+.showHide select {
+  width: 250px !important;
+}
 }

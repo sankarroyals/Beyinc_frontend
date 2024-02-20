@@ -19,7 +19,7 @@ const MessageRequest = ({ m, setMessageRequest }) => {
     const { email, userName } = useSelector(state => state.auth.loginDetails)
     const [pitchDetails, setPitchdetails] = useState(null)
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState(0)
+    const [value, setValue] = useState(1)
     const [reasonPop, setReasonPop] = useState(false)
     const [reason, setReason] = useState('')
     const [popStatus, setpopStatus] = useState('')

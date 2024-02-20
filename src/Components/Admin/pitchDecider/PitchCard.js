@@ -31,7 +31,7 @@ export default function PitchCard({ d }) {
   const navigate = useNavigate();
   const [pitchDetails, setPitchdetails] = useState(null);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
   const dispatch = useDispatch();
   const [reasonPop, setReasonPop] = useState(false);
   const [reason, setReason] = useState("");
