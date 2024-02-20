@@ -38,9 +38,11 @@ const Editprofile = () => {
   const [universities, setUniversities] = useState([]);
   useEffect(() => {
     const uni = async () => {
-      await axios.get("http://universities.hipolabs.com/search").then((res) => {
-        setUniversities(res.data);
-      });
+      await axios
+        .get(process.env.REACT_APP_BACKEND + "/helper/allColleges")
+        .then((res) => {
+          setUniversities(res.data.college);
+        });
     };
     uni();
   }, []);
