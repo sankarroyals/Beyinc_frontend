@@ -80,8 +80,8 @@ export default function LoggedInPitchCard({ d }) {
         (d?.userInfo.role === "Entrepreneur"
           ? "margin-entrepreneur"
           : d?.userInfo.role === "Mentor"
-          ? "margin-mentor"
-          : "")
+            ? "margin-mentor"
+            : "")
       }
     >
       <div className="user-card-details">
@@ -110,15 +110,14 @@ export default function LoggedInPitchCard({ d }) {
                   d.status == "approved"
                     ? "green"
                     : d.status == "pending"
-                    ? "orange"
-                    : "red",
-                border: `1px dotted ${
-                  d.status == "approved"
+                      ? "orange"
+                      : "red",
+                border: `1px dotted ${d.status == "approved"
                     ? "green"
                     : d.status == "pending"
-                    ? "orange"
-                    : "red"
-                }`,
+                      ? "orange"
+                      : "red"
+                  }`,
                 borderRadius: 5,
                 padding: "3px",
               }}

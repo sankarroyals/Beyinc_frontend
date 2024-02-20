@@ -505,19 +505,19 @@ const Editprofile = () => {
 
   const [isFormValid, setIsFormValid] = useState(
     mobileVerified &&
-      (isNameValid ||
-        oldDocs.resume !== "" ||
-        oldDocs.expertise !== "" ||
-        oldDocs.acheivements !== "" ||
-        oldDocs.working !== "" ||
-        oldDocs.degree !== "" ||
-        changeResume.resume !== "" ||
-        changeResume.expertise !== "" ||
-        changeResume.acheivements !== "" ||
-        changeResume.working !== "" ||
-        changeResume.degree !== "") &&
-      totalEducationData.length > 0 &&
-      totalExperienceData.length > 0
+    (isNameValid ||
+      oldDocs.resume !== "" ||
+      oldDocs.expertise !== "" ||
+      oldDocs.acheivements !== "" ||
+      oldDocs.working !== "" ||
+      oldDocs.degree !== "" ||
+      changeResume.resume !== "" ||
+      changeResume.expertise !== "" ||
+      changeResume.acheivements !== "" ||
+      changeResume.working !== "" ||
+      changeResume.degree !== "") &&
+    totalEducationData.length > 0 &&
+    totalExperienceData.length > 0
   );
 
   const handleChangeRadio = (e) => {
@@ -885,7 +885,7 @@ const Editprofile = () => {
                 </div>
                 <div>
                   {EducationDetails.grade == "SSC" ||
-                  EducationDetails.grade == "" ? (
+                    EducationDetails.grade == "" ? (
                     <input
                       type="text"
                       name="college"

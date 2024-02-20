@@ -602,7 +602,7 @@ const IndividualMessage = () => {
           )}
         </div>
       </div> : <p> Your chat conversation between <b>{receiverId?.user?.userName}</b> is closed.</p>}
-      <GoogleCalenderEvent gmeetLinkOpen={gmeetLinkOpen} setGmeetLinkOpen={setGmeetLinkOpen} receiver={receiverId?.user?.email} />
+      <GoogleCalenderEvent gmeetLinkOpen={gmeetLinkOpen} setGmeetLinkOpen={setGmeetLinkOpen} receiver={receiverId} />
     </div>
   );
 };

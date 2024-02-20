@@ -141,7 +141,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                     setReceivermail('')
                 });
         } else if (isParent(role, receiverRole)) {
-            if (verification == 'approved'){
+            if (verification == 'approved') {
                 await ApiServices.directConversationCreation({
                     email: email,
                     receiverId: receiverMail,

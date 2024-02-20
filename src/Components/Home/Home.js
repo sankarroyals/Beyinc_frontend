@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar  from "../Navbar/Navbar";
+import Navbar from "../Navbar/Navbar";
 import { useSelector } from "react-redux";
 const Home = () => {
   const { role, userName } = useSelector((store) => store.auth.loginDetails);

@@ -183,7 +183,7 @@ const AllUsers = () => {
               });
             }
           }
-         
+
         }
       });
     }
@@ -593,10 +593,10 @@ const AllUsers = () => {
                     setFilteredData(
                       e.target.value !== ""
                         ? filteredData.filter((f) =>
-                            f.userName
-                              .toLowerCase()
-                              .includes(e.target.value.toLowerCase())
-                          )
+                          f.userName
+                            .toLowerCase()
+                            .includes(e.target.value.toLowerCase())
+                        )
                         : data
                     );
                   }}
@@ -624,11 +624,11 @@ const AllUsers = () => {
                     justifyContent: "center",
                     flexDirection: 'column',
                     alignItems: "center",
-                   
+
                   }}
                 >
-                <img src="/Search.gif"/>
-                 <div>No users available</div>
+                  <img src="/Search.gif" />
+                  <div>No users available</div>
                 </div>
               )}
             </div>

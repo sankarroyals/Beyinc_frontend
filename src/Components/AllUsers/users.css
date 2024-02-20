@@ -1,5 +1,3 @@
-
-
 .indiPitchDesc h2 {
   margin-top: 10px;
   text-align: center;
@@ -166,7 +164,7 @@
   margin-bottom: 0;
   font-weight: 500;
 }
-.user-card-image{
+.user-card-image {
   position: relative;
 }
 .user-card-image img {
@@ -186,7 +184,6 @@
   max-width: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
-  
 }
 
 .user-nav-bar .nav-bar-buttons {
@@ -319,7 +316,7 @@
   align-items: center;
   margin-top: 10px;
 }
-.no-users img{
+.no-users img {
   width: 100%;
   height: auto;
 }
@@ -328,8 +325,8 @@
   .user-nav-bar {
     width: 100%;
   }
-  .user-card-actions{
-  align-items: flex-end;
+  .user-card-actions {
+    align-items: flex-end;
   }
 
   .user-card-actions button {
@@ -427,30 +424,31 @@
   width: 100%;
 }
 
-
 .user-cards-panel {
   width: 90%;
 }
 
-.user-card-actions .connect-color{
-  color:var(--white-text);
+.user-card-actions .connect-color {
+  color: var(--white-text);
   background: var(--button);
   border-color: var(--primary);
   transition: box-shadow 0.3s, transform 0.3s;
 }
-.user-card-actions .connect-color:hover{
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.user-card-actions .connect-color:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transform: scale(1.02);
   background: var(--button-hover);
 }
 .user-card-actions .pending-color {
   color: white;
- background: orange;
- border-color: orange;
- transition: box-shadow 0.3s, transform 0.3s;
+  background: orange;
+  border-color: orange;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
-.user-card-actions .pending-color:hover{
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.user-card-actions .pending-color:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transform: scale(1.02);
 }
 .user-card-actions .approved-color {
@@ -459,8 +457,9 @@
   background: #198754;
   transition: box-shadow 0.3s, transform 0.3s;
 }
-.user-card-actions .approved-color:hover{
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.user-card-actions .approved-color:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transform: scale(1.02);
 }
 .IndicommentsSectionDetailsUserName {

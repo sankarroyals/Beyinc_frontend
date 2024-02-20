@@ -28,8 +28,8 @@ export default function UserRequestCard({ d }) {
         (d?.role === "Entrepreneur"
           ? "margin-entrepreneur"
           : d?.role === "Mentor"
-          ? "margin-mentor"
-          : "")
+            ? "margin-mentor"
+            : "")
       }
     >
       <div className="user-card-details">
@@ -60,15 +60,14 @@ export default function UserRequestCard({ d }) {
                   d.verification == "approved"
                     ? "green"
                     : d.verification == "pending"
-                    ? "orange"
-                    : "red",
-                border: `1.5px dotted ${
-                  d.verification == "approved"
+                      ? "orange"
+                      : "red",
+                border: `1.5px dotted ${d.verification == "approved"
                     ? "green"
                     : d.verification == "pending"
-                    ? "orange"
-                    : "red"
-                }`,
+                      ? "orange"
+                      : "red"
+                  }`,
                 borderRadius: 5,
                 padding: "3px",
               }}

@@ -738,9 +738,9 @@ const IndividualUser = () => {
         </div>
         <div className="commentsContainer">
           <h2 className="Rating-heading">Ratings & Reviews</h2>
-            {convExits ? (email !==
+          {convExits ? (email !==
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
-                .email && (
+              .email && (
               <div>
                 <div style={{ display: "flex", gap: "10px" }}>
                   <img src={image} />
@@ -823,11 +823,11 @@ const IndividualUser = () => {
                   </div>
                 </div>
               </div>
-              )) : <>
-                <div style={{ fontSize: "20px", marginBottom: "20px" }}>
-                  Conversation with this user should exist to add reviews
-                </div>
-            </>}
+            )) : <>
+            <div style={{ fontSize: "20px", marginBottom: "20px" }}>
+              Conversation with this user should exist to add reviews
+            </div>
+          </>}
 
           {allComments.length > 0 && (
             <div>

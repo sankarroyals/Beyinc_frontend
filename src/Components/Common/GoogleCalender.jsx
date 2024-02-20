@@ -8,13 +8,15 @@ import moment from "moment";
 import CloseIcon from "@mui/icons-material/Close";
 
 import './GoogleCalender.css'
+import useWindowDimensions from "./WindowSize";
+import axios from "axios";
 export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver }) => {
     const gapi = window.gapi;
     const google = window.google;
     const [startDate, setStartDate] = useState('')
     const [EndDate, setEndDate] = useState('')
     const dispatch = useDispatch()
-    const {email} = useSelector(state=>state.auth.loginDetails)
+    const { email } = useSelector(state => state.auth.loginDetails)
     const [selectedUserEvents, setSelectedUserEvent] = useState([])
     const [summary, setSummary] = useState('')
     const [desc, setdesc] = useState('')
@@ -23,7 +25,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
     const [guestDetails, setguestDetails] = useState([])
 
 
-    
+
 
     const CLIENT_ID = process.env.REACT_APP_CALENDER_CLIENT_ID;
     const API_KEY = process.env.REACT_APP_CALENDER_API_KEY;
@@ -43,14 +45,16 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
     const [gapiInited, setGapiInited] = useState(false);
     const [gisInited, setGisInited] = useState(false);
     const [tokenClient, setTokenClient] = useState(null);
-  
+
 
     useEffect(() => {
         //const expiryTime = new Date().getTime() + expiresIn * 1000;
-        
-        gapiLoaded();
-        gisLoaded();
-    }, [accessToken, receiver]);
+        if (receiver.user?.email !== undefined) {
+
+            gapiLoaded();
+            gisLoaded();
+        }
+    }, [accessToken, receiver.user?.email]);
 
     function gapiLoaded() {
         gapi.load("client", initializeGapiClient);
@@ -75,12 +79,12 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
     }
 
     function gisLoaded() {
-        console.log(google?.accounts?.oauth2?.initTokenClient({
-            client_id:
-                CLIENT_ID,
-            scope: SCOPES,
-            callback: "", // defined later
-        }));
+        // console.log(google?.accounts?.oauth2?.initTokenClient({
+        //     client_id:
+        //         CLIENT_ID,
+        //     scope: SCOPES,
+        //     callback: "", // defined later
+        // }));
         setTokenClient(google?.accounts?.oauth2?.initTokenClient({
             client_id:
                 CLIENT_ID,
@@ -94,18 +98,20 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
     //Enables user interaction after all libraries are loaded.
 
     function handleAuthClick() {
-        tokenClient.callback = async (resp) => {
-            if (resp.error) {
-                throw resp;
-            }
-            await listUpcomingEvents();
-            const { access_token, expires_in } = gapi.client.getToken();
-            localStorage.setItem("access_token", access_token);
-            localStorage.setItem("expires_in", expires_in);
-            setAccessToken(access_token)
-            setExpiresIn(expires_in);
-        };
+        if (tokenClient !== null && tokenClient !== undefined) {
+            tokenClient.callback = async (resp) => {
+                if (resp.error) {
+                    throw resp;
+                }
+                await listUpcomingEvents();
+                const { access_token, expires_in } = gapi.client.getToken();
+                localStorage.setItem("access_token", access_token);
+                localStorage.setItem("expires_in", expires_in);
+                setAccessToken(access_token)
+                setExpiresIn(expires_in);
+            };
 
+        }
         if (!(accessToken && expiresIn)) {
             // Prompt the user to select a Google Account and ask for consent to share their data
             // when establishing a new session.
@@ -162,20 +168,20 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         //         })\n`,
         //     "<b>Events:</b>\n"
         // );
-        console.log(events, receiver);
-        console.log(events.filter((event) => {
-            const attendees = event.attendees || [];
-            return attendees.some((attendee) => attendee.email === receiver);
-        }));
+        // console.log(events, receiver.user?.email);
+        // console.log(events.filter((event) => {
+        //     const attendees = event.attendees || [];
+        //     return attendees.some((attendee) => attendee.email === receiver.user?.email);
+        // }));
         setSelectedUserEvent(events.filter((event) => {
             const attendees = event.attendees || [];
-            return attendees.some((attendee) => attendee.email === receiver);
+            return attendees.some((attendee) => attendee.email === receiver.user?.email);
         }))
         // document.getElementById("content").innerText = output;
     }
 
     function addManualEvent(e) {
-        e.target.disabled=true
+        e.target.disabled = true
         const event = {
             kind: "calendar#event",
             summary: summary,
@@ -191,7 +197,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
             },
             recurrence: ["RRULE:FREQ=DAILY;COUNT=1"],
             attendees: [...guestDetails?.map(g => ({ email: g, responseStatus: "needsAction" })),
-                { email: receiver, responseStatus: "needsAction" },
+            { email: receiver.user?.email, responseStatus: "needsAction" },
             ],
             reminders: {
                 useDefault: true,
@@ -206,7 +212,6 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
             },
             guestsCanSeeOtherGuests: true,
         };
-
         const request = gapi.client.calendar.events.insert({
             calendarId: "primary",
             resource: event,
@@ -234,8 +239,9 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
             }
         );
         listUpcomingEvents()
-        
+
     }
+    const { height, width } = useWindowDimensions();
 
     return (
         <div>
@@ -255,16 +261,20 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
             </button>
             <pre id="content" style={{ whiteSpace: "pre-wrap", display: 'none' }}></pre> */}
 
-            <Dialog
+            <Dialog fullScreen={width < 700 && accessToken && expiresIn}
                 open={gmeetLinkOpen}
                 onClose={() => setGmeetLinkOpen(false)}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                maxWidth='xl'
+
                 sx={gridCSS.tabContainer}
             // sx={ gridCSS.tabContainer }
             >
-                <DialogContent style={{  position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                <DialogContent style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                    {accessToken && expiresIn && <i
+                        className="fas fa-times cross" style={{ position: 'absolute', right: '0px' }}
+                        onClick={() => setGmeetLinkOpen(false)}
+                    ></i>}
                     <button className="schedulerbtnn"
                         id="authorize_button"
                         hidden={accessToken && expiresIn}
@@ -280,67 +290,70 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                         Signout
                     </button> */}
                     {(accessToken && expiresIn) &&
-                        <>
-                        <h2>Schedule the meeting</h2>  
-                        <label>Summary*</label>
-                        <input type="text" placeholder="Enter Summary" value={summary} onChange={(e) => setSummary(e.target.value)} />
-                        <label>Description</label>
-                        <input type="text" placeholder="Enter Description" value={desc} onChange={(e) => setdesc(e.target.value)} />
-                        <label>Add Guest</label>
-                        <div>
-                            {guestDetails.length > 0 && (
-                                <div className="listedTeam">
-                                    {guestDetails.map((t, i) => (
-                                        <div className="singleMember">
-                                            <div>{t}</div>
-                                            <div
-                                                onClick={(e) => {
-                                                    setguestDetails(guestDetails.filter((f, j) => i !== j));
-                                                 
-                                                }}
-                                            >
-                                                <CloseIcon className="deleteMember" />
+                        <div className="gmeetForm">
+                            <h2>Schedule the meeting</h2>
+                            <label>Summary*</label>
+                            <input type="text" placeholder="Enter Summary" value={summary} onChange={(e) => setSummary(e.target.value)} />
+                            <label>Description</label>
+                            <input type="text" placeholder="Enter Description" value={desc} onChange={(e) => setdesc(e.target.value)} />
+                            <label>Add Guest</label>
+                            <div>
+                                {guestDetails.length > 0 && (
+                                    <div className="listedTeam">
+                                        {guestDetails.map((t, i) => (
+                                            <div className="singleMember">
+                                                <div>{t}</div>
+                                                <div
+                                                    onClick={(e) => {
+                                                        setguestDetails(guestDetails.filter((f, j) => i !== j));
+
+                                                    }}
+                                                >
+                                                    <CloseIcon className="deleteMember" />
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                        <form action="" className="guestForm" onSubmit={(e) => {
-                            e.preventDefault()
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            <form action="" className="guestForm" onSubmit={(e) => {
+                                e.preventDefault()
                                 if (!guestDetails.includes(singleguestDetails)) {
                                     setguestDetails(prev => [...prev, singleguestDetails])
                                 }
-                            setsingleguestDetails('')
-                        }}>
-                            <input style={{minWidth: '200px'}} type="email" placeholder="Enter Guest mails" value={singleguestDetails} onChange={(e) => setsingleguestDetails(e.target.value)} />
+                                setsingleguestDetails('')
+                            }}>
+                                <input style={{ minWidth: '250px' }} type="text" placeholder="Enter Guest mails" value={singleguestDetails} onChange={(e) => setsingleguestDetails(e.target.value)} />
+                                <div>
+                                    <button className="schedulerbtnn" disabled={singleguestDetails == '' || !/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(singleguestDetails)} >Add guests</button>
+                                </div>
+                            </form>
+                            <label>Start date and time*</label>
+                            <input type="datetime-local" name="" value={startDate} id="" onChange={(e) => {
+                                setStartDate(e.target.value)
+                                setEndDate('')
+                            }} />
+                            <label>End date and time*</label>
+                            <input type="datetime-local" min={startDate} value={EndDate} name="" id="" onChange={(e) => setEndDate(e.target.value)} />
                             <div>
-                                <button className="schedulerbtnn" disabled={singleguestDetails==''} >Add guests</button>
-                            </div>              
-                        </form>
-                        <label>Start date and time*</label>
-                        <input type="datetime-local" name="" value={startDate} id="" onChange={(e) => {
-                            setStartDate(e.target.value)
-                            setEndDate('')
-                        }} />
-                        <label>End date and time*</label>
-                        <input type="datetime-local" min={startDate} value={EndDate} name="" id="" onChange={(e) => setEndDate(e.target.value)} />
-                        <button className="schedulerbtnn"
-                            id="add_manual_event"
-                            hidden={!accessToken && !expiresIn}
-                            onClick={addManualEvent}
-                            disabled={startDate == '' || EndDate == '' || summary=='' }
-                        >
-                            Add Event
-                        </button></>}
-                   
+                                <button className="schedulerbtnn"
+                                    id="add_manual_event"
+                                    hidden={!accessToken && !expiresIn}
+                                    onClick={addManualEvent}
+                                    disabled={startDate == '' || EndDate == '' || summary == ''}
+                                >
+                                    Add Event
+                                </button>
+                            </div>
+                        </div>}
+
                     {/* <pre id="content" style={{ whiteSpace: "pre-wrap" }}></pre> */}
                     {selectedUserEvents.length > 0 && <>
-                        <h5 style={{ margin: '5px 0px' }}>Events with {receiver}</h5>
+                        <h5 style={{ margin: '5px 0px' }} className="meetsummary">Events with {receiver.user?.userName}</h5>
                         {/* <ol> */}
                         <div className='Totalmeetings'>
                             {selectedUserEvents.map((sel, i) => (
-                                <div  className='meetings'>
+                                <div className='meetings'>
                                     <div className="meetsummary">{sel.summary}</div>
                                     <b>To:</b>
                                     {sel.attendees.map(a => (
@@ -348,15 +361,15 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
                                     ))}
                                     <b>Start:</b>
                                     <div className="meetTime">{moment(sel.start?.dateTime).format("MMMM DD YYYY, h:mm:ss a")}</div>
-                                    <b>End:</b> 
+                                    <b>End:</b>
                                     <div className="meetTime">{moment(sel.end?.dateTime).format("MMMM DD YYYY, h:mm:ss a")}</div>
                                     <a href={sel.hangoutLink} target="_blank">Meet Link</a>
                                     <a href={sel.htmlLink} target="_blank">Visit Calender</a>
                                 </div>
                             ))}
-                            </div>
+                        </div>
                         {/* </ol> */}
-                        
+
                     </>}
                 </DialogContent>
             </Dialog>
