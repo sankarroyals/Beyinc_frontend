@@ -237,6 +237,9 @@
   .update-container {
     font-size: 14px;
   }
+  .updateContainerWrapper textarea{
+    width: 300px;
+  }
   .company {
     font-size: 14px;
   }
