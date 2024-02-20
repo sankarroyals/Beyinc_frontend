@@ -240,6 +240,7 @@
   .updateContainerWrapper textarea{
     width: 300px;
   }
+
   .company {
     font-size: 14px;
   }
@@ -312,6 +313,9 @@
   }
   .update-form select {
     width: 310px !important;
+  }
+  .skillsSelectBox select{
+    width: 300px !important;
   }
   .update-form-container {
     width: 20rem !important;

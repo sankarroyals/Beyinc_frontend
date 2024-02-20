@@ -1122,7 +1122,7 @@ const Editprofile = () => {
                     alignItems: "center",
                   }}
                 >
-                  <div>
+                  <div className="skillsSelectBox">
                     <select
                       name="skill"
                       id=""
@@ -1178,7 +1178,7 @@ const Editprofile = () => {
                     alignItems: "center",
                   }}
                 >
-                  <div>
+                  <div className="skillsSelectBox">
                     <select
                       name="languagesKnown"
                       id=""
