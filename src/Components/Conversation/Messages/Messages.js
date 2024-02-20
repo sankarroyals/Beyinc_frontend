@@ -19,10 +19,10 @@ const Messages = () => {
         </div>
       ) :
         (
-        <>
-          <IndividualMessage />
-        </>
-      )}
+          <>
+            <IndividualMessage />
+          </>
+        )}
     </div>
   );
 };

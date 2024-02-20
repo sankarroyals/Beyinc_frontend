@@ -45,7 +45,6 @@
 .individuals:hover {
   background: #c2e7ff46;
   border-radius: 10px;
-
 }
 .role {
   font-size: 12px;
@@ -71,7 +70,6 @@
   padding: 5px 8px;
   background: var(--button);
   color: var(--white-text);
-  
 
   display: flex;
   align-items: center;
@@ -171,7 +169,6 @@ body[data-theme="dark"] .tabs {
   flex-wrap: wrap;
 }
 
-
 .addTeamMembers {
   border: 1px solid grey;
   padding: 10px;
@@ -262,7 +259,7 @@ textarea {
   cursor: pointer;
 }
 .addtags:hover {
-  background:var(--button-hover);
+  background: var(--button-hover);
 }
 
 .file {
@@ -303,42 +300,40 @@ textarea {
   font-size: 12px;
   font-weight: bold;
 }
-.userName, .lastMsg
-  {
+.userName,
+.lastMsg {
   text-align: start;
   text-overflow: ellipsis;
   width: 300px;
   white-space: nowrap;
   overflow: hidden;
 }
-.lastMsg{
+.lastMsg {
   width: 200px !important;
 }
 
-@media (max-width: 768px){
-.userName,.lastMsg
-  {
-  text-align: start;
-  text-overflow: ellipsis;
-  width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
+@media (max-width: 768px) {
+  .userName,
+  .lastMsg {
+    text-align: start;
+    text-overflow: ellipsis;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .message-count {
+    background: #0b57d0b9;
+    color: white;
+    padding: 2px 2px;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: 16px;
+    /* left: 0; */
+    right: -30px;
+    margin-left: 200px;
+    font-size: 12px;
+    font-weight: bold;
+  }
 }
-.message-count {
-  background: #0b57d0b9;
-  color: white;
-  padding: 2px 2px;
-  border-radius: 50%;
-  width: 5px;
-  height: 5px;
-  position: absolute;
-  top: 16px;
-  /* left: 0; */
-  right: -30px;
-  margin-left: 200px;
-  font-size: 12px;
-  font-weight: bold;
-}
-}
-
-

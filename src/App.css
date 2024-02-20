@@ -275,27 +275,27 @@ button:hover {
 
 .dot:nth-child(1) {
   animation-delay: 0.1s;
-  background: #3ac; 
+  background: #3ac;
 }
 
 .dot:nth-child(2) {
   animation-delay: 0.2s;
-  background: #ff6347; 
+  background: #ff6347;
 }
 
 .dot:nth-child(3) {
   animation-delay: 0.3s;
-  background: #ffd700; 
+  background: #ffd700;
 }
 
 .dot:nth-child(4) {
   animation-delay: 0.4s;
-  background: #90ee90; 
+  background: #90ee90;
 }
 
 .dot:nth-child(5) {
   animation-delay: 0.5s;
-  background: #4682b4; 
+  background: #4682b4;
 }
 
 @keyframes slide {
@@ -457,7 +457,8 @@ input[type="radio"] + label {
     margin-left: 38%;
   }
 
-input,select {
-  width: 300px !important;
-}
+  input,
+  select {
+    width: 300px !important;
+  }
 }

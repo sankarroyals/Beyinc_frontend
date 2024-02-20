@@ -70,7 +70,7 @@ const Conversations = () => {
 
   // get friend based on params
   useEffect(() => {
-    console.log(isMobile , conversationId );
+    console.log(isMobile, conversationId);
     if (conversationId !== undefined) {
       ApiServices.getFriendByConvID({ conversationId: conversationId, email: email }).then((res) => {
         dispatch(setReceiverId(res.data))
@@ -79,17 +79,17 @@ const Conversations = () => {
       })
     }
   }, [conversationId])
-  
+
   const { height, width } = useWindowDimensions();
 
 
   return (
     <div className='conversationContainer'>
-      <div className='users' style={{ display: (width < 770 && conversationId !== undefined) && 'none'  }}>
+      <div className='users' style={{ display: (width < 770 && conversationId !== undefined) && 'none' }}>
         <SearchBox />
         <HistoryChats />
       </div>
-      <div className='chatContainer' style={{ display: (width < 770 && conversationId == undefined) && 'none'}}>
+      <div className='chatContainer' style={{ display: (width < 770 && conversationId == undefined) && 'none' }}>
         <Messages />
       </div>
     </div>

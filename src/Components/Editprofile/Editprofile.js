@@ -286,7 +286,9 @@ const Editprofile = () => {
     if (e.target.name === "email") {
       setInputs((prev) => ({
         ...prev,
-        isEmailValid: /[a-zA-Z0-9]+@gmail.com/.test(e.target.value),
+        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(
+          e.target.value
+        ),
       }));
     }
     if (e.target.name === "mobile") {
@@ -502,19 +504,19 @@ const Editprofile = () => {
 
   const [isFormValid, setIsFormValid] = useState(
     mobileVerified &&
-      (isNameValid ||
-        oldDocs.resume !== "" ||
-        oldDocs.expertise !== "" ||
-        oldDocs.acheivements !== "" ||
-        oldDocs.working !== "" ||
-        oldDocs.degree !== "" ||
-        changeResume.resume !== "" ||
-        changeResume.expertise !== "" ||
-        changeResume.acheivements !== "" ||
-        changeResume.working !== "" ||
-        changeResume.degree !== "") &&
-      totalEducationData.length > 0 &&
-      totalExperienceData.length > 0
+    (isNameValid ||
+      oldDocs.resume !== "" ||
+      oldDocs.expertise !== "" ||
+      oldDocs.acheivements !== "" ||
+      oldDocs.working !== "" ||
+      oldDocs.degree !== "" ||
+      changeResume.resume !== "" ||
+      changeResume.expertise !== "" ||
+      changeResume.acheivements !== "" ||
+      changeResume.working !== "" ||
+      changeResume.degree !== "") &&
+    totalEducationData.length > 0 &&
+    totalExperienceData.length > 0
   );
 
   const handleChangeRadio = (e) => {
@@ -882,7 +884,7 @@ const Editprofile = () => {
                 </div>
                 <div>
                   {EducationDetails.grade == "SSC" ||
-                  EducationDetails.grade == "" ? (
+                    EducationDetails.grade == "" ? (
                     <input
                       type="text"
                       name="college"
@@ -965,7 +967,7 @@ const Editprofile = () => {
             ))}
         </div>
         <div className="update-form-container">
-          <h3 className="update-heading">Personal / Fee Negotiation*</h3>
+          <h3 className="update-heading">Personal Info*</h3>
           <form className="update-form">
             <div className="personal-container">
               <div>

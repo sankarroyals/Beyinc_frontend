@@ -183,7 +183,7 @@ const AllUsers = () => {
               });
             }
           }
-         
+
         }
       });
     }
@@ -259,7 +259,7 @@ const AllUsers = () => {
             }}
           />
         </DialogTitle>
-        <DialogContent style={{ padding: 0 }}>
+        <DialogContent sx={{ overflow: "hidden" }} style={{ padding: 0 }}>
           <Box
             sx={{
               display: "flex",
@@ -267,6 +267,7 @@ const AllUsers = () => {
               flexGrow: 1,
               bgcolor: "background.paper",
               height: width <= 400 ? "100%" : 400,
+              overflowY: "scroll",
             }}
           >
             <Tabs
@@ -278,6 +279,9 @@ const AllUsers = () => {
               sx={{
                 borderRight: 1,
                 borderColor: "divider",
+                position: "sticky",
+                top: 0,
+                left: 0,
               }}
             >
               {tabs.map((v, i) => (
@@ -530,9 +534,9 @@ const AllUsers = () => {
                 }}
               >
                 <div style={{ marginLeft: 8 }} className="filter-rating-label">
-                  <b> Rating</b>
+                  <b> Rating:</b>
                 </div>
-                <div className="inputTag" style={{ marginLeft: 20 }}>
+                <div className="inputTag" style={{ marginLeft: 10 }}>
                   <AddReviewStars
                     filledStars={filledStars}
                     setFilledStars={setFilledStars}
@@ -551,7 +555,7 @@ const AllUsers = () => {
                     marginLeft: 8,
                   }}
                 >
-                  <b> Verified</b>
+                  <b> Verified:</b>
                   <input
                     type="checkbox"
                     style={{ width: "20px", marginLeft: 20, marginBottom: 0 }}
@@ -589,10 +593,10 @@ const AllUsers = () => {
                     setFilteredData(
                       e.target.value !== ""
                         ? filteredData.filter((f) =>
-                            f.userName
-                              .toLowerCase()
-                              .includes(e.target.value.toLowerCase())
-                          )
+                          f.userName
+                            .toLowerCase()
+                            .includes(e.target.value.toLowerCase())
+                        )
                         : data
                     );
                   }}
@@ -604,7 +608,14 @@ const AllUsers = () => {
             <div className="userscontainer">
               {filteredData.length > 0 ? (
                 filteredData?.map((d) => (
-                  <SingleUserDetails d={d} connectStatus={connectStatus} setPitchSendTo={setPitchSendTo } pitchSendTo={pitchSendTo} receiverRole={receiverRole} setreceiverRole={setreceiverRole} />
+                  <SingleUserDetails
+                    d={d}
+                    connectStatus={connectStatus}
+                    setPitchSendTo={setPitchSendTo}
+                    pitchSendTo={pitchSendTo}
+                    receiverRole={receiverRole}
+                    setreceiverRole={setreceiverRole}
+                  />
                 ))
               ) : (
                 <div className="no-users"
@@ -613,11 +624,11 @@ const AllUsers = () => {
                     justifyContent: "center",
                     flexDirection: 'column',
                     alignItems: "center",
-                   
+
                   }}
                 >
-                <img src="/Search.gif"/>
-                 <div>No users available</div>
+                  <img src="/Search.gif" />
+                  <div>No users available</div>
                 </div>
               )}
             </div>

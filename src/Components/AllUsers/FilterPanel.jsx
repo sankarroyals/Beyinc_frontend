@@ -19,8 +19,8 @@ export function FilterPanel({
       isFlat
         ? rawData.filter((v) => v.toLowerCase().includes(prepQuery))
         : !isCountry
-        ? rawData.filter((v) => v[dataKey].toLowerCase().includes(prepQuery))
-        : rawData.filter((v) => v.name.toLowerCase().includes(prepQuery))
+          ? rawData.filter((v) => v[dataKey].toLowerCase().includes(prepQuery))
+          : rawData.filter((v) => v.name.toLowerCase().includes(prepQuery))
     );
   }, [query, rawData, dataKey, isCountry, isFlat]);
   return (
@@ -42,73 +42,73 @@ export function FilterPanel({
       {!isCountry
         ? isFlat
           ? data.map((h) => {
-              return (
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value={h}
-                      checked={filters[dataKey].includes(h)}
-                      onChange={() =>
-                        setFilters(() => ({
-                          ...filters,
-                          [dataKey]: filters[dataKey].includes(h)
-                            ? filters[dataKey].filter((v) => v !== h)
-                            : [...filters[dataKey], h],
-                        }))
-                      }
-                    />
-                  }
-                  label={<div className="filter-options-label">{h}</div>}
-                />
-              );
-            })
-          : data.map((h) => (
+            return (
               <FormControlLabel
                 control={
                   <Checkbox
-                    value={h[dataKey]}
-                    checked={filters[dataKey].includes(h[dataKey])}
-                    onChange={() => {
-                      setFilters((prev) => ({
-                        ...prev,
-                        [dataKey]: prev[dataKey].includes(h[dataKey])
-                          ? prev[dataKey].filter((v) => v !== h[dataKey])
-                          : [...filters[dataKey], h[dataKey]],
-                      }));
-                    }}
+                    value={h}
+                    checked={filters[dataKey].includes(h)}
+                    onChange={() =>
+                      setFilters(() => ({
+                        ...filters,
+                        [dataKey]: filters[dataKey]?.includes(h)
+                          ? filters[dataKey].filter((v) => v !== h)
+                          : [...filters[dataKey], h],
+                      }))
+                    }
                   />
                 }
-                label={<div className="filter-options-label">{h[dataKey]}</div>}
+                label={<div className="filter-options-label">{h}</div>}
               />
-            ))
-        : data.map((h) => (
+            );
+          })
+          : data.map((h) => (
             <FormControlLabel
               control={
                 <Checkbox
-                  value={`${h.name}-${h.isoCode}`}
-                  checked={filters[isPitch ? "country" : "userName"].includes(
-                    `${h.name}-${h.isoCode}`
-                  )}
-                  onChange={() =>
+                  value={h[dataKey]}
+                  checked={filters[dataKey].includes(h[dataKey])}
+                  onChange={() => {
                     setFilters((prev) => ({
                       ...prev,
-                      [isPitch ? "country" : "userName"]: prev[
-                        isPitch ? "country" : "userName"
-                      ].includes(`${h.name}-${h.isoCode}`)
-                        ? prev[isPitch ? "country" : "userName"].filter(
-                            (v) => v !== `${h.name}-${h.isoCode}`
-                          )
-                        : [
-                            ...filters[isPitch ? "country" : "userName"],
-                            `${h.name}-${h.isoCode}`,
-                          ],
-                    }))
-                  }
+                      [dataKey]: prev[dataKey].includes(h[dataKey])
+                        ? prev[dataKey].filter((v) => v !== h[dataKey])
+                        : [...filters[dataKey], h[dataKey]],
+                    }));
+                  }}
                 />
               }
-              label={<div className="filter-options-label">{h.name}</div>}
+              label={<div className="filter-options-label">{h[dataKey]}</div>}
             />
-          ))}
+          ))
+        : data.map((h) => (
+          <FormControlLabel
+            control={
+              <Checkbox
+                value={`${h.name}-${h.isoCode}`}
+                checked={filters[isPitch ? "country" : "userName"].includes(
+                  `${h.name}-${h.isoCode}`
+                )}
+                onChange={() =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    [isPitch ? "country" : "userName"]: prev[
+                      isPitch ? "country" : "userName"
+                    ].includes(`${h.name}-${h.isoCode}`)
+                      ? prev[isPitch ? "country" : "userName"].filter(
+                        (v) => v !== `${h.name}-${h.isoCode}`
+                      )
+                      : [
+                        ...filters[isPitch ? "country" : "userName"],
+                        `${h.name}-${h.isoCode}`,
+                      ],
+                  }))
+                }
+              />
+            }
+            label={<div className="filter-options-label">{h.name}</div>}
+          />
+        ))}
     </div>
   );
 }

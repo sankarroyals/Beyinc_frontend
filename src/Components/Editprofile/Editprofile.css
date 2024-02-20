@@ -234,38 +234,40 @@
   flex-wrap: wrap;
 }
 @media (max-width: 768px) {
-  .update-container{
+  .update-container {
     font-size: 14px;
   }
-  .company{
+  .company {
     font-size: 14px;
   }
-  .profession, .timeline, .created, .detailOf{
+  .profession,
+  .timeline,
+  .created,
+  .detailOf {
     font-size: 12px !important;
   }
 
   .singleMember {
-  background: rgb(242, 240, 240);
-  padding: 10px !important;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  position: relative;
-  border-radius: 10px;
-  margin: 2px 0px !important;
-}
+    background: rgb(242, 240, 240);
+    padding: 10px !important;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    border-radius: 10px;
+    margin: 2px 0px !important;
+  }
 
-.deleteMember {
-  position: absolute;
-  top: -5px;
-  right: -3px;
-  cursor: pointer;
-  font-size: 12px !important;
-  background: rgba(255, 0, 0, 0.662);
-  color: white;
-  border-radius: 50%;
-}
-
+  .deleteMember {
+    position: absolute;
+    top: -5px;
+    right: -3px;
+    cursor: pointer;
+    font-size: 12px !important;
+    background: rgba(255, 0, 0, 0.662);
+    color: white;
+    border-radius: 50%;
+  }
 
   .full-width-button {
     width: 310px !important;
@@ -289,7 +291,7 @@
     width: 80% !important;
     height: 2px !important;
   }
-  .name-container{
+  .name-container {
     font-size: 16px !important;
   }
   .name-container,

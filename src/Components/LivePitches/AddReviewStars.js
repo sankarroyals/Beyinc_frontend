@@ -8,7 +8,7 @@ const AddReviewStars = ({ filledStars, setFilledStars }) => {
 
 
 
-  
+
     const renderStars = () => {
         const totalStars = 5;
         const stars = [];
@@ -22,7 +22,7 @@ const AddReviewStars = ({ filledStars, setFilledStars }) => {
                 starClass = 'half-filled';
             }
 
-            stars.push(<span key={i} className={`star ${starClass}`} style={{ cursor: 'pointer' }} onClick={()=> setFilledStars(i)}>&#9733;</span>);
+            stars.push(<span key={i} className={`star ${starClass}`} style={{ cursor: 'pointer' }} onClick={() => setFilledStars(i)}>&#9733;</span>);
         }
 
         return stars;
@@ -34,7 +34,7 @@ const AddReviewStars = ({ filledStars, setFilledStars }) => {
             <div>
                 {renderStars()}
             </div>
-           
+
         </div>
     );
 };

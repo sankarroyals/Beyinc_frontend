@@ -1,5 +1,3 @@
-
-
 .indiPitchDesc h2 {
   margin-top: 10px;
   text-align: center;
@@ -76,6 +74,7 @@
   padding: 15px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
   border-radius: 4px;
+  height: fit-content;
   margin-bottom: 20px;
 }
 .fas.fa-trash:hover {
@@ -161,11 +160,11 @@
   transition: all 0.3s ease-in-out;
   outline: none;
   float: right;
-  width: 79.5px;
+  width: 79.5px !important;
   margin-bottom: 0;
   font-weight: 500;
 }
-.user-card-image{
+.user-card-image {
   position: relative;
 }
 .user-card-image img {
@@ -185,7 +184,6 @@
   max-width: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
-  
 }
 
 .user-nav-bar .nav-bar-buttons {
@@ -231,7 +229,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 395px;
+  width: 343px;
   padding: 13px;
   box-shadow: 0 0 10px var(--userCard-boxshadow);
   border-radius: 10px;
@@ -298,7 +296,11 @@
   }
 }
 .margin-entrepreneur {
-  border-left: 2px solid #9E339E;
+  border-left: 2px solid #f1441c;
+  border-radius: 10px;
+}
+.margin-investor {
+  border-left: 2px solid #1799ac;
   border-radius: 10px;
 }
 .margin-mentor {
@@ -314,7 +316,7 @@
   align-items: center;
   margin-top: 10px;
 }
-.no-users img{
+.no-users img {
   width: 100%;
   height: auto;
 }
@@ -323,8 +325,8 @@
   .user-nav-bar {
     width: 100%;
   }
-  .user-card-actions{
-  align-items: flex-end;
+  .user-card-actions {
+    align-items: flex-end;
   }
 
   .user-card-actions button {
@@ -422,30 +424,31 @@
   width: 100%;
 }
 
-
 .user-cards-panel {
   width: 90%;
 }
 
-.user-card-actions .connect-color{
-  color:var(--white-text);
+.user-card-actions .connect-color {
+  color: var(--white-text);
   background: var(--button);
   border-color: var(--primary);
   transition: box-shadow 0.3s, transform 0.3s;
 }
-.user-card-actions .connect-color:hover{
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.user-card-actions .connect-color:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transform: scale(1.02);
   background: var(--button-hover);
 }
 .user-card-actions .pending-color {
   color: white;
- background: orange;
- border-color: orange;
- transition: box-shadow 0.3s, transform 0.3s;
+  background: orange;
+  border-color: orange;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
-.user-card-actions .pending-color:hover{
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.user-card-actions .pending-color:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transform: scale(1.02);
 }
 .user-card-actions .approved-color {
@@ -454,8 +457,9 @@
   background: #198754;
   transition: box-shadow 0.3s, transform 0.3s;
 }
-.user-card-actions .approved-color:hover{
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.user-card-actions .approved-color:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transform: scale(1.02);
 }
 .IndicommentsSectionDetailsUserName {
@@ -480,4 +484,8 @@
 }
 .IndicommentsSectionActions .icon-blue {
   color: #6a73fa;
+}
+
+.filter-checkbox-label {
+  text-wrap: wrap;
 }

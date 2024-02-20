@@ -141,7 +141,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
 
 
                                     />
-                                    
+
                                 </div>
                             </div>
                             <div>
@@ -326,7 +326,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                     rows={10} cols={50}
                                 ></textarea></div>
                             </div>
-                            
+
 
                         </div>
 
@@ -448,8 +448,8 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
                                             <div className="singleMember">
 
                                                 <div>{t}</div>
-                                               
-                                               
+
+
                                             </div>
                                         ))}
                                     </div>
@@ -480,27 +480,27 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
 
                                 /></div>
                             </div>
-                            
-                                <div>
-                                    <div>
-                                        <label>Do you want pich hide/show after pitch go live?</label>
-                                    </div>
-                                    <div>
-                                        <select
-                                        name="pitchRequiredStatus" value={(status == '' || status==undefined) ? pitchDetails?.pitchRequiredStatus : status}
-                                            disabled={role == 'Admin' || window.location.pathname !== '/userPitches' || (pitchDetails?.status !== 'approved')}
-                                            onChange={(e) => {
-                                                setStatus(e.target.value);
-                                            }}
-                                        >
-                                            <option value="">Select</option>
-                                            <option value="hide">Hide</option>
-                                            <option value="show">Show</option>
-                                        </select>
-                                    </div>
-                                </div>
 
-                            
+                            <div>
+                                <div>
+                                    <label>Do you want pich hide/show after pitch go live?</label>
+                                </div>
+                                <div>
+                                    <select
+                                        name="pitchRequiredStatus" value={(status == '' || status == undefined) ? pitchDetails?.pitchRequiredStatus : status}
+                                        disabled={role == 'Admin' || window.location.pathname !== '/userPitches' || (pitchDetails?.status !== 'approved')}
+                                        onChange={(e) => {
+                                            setStatus(e.target.value);
+                                        }}
+                                    >
+                                        <option value="">Select</option>
+                                        <option value="hide">Hide</option>
+                                        <option value="show">Show</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
 
                         </div>
                     </TabPanel>

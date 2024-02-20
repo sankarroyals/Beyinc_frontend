@@ -40,7 +40,7 @@ const Login = () => {
     if (e.target.name === "email") {
       setInputs((prev) => ({
         ...prev,
-        isEmailValid: /[a-zA-Z0-9]+@gmail.com/.test(e.target.value),
+        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(e.target.value),
       }));
     }
     if (e.target.name === "password") {
@@ -62,7 +62,7 @@ const Login = () => {
   const [loginType, setLoginType] = useState("email");
   const [otpVisible, setOtpVisible] = useState(false);
 
-  // const isEmailValid = /[a-zA-Z0-9]+@gmail.com/.test(email);
+  // const isEmailValid = /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(email);
   // const isPasswordValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
 
   const isFormValid =

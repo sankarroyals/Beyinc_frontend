@@ -24,8 +24,8 @@ export function FilterCheckBoxes({
       isFlat
         ? rawData.filter((v) => v.toLowerCase().includes(prepQuery))
         : !isCountry
-        ? rawData.filter((v) => v[dataKey].toLowerCase().includes(prepQuery))
-        : rawData.filter((v) => v.name.toLowerCase().includes(prepQuery))
+          ? rawData.filter((v) => v[dataKey].toLowerCase().includes(prepQuery))
+          : rawData.filter((v) => v.name.toLowerCase().includes(prepQuery))
     );
   }, [query, rawData, dataKey, isCountry, isFlat, showSearch]);
   return (
@@ -59,98 +59,98 @@ export function FilterCheckBoxes({
           {!isCountry
             ? isFlat
               ? data.map((v) => (
-                  <li>
-                    <input
-                      id={`${v}-${dataKey}-check`}
-                      class="filter-checkbox-input"
-                      type="checkbox"
-                      name="type-set"
-                      checked={filters[dataKey].includes(v)}
-                      onClick={() => {
-                        setFilters((prev) => {
-                          console.log(
-                            prev[dataKey].includes(v),
-                            v,
-                            prev[dataKey].filter((g) => g !== v)
-                          );
-                          return {
-                            ...prev,
-                            [dataKey]: prev[dataKey].includes(v)
-                              ? prev[dataKey].filter((g) => g !== v)
-                              : [...prev[dataKey], v],
-                          };
-                        });
-                      }}
-                    />
-                    <label
-                      id={`${v}-${dataKey}-check`}
-                      class="filter-checkbox-label"
-                    >
-                      {v}
-                    </label>
-                  </li>
-                ))
-              : data.map((v) => (
-                  <li>
-                    <input
-                      id={`${v[dataKey]}-${dataKey}-check`}
-                      class="filter-checkbox-input"
-                      type="checkbox"
-                      name="type-set"
-                      checked={filters[dataKey].includes(v[dataKey])}
-                      onClick={() => {
-                        setFilters((prev) => {
-                          return {
-                            ...prev,
-                            [dataKey]: prev[dataKey].includes(v[dataKey])
-                              ? prev[dataKey].filter((g) => g !== v[dataKey])
-                              : [...prev[dataKey], v[dataKey]],
-                          };
-                        });
-                      }}
-                    />
-                    <label
-                      id={`${v[dataKey]}-${dataKey}-check`}
-                      class="filter-checkbox-label"
-                    >
-                      {v[dataKey]}
-                    </label>
-                  </li>
-                ))
-            : data.map((h) => (
                 <li>
                   <input
-                    id={`${h.name}-country-check`}
+                    id={`${v}-${dataKey}-check`}
                     class="filter-checkbox-input"
                     type="checkbox"
                     name="type-set"
-                    checked={filters["country"].includes(
-                      `${h.name}-${h.isoCode}`
-                    )}
-                    onClick={() =>
-                      setFilters((prev) => ({
-                        ...prev,
-                        [isPitch ? "country" : "userName"]: prev[
-                          isPitch ? "country" : "userName"
-                        ].includes(`${h.name}-${h.isoCode}`)
-                          ? prev[isPitch ? "country" : "userName"].filter(
-                              (v) => v !== `${h.name}-${h.isoCode}`
-                            )
-                          : [
-                              ...filters[isPitch ? "country" : "userName"],
-                              `${h.name}-${h.isoCode}`,
-                            ],
-                      }))
-                    }
+                    checked={filters[dataKey].includes(v)}
+                    onClick={() => {
+                      setFilters((prev) => {
+                        console.log(
+                          prev[dataKey].includes(v),
+                          v,
+                          prev[dataKey].filter((g) => g !== v)
+                        );
+                        return {
+                          ...prev,
+                          [dataKey]: prev[dataKey].includes(v)
+                            ? prev[dataKey].filter((g) => g !== v)
+                            : [...prev[dataKey], v],
+                        };
+                      });
+                    }}
                   />
                   <label
-                    id={`${h.name}-country-check`}
+                    id={`${v}-${dataKey}-check`}
                     class="filter-checkbox-label"
                   >
-                    {h.name}
+                    {v}
                   </label>
                 </li>
-              ))}
+              ))
+              : data.map((v) => (
+                <li>
+                  <input
+                    id={`${v[dataKey]}-${dataKey}-check`}
+                    class="filter-checkbox-input"
+                    type="checkbox"
+                    name="type-set"
+                    checked={filters[dataKey].includes(v[dataKey])}
+                    onClick={() => {
+                      setFilters((prev) => {
+                        return {
+                          ...prev,
+                          [dataKey]: prev[dataKey].includes(v[dataKey])
+                            ? prev[dataKey].filter((g) => g !== v[dataKey])
+                            : [...prev[dataKey], v[dataKey]],
+                        };
+                      });
+                    }}
+                  />
+                  <label
+                    id={`${v[dataKey]}-${dataKey}-check`}
+                    class="filter-checkbox-label"
+                  >
+                    {v[dataKey]}
+                  </label>
+                </li>
+              ))
+            : data.map((h) => (
+              <li>
+                <input
+                  id={`${h.name}-country-check`}
+                  class="filter-checkbox-input"
+                  type="checkbox"
+                  name="type-set"
+                  checked={filters["country"].includes(
+                    `${h.name}-${h.isoCode}`
+                  )}
+                  onClick={() =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      [isPitch ? "country" : "userName"]: prev[
+                        isPitch ? "country" : "userName"
+                      ].includes(`${h.name}-${h.isoCode}`)
+                        ? prev[isPitch ? "country" : "userName"].filter(
+                          (v) => v !== `${h.name}-${h.isoCode}`
+                        )
+                        : [
+                          ...filters[isPitch ? "country" : "userName"],
+                          `${h.name}-${h.isoCode}`,
+                        ],
+                    }))
+                  }
+                />
+                <label
+                  id={`${h.name}-country-check`}
+                  class="filter-checkbox-label"
+                >
+                  {h.name}
+                </label>
+              </li>
+            ))}
         </ul>
       </div>
     </div>
