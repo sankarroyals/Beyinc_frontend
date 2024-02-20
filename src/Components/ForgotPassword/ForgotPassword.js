@@ -181,7 +181,7 @@ const ResetPassword = () => {
     e.target.disabled = true;
     if (loginType === "email") {
       await ApiServices.sendOtp({
-        to: email,
+        to: email, type: 'Forgot Password',
         subject: "Email Verification",
       })
         .then((res) => {

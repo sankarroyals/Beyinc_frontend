@@ -83,7 +83,7 @@ const SignUp = () => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendOtp({
-      to: email,
+      to: email, type: 'Sign Up',
       subject: "Email Verification",
     })
       .then((res) => {
