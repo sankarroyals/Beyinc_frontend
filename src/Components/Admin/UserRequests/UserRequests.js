@@ -173,7 +173,7 @@ export default function UserRequests() {
           ) : (
             <div className="pitch-container">
               <img className="no-requests" src="/no-requests.png" />
-              <div style={{ marginLeft: "30px" }}>No Requests Found !</div>
+              <div>No Requests Found !</div>
             </div>
           )}
         </div>

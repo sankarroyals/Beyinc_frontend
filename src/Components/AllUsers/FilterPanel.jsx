@@ -51,7 +51,7 @@ export function FilterPanel({
                       onChange={() =>
                         setFilters(() => ({
                           ...filters,
-                          [dataKey]: filters[dataKey].includes(h)
+                          [dataKey]: filters[dataKey]?.includes(h)
                             ? filters[dataKey].filter((v) => v !== h)
                             : [...filters[dataKey], h],
                         }))

@@ -63,4 +63,13 @@
     justify-content: center;
     align-items: center;
   }
+  .pitch-container img {
+    margin-inline: 20px;
+    margin-top: 20px;
+    width: 100%;
+    height: fit-content;
+  }
+}
+.pitch-container img {
+  margin-top: 20px;
 }
