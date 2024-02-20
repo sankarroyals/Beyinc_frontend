@@ -56,7 +56,7 @@ const SingleUserDetails = ({
             ? "margin-entrepreneur"
             : d.role === "Mentor"
               ? "margin-mentor"
-              : "")
+              : d.role === "Investor" ? 'margin-investor' : "")
         }
       >
         <div className="user-card-details">
@@ -113,7 +113,7 @@ const SingleUserDetails = ({
               justifyContent: "space-between",
             }}
           >
-            <span style={{ fontWeight: "600" }}>{d.role}</span>
+            <span style={{ fontWeight: "600", fontSize: '12px' }}>{d.role}</span>
             <span>
 
             </span>

@@ -161,7 +161,7 @@
   transition: all 0.3s ease-in-out;
   outline: none;
   float: right;
-  width: 79.5px;
+  width: 79.5px !important;
   margin-bottom: 0;
   font-weight: 500;
 }
@@ -231,7 +231,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 395px;
+  width: 343px;
   padding: 13px;
   box-shadow: 0 0 10px var(--userCard-boxshadow);
   border-radius: 10px;
@@ -298,7 +298,11 @@
   }
 }
 .margin-entrepreneur {
-  border-left: 2px solid #9E339E;
+  border-left: 2px solid #f1441c;
+  border-radius: 10px;
+}
+.margin-investor {
+  border-left: 2px solid #1799ac;
   border-radius: 10px;
 }
 .margin-mentor {
