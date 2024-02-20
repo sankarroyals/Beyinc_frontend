@@ -352,7 +352,6 @@ const Navbar = () => {
             {messageRequest?.map((m) => (
               <>
                 <MessageRequest m={m} setMessageRequest={setMessageRequest} />
-                <div className="divider"></div>
               </>
             ))}
           </div>
