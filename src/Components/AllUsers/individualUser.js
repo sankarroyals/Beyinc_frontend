@@ -738,7 +738,7 @@ const IndividualUser = () => {
         </div>
         <div className="commentsContainer">
           <h2 className="Rating-heading">Ratings & Reviews</h2>
-          {convExits ? (email !==
+            {(convExits || jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken).role=='Admin') ? (email !==
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
               .email && (
               <div>
