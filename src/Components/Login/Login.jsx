@@ -21,7 +21,7 @@ const Login = () => {
     isNameValid: null,
     isPasswordValid: null,
   });
-
+  const [loading, setLoading] = useState(false);
   const {
     email,
     mobile,
@@ -97,7 +97,8 @@ const Login = () => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
-      phone: `+91${mobile}`, type: 'login'
+      phone: `+91${mobile}`,
+      type: "login",
     })
       .then((res) => {
         dispatch(
@@ -178,6 +179,7 @@ const Login = () => {
 
   const login = async (e) => {
     e.preventDefault();
+    setLoading(true);
     e.target.disabled = true;
     const obj = {
       email: email,
@@ -197,6 +199,7 @@ const Login = () => {
         window.location.href = "/home";
       })
       .catch((err) => {
+        setLoading(false);
         e.target.disabled = false;
 
         dispatch(
@@ -393,14 +396,14 @@ const Login = () => {
                   <button
                     className="full-width-button"
                     type="submit"
-                    disabled={!isFormValid}
+                    disabled={!isFormValid || loading}
                     onClick={loginType === "email" ? login : mobileLogin}
                   >
-                    Login
+                    {loading ? <div className="button-loader"></div> : "Login"}
                   </button>
                 </form>
               </div>
-              <div class="login-header">
+              <div className="login-header">
                 <div>
                   <hr />
                   <p>OR</p>
@@ -410,7 +413,7 @@ const Login = () => {
               <p className="login-option-text">
                 New here? <a href="/signup">Sign up</a>
               </p>
-              <p className="login-option-text" style={{zIndex: 999}}>
+              <p className="login-option-text" style={{ zIndex: 999 }}>
                 <a href="/forgotpassword">Forgot Password?</a>
               </p>
             </div>

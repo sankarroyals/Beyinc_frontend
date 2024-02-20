@@ -37,12 +37,20 @@ nav h2 {
   background: linear-gradient(75deg, #ff6824 0%, var(--primary) 100%);
   -webkit-background-clip: text;
   color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 nav li {
@@ -64,7 +72,6 @@ nav a {
   justify-content: space-between;
   width: 100px;
   margin: 0 auto;
-
   margin-left: -8px;
 }
 
@@ -83,7 +90,6 @@ nav a {
 
 .copyright {
   color: #a1a1a1;
-  margin-top: 30px !important;
   font-size: 16px !important;
 }
 
@@ -109,7 +115,7 @@ nav a {
 @media (max-width: 768px) {
   .footer {
     background: #000000;
-    height: 680px;
+    height: auto !important;
     position: relative;
     margin-top: -180px;
   }
@@ -126,9 +132,19 @@ nav a {
     display: flex;
     flex-direction: column;
   }
+  nav ul,nav h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-items:flex-start;
+  }
   .footer .copyright {
     /* margin-bottom: 30px !important; */
-    font-size: 12px !important;
-    margin-top: 0px;
+    font-size: 10px !important;
+    margin-top: 10px;
+    display: flex;
+    justify-content:flex-start;
+
+align-items: flex-start;
   }
 }

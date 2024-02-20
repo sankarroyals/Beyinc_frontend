@@ -27,7 +27,7 @@ const SignUp = () => {
     isNameValid: null,
     isPasswordValid: null,
   });
-
+  const [loading, setLoading] = useState(false);
   const [roles, setRoles] = useState([]);
 
   const {
@@ -199,6 +199,7 @@ const SignUp = () => {
 
   const signup = async (e) => {
     e.preventDefault();
+    setLoading(true);
     e.target.disabled = true;
     await ApiServices.register({
       email: email,
@@ -216,6 +217,7 @@ const SignUp = () => {
           })
         );
         navigate("/login");
+        setLoading(false);
       })
       .catch((err) => {
         e.target.disabled = false;
@@ -242,7 +244,8 @@ const SignUp = () => {
     e.preventDefault();
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
-      phone: `+91${mobile}`, type: ''
+      phone: `+91${mobile}`,
+      type: "",
     })
       .then((res) => {
         dispatch(
@@ -256,10 +259,10 @@ const SignUp = () => {
         setInputs((prev) => ({ ...prev, isMobileOtpSent: true }));
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         dispatch(
           setToast({
-            message: err.response.data ,
+            message: err.response.data,
             bgColor: ToastColors.failure,
             visible: "yes",
           })
@@ -479,10 +482,14 @@ const SignUp = () => {
                   <button
                     type="submit"
                     className="full-width-button"
-                    disabled={!isFormValid}
+                    disabled={!isFormValid || loading} 
                     onClick={signup}
                   >
-                    Sign up
+                    {loading ? (
+                      <div className="button-loader"></div>
+                    ) : (
+                      "Sign up"
+                    )}
                   </button>
                 </form>
 

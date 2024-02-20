@@ -8,7 +8,7 @@ const Footer = () => {
       <img src="/Footer-Logo.png" alt="logo" />
     </div>
     <div className="footer-content">
-      <nav>
+      {/* <nav>
         <h2>Quick Links</h2>
         <ul>
           <li>
@@ -32,7 +32,7 @@ const Footer = () => {
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       <nav>
         <h2>Say Hello</h2>
@@ -41,19 +41,22 @@ const Footer = () => {
             <i className="fas fa-map-marker-alt"></i> Chennai
           </li>
           <li>
-            <i className="fas fa-envelope"></i> info@beyinc.net
+            <i className="fas fa-envelope"></i>admin@beyinc.org
           </li>
 
-          <div className="icons">
+          {/* <div className="icons">
             <i className="fab fa-linkedin"></i>
             <i className="fab fa-facebook"></i>
             <i className="fab fa-twitter"></i>
             <i className="fab fa-instagram"></i>
-          </div>
+          </div> */}
         </ul>
+        <p className="copyright">
+      Copyright &copy; 2024 BeyInc. All Rights Reserved.
+    </p>
       </nav>
 
-      <nav>
+      {/* <nav>
         <h2>Legal Information</h2>
         <ul>
           <li>
@@ -66,12 +69,10 @@ const Footer = () => {
             <i class="fas fa-cookie-bite"></i> Cookie Policy
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </div>
 
-    <p className="copyright">
-      Copyright &copy; 2024 BeyInc. All Rights Reserved.
-    </p>
+   
   </footer>
   )
 }

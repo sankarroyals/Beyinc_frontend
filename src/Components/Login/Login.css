@@ -179,9 +179,9 @@ input {
 }
 
 /* login-footer style */
-.login-footer {
+/* .login-footer {
   padding: 40px 0;
-  position: absolute;
+  position: absolute; 
   bottom: 0;
   height: 2.5rem;
 }
@@ -208,7 +208,7 @@ input {
   text-align: center;
   color: #8e9096;
   font-size: 14px;
-}
+} */
 
 /* Mobile Styles */
 
@@ -425,3 +425,5 @@ input {
   width: 40px;
   padding: 5px;
 }
+
+

@@ -250,12 +250,12 @@ button:hover {
   font-size: 16px;
 }
 
-.Loading img {
+/* .Loading img {
   width: 15%;
   margin-left: 45%;
   height: 15%;
   margin-top: -7%;
-}
+} */
 
 .loader {
   position: absolute;
@@ -336,6 +336,26 @@ button:hover {
   backdrop-filter: blur(5px);
   overflow-y: hidden !important;
 }
+
+.button-loader {
+  width: 30px;
+  height: 30px;
+  border: 5px dotted #FFF;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
 
 .pitch-container {
   font-size: 24px;

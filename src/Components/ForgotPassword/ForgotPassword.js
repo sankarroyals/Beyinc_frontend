@@ -645,7 +645,7 @@ const ResetPassword = () => {
           <i class="fab fa-google-play"></i> Google Play
         </button>
       </div> */}
-      <div class="login-footer">
+      {/* <div class="login-footer">
         <ul class="login-footer-flex">
           <li>
             <a href="">ABOUT</a>
@@ -673,7 +673,7 @@ const ResetPassword = () => {
           </li>
         </ul>
         <p>© 2024 BeyInc</p>
-      </div>
+      </div> */}
     </main>
   );
 };
