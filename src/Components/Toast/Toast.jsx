@@ -33,11 +33,11 @@ const Toast = () => {
     >
       <div
         className="toastStyles"
-        style={{ backgroundColor: bgColor, color: "white", zIndex: "1401" }}
+        style={{ backgroundColor: bgColor, color: "white", zIndex: "1401",gap: '10px'}}
       >
         <img
           src="/favicon.png"
-          style={{ padding: "6px", background: "black", height: '30px', width: '30px', marginLeft: '-5px', marginRight: '5px' }}
+          style={{ padding: "6px", background: "black", height: '30px', width: '30px', marginLeft: '-5px' }}
         />
         <div>{message}</div>
         {/* <CloseIcon style={{ cursor: 'pointer' }} onClick={() => {
