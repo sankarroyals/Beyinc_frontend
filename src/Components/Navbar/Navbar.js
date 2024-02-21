@@ -891,17 +891,7 @@ const Navbar = () => {
                 >
                   {isLoading ? (
                     <>
-                      <img
-                        src="/loading-button.gif"
-                        style={{
-                          height: "20px",
-                          width: "20px",
-                          position: "absolute",
-                          left: "55px",
-                          marginTop: "-4px",
-                        }}
-                        alt="Loading..."
-                      />
+                      <div className="button-loader"></div>
                       <span style={{ marginLeft: "10px" }}>Updating...</span>
                     </>
                   ) : (

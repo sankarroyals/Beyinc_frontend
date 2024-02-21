@@ -479,10 +479,7 @@ const IndividualMessage = () => {
                     <>
 
                       <img src={loadingFile} alt="" srcset="" style={{ borderRadius: 'none', height: '150px', width: '150px' }} />
-                      <div className="loading_viewer" ><img
-                        src="/loading-button.gif"
-                        alt="Loading..."
-                      /></div>
+                      <div className="loading_viewer" >                      <div className="button-loader"></div></div>
 
                     </>
                   ) : (

@@ -484,11 +484,7 @@ export const SingleRequestProfile = () => {
                         <button type="submit" className="reject-button" onClick={(e) => update(e, 'rejected')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "rejected"}>
                             {/* {isLoading ? (
                                     <>
-                                        <img
-                                            src="/loading-button.gif"
-                                            style={{ height: "20px", width: "20px", position: 'absolute', left: '-10px', top: '12px' }}
-                                            alt="Loading..."
-                                        />
+                                                             <div className="button-loader"></div>
                                         <span style={{ marginLeft: "12px" }}>Rejecting...</span>
                                     </>
                                 ) : ( */}
@@ -498,11 +494,7 @@ export const SingleRequestProfile = () => {
                         <button type="submit" onClick={(e) => update(e, 'approved')} style={{ whiteSpace: 'nowrap', position: 'relative' }} disabled={inputs.status === "approved"}>
                             {isLoading ? (
                                 <>
-                                    <img
-                                        src="/loading-button.gif"
-                                        style={{ height: "20px", width: "20px", position: 'absolute', left: '-10px', top: '12px' }}
-                                        alt="Loading..."
-                                    />
+                                    <div className="button-loader"></div>
                                     <span style={{ marginLeft: "12px" }}>Approving...</span>
                                 </>
                             ) : (
