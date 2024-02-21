@@ -67,7 +67,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
     }, [messageCount, a])
     return (
         <div className={`individuals ${conversationId == a._id && 'selected'}`} onClick={storingDetails} style={{ display: (a.requestedTo === email && status == 'pending') && 'none' }}>
-            <div><img src={friend.image?.url === undefined ? '/profile.png' : friend.image.url} alt="" srcset="" /></div>
+            <div><img src={(friend.image==undefined || friend.image?.url === undefined)  ? '/profile.png' : friend.image.url} alt="" srcset="" /></div>
             <div className='onlineHolder'>
                 <abbr title={friend?.email} style={{ textDecoration: 'none' }}>
                     <div className='userName'>{friend.userName}</div></abbr>
