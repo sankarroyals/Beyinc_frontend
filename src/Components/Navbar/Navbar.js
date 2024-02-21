@@ -890,10 +890,10 @@ const Navbar = () => {
                   disabled={changeImage === "" && isLoading}
                 >
                   {isLoading ? (
-                    <>
+                    <div style={{display:'flex', alignItems:'center',gap:'3px'}}>
                       <div className="button-loader"></div>
-                      <span style={{ marginLeft: "10px" }}>Updating...</span>
-                    </>
+                      <div><span style={{ marginLeft: "10px" }}>Updating...</span></div>
+                    </div>
                   ) : (
                     <>
                       <i
