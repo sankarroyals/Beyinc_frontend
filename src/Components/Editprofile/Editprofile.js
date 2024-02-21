@@ -529,6 +529,17 @@ const Editprofile = () => {
     ApiServices.getAllRoles().then((res) => {
       setRoles(res.data);
       dispatch(setLoading({ visible: "no" }));
+    }).catch((err) => {
+      console.log(err);
+      if (err.message == "Network Error") {
+        dispatch(
+          setToast({
+            message: "Check your network connection",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      }
     });
   }, []);
 

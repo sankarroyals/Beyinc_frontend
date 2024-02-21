@@ -310,6 +310,17 @@ const SignUp = () => {
   useEffect(() => {
     ApiServices.getAllRoles().then((res) => {
       setRoles(res.data);
+    }).catch((err) => {
+      console.log(err);
+      if (err.message == "Network Error") {
+        dispatch(
+          setToast({
+            message: "Check your network connection",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      }
     });
   }, []);
 

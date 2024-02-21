@@ -8,15 +8,30 @@ import { FilterCheckBoxes } from "../../LoggedInPitches/Filters";
 import CachedIcon from "@mui/icons-material/Cached";
 import useWindowDimensions from "../../Common/WindowSize";
 import FilterDialog from "../../Filters/FilterDialog";
+import { setToast } from "../../../redux/AuthReducers/AuthReducer";
+import { ToastColors } from "../../Toast/ToastColors";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function AllPitches() {
   const [roles, setRoles] = useState([]);
   const [emails, setEmails] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     ApiServices.getAllRoles().then((res) => {
       const roles = [];
       res.data?.map((r) => {
         roles.push(r.role);
+      }).catch((err) => {
+        console.log(err);
+        if (err.message == "Network Error") {
+          dispatch(
+            setToast({
+              message: "Check your network connection",
+              bgColor: ToastColors.failure,
+              visible: "yes",
+            })
+          );
+        }
       });
       setRoles(roles);
     });
