@@ -40,7 +40,9 @@ const Login = () => {
     if (e.target.name === "email") {
       setInputs((prev) => ({
         ...prev,
-        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(e.target.value),
+        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(
+          e.target.value
+        ),
       }));
     }
     if (e.target.name === "password") {
@@ -398,8 +400,40 @@ const Login = () => {
                     type="submit"
                     disabled={!isFormValid || loading}
                     onClick={loginType === "email" ? login : mobileLogin}
+                    style={{
+                      whiteSpace: "nowrap",
+                      position: "relative",
+                      display: "flex",
+                      gap: "3px",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "10px",
+                    }}
                   >
-                    {loading ? <div className="button-loader"></div> : "Login"}
+                    {loading ? (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                        }}
+                      >
+                        <div className="button-loader"></div>
+                        <div>
+                          <span style={{ marginLeft: "10px" }}>
+                            Logging in...
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <i
+                          className="fas fa-sign-in-alt"
+                          style={{ marginRight: "5px", top: "-5px" }}
+                        ></i>{" "}
+                        Login
+                      </>
+                    )}
                   </button>
                 </form>
               </div>

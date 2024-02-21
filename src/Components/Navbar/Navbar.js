@@ -799,7 +799,7 @@ const Navbar = () => {
           </div>
 
           <div className="username">Hi, {userName}!</div>
-          <div className="manage" >{role}</div>
+          <div className="manage" title="view profile" onClick={() => navigate(`/user/${email}`)}>{role}</div>
 
           <div className="editPopupActions">
             <div
@@ -882,7 +882,7 @@ const Navbar = () => {
               </div>
 
               <div
-                style={{ display: "flex", gap: "2px", borderRadius: "10px" }}
+                style={{ display: "flex", gap: "2px", borderRadius: "10px", justifyContent: 'center', alignItems: 'center'}}
               >
                 <button
                   onClick={submit}

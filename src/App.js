@@ -11,6 +11,7 @@ import Toast from "./Components/Toast/Toast";
 import { useDispatch, useSelector } from "react-redux";
 import {
   apicallloginDetails,
+  setToast,
   setTotalRoles,
 } from "./redux/AuthReducers/AuthReducer";
 import { ApiServices } from "./Services/ApiServices";
@@ -31,9 +32,11 @@ import LoadingData from "./Components/Toast/Loading";
 import AllUsers from "./Components/AllUsers/AllUsers";
 import IndividualUser from "./Components/AllUsers/individualUser";
 import { socket_io } from "./Utils";
+import { ToastColors } from "./Components/Toast/ToastColors";
 
-
-const  LandingPage = React.lazy(() => import('./Components/LandingPage/LandingPage'));
+const LandingPage = React.lazy(() =>
+  import("./Components/LandingPage/LandingPage")
+);
 const SignUp = React.lazy(() => import("./Components/Signup/SignUp"));
 const Login = React.lazy(() => import("./Components/Login/Login"));
 const ForgotPassword = React.lazy(() =>
@@ -63,6 +66,16 @@ const LoggedInPitches = React.lazy(() =>
 );
 
 const ENV = process.env;
+const NoMatch = () => {
+  return (
+    <div className="noMatch">
+    <div className="noRoute-image">
+<img src="/no-route.gif" alt="gif"/>
+    </div>
+      <div className="noRoute-text">Oops..! no such routes found.</div>
+    </div>
+  );
+};
 
 const App = () => {
   const messageAlert = useSelector((state) => state.conv.messageAlert);
@@ -160,9 +173,22 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    ApiServices.getAllRoles().then((res) => {
-      dispatch(setTotalRoles(res.data));
-    });
+    ApiServices.getAllRoles()
+      .then((res) => {
+        dispatch(setTotalRoles(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.message == "Network Error") {
+          dispatch(
+            setToast({
+              message: "Check your network connection",
+              bgColor: ToastColors.failure,
+              visible: "yes",
+            })
+          );
+        }
+      });
   }, []);
   return (
     <div>
@@ -187,7 +213,7 @@ const App = () => {
           <Route path="/login" Component={LoginAuth(Login)} />
           <Route path="/forgotpassword" Component={LoginAuth(ForgotPassword)} />
           <Route path="/" element={<LandingPage />} />
-
+          <Route path="*" element={<NoMatch />} />
 
           <Route path="/home" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />

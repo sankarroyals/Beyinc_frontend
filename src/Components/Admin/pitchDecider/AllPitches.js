@@ -8,19 +8,36 @@ import { FilterCheckBoxes } from "../../LoggedInPitches/Filters";
 import CachedIcon from "@mui/icons-material/Cached";
 import useWindowDimensions from "../../Common/WindowSize";
 import FilterDialog from "../../Filters/FilterDialog";
+import { setToast } from "../../../redux/AuthReducers/AuthReducer";
+import { ToastColors } from "../../Toast/ToastColors";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function AllPitches() {
-  const [roles, setRoles] = useState([]);
+  // const [roles, setRoles] = useState([]);
+  const roles = useSelector(state => state.auth.totalRoles).map(a => a.role);
   const [emails, setEmails] = useState([]);
-  useEffect(() => {
-    ApiServices.getAllRoles().then((res) => {
-      const roles = [];
-      res.data?.map((r) => {
-        roles.push(r.role);
-      });
-      setRoles(roles);
-    });
-  }, []);
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   ApiServices.getAllRoles().then((res) => {
+  //     const roles = [];
+  //     res.data?.map((r) => {
+  //       roles.push(r.role);
+  //     })
+  //     setRoles(roles);
+  //   }).catch((err) => {
+  //     console.log(err);
+  //     if (err.message == "Network Error") {
+  //       dispatch(
+  //         setToast({
+  //           message: "Check your network connection",
+  //           bgColor: ToastColors.failure,
+  //           visible: "yes",
+  //         })
+  //       );
+  //     }
+  //   });
+  // }, []);
   const [filters, setFilters] = useState({
     role: [],
     status: ["pending"],

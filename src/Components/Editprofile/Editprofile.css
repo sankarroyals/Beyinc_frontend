@@ -157,6 +157,19 @@
   flex-direction: column;
   /* margin-bottom: 30px; */
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  flex-direction: column;
+ 
+}
 /* .update-form{
   display: flex;
 } */

@@ -28,6 +28,10 @@ const SignUp = () => {
     isPasswordValid: null,
   });
   const [loading, setLoading] = useState(false);
+  const [sendEmailOtpLoading, setSendEmailOtpLoading] = useState(false);
+  const [verifyEmailOtpLoading, setVerifyEmailOtpLoading] = useState(false);
+  const [sendMobileOtpLoading, setSendMobileOtpLoading] = useState(false);
+  const [verifyMobileOtpLoading, setVerifyMobileOtpLoading] = useState(false);
   const [roles, setRoles] = useState([]);
 
   const {
@@ -56,7 +60,9 @@ const SignUp = () => {
     if (e.target.name === "email") {
       setInputs((prev) => ({
         ...prev,
-        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(e.target.value),
+        isEmailValid: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/.test(
+          e.target.value
+        ),
       }));
     }
     if (e.target.name === "password") {
@@ -81,9 +87,11 @@ const SignUp = () => {
 
   const sendEmailOtp = async (e) => {
     e.preventDefault();
+    setSendEmailOtpLoading(true);
     e.target.disabled = true;
     await ApiServices.sendOtp({
-      to: email, type: 'Sign Up',
+      to: email,
+      type: "Sign Up",
       subject: "Email Verification",
     })
       .then((res) => {
@@ -95,6 +103,7 @@ const SignUp = () => {
           })
         );
         // setIsEmailOtpSent(true);
+        setSendEmailOtpLoading(false);
         setInputs((prev) => ({ ...prev, isEmailOtpSent: true }));
       })
       .catch((err) => {
@@ -120,6 +129,7 @@ const SignUp = () => {
 
   const verifyOtp = async (e) => {
     e.preventDefault();
+    setVerifyEmailOtpLoading(true);
     await ApiServices.verifyOtp({
       email: email,
       otp: emailOtp,
@@ -135,6 +145,7 @@ const SignUp = () => {
         document.getElementById("emailVerify").style.display = "none";
         document.getElementById("emailOtpInput").disabled = true;
         // setemailVerified(true);
+        setVerifyEmailOtpLoading(false);
         setInputs((prev) => ({ ...prev, emailVerified: true }));
       })
       .catch((err) => {
@@ -159,6 +170,7 @@ const SignUp = () => {
 
   const verifyMobileOtp = async (e) => {
     e.preventDefault();
+    setVerifyMobileOtpLoading(true)
     await ApiServices.verifyOtp({
       email: `+91${mobile}`,
       otp: mobileOtp,
@@ -174,6 +186,7 @@ const SignUp = () => {
         document.getElementById("mobileVerify").style.display = "none";
         document.getElementById("mobileOTPinput").disabled = true;
         // setmobileVerified(true);
+        setVerifyMobileOtpLoading(false)
         setInputs((prev) => ({ ...prev, mobileVerified: true }));
       })
       .catch((err) => {
@@ -242,6 +255,7 @@ const SignUp = () => {
 
   const sendMobileOtpF = async (e) => {
     e.preventDefault();
+    setSendMobileOtpLoading(true);
     e.target.disabled = true;
     await ApiServices.sendMobileOtp({
       phone: `+91${mobile}`,
@@ -256,6 +270,7 @@ const SignUp = () => {
           })
         );
         // setIsEmailOtpSent(true);
+        setSendMobileOtpLoading(false);
         setInputs((prev) => ({ ...prev, isMobileOtpSent: true }));
       })
       .catch((err) => {
@@ -295,6 +310,17 @@ const SignUp = () => {
   useEffect(() => {
     ApiServices.getAllRoles().then((res) => {
       setRoles(res.data);
+    }).catch((err) => {
+      console.log(err);
+      if (err.message == "Network Error") {
+        dispatch(
+          setToast({
+            message: "Check your network connection",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          })
+        );
+      }
     });
   }, []);
 
@@ -381,8 +407,35 @@ const SignUp = () => {
                       type="button"
                       className="otp_button full-width-button"
                       onClick={sendEmailOtp}
+                      disabled={sendEmailOtpLoading}
+                      style={{
+                        whiteSpace: "nowrap",
+                        position: "relative",
+                        display: "flex",
+                        gap: "3px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        borderRadius: "10px",
+                      }}
                     >
-                      Get OTP
+                      {sendEmailOtpLoading ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "3px",
+                          }}
+                        >
+                          <div className="button-loader"></div>
+                          <div>
+                            <span style={{ marginLeft: "10px" }}>
+                              Sending OTP...
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        "Get OTP"
+                      )}
                     </button>
                   )}
                   {isEmailOtpSent && emailVerified !== true && (
@@ -405,9 +458,35 @@ const SignUp = () => {
                           className="otp_button"
                           id="emailVerify"
                           onClick={verifyOtp}
-                          style={{ whiteSpace: "noWrap" }}
+                          disabled={verifyEmailOtpLoading}
+                          style={{
+                            whiteSpace: "nowrap",
+                            position: "relative",
+                            display: "flex",
+                            gap: "3px",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: "10px",
+                          }}
                         >
-                          Verify OTP
+                          {verifyEmailOtpLoading ? (
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                              }}
+                            >
+                              <div className="button-loader"></div>
+                              <div>
+                                <span style={{ marginLeft: "10px" }}>
+                                  Verifying OTP...
+                                </span>
+                              </div>
+                            </div>
+                          ) : (
+                            "Verify OTP"
+                          )}
                         </button>
                       )}
                     </>
@@ -437,8 +516,35 @@ const SignUp = () => {
                       type="button"
                       className="otp_button full-width-button"
                       onClick={sendMobileOtpF}
+                      disabled={sendMobileOtpLoading}
+                      style={{
+                        whiteSpace: "nowrap",
+                        position: "relative",
+                        display: "flex",
+                        gap: "3px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        borderRadius: "10px",
+                      }}
                     >
-                      Get OTP
+                      {sendMobileOtpLoading ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "3px",
+                          }}
+                        >
+                          <div className="button-loader"></div>
+                          <div>
+                            <span style={{ marginLeft: "10px" }}>
+                              Sending OTP...
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        "Get OTP"
+                      )}
                     </button>
                   )}
                   {isMobileOtpSent && mobileVerified !== true && (
@@ -461,9 +567,35 @@ const SignUp = () => {
                           className="otp_button"
                           id="mobileVerify"
                           onClick={verifyMobileOtp}
-                          style={{ whiteSpace: "noWrap" }}
+                          disabled={verifyMobileOtpLoading}
+                          style={{
+                            whiteSpace: "nowrap",
+                            position: "relative",
+                            display: "flex",
+                            gap: "3px",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: "10px",
+                          }}
                         >
-                          Verify OTP
+                          {verifyMobileOtpLoading ? (
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                              }}
+                            >
+                              <div className="button-loader"></div>
+                              <div>
+                                <span style={{ marginLeft: "10px" }}>
+                                  Verifying OTP...
+                                </span>
+                              </div>
+                            </div>
+                          ) : (
+                            "Verify OTP"
+                          )}
                         </button>
                       )}
                     </>
@@ -482,11 +614,33 @@ const SignUp = () => {
                   <button
                     type="submit"
                     className="full-width-button"
-                    disabled={!isFormValid || loading} 
+                    disabled={!isFormValid || loading}
                     onClick={signup}
+                    style={{
+                      whiteSpace: "nowrap",
+                      position: "relative",
+                      display: "flex",
+                      gap: "3px",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "10px",
+                    }}
                   >
                     {loading ? (
-                      <div className="button-loader"></div>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                        }}
+                      >
+                        <div className="button-loader"></div>
+                        <div>
+                          <span style={{ marginLeft: "10px" }}>
+                            Signing up...
+                          </span>
+                        </div>
+                      </div>
                     ) : (
                       "Sign up"
                     )}
