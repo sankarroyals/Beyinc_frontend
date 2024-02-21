@@ -26,7 +26,7 @@ import {
   convertToDate,
   itPositions,
 } from "../../Utils";
-import { TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 import useWindowDimensions from "../Common/WindowSize";
 
 const Editprofile = () => {
@@ -35,16 +35,6 @@ const Editprofile = () => {
   );
   const [showPreviousFile, setShowPreviousFile] = useState(false);
   const [universities, setUniversities] = useState([]);
-  useEffect(() => {
-    const uni = async () => {
-      await axios
-        .get(process.env.REACT_APP_BACKEND + "/helper/allColleges")
-        .then((res) => {
-          setUniversities(res.data.college);
-        });
-    };
-    uni();
-  }, []);
 
   const [inputs, setInputs] = useState({
     email: null,
@@ -110,6 +100,7 @@ const Editprofile = () => {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
   const [town, settown] = useState("");
+  const [collegeQuery, setCollegeQuery] = useState("");
   const [places, setPlaces] = useState({
     country: [],
     state: [],
@@ -188,10 +179,12 @@ const Editprofile = () => {
     setExperience((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleEducationChange = (e) => {
+  const handleEducationChange = (e, isCollege) => {
     setEducationDetails((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [isCollege ? "college" : e.target.name]: isCollege
+        ? universities[e.target.getAttribute("data-option-index")]?.name
+        : e.target.value,
     }));
   };
 
@@ -213,7 +206,6 @@ const Editprofile = () => {
   useEffect(() => {
     const hasEducation = totalEducationData.length > 0;
     const hasWorkExperience = totalExperienceData.length > 0;
-
     setIsFormValid(hasEducation && hasWorkExperience);
   }, [totalEducationData, totalExperienceData]);
 
@@ -506,19 +498,19 @@ const Editprofile = () => {
 
   const [isFormValid, setIsFormValid] = useState(
     mobileVerified &&
-    (isNameValid ||
-      oldDocs.resume !== "" ||
-      oldDocs.expertise !== "" ||
-      oldDocs.acheivements !== "" ||
-      oldDocs.working !== "" ||
-      oldDocs.degree !== "" ||
-      changeResume.resume !== "" ||
-      changeResume.expertise !== "" ||
-      changeResume.acheivements !== "" ||
-      changeResume.working !== "" ||
-      changeResume.degree !== "") &&
-    totalEducationData.length > 0 &&
-    totalExperienceData.length > 0
+      (isNameValid ||
+        oldDocs.resume !== "" ||
+        oldDocs.expertise !== "" ||
+        oldDocs.acheivements !== "" ||
+        oldDocs.working !== "" ||
+        oldDocs.degree !== "" ||
+        changeResume.resume !== "" ||
+        changeResume.expertise !== "" ||
+        changeResume.acheivements !== "" ||
+        changeResume.working !== "" ||
+        changeResume.degree !== "") &&
+      totalEducationData.length > 0 &&
+      totalExperienceData.length > 0
   );
 
   const handleChangeRadio = (e) => {
@@ -531,6 +523,28 @@ const Editprofile = () => {
       dispatch(setLoading({ visible: "no" }));
     });
   }, []);
+
+  const hadnleCollegeQueryChange = (e) => {
+    setCollegeQuery(e.target.value);
+  };
+
+  useEffect(() => {
+    if (collegeQuery === "") return;
+    const timeoutId = setTimeout(
+      async () =>
+        await axios
+          .get(process.env.REACT_APP_BACKEND + "/helper/allColleges", {
+            params: {
+              name: collegeQuery,
+            },
+          })
+          .then((res) => {
+            setUniversities(res.data.college);
+          }),
+      2000
+    );
+    return () => clearTimeout(timeoutId);
+  }, [collegeQuery]);
 
   return (
     <div className="update-container">
@@ -886,7 +900,7 @@ const Editprofile = () => {
                 </div>
                 <div>
                   {EducationDetails.grade == "SSC" ||
-                    EducationDetails.grade == "" ? (
+                  EducationDetails.grade == "" ? (
                     <input
                       type="text"
                       name="college"
@@ -896,17 +910,48 @@ const Editprofile = () => {
                       placeholder="Enter Your College/School/University"
                     />
                   ) : (
-                    <select
-                      value={EducationDetails.college}
-                      name="college"
-                      onChange={handleEducationChange}
-                    >
-                      <option value="">Select</option>
-                      {universities.length > 0 &&
-                        universities.map((u) => (
-                          <option value={u.name}>{u.name}</option>
-                        ))}
-                    </select>
+                    <>
+                      <Autocomplete
+                        disablePortal
+                        options={universities}
+                        getOptionLabel={(option) => option.name}
+                        sx={{ width: 300 }}
+                        inputValue={
+                          EducationDetails.college
+                            ? EducationDetails.college
+                            : undefined
+                        }
+                        onChange={(e) => handleEducationChange(e, true)}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            value={collegeQuery}
+                            onChange={hadnleCollegeQueryChange}
+                            label="College"
+                          />
+                        )}
+                      />
+                      {/* <input
+                        type="text"
+                        name="collegeQuery"
+                        value={collegeQuery}
+                        id=""
+                        onChange={hadnleCollegeQueryChange}
+                        placeholder="Enter Your College/School/University"
+                      />
+                      {universities.length > 0 && (
+                        <select
+                          value={EducationDetails.college}
+                          name="college"
+                          onChange={handleEducationChange}
+                        >
+                          <option value="">Select college</option>
+                          {universities.map((u) => (
+                            <option value={u.name}>{u.name}</option>
+                          ))}
+                        </select>
+                      )} */}
+                    </>
                   )}
                 </div>
               </div>
