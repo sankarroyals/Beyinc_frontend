@@ -5,6 +5,8 @@
   position: sticky;
   align-items: center;
   top: -20px;
+  padding:  20px 0;
+background-color: #fff;
   font-size: 14px;
   white-space: noWrap;
   flex-wrap: wrap;

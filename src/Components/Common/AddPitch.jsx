@@ -557,14 +557,16 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
   // Function to check if all fields in the value === 1 section are empty
   const areValue1FieldsEmpty = () => {
     return (
-      !form?.industry1 ||
-      !form?.industry2 ||
-      !form?.stage ||
-      !form?.userType ||
-      !form?.idealInvestor ||
-      !form?.previousRoundRaise ||
-      !form?.raising ||
-      !form?.minimumInvestment
+        !form?.title  ||
+        !form?.website  ||
+        !form?.industry1  ||
+        !form?.industry2  ||
+        !form?.stage  ||
+        !form?.userType  ||
+        !form?.idealInvestor  ||
+        !form?.previousRoundRaise  ||
+        !form?.raising  ||
+        !form?.minimumInvestment 
     );
   };
 
@@ -646,10 +648,8 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
               className={`addPitchIcons ${
                 value === 1 && "addPitchIconsselected"
               }`}
-              onClick={() => !areValue1FieldsEmpty() && setValue(1)}
-              style={{
-                cursor: areValue1FieldsEmpty() ? "not-allowed" : "pointer",
-              }}
+              onClick={() => setValue(1)}
+             
             >
               Company Info
             </div>
@@ -657,9 +657,9 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
               className={`addPitchIcons ${
                 value === 2 && "addPitchIconsselected"
               }`}
-              onClick={() => !areValue2FieldsEmpty() && setValue(2)}
+              onClick={() => !areValue1FieldsEmpty() && setValue(2)}
               style={{
-                cursor: areValue2FieldsEmpty() ? "not-allowed" : "pointer",
+                cursor: areValue1FieldsEmpty() ? "not-allowed" : "pointer",
               }}
             >
               Pitch & Deal
@@ -668,9 +668,9 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
               className={`addPitchIcons ${
                 value === 3 && "addPitchIconsselected"
               }`}
-              onClick={() => !areValue3FieldsEmpty() && setValue(3)}
+              onClick={() => (!areValue2FieldsEmpty() && !areValue1FieldsEmpty() ) && setValue(3)}
               style={{
-                cursor: areValue3FieldsEmpty() ? "not-allowed" : "pointer",
+                cursor: (areValue2FieldsEmpty() || areValue1FieldsEmpty()) ? "not-allowed" : "pointer",
               }}
             >
               Team
@@ -679,9 +679,9 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
               className={`addPitchIcons ${
                 value === 4 && "addPitchIconsselected"
               }`}
-              onClick={() => !areValue4FieldsEmpty() && setValue(4)}
+              onClick={() => (!areValue2FieldsEmpty() && !areValue1FieldsEmpty() && !areValue3FieldsEmpty()) && setValue(4)}
               style={{
-                cursor: areValue4FieldsEmpty() ? "not-allowed" : "pointer",
+                cursor: (areValue2FieldsEmpty() || areValue1FieldsEmpty() || areValue3FieldsEmpty()) ? "not-allowed" : "pointer",
               }}
             >
               Image & videos
@@ -690,9 +690,9 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
               className={`addPitchIcons ${
                 value === 5 && "addPitchIconsselected"
               }`}
-              onClick={() => !areValue5FieldsEmpty() && setValue(5)}
+              onClick={() => (!areValue2FieldsEmpty() && !areValue1FieldsEmpty() && !areValue3FieldsEmpty() && !areValue4FieldsEmpty()) && setValue(5)}
               style={{
-                cursor: areValue5FieldsEmpty() ? "not-allowed" : "pointer",
+                cursor: (areValue2FieldsEmpty() || areValue1FieldsEmpty() || areValue3FieldsEmpty() || areValue4FieldsEmpty()) ? "not-allowed" : "pointer",
               }}
             >
               Documents
@@ -701,9 +701,9 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
               className={`addPitchIcons ${
                 value === 6 && "addPitchIconsselected"
               }`}
-              onClick={() => !areValue6FieldsEmpty() && setValue(6)}
+              onClick={() => (!areValue2FieldsEmpty() && !areValue1FieldsEmpty() && !areValue3FieldsEmpty() && !areValue4FieldsEmpty() && !areValue5FieldsEmpty()) && setValue(6)}
               style={{
-                cursor: areValue6FieldsEmpty() ? "not-allowed" : "pointer",
+                cursor:(areValue2FieldsEmpty() || areValue1FieldsEmpty() || areValue3FieldsEmpty() || areValue4FieldsEmpty() || areValue5FieldsEmpty()) ? "not-allowed" : "pointer",
               }}
             >
               Requirements
