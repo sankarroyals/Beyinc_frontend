@@ -67,10 +67,10 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
     }, [messageCount, a])
     return (
         <div className={`individuals ${conversationId == a._id && 'selected'}`} onClick={storingDetails} style={{ display: (a.requestedTo === email && status == 'pending') && 'none' }}>
-            <div><img src={friend.image?.url === undefined ? '/profile.png' : friend.image.url} alt="" srcset="" /></div>
+            <div><img src={(friend?.image == undefined || friend?.image == null || friend?.image?.url === undefined)  ? '/profile.png' : friend?.image?.url} alt="" srcset="" /></div>
             <div className='onlineHolder'>
                 <abbr title={friend?.email} style={{ textDecoration: 'none' }}>
-                    <div className='userName'>{friend.userName}</div></abbr>
+                    <div className='userName'>{friend?.userName}</div></abbr>
 
                 {status === 'pending' ? <><abbr title='pending'>
 
@@ -89,7 +89,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
                 <div className='deleteConv'>
                     <div>
                         <div className='role lastMsg' style={{ fontWeight: showMessageDot ? '600' : 'normal' }}>{a.lastMessageText}</div>
-                        <div className='role' style={{ textAlign: 'start' }}>{friend.role}</div>
+                        <div className='role' style={{ textAlign: 'start' }}>{friend?.role}</div>
                     </div>
                     {status == 'pending' && <div className=''>
                         <i className='fas fa-trash' onClick={() => setOpen(true)}></i>
@@ -128,7 +128,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
                         <CloseIcon />
                     </Box>
                     <Box style={{ padding: '10px', marginBottom: '10px' }}>
-                        Are you sure to delete the <b>{friend.userName}</b> conversation?
+                        Are you sure to delete the <b>{friend?.userName}</b> conversation?
                     </Box>
                     <button onClick={deletePendingRequest} style={{ width: 'auto' }}>
                         Yes
