@@ -882,7 +882,7 @@ const Navbar = () => {
               </div>
 
               <div
-                style={{ display: "flex", gap: "2px", borderRadius: "10px" }}
+                style={{ display: "flex", gap: "2px", borderRadius: "10px", justifyContent: 'center', alignItems: 'center'}}
               >
                 <button
                   onClick={submit}
