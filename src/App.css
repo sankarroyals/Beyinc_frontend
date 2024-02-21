@@ -39,7 +39,7 @@ body[data-theme="light"] {
   --secondary: #4449ad;
   --button: #4e54c7;
   --button-hover: #4449ad;
-    --tab-hover: #bec0e48a;
+  --tab-hover: #bec0e48a;
 
   --white-text: #fff;
   --light-transparent: #4e54c748;
@@ -342,7 +342,7 @@ button:hover {
 .button-loader {
   width: 30px;
   height: 30px;
-  border: 5px dotted #FFF;
+  border: 5px dotted #fff;
   border-radius: 50%;
   display: inline-block;
   position: relative;
@@ -357,7 +357,7 @@ button:hover {
   100% {
     transform: rotate(360deg);
   }
-} 
+}
 
 .pitch-container {
   font-size: 24px;
@@ -435,6 +435,20 @@ input[type="radio"] + label {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.noMatch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+}
+.noRoute-image img {
+  width: 500px;
+  height: 500px;
+}
+.noRoute-text {
 }
 @media (max-width: 768px) {
   input[type="email"],
