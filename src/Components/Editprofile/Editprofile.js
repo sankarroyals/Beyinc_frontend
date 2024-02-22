@@ -520,12 +520,13 @@ const Editprofile = () => {
     const timeoutId = setTimeout(
       async () =>
         await axios
-          .get(process.env.REACT_APP_BACKEND + "/helper/allColleges", {
-            params: {
+          .post(process.env.REACT_APP_BACKEND + "/helper/allColleges", {
+           
               name: collegeQuery,
-            },
+           
           })
           .then((res) => {
+            console.log(res.data.college.length);
             setUniversities(res.data.college);
           }),
       2000
