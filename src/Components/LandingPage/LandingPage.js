@@ -73,7 +73,7 @@ const LandingPage = () => {
           <h2>Increasing the success rate of startup</h2>
           <button
           className="starting-button"
-          onClick={() => navigate(userName ? '/home' : '/signup')}
+            onClick={() => navigate(userName ? '/dashboard' : '/signup')}
         >
           {startingButtonContent()}
         </button>

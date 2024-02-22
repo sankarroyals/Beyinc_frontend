@@ -522,10 +522,37 @@ export const ApiServices = {
     });
   },
 
+  // use for both add and update
+  addPitch: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .post(`/pitch/createPitch`, obj)
+        .then((res) => {
+          if (res) {
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+
+  userLivePitches: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .get(`/pitch/userLivePitch`)
+        .then((res) => {
+          if (res) {
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+
   getuserPitches: (obj) => {
     return new Promise((resolve, reject) => {
       axiosInstance
-        .post(`/pitch/userPitches`, obj)
+        .get(`/pitch/userPitches`)
         .then((res) => {
           if (res) {
             resolve(res);
@@ -539,6 +566,19 @@ export const ApiServices = {
     return new Promise((resolve, reject) => {
       axiosInstance
         .post(`/pitch/updatePitch`, obj)
+        .then((res) => {
+          if (res) {
+            resolve(res);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  },
+
+  deletePitch: (obj) => {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .post(`/pitch/deletePitch`, obj)
         .then((res) => {
           if (res) {
             resolve(res);

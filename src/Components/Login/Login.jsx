@@ -124,15 +124,7 @@ const Login = () => {
         );
         e.target.disabled = true;
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   // const handleMobileChange = (value) => {
@@ -168,15 +160,7 @@ const Login = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const login = async (e) => {
@@ -198,7 +182,7 @@ const Login = () => {
         );
         localStorage.setItem("user", JSON.stringify(res.data));
         // navigate("/");
-        window.location.href = "/home";
+        window.location.href = "/dashboard";
       })
       .catch((err) => {
         setLoading(false);
@@ -215,15 +199,7 @@ const Login = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const mobileLogin = async (e) => {
@@ -244,7 +220,7 @@ const Login = () => {
         );
         localStorage.setItem("user", JSON.stringify(res.data));
         await axiosInstance.customFnAddTokenInHeader(res.data.accessToken);
-        window.location.href = "/home";
+        window.location.href = "/dashboard";
       })
       .catch((err) => {
         e.target.disabled = false;
@@ -256,15 +232,7 @@ const Login = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
   return (
     <>

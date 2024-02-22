@@ -116,15 +116,7 @@ const SignUp = () => {
         );
         e.target.disabled = true;
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const verifyOtp = async (e) => {
@@ -157,15 +149,7 @@ const SignUp = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const verifyMobileOtp = async (e) => {
@@ -199,15 +183,7 @@ const SignUp = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const signup = async (e) => {
@@ -242,15 +218,7 @@ const SignUp = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const sendMobileOtpF = async (e) => {
@@ -284,15 +252,7 @@ const SignUp = () => {
         );
         e.target.disabled = true;
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const isFormValid =

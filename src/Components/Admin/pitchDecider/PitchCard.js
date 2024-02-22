@@ -75,15 +75,6 @@ export default function PitchCard({ d }) {
             visible: "yes",
           });
         });
-      setTimeout(() => {
-        dispatch(
-          setToast({
-            message: "",
-            bgColor: "",
-            visible: "no",
-          })
-        );
-      }, 4000);
     } else {
       e.target.disabled = false;
       setReasonPop(true);

@@ -174,11 +174,11 @@ const Navbar = () => {
       <List>
         {width < 770 && (
           <>
-            <ListItem button key="home" onClick={() => navigate("/home")}>
+            <ListItem button key="home" onClick={() => navigate("/dashboard")}>
               <ListItemIcon>
                 <DashboardOutlinedIcon className="menu-icon" />
               </ListItemIcon>
-              <ListItemText primary="Home" />
+              <ListItemText primary="Dashboard" />
             </ListItem>
             <ListItem
               button
@@ -306,10 +306,10 @@ const Navbar = () => {
         />
       </Tabs> */}
       <div className="SideNotificationHeader">
-        <div className={`sideNavIcons ${value == 1 && 'sideselected'}`} onClick={()=> setValue(1)}>Notifications  ({notifications?.length})</div>
+        <div className={`sideNavIcons ${value == 1 && 'sideselected'}`} onClick={() => setValue(1)}>Notifications  ({notifications?.length})</div>
         <div className={`sideNavIcons ${value == 2 && 'sideselected'}`} onClick={() => setValue(2)}>Message Requests ({messageRequest?.length})</div>
       </div>
-      {value == 1 && 
+      {value == 1 &&
         notifications.map((n) => (
           <>
             <div
@@ -317,7 +317,7 @@ const Navbar = () => {
               onClick={() => {
                 navigate(`/user/${n.senderInfo?.email}`);
               }}
-              style={{  marginLeft: "15px", textAlign: "start" }}
+              style={{ marginLeft: "15px", textAlign: "start" }}
             >
               <div
                 className="individualrequestWrapper"
@@ -432,15 +432,7 @@ const Navbar = () => {
         setIsLoading(false);
         e.target.disabled = false;
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const deleteImg = async (e) => {
@@ -469,15 +461,7 @@ const Navbar = () => {
         );
         e.target.disabled = false;
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const handleClickOutside = (event) => {
@@ -575,12 +559,12 @@ const Navbar = () => {
       <div className="menuIcons">
         {width > 770 && (
           <>
-            <div title="Home">
+            <div title="dashboard">
               <DashboardOutlinedIcon
-                id="home"
+                id="dashboard"
                 className="icon"
                 onClick={() => {
-                  navigate("/home");
+                  navigate("/dashboard");
                 }}
               ></DashboardOutlinedIcon>
             </div>
@@ -882,7 +866,7 @@ const Navbar = () => {
               </div>
 
               <div
-                style={{ display: "flex", gap: "2px", borderRadius: "10px", justifyContent: 'center', alignItems: 'center'}}
+                style={{ display: "flex", gap: "2px", borderRadius: "10px", justifyContent: 'center', alignItems: 'center' }}
               >
                 <button
                   onClick={submit}
@@ -890,7 +874,7 @@ const Navbar = () => {
                   disabled={changeImage === "" && isLoading}
                 >
                   {isLoading ? (
-                    <div style={{display:'flex', alignItems:'center',gap:'3px'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
                       <div className="button-loader"></div>
                       <div><span style={{ marginLeft: "10px" }}>Updating...</span></div>
                     </div>

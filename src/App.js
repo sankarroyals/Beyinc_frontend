@@ -25,6 +25,8 @@ import {
   setMessageCount,
   setNotification,
   setOnlineUsers,
+  setUserAllPitches,
+  setUserLivePitches,
 } from "./redux/Conversationreducer/ConversationReducer";
 import LivePitches from "./Components/LivePitches/LivePitches";
 import IndividualPitch from "./Components/LivePitches/IndividualPitch";
@@ -78,6 +80,8 @@ const NoMatch = () => {
 };
 
 const App = () => {
+  const notificationAlert = useSelector(state => state.conv.notificationAlert);
+
   const messageAlert = useSelector((state) => state.conv.messageAlert);
 
   const dispatch = useDispatch();
@@ -190,6 +194,35 @@ const App = () => {
         }
       });
   }, []);
+
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      ApiServices.userLivePitches().then(res => {
+        dispatch(setUserLivePitches(res.data))
+      }).catch(err => {
+        dispatch(setToast({
+          message: "Error while fetching pitches",
+          bgColor: ToastColors.failure,
+          visible: "yes",
+        }))
+      })
+    }
+  }, [notificationAlert]);
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      ApiServices.getuserPitches().then(res => {
+        dispatch(setUserAllPitches(res.data))
+      }).catch(err => {
+        dispatch(setToast({
+          message: "Error while fetching pitches",
+          bgColor: ToastColors.failure,
+          visible: "yes",
+        }))
+      })
+    }
+  }, [notificationAlert]);
   return (
     <div>
       <Suspense
@@ -215,7 +248,7 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="*" element={<NoMatch />} />
 
-          <Route path="/home" Component={AuthHoc(Home)} />
+          <Route path="/dashboard" Component={AuthHoc(Home)} />
           <Route path="/editProfile" Component={AuthHoc(Editprofile)} />
           <Route path="/conversations" Component={AuthHoc(Conversations)} />
           <Route

@@ -185,7 +185,7 @@ const IndividualPitch = () => {
       comment_id: commentId,
       comment_owner: pitch._id,
     })
-      .then((res) => {})
+      .then((res) => { })
       .catch((err) => {
         dispatch(
           setToast({
@@ -249,15 +249,7 @@ const IndividualPitch = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const removeFromIntrest = async () => {
@@ -284,15 +276,7 @@ const IndividualPitch = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   return (
@@ -375,15 +359,14 @@ const IndividualPitch = () => {
                 </div>
                 {email !== pitch?.email && (
                   <div
-                    className={`intrestButton ${
-                      pitch?.intrest?.length > 0 &&
-                      pitch?.intrest.filter((p) => p.email === email).length > 0
+                    className={`intrestButton ${pitch?.intrest?.length > 0 &&
+                        pitch?.intrest.filter((p) => p.email === email).length > 0
                         ? "removeIntrest"
                         : "addIntrest"
-                    }`}
+                      }`}
                   >
                     {pitch?.intrest?.length > 0 &&
-                    pitch?.intrest.filter((p) => p.email === email).length >
+                      pitch?.intrest.filter((p) => p.email === email).length >
                       0 ? (
                       <span onClick={removeFromIntrest}>
                         Remove from interest

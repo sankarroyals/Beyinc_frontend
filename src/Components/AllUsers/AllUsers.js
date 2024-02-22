@@ -30,6 +30,7 @@ import { FilterCheckBoxes } from "./FilterCheckBox";
 import { Search } from "@mui/icons-material";
 import { getAllHistoricalConversations } from "../../redux/Conversationreducer/ConversationReducer";
 import AddPitch from "../Common/AddPitch";
+import AddConversationPopup from "../Common/AddConversationPopup";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -634,11 +635,10 @@ const AllUsers = () => {
             </div>
           </div>
         </div>
-        <AddPitch
-          receiverMail={pitchSendTo}
+        <AddConversationPopup receiverMail={pitchSendTo}
           setReceivermail={setPitchSendTo}
-          receiverRole={receiverRole}
-        />
+          receiverRole={receiverRole} />
+
       </div>
     </>
   );

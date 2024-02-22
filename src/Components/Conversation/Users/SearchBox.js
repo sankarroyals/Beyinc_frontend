@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./searchBox.css";
 import { ApiServices } from "../../../Services/ApiServices";
 import MapsUgcIcon from "@mui/icons-material/MapsUgc";
-import { getAllHistoricalConversations } from "../../../redux/Conversationreducer/ConversationReducer";
+import { getAllHistoricalConversations, setUserLivePitches } from "../../../redux/Conversationreducer/ConversationReducer";
 import { setLoading, setToast } from "../../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../../Toast/ToastColors";
 
@@ -11,6 +11,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import { io } from "socket.io-client";
 import { socket_io } from "../../../Utils";
 import AddPitch from "../../Common/AddPitch";
+import AddConversationPopup from "../../Common/AddConversationPopup";
 
 
 const SearchBox = () => {
@@ -173,8 +174,7 @@ const SearchBox = () => {
               ))}
         </div>
       </div>
-
-      <AddPitch receiverMail={receiverMail} setReceivermail={setReceivermail} receiverRole={receiverRole} />
+      <AddConversationPopup receiverMail={receiverMail} setReceivermail={setReceivermail} receiverRole={receiverRole} />
     </div>
   );
 };

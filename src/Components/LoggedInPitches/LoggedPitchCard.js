@@ -54,15 +54,7 @@ export default function LoggedInPitchCard({ d }) {
         });
         e.target.disabled = false;
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   useEffect(() => {
@@ -113,10 +105,10 @@ export default function LoggedInPitchCard({ d }) {
                       ? "orange"
                       : "red",
                 border: `1px dotted ${d.status == "approved"
-                    ? "green"
-                    : d.status == "pending"
-                      ? "orange"
-                      : "red"
+                  ? "green"
+                  : d.status == "pending"
+                    ? "orange"
+                    : "red"
                   }`,
                 borderRadius: 5,
                 padding: "3px",

@@ -329,15 +329,7 @@ const Editprofile = () => {
         );
         e.target.disabled = true;
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   // const verifyOtp = async (e) => {
@@ -407,15 +399,7 @@ const Editprofile = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
   const update = async (e) => {
     e.preventDefault();
@@ -462,7 +446,7 @@ const Editprofile = () => {
         });
         localStorage.setItem("user", JSON.stringify(res.data));
         dispatch(setLoginData(jwtDecode(res.data.accessToken)));
-        navigate("/home");
+        navigate("/dashboard");
         setIsLoading(false);
       })
       .catch((err) => {
@@ -476,15 +460,7 @@ const Editprofile = () => {
         );
         setIsLoading(false);
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   // const sendMobileOtp = (e) => {
@@ -498,19 +474,19 @@ const Editprofile = () => {
 
   const [isFormValid, setIsFormValid] = useState(
     mobileVerified &&
-      (isNameValid ||
-        oldDocs.resume !== "" ||
-        oldDocs.expertise !== "" ||
-        oldDocs.acheivements !== "" ||
-        oldDocs.working !== "" ||
-        oldDocs.degree !== "" ||
-        changeResume.resume !== "" ||
-        changeResume.expertise !== "" ||
-        changeResume.acheivements !== "" ||
-        changeResume.working !== "" ||
-        changeResume.degree !== "") &&
-      totalEducationData.length > 0 &&
-      totalExperienceData.length > 0
+    (isNameValid ||
+      oldDocs.resume !== "" ||
+      oldDocs.expertise !== "" ||
+      oldDocs.acheivements !== "" ||
+      oldDocs.working !== "" ||
+      oldDocs.degree !== "" ||
+      changeResume.resume !== "" ||
+      changeResume.expertise !== "" ||
+      changeResume.acheivements !== "" ||
+      changeResume.working !== "" ||
+      changeResume.degree !== "") &&
+    totalEducationData.length > 0 &&
+    totalExperienceData.length > 0
   );
 
   const handleChangeRadio = (e) => {
@@ -911,7 +887,7 @@ const Editprofile = () => {
                 </div>
                 <div>
                   {EducationDetails.grade == "SSC" ||
-                  EducationDetails.grade == "" ? (
+                    EducationDetails.grade == "" ? (
                     <input
                       type="text"
                       name="college"

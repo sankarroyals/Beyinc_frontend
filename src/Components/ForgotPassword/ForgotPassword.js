@@ -127,15 +127,7 @@ const ResetPassword = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
 
@@ -167,15 +159,7 @@ const ResetPassword = () => {
         );
         e.target.disabled = true;
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
   const handleGetOtp = async (e) => {
     e.target.disabled = true;
@@ -249,15 +233,7 @@ const ResetPassword = () => {
           })
         );
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
+
   };
 
   const handleMobileChange = (value) => {

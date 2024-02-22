@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ApiServices } from "../../Services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllHistoricalConversations } from "../../redux/Conversationreducer/ConversationReducer";
+import { getAllHistoricalConversations, setUserAllPitches } from "../../redux/Conversationreducer/ConversationReducer";
 import { setLoading, setToast } from "../../redux/AuthReducers/AuthReducer";
 import { ToastColors } from "../Toast/ToastColors";
 import { io } from "socket.io-client";
@@ -28,6 +28,7 @@ import { Country, State, City } from "country-state-city";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import useWindowDimensions from "./WindowSize";
 import "./AddPitch.css";
+import CachedIcon from "@mui/icons-material/Cached";
 
 function TabPanel(props) {
   const { className, children, value, index, ...other } = props;
@@ -57,7 +58,7 @@ function a11yProps(index) {
   };
 }
 
-const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
+const AddPitch = ({ open, setOpen, id, setId }) => {
   const dispatch = useDispatch();
   const { email, role, verification } = useSelector(
     (state) => state.auth.loginDetails
@@ -71,7 +72,11 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [selectedpitchId, setselectedpitchId] = useState('');
+
+
   const [tags, setTags] = useState([]);
+  const userPitches = useSelector(state => state.conv.userLivePitches)
 
   const [teamMembers, setTeamMembers] = useState([]);
   const [singleTeamMember, setSingleTeamMember] = useState({
@@ -82,7 +87,6 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
     position: "",
   });
 
-  const [defaultTrigger, setdefaultTrigger] = useState(false);
   const [showPreviousFile, setShowPreviousFile] = useState(false);
   const [Teampic, setTeampic] = useState("");
   const [Logo, SetLogo] = useState("");
@@ -127,151 +131,8 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
 
   const totalRoles = useSelector((state) => state.auth.totalRoles);
 
-  const decidingRolesMessage = async (receiverMail) => {
-    console.log(isParent(receiverRole, role));
-    if (role === "Admin") {
-      await ApiServices.directConversationCreation({
-        email: email,
-        receiverId: receiverMail,
-        senderId: email,
-        status: "approved",
-      })
-        .then((res) => {
-          dispatch(getAllHistoricalConversations(email));
-          dispatch(
-            setToast({
-              message: res.data,
-              bgColor: ToastColors.success,
-              visible: "yes",
-            })
-          );
-          setOpen(false);
-          setdefaultTrigger(!defaultTrigger);
-          setReceivermail("");
-          document
-            .getElementsByClassName("newConversation")[0]
-            ?.classList?.remove("show");
-        })
-        .catch((err) => {
-          console.log(err);
-          dispatch(
-            setToast({
-              message: `Error Occured`,
-              bgColor: ToastColors.failure,
-              visible: "yes",
-            })
-          );
-          setReceivermail("");
-        });
-    } else if (isParent(role, receiverRole)) {
-      if (verification == "approved") {
-        await ApiServices.directConversationCreation({
-          email: email,
-          receiverId: receiverMail,
-          senderId: email,
-          status: "pending",
-        })
-          .then((res) => {
-            dispatch(getAllHistoricalConversations(email));
-            dispatch(
-              setToast({
-                message: res.data,
-                bgColor: ToastColors.success,
-                visible: "yes",
-              })
-            );
-            setOpen(false);
-            setdefaultTrigger(!defaultTrigger);
-            setReceivermail("");
-            document
-              .getElementsByClassName("newConversation")[0]
-              ?.classList?.remove("show");
-          })
-          .catch((err) => {
-            console.log(err);
-            dispatch(
-              setToast({
-                message: `Error Occured`,
-                bgColor: ToastColors.failure,
-                visible: "yes",
-              })
-            );
-            setReceivermail("");
-          });
-      } else {
-        dispatch(
-          setToast({
-            message: `Please Verify Yourself first to create conversation`,
-            bgColor: ToastColors.failure,
-            visible: "yes",
-          })
-        );
-      }
-    } else {
-      if (
-        verification == "approved" &&
-        receiverMail !== process.env.REACT_APP_ADMIN_MAIL
-      ) {
-        setOpen(true);
-      } else if (receiverMail === process.env.REACT_APP_ADMIN_MAIL) {
-        // addconversation()
-        await ApiServices.directConversationCreation({
-          email: email,
-          receiverId: receiverMail,
-          senderId: email,
-          status: "approved",
-        })
-          .then((res) => {
-            dispatch(getAllHistoricalConversations(email));
-            dispatch(
-              setToast({
-                message: res.data,
-                bgColor: ToastColors.success,
-                visible: "yes",
-              })
-            );
-            socket.current.emit("sendNotification", {
-              senderId: email,
-              receiverId: receiverMail,
-            });
-            setOpen(false);
-            setdefaultTrigger(!defaultTrigger);
-            setReceivermail("");
-            document
-              .getElementsByClassName("newConversation")[0]
-              ?.classList?.remove("show");
-          })
-          .catch((err) => {
-            console.log(err);
-            dispatch(
-              setToast({
-                message: `Error Occured`,
-                bgColor: ToastColors.failure,
-                visible: "yes",
-              })
-            );
-            setReceivermail("");
-          });
-      } else {
-        dispatch(
-          setToast({
-            message: `Please Verify Yourself first to create conversation`,
-            bgColor: ToastColors.failure,
-            visible: "yes",
-          })
-        );
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (receiverMail !== "") {
-      decidingRolesMessage(receiverMail);
-    }
-  }, [receiverMail]);
 
   const userDetailsRef = useRef(null);
-  const [open, setOpen] = React.useState(false);
   const [form, setForm] = useState({
     title: "",
     tags: "",
@@ -281,7 +142,6 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
   const [file, setFile] = useState("");
   const handleClose = () => {
     setOpen(false);
-    setReceivermail("");
   };
 
   const handleChanges = (e) => {
@@ -379,25 +239,74 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
     };
   };
 
-  const addconversation = async (e) => {
+  useEffect(() => {
+    if (selectedpitchId !== '' || id !== '') {
+      const getDefault = async () => {
+        await ApiServices.fetchSinglePitch({ pitchId: id!==''? id : selectedpitchId })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data) {
+              setForm({
+                ...res.data,
+                pitchId: res.data._id,
+                changeStatus: "",
+                tags: "",
+              });
+              setTags(res.data.tags);
+              setTeamMembers(res.data.teamMembers);
+            }
+          })
+          .catch((err) => {
+            dispatch(
+              setToast({
+                message: `Error Occured`,
+                bgColor: ToastColors.failure,
+                visible: "yes",
+              })
+            );
+          });
+        setTimeout(() => {
+          dispatch(
+            setToast({
+              message: "",
+              bgColor: "",
+              visible: "no",
+            })
+          );
+        }, 4000);
+      };
+      getDefault();
+    }
+  }, [selectedpitchId, id]);
+
+  const addPitchData = async (e) => {
     // e.preventDefault();
     dispatch(setLoading({ visible: "yes" }));
     e.target.disabled = true;
     const conversation = {
-      senderId: email,
-      receiverId: receiverMail,
+
       pitch: file,
       email: email,
       role: role,
-      form: { ...form, pitchId: form?._id },
+      form: { ...form, pitchId: id==''? '' :form?._id },
       tags: tags,
       teamMembers: teamMembers,
       pitchRequiredStatus: "show",
     };
-    await ApiServices.addConversation(conversation)
-      .then((res) => {
-        dispatch(getAllHistoricalConversations(email));
+    await ApiServices.addPitch(conversation)
+      .then(async (res) => {
         console.log(res.data);
+        await ApiServices.getuserPitches().then(res => {
+          dispatch(setUserAllPitches(res.data))
+        }).catch(err => {
+          dispatch(setToast({
+            message: "Error while fetching pitches",
+            bgColor: ToastColors.failure,
+            visible: "yes",
+          }))
+        })
+        setId('')
+        setselectedpitchId('')
         dispatch(
           setToast({
             message: res.data,
@@ -405,20 +314,19 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
             visible: "yes",
           })
         );
+        setValue(1)
         setOpen(false);
-        setdefaultTrigger(!defaultTrigger);
         e.target.disabled = false;
-        socket.current.emit("sendNotification", {
-          senderId: email,
-          receiverId: receiverMail,
-        });
+
         dispatch(setLoading({ visible: "no" }));
       })
       .catch((err) => {
         console.log(err);
+        setId('')
+        setselectedpitchId('')
         dispatch(
           setToast({
-            message: `Error Occured/try use different pitch title`,
+            message: `Error Occured/try updating pitch`,
             bgColor: ToastColors.failure,
             visible: "yes",
           })
@@ -426,57 +334,11 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
         e.target.disabled = false;
         dispatch(setLoading({ visible: "no" }));
       });
-    setTimeout(() => {
-      dispatch(
-        setToast({
-          message: "",
-          bgColor: "",
-          visible: "no",
-        })
-      );
-    }, 4000);
-    document
-      .getElementsByClassName("newConversation")[0]
-      ?.classList.remove("show");
+    
+   
   };
 
-  useEffect(() => {
-    const getDefault = async () => {
-      await ApiServices.getlastUpdatedPitch({ email: email })
-        .then((res) => {
-          console.log(res.data);
-          if (res.data.length > 0) {
-            setForm({
-              ...res.data[0],
-              pitchId: res.data[0]._id,
-              changeStatus: "",
-              tags: "",
-            });
-            setTags(res.data[0].tags);
-            setTeamMembers(res.data[0].teamMembers);
-          }
-        })
-        .catch((err) => {
-          dispatch(
-            setToast({
-              message: `Error Occured`,
-              bgColor: ToastColors.failure,
-              visible: "yes",
-            })
-          );
-        });
-      setTimeout(() => {
-        dispatch(
-          setToast({
-            message: "",
-            bgColor: "",
-            visible: "no",
-          })
-        );
-      }, 4000);
-    };
-    getDefault();
-  }, [email, defaultTrigger]);
+
 
   const handleClickOutside = (event) => {
     if (
@@ -554,6 +416,14 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
     }
   };
 
+  const [isSpinning, setSpinning] = useState(false);
+
+  const handleReloadClick = () => {
+    setSpinning(true);
+    setTimeout(() => {
+      setSpinning(false);
+    }, 2000);
+  };
   // Function to check if all fields in the value === 1 section are empty
   const areValue1FieldsEmpty = () => {
     return (
@@ -708,12 +578,38 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
             >
               Requirements
             </div>
-
+            {id == '' &&  <><div>
+              <select
+                name="pitch"
+                value={selectedpitchId}
+                onChange={(e) => setselectedpitchId(e.target.value)}
+              >
+                <option value="">Select a pitch for reference</option>
+                {userPitches?.length > 0 &&
+                  userPitches?.map((c) => (
+                    <option value={c._id}>{c.title}</option>
+                  ))}
+              </select>
+            </div><div title="Reload for latest request updates">
+                <CachedIcon
+                  style={{ cursor: "pointer" }}
+                  className={isSpinning ? "spin" : "spinText"}
+                  onClick={() => {
+                    handleReloadClick();
+                    setselectedpitchId('');
+                    setValue(1);
+                    setForm({
+                      title: "",
+                      tags: "",
+                      changeStatus: "change",
+                      hiringPositions: [],
+                    });
+                  } } />
+              </div></>}
             <div
               className={`crossIcon`}
               onClick={() => {
                 setOpen(false);
-                setReceivermail("");
               }}
             >
               <CloseIcon />
@@ -1563,7 +1459,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
             <div className="pitchSubmit">
               <button
                 type="submit"
-                onClick={addconversation}
+                onClick={addPitchData}
                 disabled={
                   areValue1FieldsEmpty() ||
                   areValue2FieldsEmpty() ||
@@ -1573,7 +1469,7 @@ const AddPitch = ({ receiverMail, setReceivermail, receiverRole }) => {
                   areValue6FieldsEmpty()
                 }
               >
-                Send request
+                {id == '' ? 'Create pitch' : 'Update Pitch'}
               </button>
             </div>
           ) : (
