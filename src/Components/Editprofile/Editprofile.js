@@ -516,22 +516,26 @@ const Editprofile = () => {
   };
 
   useEffect(() => {
-    if (collegeQuery === "") return;
-    const timeoutId = setTimeout(
-      async () =>
-        await axios
-          .post(process.env.REACT_APP_BACKEND + "/helper/allColleges", {
-           
+    if (collegeQuery === "") {
+      setUniversities([]);
+    };
+    if (collegeQuery.length > 4) {
+      const timeoutId = setTimeout(
+        async () =>
+          await axios
+            .post(process.env.REACT_APP_BACKEND + "/helper/allColleges", {
+
               name: collegeQuery,
-           
-          })
-          .then((res) => {
-            console.log(res.data.college.length);
-            setUniversities(res.data.college);
-          }),
-      2000
-    );
-    return () => clearTimeout(timeoutId);
+
+            })
+            .then((res) => {
+              console.log(res.data.college.length);
+              setUniversities(res.data.college);
+            }),
+        2000
+      );
+      return () => clearTimeout(timeoutId);
+    }
   }, [collegeQuery]);
 
   return (
@@ -883,7 +887,7 @@ const Editprofile = () => {
               <div>
                 <div>
                   <label className="update-form-label">
-                    College/University*
+                    College/University* {EducationDetails.grade !== "SSC" && EducationDetails.grade !== "" && '(Type 5 charecters)'}
                   </label>
                 </div>
                 <div>
