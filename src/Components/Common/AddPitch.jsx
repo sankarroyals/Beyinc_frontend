@@ -144,6 +144,8 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
     setselectedpitchId('');
     setOpen(false)
     setValue(1);
+    setTags([])
+    setTeamMembers([])
     setForm({
       title: "",
       tags: "",
@@ -327,6 +329,8 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
           changeStatus: "change",
           hiringPositions: [],
         });
+        setTags([])
+        setTeamMembers([])
         setId('')
         setselectedpitchId('')
         dispatch(
@@ -354,6 +358,8 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
           changeStatus: "change",
           hiringPositions: [],
         });
+        setTags([])
+        setTeamMembers([])
         dispatch(
           setToast({
             message: `Error Occured/try updating pitch`,
@@ -642,6 +648,8 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
                 setOpen(false);
                 setselectedpitchId('');
                 setValue(1);
+                setTags([])
+                setTeamMembers([])
                 setForm({
                   title: "",
                   tags: "",
