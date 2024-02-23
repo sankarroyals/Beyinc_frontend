@@ -321,6 +321,12 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
             visible: "yes",
           }))
         })
+        setForm({
+          title: "",
+          tags: "",
+          changeStatus: "change",
+          hiringPositions: [],
+        });
         setId('')
         setselectedpitchId('')
         dispatch(
@@ -342,6 +348,12 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
         setselectedpitchId('')
         setValue(1)
         setOpen(false);
+        setForm({
+          title: "",
+          tags: "",
+          changeStatus: "change",
+          hiringPositions: [],
+        });
         dispatch(
           setToast({
             message: `Error Occured/try updating pitch`,
