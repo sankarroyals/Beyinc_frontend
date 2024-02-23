@@ -79,7 +79,22 @@
   display: flex;
   flex-direction: column;
 }
-
+.passwordHint ul{
+  display: flex;
+  flex-direction: column;
+}
+.passwordHint ul li{
+  white-space: noWrap;
+  font-size: 12px;
+  display: block;
+  text-align: start !important;
+}
+.passwordHint ul li.success{
+ color: green !important;
+}
+.passwordHint ul li.failure{
+ color: red !important;
+}
 .signup-page .signup-container form,
 input {
   width: inherit;

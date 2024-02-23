@@ -312,6 +312,22 @@ input {
   width: 600px;
   height: fit-content;
 }
+.passwordHint ul{
+  display: flex;
+  flex-direction: column;
+}
+.passwordHint ul li{
+  white-space: noWrap;
+  font-size: 12px;
+  display: block;
+  text-align: start !important;
+}
+.passwordHint ul li.success{
+ color: green !important;
+}
+.passwordHint ul li.failure{
+ color: red !important;
+}
 
 @media only screen and (max-width: 1020px) {
   .login-image {

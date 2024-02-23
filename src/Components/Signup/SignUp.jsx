@@ -69,7 +69,7 @@ const SignUp = () => {
       setInputs((prev) => ({
         ...prev,
         isPasswordValid:
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/.test(
             e.target.value
           ),
       }));
@@ -571,6 +571,16 @@ const SignUp = () => {
                     onChange={handleChanges}
                     placeholder="Create Password*"
                   />
+                  <div className="passwordHint">
+                    <ul>
+                      <li className={password?.length>=8 ? 'success' : 'failure'}>Password should be atleast 8 character length</li>
+                      <li className={/.*[A-Z].*/.test(password) ? 'success' : 'failure'}>Atleast one capital letter</li>
+                      <li className={/.*[a-z].*/.test(password) && password!==null ? 'success' : 'failure'}>Atleast one small letter</li>
+                      <li className={/.*[!@#$%^&*()_+].*/.test(password) ? 'success' : 'failure'}>Atleast one special character (!@#$%^&*()_+)</li>
+                      <li className={/.*[0-9].*/.test(password) ? 'success' : 'failure'}>Atleast one Number</li>
+                    </ul>
+                  </div>
+                    
                   <button
                     type="submit"
                     className="full-width-button"
