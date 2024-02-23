@@ -460,7 +460,7 @@ export const SingleRequestProfile = () => {
               </div>
             </form>
           </div>
-          <div className="button-container">
+          <div className="approve-button-container">
             <div
               style={{
                 display: "flex",

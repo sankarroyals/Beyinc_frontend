@@ -257,93 +257,7 @@ const IndividualUser = () => {
               </div>
 
               <div className="ed-ex-container">
-                {user.educationDetails?.length > 0 && (
-                  <div className="" style={{ flexDirection: "column" }}>
-                    <h4 className="Headings">Educational Details</h4>
-                    <div>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: "10px",
-                        }}
-                      >
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
-                          <div className="company indiPitchHiringPositions">
-                            {user.educationDetails[0].college}
-                          </div>
-                          <div>
-                            <div className="profession indiPitchHiringPositions">
-                              {user.educationDetails[0].grade}
-                            </div>
-                            <div className="timeline indiPitchHiringPositions">
-                              {convertToDate(user.educationDetails[0].Edstart)}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {user.educationDetails.length > 1 && (
-                      <div>
-                        <div
-                          onClick={() => setShowOldEducation(!showOldEducation)}
-                        >
-                          {showOldEducation ? (
-                            <i
-                              title="close"
-                              className="fas fa-chevron-up"
-                              onClick={() => setShowOldEducation(false)}
-                            ></i>
-                          ) : (
-                            <i
-                              title="show previous education"
-                              className="fas fa-chevron-down"
-                              onClick={() => setShowOldEducation(true)}
-                            ></i>
-                          )}
-                        </div>
-                        {showOldEducation && (
-                          <div className="old-education">
-                            {user.educationDetails.slice(1).map((te, i) => (
-                              <div key={i}>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    gap: "10px",
-                                  }}
-                                >
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      flexDirection: "column",
-                                    }}
-                                  >
-                                    <div className="company indiPitchHiringPositions">
-                                      {te.college}
-                                    </div>
-                                    <div>
-                                      <div className="profession indiPitchHiringPositions">
-                                        {te.grade}
-                                      </div>
-                                      <div className="timeline indiPitchHiringPositions">
-                                        {convertToDate(te.Edstart)}
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {user.experienceDetails?.length > 0 && (
+              {user.experienceDetails?.length > 0 && (
                   <div className="" style={{ flexDirection: "column" }}>
                     <h4 className="Headings">Experience Details</h4>
                     <div>
@@ -436,6 +350,93 @@ const IndividualUser = () => {
                     )}
                   </div>
                 )}
+                {user.educationDetails?.length > 0 && (
+                  <div className="" style={{ flexDirection: "column" }}>
+                    <h4 className="Headings">Educational Details</h4>
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "10px",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <div className="company indiPitchHiringPositions">
+                            {user.educationDetails[0].college}
+                          </div>
+                          <div>
+                            <div className="profession indiPitchHiringPositions">
+                              {user.educationDetails[0].grade}
+                            </div>
+                            <div className="timeline indiPitchHiringPositions">
+                              {convertToDate(user.educationDetails[0].Edstart)}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {user.educationDetails.length > 1 && (
+                      <div>
+                        <div
+                          onClick={() => setShowOldEducation(!showOldEducation)}
+                        >
+                          {showOldEducation ? (
+                            <i
+                              title="close"
+                              className="fas fa-chevron-up"
+                              onClick={() => setShowOldEducation(false)}
+                            ></i>
+                          ) : (
+                            <i
+                              title="show previous education"
+                              className="fas fa-chevron-down"
+                              onClick={() => setShowOldEducation(true)}
+                            ></i>
+                          )}
+                        </div>
+                        {showOldEducation && (
+                          <div className="old-education">
+                            {user.educationDetails.slice(1).map((te, i) => (
+                              <div key={i}>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: "10px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <div className="company indiPitchHiringPositions">
+                                      {te.college}
+                                    </div>
+                                    <div>
+                                      <div className="profession indiPitchHiringPositions">
+                                        {te.grade}
+                                      </div>
+                                      <div className="timeline indiPitchHiringPositions">
+                                        {convertToDate(te.Edstart)}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                
               </div>
             </div>
 

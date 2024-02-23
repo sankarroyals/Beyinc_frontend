@@ -256,7 +256,7 @@ const App = () => {
             Component={AuthHoc(Conversations)}
           />
           <Route path="/notifications" Component={AuthHoc(Notifications)} />
-          <Route path="/userPitches" Component={AuthHoc(LoggedInPitches)} />
+          {/* <Route path="/userPitches" Component={AuthHoc(LoggedInPitches)} /> */}
           <Route path="/livePitches" Component={AuthHoc(LivePitches)} />
           <Route
             path="/livePitches/:pitchId"
