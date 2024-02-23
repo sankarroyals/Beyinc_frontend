@@ -65,7 +65,7 @@ const SingleUserDetails = ({
               <img
                 alt="user-pic"
                 src={
-                  d.image !== undefined && d.image.url !== ""
+                  d.image !== '' && d.image !== undefined && d.image.url !== ""
                     ? d.image.url
                     : "/profile.png"
                 }
