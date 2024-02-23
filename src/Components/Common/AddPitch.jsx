@@ -141,7 +141,15 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
   });
   const [file, setFile] = useState("");
   const handleClose = () => {
-    setOpen(false);
+    setselectedpitchId('');
+    setOpen(false)
+    setValue(1);
+    setForm({
+      title: "",
+      tags: "",
+      changeStatus: "change",
+      hiringPositions: [],
+    });
   };
 
   const handleChanges = (e) => {
@@ -240,6 +248,14 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
   };
 
   useEffect(() => {
+    if (id == '') {
+      setForm({
+        title: "",
+        tags: "",
+        changeStatus: "change",
+        hiringPositions: [],
+      })
+    }
     if (selectedpitchId !== '' || id !== '') {
       const getDefault = async () => {
         await ApiServices.fetchSinglePitch({ pitchId: id!==''? id : selectedpitchId })
@@ -324,6 +340,8 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
         console.log(err);
         setId('')
         setselectedpitchId('')
+        setValue(1)
+        setOpen(false);
         dispatch(
           setToast({
             message: `Error Occured/try updating pitch`,
@@ -610,6 +628,14 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
               className={`crossIcon`}
               onClick={() => {
                 setOpen(false);
+                setselectedpitchId('');
+                setValue(1);
+                setForm({
+                  title: "",
+                  tags: "",
+                  changeStatus: "change",
+                  hiringPositions: [],
+                });
               }}
             >
               <CloseIcon />

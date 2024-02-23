@@ -58,7 +58,7 @@ export default function BasicTable() {
                     <TableRow style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '10px'}}>
 
                        
-                        <button onClick={() => {
+                        <button style={{whiteSpace: 'noWrap'}} onClick={() => {
                             setSelectedId('')
                             setOpen(true)
                         }}>Add New Pitch</button>
