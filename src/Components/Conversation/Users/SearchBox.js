@@ -27,7 +27,7 @@ const SearchBox = () => {
     socialLink: "",
     position: "",
   });
-
+  const [IsAdmin, setIsAdmin] = useState(false)
   const [defaultTrigger, setdefaultTrigger] = useState(false);
   const [Teampic, setTeampic] = useState('')
   const [Logo, SetLogo] = useState('');
@@ -45,11 +45,11 @@ const SearchBox = () => {
 
   const [search, setSearch] = useState("");
   const allUsers = useSelector((state) => state.conv.allUsers);
-  const { email } = useSelector((state) => state.auth.loginDetails);
+  const { email, user_id } = useSelector((state) => state.auth.loginDetails);
   const [filteredusers, setFilteredUsers] = useState([]);
   const userDetailsRef = useRef(null);
 
-  const [receiverMail, setReceivermail] = useState("");
+  const [receiverId, setReceiverId] = useState("");
   const [receiverRole, setreceiverRole] = useState("");
 
 
@@ -82,6 +82,10 @@ const SearchBox = () => {
     };
   }, []);
 
+  useEffect(() => {
+    console.log(receiverId);
+  }, [receiverId])
+
   return (
     <div style={{ position: "relative" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }} className="newChatContainer">
@@ -105,7 +109,7 @@ const SearchBox = () => {
             className={isSpinning ? "spin" : "spinText"}
             onClick={() => {
               handleReloadClick();
-              dispatch(getAllHistoricalConversations(email));
+              dispatch(getAllHistoricalConversations(user_id));
             }}
           />
         </div>
@@ -129,8 +133,9 @@ const SearchBox = () => {
                 <div
                   className="individuals"
                   onClick={() => {
-                    setReceivermail(a.email);
+                    setReceiverId(a._id);
                     setreceiverRole(a.role)
+                    setIsAdmin(a.email == process.env.REACT_APP_ADMIN_MAIL)
                   }}
                 >
                   <div className="searchPic">
@@ -174,7 +179,7 @@ const SearchBox = () => {
               ))}
         </div>
       </div>
-      <AddConversationPopup receiverMail={receiverMail} setReceivermail={setReceivermail} receiverRole={receiverRole} />
+      <AddConversationPopup IsAdmin={IsAdmin} receiverId={receiverId} setReceiverId={setReceiverId} receiverRole={receiverRole} />
     </div>
   );
 };

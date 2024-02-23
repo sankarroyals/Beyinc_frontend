@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router'
 
 
 const MessageRequest = ({ m, setMessageRequest }) => {
-    const { email, userName } = useSelector(state => state.auth.loginDetails)
+    const { email, userName, user_id } = useSelector(state => state.auth.loginDetails)
     const [pitchDetails, setPitchdetails] = useState(null)
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(1)
@@ -50,8 +50,8 @@ const MessageRequest = ({ m, setMessageRequest }) => {
                 setpopStatus('')
                 setReason('')
                 socket.current.emit("sendNotification", {
-                    senderId: email,
-                    receiverId: pitchDetails?.email,
+                    senderId: user_id,
+                    receiverId: pitchDetails?.userInfo?._id,
                 });
 
             }).catch(err => {
@@ -88,12 +88,12 @@ const MessageRequest = ({ m, setMessageRequest }) => {
         <div className='individualrequest'>
             <div className='individualrequestWrapper'>
                 <div className='userNotiD' onClick={() => {
-                    navigate(`/user/${m.members?.filter((f) => f.user?.userName !== userName)[0].user?.email}`)
+                    navigate(`/user/${m.members?.filter((f) => f.user?.userName !== userName)[0]?._id}`)
                 }}>
                     <div>
-                        <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={m.members?.filter((f) => f.user?.userName !== userName)[0].user?.image?.url == undefined ? '/profile.png' : m.members?.filter((f) => f.user?.userName !== userName)[0].user?.image?.url} alt="" srcset="" />
+                        <img style={{ height: '50px', width: '50px', borderRadius: '50%' }} src={m.members?.filter((f) => f.user?.userName !== userName)[0]?.image?.url == undefined ? '/profile.png' : m.members?.filter((f) => f.user?.userName !== userName)[0]?.image?.url} alt="" srcset="" />
                     </div>
-                    <div className='message'><b>{m.members?.filter((f) => f.user?.userName !== userName)[0].user?.userName}</b> sent you a message request</div>
+                    <div className='message'><b>{m.members?.filter((f) => f.user?.userName !== userName)[0]?.userName}</b> sent you a message request</div>
 
                 </div>
                 <div className='updateActions'>

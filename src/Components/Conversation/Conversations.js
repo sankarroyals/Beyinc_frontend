@@ -10,7 +10,7 @@ import { io } from 'socket.io-client'
 import { useParams } from 'react-router'
 import useWindowDimensions from '../Common/WindowSize'
 const Conversations = () => {
-  const { email } = useSelector(
+  const { email, user_id } = useSelector(
     (store) => store.auth.loginDetails
   );
   const { conversationId } = useParams()
@@ -70,10 +70,9 @@ const Conversations = () => {
 
   // get friend based on params
   useEffect(() => {
-    console.log(isMobile, conversationId);
     if (conversationId !== undefined) {
-      ApiServices.getFriendByConvID({ conversationId: conversationId, email: email }).then((res) => {
-        dispatch(setReceiverId(res.data))
+      ApiServices.getFriendByConvID({ conversationId: conversationId, userId: user_id }).then((res) => {
+        dispatch(setReceiverId(res.data?.members.filter(f=>f._id!==user_id)[0]))
       }).catch(err => {
         window.location.href = '/conversations'
       })

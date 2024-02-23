@@ -49,12 +49,12 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
 
     useEffect(() => {
         //const expiryTime = new Date().getTime() + expiresIn * 1000;
-        if (receiver.user?.email !== undefined) {
+        if (receiver?.email !== undefined) {
 
             gapiLoaded();
             gisLoaded();
         }
-    }, [accessToken, receiver.user?.email]);
+    }, [accessToken, receiver?.email]);
 
     function gapiLoaded() {
         gapi.load("client", initializeGapiClient);
@@ -168,14 +168,15 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         //         })\n`,
         //     "<b>Events:</b>\n"
         // );
-        // console.log(events, receiver.user?.email);
+        // console.log(events, receiver?.email);
         // console.log(events.filter((event) => {
         //     const attendees = event.attendees || [];
-        //     return attendees.some((attendee) => attendee.email === receiver.user?.email);
+        //     return attendees.some((attendee) => attendee.email === receiver?.email);
         // }));
+        console.log(events)
         setSelectedUserEvent(events.filter((event) => {
             const attendees = event.attendees || [];
-            return attendees.some((attendee) => attendee.email === receiver.user?.email);
+            return attendees.some((attendee) => attendee.email === receiver?.email);
         }))
         // document.getElementById("content").innerText = output;
     }
@@ -197,7 +198,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
             },
             recurrence: ["RRULE:FREQ=DAILY;COUNT=1"],
             attendees: [...guestDetails?.map(g => ({ email: g, responseStatus: "needsAction" })),
-            { email: receiver.user?.email, responseStatus: "needsAction" },
+            { email: receiver?.email, responseStatus: "needsAction" },
             ],
             reminders: {
                 useDefault: true,
@@ -349,7 +350,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
 
                     {/* <pre id="content" style={{ whiteSpace: "pre-wrap" }}></pre> */}
                     {selectedUserEvents.length > 0 && <>
-                        <h5 style={{ margin: '5px 0px' }} className="meetsummary">Events with {receiver.user?.userName}</h5>
+                        <h5 style={{ margin: '5px 0px' }} className="meetsummary">Events with {receiver?.userName}</h5>
                         {/* <ol> */}
                         <div className='Totalmeetings'>
                             {selectedUserEvents.map((sel, i) => (

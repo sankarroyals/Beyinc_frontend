@@ -61,8 +61,8 @@ const IndividualPitch = () => {
         );
         setPitchTrigger(!pitchTrigger);
         socket.current.emit("sendNotification", {
-          senderId: email,
-          receiverId: pitch?.email,
+          senderId: user_id,
+          receiverId: pitch?.userInfo,
         });
       })
       .catch((err) => {
@@ -236,8 +236,8 @@ const IndividualPitch = () => {
           })
         );
         socket.current.emit("sendNotification", {
-          senderId: email,
-          receiverId: pitch?.email,
+          senderId: user_id,
+          receiverId: pitch?.userInfo,
         });
       })
       .catch((err) => {

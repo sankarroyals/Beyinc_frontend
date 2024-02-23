@@ -71,6 +71,7 @@ const AllUsers = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const [IsAdmin, setIsAdmin] = useState(false)
 
   const handleClose = () => {
     setOpen(false);
@@ -79,7 +80,7 @@ const AllUsers = () => {
   const [data, setData] = useState([]);
   const [tag, settag] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  const { email } = useSelector((state) => state.auth.loginDetails);
+  const { email, user_id } = useSelector((state) => state.auth.loginDetails);
   const [filledStars, setFilledStars] = useState(0);
   const [search, setSearch] = useState("");
   const [receiverRole, setreceiverRole] = useState("");
@@ -218,15 +219,25 @@ const AllUsers = () => {
     (state) => state.conv.historicalConversations
   );
   useEffect(() => {
-    dispatch(getAllHistoricalConversations(email));
+    dispatch(getAllHistoricalConversations(user_id));
   }, []);
 
   useEffect(() => {
+    console.log(historicalConversations.reduce(
+      (prev, cur) => ({
+        ...prev,
+        [cur.members.filter((f) => f._id !== user_id)[0]._id]: {
+          status: cur.status,
+          id: cur._id,
+        },
+      }),
+      {}
+    ));
     setConnectStatus(
       historicalConversations.reduce(
         (prev, cur) => ({
           ...prev,
-          [cur.members.filter((f) => f.email !== email)[0].email]: {
+          [cur.members.filter((f) => f._id !== user_id)[0]._id]: {
             status: cur.status,
             id: cur._id,
           },
@@ -610,7 +621,7 @@ const AllUsers = () => {
               {filteredData.length > 0 ? (
                 filteredData?.map((d) => (
                   <SingleUserDetails
-                    d={d}
+                    d={d} setIsAdmin={setIsAdmin}
                     connectStatus={connectStatus}
                     setPitchSendTo={setPitchSendTo}
                     pitchSendTo={pitchSendTo}
@@ -635,10 +646,10 @@ const AllUsers = () => {
             </div>
           </div>
         </div>
-        <AddConversationPopup receiverMail={pitchSendTo}
-          setReceivermail={setPitchSendTo}
-          receiverRole={receiverRole} />
-
+        <AddConversationPopup receiverId={pitchSendTo}
+          setReceiverId={setPitchSendTo}
+          receiverRole={receiverRole}
+          IsAdmin={IsAdmin} />
       </div>
     </>
   );

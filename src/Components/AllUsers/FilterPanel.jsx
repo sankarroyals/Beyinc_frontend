@@ -14,14 +14,17 @@ export function FilterPanel({
   const [data, setData] = useState(rawData);
   const [query, setQuery] = useState("");
   useEffect(() => {
-    const prepQuery = query.toLowerCase();
-    setData(() =>
-      isFlat
-        ? rawData.filter((v) => v.toLowerCase().includes(prepQuery))
-        : !isCountry
-          ? rawData.filter((v) => v[dataKey].toLowerCase().includes(prepQuery))
-          : rawData.filter((v) => v.name.toLowerCase().includes(prepQuery))
-    );
+    console.log(query);
+    if (query !== '') {
+      const prepQuery = query?.toLowerCase();
+      setData(() =>
+        isFlat
+          ? rawData.filter((v) => v?.toLowerCase().includes(prepQuery))
+          : !isCountry
+            ? rawData.filter((v) => v[dataKey]?.toLowerCase().includes(prepQuery))
+            : rawData.filter((v) => v?.name?.toLowerCase().includes(prepQuery))
+      );
+   }
   }, [query, rawData, dataKey, isCountry, isFlat]);
   return (
     <div

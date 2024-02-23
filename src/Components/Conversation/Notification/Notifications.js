@@ -7,7 +7,7 @@ import { getAllNotifications, setNotification, setNotificationData } from "../..
 import AllNotifications from "./AllNotifications";
 
 const Notifications = () => {
-  const { email } = useSelector((state) => state.auth.loginDetails);
+  const { email, user_id } = useSelector((state) => state.auth.loginDetails);
   const notificationAlert = useSelector(state => state.conv.notificationAlert);
   const notifications = useSelector(state => state.conv.notifications);
 
@@ -25,11 +25,11 @@ const Notifications = () => {
   };
 
   const getNotifys = async () => {
-    await ApiServices.getUserRequest({ email: email }).then((res) => {
+    await ApiServices.getUserRequest({ userId: user_id }).then((res) => {
       setMessageRequest(res.data);
     });
-    dispatch(getAllNotifications(email))
-  }
+    dispatch(getAllNotifications(user_id));
+  };
 
   useEffect(() => {
     getNotifys()

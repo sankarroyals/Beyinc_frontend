@@ -12,7 +12,7 @@ const AllNotifications = ({ n }) => {
   }
   return (
     <div className={`individualrequest`} onClick={() => {
-      navigate(`/user/${n.senderInfo?.email}`)
+      navigate(`/user/${n.senderInfo?._id}`)
       changeStatus()
     }} >
       <div className='individualrequestWrapper' style={{ gap: '5px', alignItems: 'center' }}>

@@ -19,12 +19,12 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
     const messageCount = useSelector((state) => state.conv.messageCount);
     const [showMessageDot, setShowMessageDot] = useState(false);
     const [friend, setFriend] = useState({})
-    const { email } = useSelector(state => state.auth.loginDetails)
+    const { email, user_id } = useSelector(state => state.auth.loginDetails)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
-        const friendMail = a.members.filter((f) => f.email !== email)[0]
-        setFriend(friendMail.user)
+        const friendMail = a.members.filter((f) => f._id !== user_id)[0]
+        setFriend(friendMail)
         // ApiServices.getProfile({ email: friendMail }).then((res) => {
         //     setFriend(res.data)
         // })
@@ -35,7 +35,7 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
 
         if (status !== 'pending' && a._id !== conversationId) {
             // await ApiServices.getProfile({ email: a.members.filter((f) => f.email !== email)[0].email }).then((res) => {
-            dispatch(setReceiverId(a.members.filter((f) => f.email !== email)[0]))
+            dispatch(setReceiverId(a.members.filter((f) => f._id !== user_id)[0]))
             // })
             navigate(`/conversations/${a._id}`)
 
@@ -48,23 +48,23 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
     }, [])
     const deletePendingRequest = async () => {
         await ApiServices.deleteConversation({ conversationId: a._id }).then((res) => {
-            dispatch(getAllHistoricalConversations(email))
+            dispatch(getAllHistoricalConversations(user_id))
             handleClose()
         })
         socket.current.emit("sendNotification", {
-            senderId: email,
-            receiverId: friend?.email,
+            senderId: user_id,
+            receiverId: friend?._id,
         });
     }
 
 
     useEffect(() => {
-        if (messageCount.map(m => m.email).includes(a.members.filter((f) => f.email !== email)[0].email)) {
+        if (messageCount.includes(friend?._id)) {
             setShowMessageDot(true)
         } else {
             setShowMessageDot(false)
         }
-    }, [messageCount, a])
+    }, [messageCount, a, friend])
     return (
         <div className={`individuals ${conversationId == a._id && 'selected'}`} onClick={storingDetails} style={{ display: (a.requestedTo === email && status == 'pending') && 'none' }}>
             <div><img src={(friend?.image == undefined || friend?.image == null || friend?.image?.url === undefined)  ? '/profile.png' : friend?.image?.url} alt="" srcset="" /></div>
@@ -80,8 +80,8 @@ const IndividualHistory = ({ a, onlineEmails, status }) => {
 
                 </abbr></>
                     :
-                    <abbr title={onlineEmails.includes(friend?.email) ? 'online' : 'away'}>
-                        <div className={onlineEmails.includes(friend?.email) ? 'online' : 'away'}>
+                    <abbr title={onlineEmails.includes(friend?._id) ? 'online' : 'away'}>
+                        <div className={onlineEmails.includes(friend?._id) ? 'online' : 'away'}>
                             {/* {onlineEmails.includes(friend?.email) ? 'online' : 'away'} */}
                         </div>
                     </abbr>

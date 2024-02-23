@@ -22,6 +22,7 @@ import { Dialog, DialogContent } from '@mui/material';
 import { gridCSS } from '../../CommonStyles';
 import { setUserAllPitches, setUserLivePitches } from '../../../redux/Conversationreducer/ConversationReducer';
 import AddPitch from '../../Common/AddPitch';
+import { useNavigate } from 'react-router';
 export default function BasicTable() {
     const rows = useSelector(state => state.conv.userAllPitches)
     const [open, setOpen] = React.useState(false)
@@ -51,6 +52,7 @@ export default function BasicTable() {
 
         })
     }
+    const navigate = useNavigate()
     return (
         <><TableContainer className='tableContainer' component={Paper}>
             <Table aria-label="simple table">
@@ -87,9 +89,16 @@ export default function BasicTable() {
                             <TableCell style={{ whiteSpace: 'nowrap' }}>{row.heading.length > 20 ? `${row.heading.slice(0, 20)}...` : row.heading}</TableCell>
                             <TableCell style={{ whiteSpace: 'nowrap' }}>{row.stage}</TableCell>
                             <TableCell >
-                                <span style={{
+                                <span
+                                    onClick={() => {
+                                        if (row.status == 'approved') {
+                                            navigate(`/livePitches/${row._id}`)
+                                        }
+                                    }}
+                                    style={{
                                     fontSize: "14px",
                                     marginLeft: "5px",
+                                    cursor: row.status == "approved" && 'pointer',
                                     color:
                                         row.status == "approved"
                                             ? "green"

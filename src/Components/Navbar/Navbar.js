@@ -75,7 +75,7 @@ function TabPanel(props) {
 }
 
 const Navbar = () => {
-  const { email, role, userName, image, verification } = useSelector(
+  const { email, role, userName, image, verification, user_id } = useSelector(
     (store) => store.auth.loginDetails
   );
   const messageAlert = useSelector((state) => state.conv.messageAlert);
@@ -125,10 +125,10 @@ const Navbar = () => {
     right: false,
   });
   const getNotifys = async () => {
-    await ApiServices.getUserRequest({ email: email }).then((res) => {
+    await ApiServices.getUserRequest({ userId: user_id }).then((res) => {
       setMessageRequest(res.data);
     });
-    dispatch(getAllNotifications(email));
+    dispatch(getAllNotifications(user_id));
   };
 
   useEffect(() => {
@@ -315,7 +315,7 @@ const Navbar = () => {
             <div
               className={`individualrequest`}
               onClick={() => {
-                navigate(`/user/${n.senderInfo?.email}`);
+                navigate(`/user/${n.senderInfo?._id}`);
               }}
               style={{ marginLeft: "15px", textAlign: "start" }}
             >
@@ -403,8 +403,8 @@ const Navbar = () => {
     e.target.disabled = true;
     setIsLoading(true);
     await ApiServices.updateuserProfileImage({
-      email: email,
-      image: changeImage,
+      userId: user_id,
+      image: changeImage, email: email
     })
       .then(async (res) => {
         console.log(res.data);
@@ -437,7 +437,7 @@ const Navbar = () => {
 
   const deleteImg = async (e) => {
     e.target.disabled = true;
-    await ApiServices.deleteuserProfileImage({ email: email })
+    await ApiServices.deleteuserProfileImage({ userId: user_id })
       .then(async (res) => {
         localStorage.setItem("user", JSON.stringify(res.data));
         dispatch(setLoginData(jwtDecode(res.data.accessToken)));

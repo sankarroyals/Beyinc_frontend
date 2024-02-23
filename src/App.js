@@ -99,7 +99,7 @@ const App = () => {
 
   // adding online users to socket io
   useEffect(() => {
-    socket.current.emit("addUser", email);
+    socket.current.emit("addUser", user_id);
     socket.current.on("getUsers", (users) => {
       console.log("online", users);
       dispatch(setOnlineUsers(users));
@@ -156,12 +156,11 @@ const App = () => {
     if (user_id !== undefined) {
       ApiServices.getTotalMessagesCount({
         receiverId: user_id,
-        checkingUser: email,
+        checkingUser: user_id,
       }).then((res) => {
-        console.log(res.data);
         dispatch(
           setMessageCount(
-            res.data.map((a) => a.members.filter((f) => f.email !== email)[0])
+            res.data.map((a) => a.members.filter((f) => f!== user_id)[0])
           )
         );
       });
@@ -263,7 +262,7 @@ const App = () => {
             Component={AuthHoc(IndividualPitch)}
           />
           <Route path="/searchusers" Component={AuthHoc(AllUsers)} />
-          <Route path="/user/:email" Component={AuthHoc(IndividualUser)} />
+          <Route path="/user/:id" Component={AuthHoc(IndividualUser)} />
 
           <Route path="/pitches" Component={AdminDeciderHoc(AllPitches)} />
           <Route
@@ -271,7 +270,7 @@ const App = () => {
             Component={AdminDeciderHoc(UserRequests)}
           />
           <Route
-            path="/singleProfileRequest/:email"
+            path="/singleProfileRequest/:id"
             Component={AdminDeciderHoc(SingleRequestProfile)}
           />
         </Routes>

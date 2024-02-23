@@ -65,16 +65,16 @@ export const conversationSlice = createSlice(
         }
     });
 
-export const getAllHistoricalConversations = (email) => async (dispatch) => {
-    await ApiServices.getHistoricalConversations({ email: email }).then((res) => {
+export const getAllHistoricalConversations = (id) => async (dispatch) => {
+    await ApiServices.getHistoricalConversations({ userId: id }).then((res) => {
             dispatch(setHistoricalConversation(res.data))
     }).catch(err => {
             dispatch(setToast({}))
         })
     }
 
-export const getAllNotifications = (email) => async (dispatch) => {
-    await ApiServices.getAllNotification({ email: email }).then((res) => {
+export const getAllNotifications = (id) => async (dispatch) => {
+    await ApiServices.getAllNotification({ userId: id }).then((res) => {
         dispatch(setNotificationData(res.data))
     }).catch(err => {
         dispatch(setToast({}))
