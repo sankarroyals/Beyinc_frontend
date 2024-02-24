@@ -42,7 +42,7 @@ const PitchDetailsReadOnly = ({ open, setOpen, value, setValue, pitchDetails, up
         setValue(newValue);
     };
     const totalRoles = useSelector(state => state.auth.totalRoles)
-    console.log(pitchDetails);
+    // console.log(pitchDetails);
     const handleClose = () => {
         setOpen(false);
     };

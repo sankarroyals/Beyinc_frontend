@@ -17,7 +17,7 @@ const Conversations = () => {
   const dispatch = useDispatch()
   const [isMobile, setIsMobile] = useState(window.outerWidth <= 768);
   useEffect(() => {
-    console.log(window.outerWidth);
+    // console.log(window.outerWidth);
     const handleResize = () => {
       setIsMobile(window.outerWidth <= 768);
     };

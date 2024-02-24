@@ -109,7 +109,7 @@ const AllUsers = () => {
   useEffect(() => {
     dispatch(setLoading({ visible: "yes" }));
     ApiServices.getAllUsers({ type: "" }).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setData(res.data);
       dispatch(setLoading({ visible: "no" }));
     });
@@ -223,16 +223,16 @@ const AllUsers = () => {
   }, []);
 
   useEffect(() => {
-    console.log(historicalConversations.reduce(
-      (prev, cur) => ({
-        ...prev,
-        [cur.members.filter((f) => f._id !== user_id)[0]._id]: {
-          status: cur.status,
-          id: cur._id,
-        },
-      }),
-      {}
-    ));
+    // console.log(historicalConversations.reduce(
+    //   (prev, cur) => ({
+    //     ...prev,
+    //     [cur.members.filter((f) => f._id !== user_id)[0]._id]: {
+    //       status: cur.status,
+    //       id: cur._id,
+    //     },
+    //   }),
+    //   {}
+    // ));
     setConnectStatus(
       historicalConversations.reduce(
         (prev, cur) => ({

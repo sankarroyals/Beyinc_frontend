@@ -499,7 +499,7 @@ const Editprofile = () => {
       setRoles(res.data);
       dispatch(setLoading({ visible: "no" }));
     }).catch((err) => {
-      console.log(err);
+      // console.log(err);
       if (err.message == "Network Error") {
         dispatch(
           setToast({
@@ -530,7 +530,7 @@ const Editprofile = () => {
 
             })
             .then((res) => {
-              console.log(res.data.college.length);
+              // console.log(res.data.college.length);
               setUniversities(res.data.college);
             }),
         500

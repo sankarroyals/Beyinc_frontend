@@ -14,7 +14,7 @@ export function FilterPanel({
   const [data, setData] = useState(rawData);
   const [query, setQuery] = useState("");
   useEffect(() => {
-    console.log(query);
+    // console.log(query);
     if (query !== '') {
       const prepQuery = query?.toLowerCase();
       setData(() =>

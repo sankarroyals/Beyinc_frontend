@@ -407,7 +407,7 @@ const Navbar = () => {
       image: changeImage, email: email
     })
       .then(async (res) => {
-        console.log(res.data);
+        // console.log(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
         dispatch(setLoginData(jwtDecode(res.data.accessToken)));
         await axiosInstance.customFnAddTokenInHeader(res.data.accessToken);
@@ -485,7 +485,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    console.log(window.location.pathname.slice(1));
+    // console.log(window.location.pathname.slice(1));
 
     if (document.getElementsByClassName("navSelected")?.length > 0) {
       document

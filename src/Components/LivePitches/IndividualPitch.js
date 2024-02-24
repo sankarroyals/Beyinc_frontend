@@ -86,12 +86,12 @@ const IndividualPitch = () => {
   };
 
   useEffect(() => {
-    console.log("object");
+    // console.log("object");
     if (pitchId) {
       dispatch(setLoading({ visible: "yes" }));
       ApiServices.fetchSinglePitch({ pitchId: pitchId })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setpitch({
             ...res.data,
           });
@@ -120,7 +120,7 @@ const IndividualPitch = () => {
     if (pitchId) {
       ApiServices.getPitchComments({ pitchId: pitchId })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setAllComments(
             res.data.sort(
               (a, b) => new Date(b.createdAt) - new Date(a.createdAt)

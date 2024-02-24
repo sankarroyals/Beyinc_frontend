@@ -82,9 +82,9 @@ const SearchBox = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(receiverId);
-  }, [receiverId])
+  // useEffect(() => {
+  //   console.log(receiverId);
+  // }, [receiverId])
 
   return (
     <div style={{ position: "relative" }}>

@@ -101,7 +101,7 @@ const App = () => {
   useEffect(() => {
     socket.current.emit("addUser", user_id);
     socket.current.on("getUsers", (users) => {
-      console.log("online", users);
+      // console.log("online", users);
       dispatch(setOnlineUsers(users));
     });
   }, [email]);
@@ -109,7 +109,7 @@ const App = () => {
   // live message updates
   useEffect(() => {
     socket.current.on("getMessage", (data) => {
-      console.log(data);
+      // console.log(data);
       dispatch(
         setLiveMessage({
           message: data.message,
@@ -136,18 +136,18 @@ const App = () => {
   //  }, [])
   useEffect(() => {
     socket.current.on("sendseenMessage", (data) => {
-      console.log(data);
+      // console.log(data);
       dispatch(setLastMessageRead(true));
       ApiServices.changeStatusMessage({
         senderId: data.receiverId,
         receiverId: data.senderId,
       }).then((res) => {
-        console.log("changed status");
+        // console.log("changed status");
       });
       // setMessages(prev => [...prev, data])
     });
     socket.current.on("sendchatBlockingInfo", (data) => {
-      console.log(data);
+      // console.log(data);
       window.location.reload();
     });
   }, []);
@@ -169,7 +169,7 @@ const App = () => {
 
   useEffect(() => {
     socket.current.on("getNotification", (data) => {
-      console.log(data);
+      // console.log(data);
       dispatch(setNotification(true));
       // setMessages(prev => [...prev, data])
     });
@@ -181,7 +181,7 @@ const App = () => {
         dispatch(setTotalRoles(res.data));
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         if (err.message == "Network Error") {
           dispatch(
             setToast({

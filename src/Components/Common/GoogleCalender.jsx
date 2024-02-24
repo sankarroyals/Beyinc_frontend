@@ -173,7 +173,7 @@ export const GoogleCalenderEvent = ({ gmeetLinkOpen, setGmeetLinkOpen, receiver 
         //     const attendees = event.attendees || [];
         //     return attendees.some((attendee) => attendee.email === receiver?.email);
         // }));
-        console.log(events)
+        // console.log(events)
         setSelectedUserEvent(events.filter((event) => {
             const attendees = event.attendees || [];
             return attendees.some((attendee) => attendee.email === receiver?.email);

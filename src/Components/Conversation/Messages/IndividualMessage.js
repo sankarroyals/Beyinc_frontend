@@ -78,7 +78,7 @@ const IndividualMessage = () => {
     if (conversationId !== "" && receiverId !== undefined && receiverId !== '') {
       // to make seen for other users this api is works thats why we changing  senderId: receiverId.email, receiverId: email
       ApiServices.changeStatusMessage({ senderId: receiverId._id, receiverId: user_id, conversationId:conversationId }).then(res => {
-        console.log('changed status')
+        // console.log('changed status')
         socket.current.emit("seenMessage", {
           senderId: user_id,
           receiverId: receiverId._id,
@@ -86,7 +86,7 @@ const IndividualMessage = () => {
         });
         dispatch(setMessageCount(messageCount.filter(f => f !== receiverId._id)))
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
       })
       ApiServices.getMessages({
         conversationId: conversationId,
@@ -117,7 +117,7 @@ const IndividualMessage = () => {
           setUserChatBlockedBy('')
         }
       }).catch(err => {
-        console.log(err);
+        // console.log(err);
       })
 
     }
@@ -144,7 +144,7 @@ const IndividualMessage = () => {
   }, [liveMessage?.fileSent]);
 
   useEffect(() => {
-    console.log(liveMessage);
+    // console.log(liveMessage);
     if (Object.keys(liveMessage).length > 0 && liveMessage.conversationId == conversationId) {
       // sendSoundRef?.current?.play();
       sound.play();
@@ -166,7 +166,7 @@ const IndividualMessage = () => {
   useEffect(() => {
     if (lastMessageRead) {
       const oldMessages = [...messages]
-      console.log({ ...messages[messages.length - 1], seen: new Date() });
+      // console.log({ ...messages[messages.length - 1], seen: new Date() });
       oldMessages.splice(oldMessages.length - 1, 1, { ...oldMessages[oldMessages.length - 1], seen: new Date() })
       dispatch(setLastMessageRead(false))
       setMessages([...oldMessages])
@@ -199,16 +199,16 @@ const IndividualMessage = () => {
 
     if (file != "") {
       setLoadingFile(file);
-      console.log(file);
+      // console.log(file);
     }
     setSendMessage('')
     setFile("");
     setIsSending(true);
     setIsSending(false);
-    console.log({
-      senderId: user_id,
-      receiverId: receiverId?._id,
-    });
+    // console.log({
+    //   senderId: user_id,
+    //   receiverId: receiverId?._id,
+    // });
     if (sendMessage !== "" || file !== "") {
       await ApiServices.sendMessages({
         userId: user_id,

@@ -79,7 +79,7 @@ const IndividualUser = () => {
       });
   };
 
-  useEffect(() => console.log(user), [user]);
+  // useEffect(() => console.log(user), [user]);
 
   useEffect(() => {
     if (id !== undefined) {
@@ -131,7 +131,7 @@ const IndividualUser = () => {
               visible: "yes",
             })
           );
-          console.log(err);
+          // console.log(err);
           // navigate("/searchusers");
         });
     }

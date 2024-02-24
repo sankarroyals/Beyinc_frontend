@@ -97,7 +97,7 @@ export const SingleRequestProfile = () => {
     dispatch(setLoading({ visible: "yes" }));
     AdminServices.getApprovalRequestProfile({ userId: id })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setRequestedUserId(res.data.userInfo._id)
         setInputs((prev) => ({
           ...prev,

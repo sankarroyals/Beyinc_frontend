@@ -92,7 +92,7 @@ const LivePitches = () => {
     dispatch(setLoading({ visible: "yes" }));
     ApiServices.livePitches()
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setData(res.data);
         dispatch(setLoading({ visible: "no" }));
       })
@@ -115,7 +115,7 @@ const LivePitches = () => {
 
   const filterUsers = () => {
     let filteredData = [...data];
-    console.log(filters);
+    // console.log(filters);
     if (Object.keys(filters).length > 0) {
       Object.keys(filters).map((ob) => {
         if (filters[ob].length > 0 || ob == "intrested" || ob == "review") {
