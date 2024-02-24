@@ -42,7 +42,7 @@ const ResetPassword = () => {
       setInputs((prev) => ({
         ...prev,
         isPasswordValid:
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/.test(
             e.target.value
           ),
       }));
@@ -114,6 +114,8 @@ const ResetPassword = () => {
             visible: "yes",
           })
         );
+        localStorage.setItem("user", JSON.stringify(res.data));
+        await axiosInstance.customFnAddTokenInHeader(res.data.accessToken);
         navigate("/login");
       })
       .catch((err) => {
@@ -583,8 +585,18 @@ const ResetPassword = () => {
                       onChange={handleChanges}
                     />
                     {/* )} */}
+                    <div className="passwordHint">
+                      <ul>
+                        <li className={newPassword?.length >= 8 ? 'success' : 'failure'}>Password should be atleast 8 character length</li>
+                        <li className={/.*[A-Z].*/.test(newPassword) ? 'success' : 'failure'}>Atleast one capital letter</li>
+                        <li className={/.*[a-z].*/.test(newPassword) && newPassword !== null ? 'success' : 'failure'}>Atleast one small letter</li>
+                        <li className={/.*[!@#$%^&*()_+].*/.test(newPassword) ? 'success' : 'failure'}>Atleast one special character (!@#$%^&*()_+)</li>
+                        <li className={/.*[0-9].*/.test(newPassword) ? 'success' : 'failure'}>Atleast one Number</li>
+                      </ul>
+                    </div>
                   </>
                 )}
+                
                 <button
                   className="full-width-button"
                   type="submit"
