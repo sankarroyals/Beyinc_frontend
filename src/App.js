@@ -212,7 +212,7 @@ const App = () => {
   useEffect(() => {
     if (localStorage.getItem('user')) {
       ApiServices.getuserPitches().then(res => {
-        dispatch(setUserAllPitches(res.data))
+        dispatch(setUserAllPitches(res.data.sort((a,b)=>new Date(b.updatedAt)-new Date(a.updatedAt))))
       }).catch(err => {
         dispatch(setToast({
           message: "Error while fetching pitches",
@@ -222,6 +222,7 @@ const App = () => {
       })
     }
   }, [notificationAlert]);
+
   return (
     <div>
       <Suspense
