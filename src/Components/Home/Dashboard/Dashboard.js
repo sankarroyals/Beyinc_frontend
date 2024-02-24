@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 import PieActiveArc from "./PieActiveArc";
-
-
+import { ApiServices } from "../../../Services/ApiServices";
 
 const Dashboard = () => {
- 
-  
-  
+  const [data, setData] = useState({});
+  useEffect(() => {
+    ApiServices.getDashboardDetails()
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="dashboard-container">
@@ -18,7 +25,7 @@ const Dashboard = () => {
           </div>
           <div className="dashboard-content">
             <label>Connections</label>
-            <p>3280</p>
+            <p>{data?.total_connections}</p>
             {/* <progress id="progress-bar" value="20" max="100"></progress> */}
           </div>
         </div>
@@ -29,7 +36,7 @@ const Dashboard = () => {
           </div>
           <div className="dashboard-content">
             <label>Total Pitches</label>
-            <p>245</p>
+            <p>{data?.total_pitches}</p>
             {/* <progress id="progress-bar" value="40" max="100"></progress> */}
           </div>
         </div>
@@ -41,7 +48,6 @@ const Dashboard = () => {
           <div className="dashboard-content">
             <label>Connections</label>
             <p>3280</p>
-            {/* <progress id="progress-bar" value="60" max="100"></progress> */}
           </div>
         </div>
 
@@ -52,14 +58,14 @@ const Dashboard = () => {
           <div className="dashboard-content">
             <label> Total Pitches</label>
             <p>245</p>
-            {/* <progress id="progress-bar" value="80" max="100"></progress> */}
           </div>
         </div>
+
       </div>
 
       <div className="dashboard-section-2">
         <div className="piechart">
-          <PieActiveArc />
+          <PieActiveArc data={data} />
         </div>
       </div>
 

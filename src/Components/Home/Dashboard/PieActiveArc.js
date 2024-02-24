@@ -1,12 +1,6 @@
-import * as React from "react";
+import React, { useState, useEffect} from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { Box } from "@mui/material";
-
-const ConnectionsData = [
-  { id: 0, value: 10, label: "Mentors" },
-  { id: 1, value: 15, label: "Entrepreneur" },
-  { id: 2, value: 20, label: "Investors" },
-];
 
 const PitchesData = [
   { id: 0, value: 5, label: "Accepted" },
@@ -14,10 +8,29 @@ const PitchesData = [
   { id: 2, value: 15, label: "Rejected" },
 ];
 
-const connectionColors = ["#4e54c7", "#ff6824", "#1799ac"];
+
 const pitchesColors = ["green", "orange", "red"];
 
-export default function PieActiveArc() {
+export default function PieActiveArc({ data }) {
+  const [defaultConnectionColor, setDefaultConnectionColor] = useState({
+    Mentor: '#4e54c7', Entrepreneur: '#ff6824', Investor: '#1799ac', Admin: 'green'
+  })
+  const [connectionColors, setConnectionColors] = useState([]);
+  const [ConnectionsData, setConnectionData] = useState([
+  ]);
+  useEffect(() => {
+    if (Object.keys(data).length>0) {
+      const tempData = [];
+      const connections = Object.keys(data?.connections);
+      console.log(connections)
+      for (let i = 0; i < Object.keys(data?.connections).length; i++) {
+        tempData.push({ id: i, value: data?.connections[connections[i]], label: connections[i]});
+        setConnectionColors(prev=>[...prev,defaultConnectionColor[connections[i]]])
+      }
+      setConnectionData(tempData)
+    }
+  }, [data]);
+
   return (
     <div>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
