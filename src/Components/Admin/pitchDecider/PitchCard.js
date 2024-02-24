@@ -27,7 +27,7 @@ export default function PitchCard({ d }) {
   useEffect(() => {
     socket.current = io(socket_io);
   }, []);
-  const { email } = useSelector((state) => state.auth.loginDetails);
+  const { email, user_id } = useSelector((state) => state.auth.loginDetails);
   const navigate = useNavigate();
   const [pitchDetails, setPitchdetails] = useState(null);
   const [open, setOpen] = useState(false);
@@ -58,8 +58,8 @@ export default function PitchCard({ d }) {
             })
           );
           socket.current.emit("sendNotification", {
-            senderId: email,
-            receiverId: d.email,
+            senderId: user_id,
+            receiverId: d._id,
           });
           setOpen(false);
           d.status = status;
@@ -81,7 +81,7 @@ export default function PitchCard({ d }) {
     }
   };
 
-  const openUser = () => navigate(`/user/${d.email}`);
+  const openUser = () => navigate(`/user/${d.userInfo?._id}`);
 
   useEffect(() => {
     setPitchdetails(d);
@@ -109,7 +109,6 @@ export default function PitchCard({ d }) {
                     ? d.userInfo?.image?.url
                     : "/profile.png"
                 }
-                title={d.email}
               />
               {d.userInfo.verification === "approved" && (
                 <img
@@ -123,6 +122,9 @@ export default function PitchCard({ d }) {
           <div className="user-card-details-text">
             <span className="user-name" onClick={openUser}>
               {d?.userInfo.userName}
+            </span>
+            <span className="user-name" style={{color: 'black'}}>
+              {d?.title}
             </span>
             <span>
               <b>Status</b>:

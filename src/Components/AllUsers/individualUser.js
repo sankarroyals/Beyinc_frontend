@@ -22,7 +22,7 @@ const IndividualUser = () => {
   const [user, setuser] = useState("");
   const [averagereview, setAverageReview] = useState(0);
   const [emailTrigger, setemailTrigger] = useState(false);
-  const { email } = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [comment, setComment] = useState("");
@@ -79,12 +79,12 @@ const IndividualUser = () => {
       });
   };
 
-  useEffect(() => console.log(user), [user]);
+  // useEffect(() => console.log(user), [user]);
 
   useEffect(() => {
-    if (email !== undefined) {
+    if (id !== undefined) {
       dispatch(setLoading({ visible: "yes" }));
-      ApiServices.getProfile({ email: email })
+      ApiServices.getProfile({ id: id })
         .then((res) => {
           setuser({
             ...res.data,
@@ -110,12 +110,12 @@ const IndividualUser = () => {
           navigate("/searchusers");
         });
     }
-  }, [email, emailTrigger]);
+  }, [id, emailTrigger]);
 
   useEffect(() => {
-    if (email !== undefined) {
+    if (id !== undefined) {
       // dispatch(setLoading({ visible: "yes" }));
-      ApiServices.getuserComments({ userId: email })
+      ApiServices.getuserComments({ userId: id })
         .then((res) => {
           setAllComments(
             res.data.sort((a, b) => {
@@ -131,11 +131,11 @@ const IndividualUser = () => {
               visible: "yes",
             })
           );
-          console.log(err);
+          // console.log(err);
           // navigate("/searchusers");
         });
     }
-  }, [email, emailTrigger]);
+  }, [id, emailTrigger]);
 
   const [filledStars, setFilledStars] = useState(0);
   const handleTabChange = (event, newValue) => {
@@ -144,20 +144,18 @@ const IndividualUser = () => {
 
   useEffect(() => {
     ApiServices.getUsersStarsFrom({
-      userEmail: email,
-      email: jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
-        .email,
+      userId: id,
+      reviewBy: user_id,
     }).then((res) => {
       setFilledStars(res.data.review !== undefined ? res.data.review : 0);
     });
-  }, [email]);
+  }, [id]);
 
   const sendReview = async () => {
     await ApiServices.addUserReview({
       userId: user._id,
       review: {
-        email: jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
-          .email,
+        reviewBy: user_id,
         review: filledStars,
       },
     })
@@ -195,7 +193,7 @@ const IndividualUser = () => {
     setComment("");
     if (comment !== "") {
       await ApiServices.addUserComment({
-        userId: email,
+        userId: id,
         comment: comment,
         commentBy: user_id,
       })
@@ -216,12 +214,12 @@ const IndividualUser = () => {
     }
   };
 
-  const deleteComment = async (id) => {
-    await ApiServices.removeUserComment({ email: email, commentId: id })
+  const deleteComment = async (did) => {
+    await ApiServices.removeUserComment({ userId: id, commentId: did })
       .then((res) => {
         setuser((prev) => ({
           ...prev,
-          comments: (user.comments = user.comments.filter((f) => f._id !== id)),
+          comments: (user.comments = user.comments.filter((f) => f._id !== did)),
         }));
       })
       .catch((err) => {
@@ -246,7 +244,8 @@ const IndividualUser = () => {
               <div className="user-image">
                 <img
                   className="profile"
-                  src={
+                    src={
+                      user?.image !== '' &&
                     user?.image?.url !== undefined
                       ? user?.image?.url
                       : "/profile.png"
@@ -739,12 +738,13 @@ const IndividualUser = () => {
         </div>
         <div className="commentsContainer">
           <h2 className="Rating-heading">Ratings & Reviews</h2>
-            {(convExits || jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken).role=='Admin') ? (email !==
+            {(convExits || jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken).role=='Admin') ? (id !==
             jwtDecode(JSON.parse(localStorage.getItem("user")).accessToken)
-              .email && (
+              .user_id && (
               <div>
                 <div style={{ display: "flex", gap: "10px" }}>
-                  <img src={image} />
+                  <img src={image !== '' &&
+                   image!== undefined ? image : '/profile.png'} />
                   <div>
                     <span>
                       <b>{userName}</b>

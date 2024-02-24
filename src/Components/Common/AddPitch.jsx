@@ -126,7 +126,7 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
       socialLink: "",
       position: "",
     });
-    console.log(singleTeamMember);
+    // console.log(singleTeamMember);
   };
 
   const totalRoles = useSelector((state) => state.auth.totalRoles);
@@ -244,7 +244,7 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
       const getDefault = async () => {
         await ApiServices.fetchSinglePitch({ pitchId: id!==''? id : selectedpitchId })
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data) {
               setForm({
                 ...res.data,
@@ -295,7 +295,7 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
     };
     await ApiServices.addPitch(conversation)
       .then(async (res) => {
-        console.log(res.data);
+        // console.log(res.data);
         await ApiServices.getuserPitches().then(res => {
           dispatch(setUserAllPitches(res.data))
         }).catch(err => {
@@ -321,7 +321,7 @@ const AddPitch = ({ open, setOpen, id, setId }) => {
         dispatch(setLoading({ visible: "no" }));
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setId('')
         setselectedpitchId('')
         dispatch(

@@ -33,7 +33,7 @@ const IndividualMessage = () => {
 
   const [gmeetLinkOpen, setGmeetLinkOpen] = useState(false)
 
-  const { email, image, userName, role } = useSelector(
+  const { image, userName, role, user_id, email } = useSelector(
     (state) => state.auth.loginDetails
   );
   const [showDiv, setShowDiv] = useState(true);
@@ -77,16 +77,16 @@ const IndividualMessage = () => {
   useEffect(() => {
     if (conversationId !== "" && receiverId !== undefined && receiverId !== '') {
       // to make seen for other users this api is works thats why we changing  senderId: receiverId.email, receiverId: email
-      ApiServices.changeStatusMessage({ senderId: receiverId.email, receiverId: email }).then(res => {
-        console.log('changed status')
+      ApiServices.changeStatusMessage({ senderId: receiverId._id, receiverId: user_id, conversationId:conversationId }).then(res => {
+        // console.log('changed status')
         socket.current.emit("seenMessage", {
-          senderId: email,
-          receiverId: receiverId.email,
+          senderId: user_id,
+          receiverId: receiverId._id,
           conversationId: conversationId,
         });
-        dispatch(setMessageCount(messageCount.filter(f => f.email !== receiverId.email)))
+        dispatch(setMessageCount(messageCount.filter(f => f !== receiverId._id)))
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
       })
       ApiServices.getMessages({
         conversationId: conversationId,
@@ -117,7 +117,7 @@ const IndividualMessage = () => {
           setUserChatBlockedBy('')
         }
       }).catch(err => {
-        console.log(err);
+        // console.log(err);
       })
 
     }
@@ -144,7 +144,7 @@ const IndividualMessage = () => {
   }, [liveMessage?.fileSent]);
 
   useEffect(() => {
-    console.log(liveMessage);
+    // console.log(liveMessage);
     if (Object.keys(liveMessage).length > 0 && liveMessage.conversationId == conversationId) {
       // sendSoundRef?.current?.play();
       sound.play();
@@ -155,8 +155,8 @@ const IndividualMessage = () => {
       ]);
       dispatch(setLiveMessage({}))
       socket.current.emit("seenMessage", {
-        senderId: email,
-        receiverId: receiverId.email,
+        senderId: user_id,
+        receiverId: receiverId._id,
         conversationId: conversationId,
       });
     }
@@ -166,7 +166,7 @@ const IndividualMessage = () => {
   useEffect(() => {
     if (lastMessageRead) {
       const oldMessages = [...messages]
-      console.log({ ...messages[messages.length - 1], seen: new Date() });
+      // console.log({ ...messages[messages.length - 1], seen: new Date() });
       oldMessages.splice(oldMessages.length - 1, 1, { ...oldMessages[oldMessages.length - 1], seen: new Date() })
       dispatch(setLastMessageRead(false))
       setMessages([...oldMessages])
@@ -199,39 +199,39 @@ const IndividualMessage = () => {
 
     if (file != "") {
       setLoadingFile(file);
-      console.log(file);
+      // console.log(file);
     }
     setSendMessage('')
     setFile("");
     setIsSending(true);
     setIsSending(false);
-    console.log({
-      senderId: email,
-      receiverId: receiverId?.email,
-    });
+    // console.log({
+    //   senderId: user_id,
+    //   receiverId: receiverId?._id,
+    // });
     if (sendMessage !== "" || file !== "") {
       await ApiServices.sendMessages({
-        email: email,
+        userId: user_id,
         conversationId: conversationId,
-        senderId: email,
-        receiverId: receiverId?.email,
+        senderId: user_id,
+        receiverId: receiverId?._id,
         message: sendMessage,
-        file: file,
+        file: file, email: email
       })
         .then((res) => {
           setMessages((prev) => [
             ...prev,
             {
               conversationId: conversationId,
-              senderId: email,
-              receiverId: receiverId.email,
+              senderId: user_id,
+              receiverId: receiverId._id,
               message: sendMessage,
             },
           ]);
           setSendMessage("");
           socket.current.emit("sendMessage", {
-            senderId: email,
-            receiverId: receiverId.email,
+            senderId: user_id,
+            receiverId: receiverId._id,
             message: sendMessage,
             fileSent: file !== "",
             conversationId: conversationId
@@ -290,7 +290,7 @@ const IndividualMessage = () => {
 
 
   const blockChat = async (by) => {
-    await ApiServices.chatBlock({ conversationId: conversationId, blockedBy: email }).then(res => {
+    await ApiServices.chatBlock({ conversationId: conversationId, blockedBy: user_id }).then(res => {
       setUserChatBlocked(!userchatBlocked)
       setUserChatBlockedBy(by)
       dispatch(setToast({
@@ -299,8 +299,8 @@ const IndividualMessage = () => {
         bgColor: ToastColors.success
       }))
       socket.current.emit("chatBlocking", {
-        senderId: email,
-        receiverId: receiverId.email,
+        senderId: user_id,
+        receiverId: receiverId._id,
       });
     }).catch(err => {
       dispatch(setToast({
@@ -311,21 +311,20 @@ const IndividualMessage = () => {
     })
   }
 
-
   return (
     <div className="messageContainer">
       <div className="messageNavbar">
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
           <div style={{ cursor: 'pointer' }} onClick={() => {
-            navigate(`/user/${receiverId?.user?.email}`)
+            navigate(`/user/${receiverId?._id}`)
           }}>
             <img
               className="Dp"
               src={
-                receiverId?.user?.image?.url !== undefined &&
-                  receiverId?.user?.image?.url !== ""
-                  ? receiverId.user?.image?.url
+                receiverId?.image?.url !== undefined &&
+                  receiverId?.image?.url !== ""
+                  ? receiverId.image?.url
                   : "/profile.png"
               }
               alt=""
@@ -333,9 +332,9 @@ const IndividualMessage = () => {
             />
           </div>
           <div style={{ cursor: 'pointer' }} onClick={() => {
-            navigate(`/user/${receiverId?.user?.email}`)
+            navigate(`/user/${receiverId?._id}`)
           }}>
-            <div className="User-name">{receiverId?.user?.userName}</div>
+            <div className="User-name">{receiverId?.userName}</div>
             <div
               style={{
                 display: "flex",
@@ -345,24 +344,24 @@ const IndividualMessage = () => {
             >
               <div
                 title={
-                  onlineEmails.includes(receiverId.email) ? "online" : "away"
+                  onlineEmails.includes(receiverId._id) ? "online" : "away"
                 }
                 style={{ position: "relative", marginLeft: "10px" }}
                 className={
-                  onlineEmails.includes(receiverId.email) ? "online" : "away"
+                  onlineEmails.includes(receiverId._id) ? "online" : "away"
                 }
               ></div>
               <div style={{ marginLeft: "-16px", fontSize: "12px" }}>
-                {onlineEmails.includes(receiverId.email) ? "online" : "away"}
+                {onlineEmails.includes(receiverId._id) ? "online" : "away"}
               </div>
             </div>
           </div>
         </div>
-        {receiverId?.user?.role !== 'Admin' && ((userchatBlockedBy !== '') ?
-          userchatBlockedBy == email &&
+        {receiverId?.role !== 'Admin' && ((userchatBlockedBy !== '') ?
+          userchatBlockedBy == user_id &&
           <button style={{ cursor: 'pointer' }} className="blockUnblock" onClick={() => blockChat('')}>
             Open Chat
-          </button> : <button style={{ cursor: 'pointer' }} className="blockUnblock" onClick={() => blockChat(email)}>
+          </button> : <button style={{ cursor: 'pointer' }} className="blockUnblock" onClick={() => blockChat(user_id)}>
             Close Chat
           </button>)}
       </div>
@@ -387,21 +386,21 @@ const IndividualMessage = () => {
                 <div className="specificDay">{moment(m.createdAt).format('MMMM Do YYYY')}</div>
               }
               <div
-                className={`details ${m.senderId === email ? "owner" : "friend"}`}
+                className={`details ${m.senderId === user_id ? "owner" : "friend"}`}
                 ref={scrollRef}
               >
                 <div
                   className="imageContainer"
-                  style={{ display: m.senderId === email ? "none" : "none" }}
+                  style={{ display: m.senderId === user_id ? "none" : "none" }}
                 >
                   <img
                     src={
-                      image !== undefined && image !== "" && m.senderId === email
+                      image !== undefined && image !== "" && m.senderId === user_id
                         ? image
-                        : receiverId?.user?.image?.url !== undefined &&
-                          receiverId?.user?.image?.url !== "" &&
-                          m.senderId !== email
-                          ? receiverId.user?.image?.url
+                        : receiverId?.image?.url !== undefined &&
+                          receiverId?.image?.url !== "" &&
+                          m.senderId !== user_id
+                          ? receiverId.image?.url
                           : "/profile.png"
                     }
                     alt=""
@@ -411,13 +410,13 @@ const IndividualMessage = () => {
                 <div className="personalDetails">
                   {/* checking previous day is not same */}
                   <div className="email">
-                    {m.senderId === email ? (
+                    {m.senderId === user_id ? (
                       <div className="time">
                         {moment(m.createdAt).format("h:mm a")}
                       </div>
                     ) : (
                       <div className="friendDetails">
-                        {/* <div className="userName">{receiverId?.user?.userName}</div> */}
+                        {/* <div className="userName">{receiverId?.userName}</div> */}
                         <div className="time">
                           {/* MMMM Do YYYY,  */}
                           {moment(m.createdAt).format("h:mm a")}
@@ -449,11 +448,11 @@ const IndividualMessage = () => {
                       )}
                     </a>
                   )}
-                  {(i == messages.length - 1 && m.senderId == email) &&
+                  {(i == messages.length - 1 && m.senderId == user_id) &&
                     <div className="seenMessage">
                       {m.seen !== undefined ?
                         `seen ${format(m.seen)}`
-                        : onlineEmails.includes(receiverId?.email) && 'Delivered'}
+                        : onlineEmails.includes(receiverId?._id) && 'Delivered'}
                     </div>}
                 </div>
 
@@ -575,7 +574,7 @@ const IndividualMessage = () => {
               style={{ display: "none" }}
             />
           </div>
-          {isParent(role, receiverId?.user?.role) && <div>
+          {isParent(role, receiverId?.role) && <div>
             <div className="uploadingFileIcon" onClick={() => { setGmeetLinkOpen(true) }}>
               <i class="fas fa-link"></i>
             </div>
@@ -598,7 +597,7 @@ const IndividualMessage = () => {
             />
           )}
         </div>
-      </div> : <p> Your chat conversation between <b>{receiverId?.user?.userName}</b> is closed.</p>}
+      </div> : <p> Your chat conversation between <b>{receiverId?.userName}</b> is closed.</p>}
       <GoogleCalenderEvent gmeetLinkOpen={gmeetLinkOpen} setGmeetLinkOpen={setGmeetLinkOpen} receiver={receiverId} />
     </div>
   );

@@ -30,7 +30,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import useWindowDimensions from "../Common/WindowSize";
 
 const Editprofile = () => {
-  const { email, role, userName, image, phone } = useSelector(
+  const { email, role, userName, image, phone,user_id } = useSelector(
     (store) => store.auth.loginDetails
   );
   const [showPreviousFile, setShowPreviousFile] = useState(false);
@@ -210,7 +210,7 @@ const Editprofile = () => {
   }, [totalEducationData, totalExperienceData]);
 
   useEffect(() => {
-    ApiServices.getProfile({ email: email })
+    ApiServices.getProfile({ id: user_id })
       .then((res) => {
         setInputs((prev) => ({
           ...prev,
@@ -407,6 +407,7 @@ const Editprofile = () => {
     e.target.disabled = true;
     await ApiServices.sendForApproval({
       email: email,
+      userId:user_id,
       state: state,
       town: town,
       country: country,
@@ -498,7 +499,7 @@ const Editprofile = () => {
       setRoles(res.data);
       dispatch(setLoading({ visible: "no" }));
     }).catch((err) => {
-      console.log(err);
+      // console.log(err);
       if (err.message == "Network Error") {
         dispatch(
           setToast({
@@ -529,13 +530,13 @@ const Editprofile = () => {
 
             })
             .then((res) => {
-              console.log(res.data.college.length);
+              // console.log(res.data.college.length);
               setUniversities(res.data.college);
             }),
-        2000
+        500
       );
       return () => clearTimeout(timeoutId);
-    }
+    } else setUniversities([]);
   }, [collegeQuery]);
 
   return (

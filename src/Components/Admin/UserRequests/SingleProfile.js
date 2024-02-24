@@ -28,7 +28,7 @@ import useWindowDimensions from "../../Common/WindowSize";
 export const SingleRequestProfile = () => {
   const { visible } = useSelector((state) => state.auth.LoadingDetails);
 
-  const { email } = useParams();
+  const { id } = useParams();
   const [skills, setSkills] = useState([]);
 
   const [inputs, setInputs] = useState({
@@ -56,7 +56,7 @@ export const SingleRequestProfile = () => {
     role,
     isMobileOtpSent,
     mobileVerified,
-    updatedAt,
+    updatedAt, email
   } = inputs;
 
   const socket = useRef();
@@ -88,22 +88,25 @@ export const SingleRequestProfile = () => {
 
   const [languagesKnown, setlanguagesKnown] = useState([]);
   const [singlelanguagesKnown, setSinglelanguagesKnown] = useState("");
-
+  const { user_id } = useSelector((state) => state.auth.loginDetails);
+  const [requestUserId, setRequestedUserId] = useState('')
   const navigate = useNavigate();
   const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     dispatch(setLoading({ visible: "yes" }));
-    AdminServices.getApprovalRequestProfile({ email: email })
+    AdminServices.getApprovalRequestProfile({ userId: id })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        setRequestedUserId(res.data.userInfo._id)
         setInputs((prev) => ({
           ...prev,
           updatedAt: res.data.updatedAt,
           name: res.data.userName,
           mobile: res.data.phone,
           role: res.data.role,
-          image: res.data.image?.url || "",
+          image: res.data.userInfo.image?.url || "",
+          email: res.data.userInfo.email,
           status: res.data.verification,
           mobileVerified: true,
         }));
@@ -140,7 +143,7 @@ export const SingleRequestProfile = () => {
         dispatch(setLoading({ visible: "no" }));
         navigate("/profileRequests");
       });
-  }, [email]);
+  }, [id]);
 
   const dispatch = useDispatch();
 
@@ -153,9 +156,9 @@ export const SingleRequestProfile = () => {
     // setIsLoading(true);
     if (status == "approved" || (status == "rejected" && reason !== "")) {
       await AdminServices.updateVerification({
-        email: email,
+        userId: id,
         status: status,
-        reason: reason,
+        reason: reason, 
       })
         .then((res) => {
           dispatch(
@@ -166,10 +169,8 @@ export const SingleRequestProfile = () => {
             })
           );
           socket.current.emit("sendNotification", {
-            senderId: jwtDecode(
-              JSON.parse(localStorage.getItem("user")).accessToken
-            ).email,
-            receiverId: email,
+            senderId: user_id,
+            receiverId: requestUserId,
           });
           // setIsLoading(false);
           e.target.disabled = false;
@@ -259,7 +260,7 @@ export const SingleRequestProfile = () => {
                 >
                   <i class="fas fa-user"></i> {role}
                   <br />
-                  <i className="fas fa-envelope"></i> {email}{" "}
+                  <i className="fas fa-envelope"></i>{email}{" "}
                   <img
                     src="/verify.png"
                     style={{ width: "15px", height: "15px", marginLeft: "5px" }}

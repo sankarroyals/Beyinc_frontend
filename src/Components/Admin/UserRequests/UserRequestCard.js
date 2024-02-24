@@ -20,7 +20,7 @@ export default function UserRequestCard({ d }) {
   //     })
   // }, [d])
 
-  const openUser = () => navigate(`/user/${d.email}`);
+  const openUser = () => navigate(`/user/${d.userInfo._id}`);
   return (
     <div
       className={
@@ -42,7 +42,6 @@ export default function UserRequestCard({ d }) {
                   ? d.userInfo?.image.url
                   : "/profile.png"
               }
-              title={d.email}
             />
             {d.verification === "approved" && (
               <img
@@ -99,7 +98,7 @@ export default function UserRequestCard({ d }) {
           <span>{d.role}</span>
           
         </div>
-        <button onClick={() => navigate(`/singleProfileRequest/${d.email}`)}>
+        <button onClick={() => navigate(`/singleProfileRequest/${d._id}`)}>
           View
         </button>
       </div>

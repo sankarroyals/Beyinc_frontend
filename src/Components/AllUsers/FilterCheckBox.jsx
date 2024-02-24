@@ -68,11 +68,11 @@ export function FilterCheckBoxes({
                     checked={filters[dataKey].includes(v)}
                     onClick={() => {
                       setFilters((prev) => {
-                        console.log(
-                          prev[dataKey].includes(v),
-                          v,
-                          prev[dataKey].filter((g) => g !== v)
-                        );
+                        // console.log(
+                        //   prev[dataKey].includes(v),
+                        //   v,
+                        //   prev[dataKey].filter((g) => g !== v)
+                        // );
                         return {
                           ...prev,
                           [dataKey]: prev[dataKey].includes(v)

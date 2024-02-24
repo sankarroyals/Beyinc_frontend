@@ -39,7 +39,7 @@ const HistoryChats = () => {
         setValue(newValue);
     };
     const dispatch = useDispatch()
-    const { email, role } = useSelector(state => state.auth.loginDetails)
+    const { email, role, user_id } = useSelector(state => state.auth.loginDetails)
     const onlineUsers = useSelector(state => state.conv.onlineUsers)
     const [onlineEmails, setOnlineEmails] = useState([])
     useEffect(() => {
@@ -55,7 +55,7 @@ const HistoryChats = () => {
     }, [onlineUsers])
     const historicalConversations = useSelector(state => state.conv.historicalConversations)
     useEffect(() => {
-        dispatch(getAllHistoricalConversations(email))
+        dispatch(getAllHistoricalConversations(user_id))
     }, [])
 
 
@@ -94,7 +94,7 @@ const HistoryChats = () => {
                 <div className={`historicalTabIcons ${value == 2 && 'historicalTabIconsselected'}`} onClick={() => setValue(2)}>Pending</div>
             </div>
             {value == 2 && <div style={{ marginTop: '10px', maxHeight: '400px', overflowY: 'scroll' }}>
-                {historicalConversations.filter(f => f.status == 'pending' && f.members[0].email == email).length > 0 ? historicalConversations.map((a) => (
+                {historicalConversations.filter(f => f.status == 'pending' && f.members[0]._id == user_id).length > 0 ? historicalConversations.map((a) => (
                     a.status === 'pending' && <IndividualHistory a={a} onlineEmails={onlineEmails} status='pending' />
                 )) : <div style={{ textAlign: 'start', padding: '10px' }}>No Pending Requests</div>}
             </div>}

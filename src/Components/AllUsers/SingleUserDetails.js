@@ -12,7 +12,7 @@ import { setReceiverId } from "../../redux/Conversationreducer/ConversationReduc
 
 
 const SingleUserDetails = ({
-  d,
+  d, setIsAdmin,
   connectStatus,
   setPitchSendTo,
   pitchSendTo,
@@ -38,14 +38,14 @@ const SingleUserDetails = ({
     }
   }, [d]);
 
-  const openUser = () => navigate(`/user/${d.email}`);
+  const openUser = () => navigate(`/user/${d._id}`);
 
   const isCurrentUser = email === d.email;
   const openChat = async (e) => {
     // await ApiServices.getProfile({ email: a.members.filter((f) => f.email !== email)[0].email }).then((res) => {
     dispatch(setReceiverId(d));
     // })
-    navigate(`/conversations/${connectStatus[d.email]?.id}`);
+    navigate(`/conversations/${connectStatus[d._id]?.id}`);
   };
   return (
     <>
@@ -65,7 +65,7 @@ const SingleUserDetails = ({
               <img
                 alt="user-pic"
                 src={
-                  d.image !== undefined && d.image.url !== ""
+                  d.image !== '' && d.image !== undefined && d.image.url !== ""
                     ? d.image.url
                     : "/profile.png"
                 }
@@ -98,9 +98,12 @@ const SingleUserDetails = ({
             <span className="user-name" onClick={openUser}>
               {d.userName}
             </span>
-            <span>
+            {d.educationDetails.length > 0 ? <span>
               {d.educationDetails[0]?.grade} @ {d.educationDetails[0]?.college}
-            </span>
+            </span> : <span style={{color: 'orange', border: '1px dashed orange', padding: '5px', width: '123px', whiteSpace: 'noWrap'}}>
+                Profile not updated
+            </span>}
+            
             <span className="skills">{d.skills?.join(", ")}</span>
           </div>
         </div>
@@ -120,9 +123,9 @@ const SingleUserDetails = ({
           </div>
 
           {!isCurrentUser &&
-            (connectStatus[d.email]?.status === "pending" ? (
+            (connectStatus[d._id]?.status === "pending" ? (
               <button className="pending-color">Pending</button>
-            ) : connectStatus[d.email]?.status === "approved" ? (
+            ) : connectStatus[d._id]?.status === "approved" ? (
               <button className="approved-color" onClick={openChat}>
                 Chat
               </button>
@@ -130,8 +133,9 @@ const SingleUserDetails = ({
               <button
                 className="connect-color"
                 onClick={() => {
-                  setPitchSendTo(d.email);
+                  setPitchSendTo(d._id);
                   setreceiverRole(d.role);
+                  setIsAdmin(d.email == process.env.REACT_APP_ADMIN_MAIL)
                 }}
               >
                 Connect

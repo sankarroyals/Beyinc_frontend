@@ -684,7 +684,7 @@ export const ApiServices = {
         .post(`/userDetails/getUserComment`, obj)
         .then((res) => {
           if (res) {
-            console.log(res);
+            // console.log(res);
             resolve(res);
           }
         })

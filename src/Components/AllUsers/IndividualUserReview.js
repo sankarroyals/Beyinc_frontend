@@ -19,8 +19,8 @@ const IndividualUserReview = ({ c, deleteComment, onLike, onDisLike }) => {
   const [dislikecount, setdislikecount] = useState(0);
 
   useEffect(() => {
-    setLiked(c.likes?.includes(user_id))
-    setdisLiked(c.Dislikes?.includes(user_id))
+    setLiked(c.likes?.map(l=>l._id)?.includes(user_id))
+    setdisLiked(c.Dislikes?.map(l => l._id)?.includes(user_id))
     setCount(c.likes?.length)
     setdislikecount(c.Dislikes?.length)
   }, [c, user_id])

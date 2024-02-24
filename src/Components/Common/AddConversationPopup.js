@@ -17,7 +17,7 @@ import {
 
 } from "../../Utils";
 import useWindowDimensions from './WindowSize';
-const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) => {
+const AddConversationPopup = ({ receiverId, setReceiverId, receiverRole, IsAdmin }) => {
     const dispatch = useDispatch();
     const {width} = useWindowDimensions()
     const socket = useRef();
@@ -25,19 +25,19 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
         socket.current = io(socket_io);
     }, []);
     const [open, setOpen] = useState(false)
-    const { email, role, verification } = useSelector((state) => state.auth.loginDetails);
+    const { email, role, verification, user_id } = useSelector((state) => state.auth.loginDetails);
     const userPitches = useSelector(state => state.conv.userLivePitches)
     const [selectedpitchId, setselectedpitchId] = useState('');
-    const decidingRolesMessage = async (receiverMail) => {
+    const decidingRolesMessage = async (receiverId) => {
         if (role === "Admin") {
             await ApiServices.directConversationCreation({
-                email: email,
-                receiverId: receiverMail,
-                senderId: email,
+                userId: user_id,
+                receiverId: receiverId,
+                senderId: user_id,
                 status: "approved",
             })
                 .then((res) => {
-                    dispatch(getAllHistoricalConversations(email));
+                    dispatch(getAllHistoricalConversations(user_id));
                     dispatch(
                         setToast({
                             message: res.data,
@@ -46,13 +46,17 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
                         })
                     );
                     setOpen(false);
-                    setReceivermail("");
+                    setReceiverId("");
+                    socket.current.emit("sendNotification", {
+                        senderId: user_id,
+                        receiverId: receiverId,
+                    });
                     document
                         .getElementsByClassName("newConversation")[0]
                         ?.classList?.remove("show");
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                     dispatch(
                         setToast({
                             message: `Error Occured`,
@@ -60,18 +64,18 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
                             visible: "yes",
                         })
                     );
-                    setReceivermail("");
+                    setReceiverId("");
                 });
         } else if (isParent(role, receiverRole)) {
             if (verification == "approved") {
                 await ApiServices.directConversationCreation({
-                    email: email,
-                    receiverId: receiverMail,
-                    senderId: email,
+                    userId: user_id,
+                    receiverId: receiverId,
+                    senderId: user_id,
                     status: "pending",
                 })
                     .then((res) => {
-                        dispatch(getAllHistoricalConversations(email));
+                        dispatch(getAllHistoricalConversations(user_id));
                         dispatch(
                             setToast({
                                 message: res.data,
@@ -80,13 +84,17 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
                             })
                         );
                         setOpen(false);
-                        setReceivermail("");
+                        setReceiverId("");
+                        socket.current.emit("sendNotification", {
+                            senderId: user_id,
+                            receiverId: receiverId,
+                        });
                         document
                             .getElementsByClassName("newConversation")[0]
                             ?.classList?.remove("show");
                     })
                     .catch((err) => {
-                        console.log(err);
+                        // console.log(err);
                         dispatch(
                             setToast({
                                 message: `Error Occured`,
@@ -94,7 +102,7 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
                                 visible: "yes",
                             })
                         );
-                        setReceivermail("");
+                        setReceiverId("");
                     });
             } else {
                 dispatch(
@@ -108,19 +116,19 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
         } else {
             if (
                 verification == "approved" &&
-                receiverMail !== process.env.REACT_APP_ADMIN_MAIL
+                !IsAdmin
             ) {
                 setOpen(true);
-            } else if (receiverMail === process.env.REACT_APP_ADMIN_MAIL) {
+            } else if (IsAdmin) {
                 // addconversation()
                 await ApiServices.directConversationCreation({
-                    email: email,
-                    receiverId: receiverMail,
-                    senderId: email,
+                    userId: user_id,
+                    receiverId: receiverId,
+                    senderId: user_id,
                     status: "approved",
                 })
                     .then((res) => {
-                        dispatch(getAllHistoricalConversations(email));
+                        dispatch(getAllHistoricalConversations(user_id));
                         dispatch(
                             setToast({
                                 message: res.data,
@@ -129,17 +137,17 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
                             })
                         );
                         socket.current.emit("sendNotification", {
-                            senderId: email,
-                            receiverId: receiverMail,
+                            senderId: user_id,
+                            receiverId: receiverId,
                         });
                         setOpen(false);
-                        setReceivermail("");
+                        setReceiverId("");
                         document
                             .getElementsByClassName("newConversation")[0]
                             ?.classList?.remove("show");
                     })
                     .catch((err) => {
-                        console.log(err);
+                        // console.log(err);
                         dispatch(
                             setToast({
                                 message: `Error Occured`,
@@ -147,9 +155,10 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
                                 visible: "yes",
                             })
                         );
-                        setReceivermail("");
+                        setReceiverId("");
                     });
             } else {
+                setReceiverId("");
                 dispatch(
                     setToast({
                         message: `Please Verify Yourself first to create conversation`,
@@ -161,24 +170,26 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
         }
     };
     useEffect(() => {
-        if (receiverMail !== "") {
-            decidingRolesMessage(receiverMail);
+        if (receiverId !== "") {
+            decidingRolesMessage(receiverId);
         }
-    }, [receiverMail]);
+    }, [receiverId]);
+    
 
     const addconversation = async (e) => {
         // e.preventDefault();
         dispatch(setLoading({ visible: "yes" }));
         e.target.disabled = true;
         const conversation = {
-            senderId: email,
-            receiverId: receiverMail,
+            userId: user_id,
+            receiverId: receiverId,
+            senderId: user_id,
             pitchId: selectedpitchId
         };
         await ApiServices.addConversation(conversation)
             .then((res) => {
-                dispatch(getAllHistoricalConversations(email));
-                console.log(res.data);
+                dispatch(getAllHistoricalConversations(user_id));
+                setReceiverId("");
                 dispatch(
                     setToast({
                         message: res.data,
@@ -189,13 +200,13 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
                 setOpen(false);
                 e.target.disabled = false;
                 socket.current.emit("sendNotification", {
-                    senderId: email,
-                    receiverId: receiverMail,
+                    senderId: user_id,
+                    receiverId: receiverId,
                 });
                 dispatch(setLoading({ visible: "no" }));
             })
             .catch((err) => {
-                console.log(err);
+                setReceiverId("");
                 dispatch(
                     setToast({
                         message: `Error Occured/try use different pitch title`,
@@ -206,15 +217,6 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
                 e.target.disabled = false;
                 dispatch(setLoading({ visible: "no" }));
             });
-        setTimeout(() => {
-            dispatch(
-                setToast({
-                    message: "",
-                    bgColor: "",
-                    visible: "no",
-                })
-            );
-        }, 4000);
         document
             .getElementsByClassName("newConversation")[0]
             ?.classList.remove("show");
@@ -224,7 +226,7 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
           fullWidth = {width < 700}
           open={open}
           onClose={() => {
-              setReceivermail("");
+              setReceiverId("");
               setOpen(false)
           }}
           aria-labelledby="alert-dialog-title"
@@ -247,7 +249,7 @@ const AddConversationPopup = ({ receiverMail, setReceivermail, receiverRole }) =
                           className='' style={{ textAlign: 'end', fontSize: '14px' }}
                           onClick={() => {
                               setOpen(false);
-                              setReceivermail("");
+                              setReceiverId("");
                           }}
                       >
                           <CloseIcon />
