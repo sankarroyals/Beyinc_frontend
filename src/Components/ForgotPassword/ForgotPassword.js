@@ -114,8 +114,6 @@ const ResetPassword = () => {
             visible: "yes",
           })
         );
-        localStorage.setItem("user", JSON.stringify(res.data));
-        await axiosInstance.customFnAddTokenInHeader(res.data.accessToken);
         navigate("/login");
       })
       .catch((err) => {
